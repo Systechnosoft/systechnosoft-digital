@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { Menu, X, Search } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import systechnosoftLogo from "@/assets/systechnosoft-logo.png";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -47,13 +48,12 @@ export default function Header() {
 
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-2 focus-enterprise rounded">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-                <span className="text-primary-foreground font-montserrat font-bold text-sm">S</span>
-              </div>
-              <span className="font-montserrat font-bold text-xl text-foreground">
-                Systechnosoft
-              </span>
+            <Link to="/" className="flex items-center focus-enterprise rounded">
+              <img 
+                src={systechnosoftLogo} 
+                alt="Systechnosoft Technologies" 
+                className="h-8 w-auto"
+              />
             </Link>
           </div>
 

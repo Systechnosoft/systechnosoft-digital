@@ -154,21 +154,6 @@ export default function IndustryCarousel() {
             <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.outcomes}</p>
           </div>
         </div>
-
-        {currentCard.cta && (
-          <div className="p-6 pt-2">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="p-0 h-auto text-[#007AFF] hover:text-[#007AFF]/80"
-              asChild
-            >
-              <Link to={currentCard.cta.href}>
-                {currentCard.cta.text}
-              </Link>
-            </Button>
-          </div>
-        )}
       </div>
 
       {/* Pagination Dots */}

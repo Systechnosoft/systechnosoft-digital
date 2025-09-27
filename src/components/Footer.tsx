@@ -25,7 +25,6 @@ const footerSections = [
       { name: "Case Studies", href: "/case-studies" },
       { name: "IT Network Health Check", href: "/readiness-check" },
       { name: "Get a Quotation", href: "/get-quotation" },
-      { name: "ROI Estimator", href: "/roi-estimator" },
     ],
   },
   {
@@ -41,8 +40,8 @@ const footerSections = [
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-y-4 gap-x-6">
           {/* Company Info */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center mb-4 focus-enterprise rounded w-fit">
@@ -52,24 +51,24 @@ export default function Footer() {
                 className="h-8 w-auto"
               />
             </Link>
-            <p className="text-base font-bold mb-4 max-w-md">
+            <p className="text-sm lg:text-base font-bold leading-snug mb-3 max-w-md">
               <span className="text-foreground">Maximize Innovation.</span>{' '}
               <span className="text-[#E52629]">Minimize Code.</span>
             </p>
             
             {/* Contact Info */}
             <div className="space-y-2">
-              <div className="flex items-start space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <span>E-8, Railway Colony, Jagatpura, Jaipur, India</span>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0" />
                 <a href="mailto:info@systechnosoft.in" className="hover:text-foreground transition-colors">
                   info@systechnosoft.in
                 </a>
               </div>
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 flex-shrink-0" />
                 <a href="tel:+911234567890" className="hover:text-foreground transition-colors">
                   +91 123 456 7890

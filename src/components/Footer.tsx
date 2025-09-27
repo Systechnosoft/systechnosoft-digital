@@ -27,56 +27,13 @@ const footerSections = [
       { name: "Get a Quotation", href: "/get-quotation" },
     ],
   },
-  {
-    title: "Company",
-    links: [
-      { name: "About Us", href: "/about" },
-      { name: "Contact", href: "/contact" },
-      { name: "Careers", href: "/about#careers" },
-    ],
-  },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-y-4 gap-x-6">
-          {/* Company Info */}
-          <div className="lg:col-span-2">
-            <Link to="/" className="flex items-center mb-4 focus-enterprise rounded w-fit">
-              <img 
-                src={systechnosoftLogo} 
-                alt="Systechnosoft Technologies" 
-                className="h-8 w-auto"
-              />
-            </Link>
-            <p className="text-sm lg:text-base font-bold leading-snug mb-3 max-w-md">
-              <span className="text-foreground">Maximize Innovation.</span>{' '}
-              <span className="text-[#E52629]">Minimize Code.</span>
-            </p>
-            
-            {/* Contact Info */}
-            <div className="space-y-2">
-              <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>E-8, Railway Colony, Jagatpura, Jaipur, India</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:info@systechnosoft.in" className="hover:text-foreground transition-colors">
-                  info@systechnosoft.in
-                </a>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                <Phone className="h-4 w-4 flex-shrink-0" />
-                <a href="tel:+911234567890" className="hover:text-foreground transition-colors">
-                  +91 123 456 7890
-                </a>
-              </div>
-            </div>
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6">
           {/* Footer Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
@@ -97,6 +54,57 @@ export default function Footer() {
               </ul>
             </div>
           ))}
+
+          {/* Contact Info */}
+          <div>
+            <h3 className="font-montserrat font-medium text-foreground mb-4">
+              Systechnosoft Technologies
+            </h3>
+            <div className="space-y-2">
+              <div className="flex items-start gap-2 text-sm text-muted-foreground">
+                <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
+                <span>E-8, Railway Colony, Jagatpura, Jaipur, India</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Mail className="h-4 w-4 flex-shrink-0" />
+                <a href="mailto:info@systechnosoft.in" className="hover:text-foreground transition-colors">
+                  info@systechnosoft.in
+                </a>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                <Phone className="h-4 w-4 flex-shrink-0" />
+                <a href="tel:+911234567890" className="hover:text-foreground transition-colors">
+                  +91 123 456 7890
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mini Links */}
+        <div className="text-center mt-6 mb-3">
+          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+            <Link 
+              to="/about" 
+              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+            >
+              About Us
+            </Link>
+            <span aria-hidden="true">•</span>
+            <Link 
+              to="/contact" 
+              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+            >
+              Contact
+            </Link>
+            <span aria-hidden="true">•</span>
+            <Link 
+              to="/careers" 
+              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+            >
+              Careers
+            </Link>
+          </div>
         </div>
 
         {/* Bottom section */}

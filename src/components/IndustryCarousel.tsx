@@ -54,13 +54,12 @@ const industryCards: IndustryCard[] = [
 
 export default function IndustryCarousel() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasPointerDown, setHasPointerDown] = useState(false);
 
   const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % industryCards.length);
-  }, []);
-
-  const prevSlide = useCallback(() => {
-    setCurrentSlide((prev) => (prev - 1 + industryCards.length) % industryCards.length);
   }, []);
 
   const goToSlide = useCallback((index: number) => {
@@ -68,14 +67,40 @@ export default function IndustryCarousel() {
   }, []);
 
   const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
-    if (event.key === 'ArrowLeft') {
+    if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
-      prevSlide();
-    } else if (event.key === 'ArrowRight') {
-      event.preventDefault();
-      nextSlide();
+      const target = event.target as HTMLElement;
+      if (target.hasAttribute('data-slide-index')) {
+        const index = parseInt(target.getAttribute('data-slide-index') || '0');
+        goToSlide(index);
+      }
     }
-  }, [nextSlide, prevSlide]);
+  }, [goToSlide]);
+
+  // Autoplay logic
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const shouldPause = isHovered || isFocused || hasPointerDown;
+    if (shouldPause) return;
+
+    const interval = setInterval(nextSlide, 3000);
+    return () => clearInterval(interval);
+  }, [isHovered, isFocused, hasPointerDown, nextSlide]);
+
+  // Resume autoplay after 10s of inactivity
+  useEffect(() => {
+    if (!isHovered && !isFocused && !hasPointerDown) return;
+
+    const timeout = setTimeout(() => {
+      setIsHovered(false);
+      setIsFocused(false);
+      setHasPointerDown(false);
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, [isHovered, isFocused, hasPointerDown]);
 
   const currentCard = industryCards[currentSlide];
   const IconComponent = currentCard.icon;
@@ -85,82 +110,65 @@ export default function IndustryCarousel() {
       className="relative w-full h-full"
       role="region"
       aria-roledescription="carousel"
-      aria-label="Systechnosoft industries"
+      aria-label="Industries"
       aria-live="polite"
-      onKeyDown={handleKeyDown}
-      tabIndex={0}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      onPointerDown={() => setHasPointerDown(true)}
+      onPointerUp={() => setHasPointerDown(false)}
     >
-      <Card className="card-enterprise h-full min-h-[320px] lg:min-h-[360px] shadow-sm border border-border/10">
-        <CardHeader className="text-center pb-4">
-          <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+      <div 
+        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto rounded-lg border border-white/[0.14] shadow-[0_1px_8px_rgba(0,0,0,0.25)] flex flex-col justify-between"
+        style={{
+          background: 'rgba(28,28,28,0.55)',
+          backdropFilter: 'blur(6px)',
+        }}
+      >
+        <div className="text-center p-6 pb-4">
+          <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
             <IconComponent 
-              className="h-8 w-8 text-primary" 
+              className="h-8 w-8 text-white" 
               aria-hidden="true"
             />
           </div>
-          <CardTitle className="text-xl font-montserrat font-bold text-foreground">
+          <h3 className="text-xl font-montserrat font-bold text-white">
             {currentCard.title}
-          </CardTitle>
-        </CardHeader>
+          </h3>
+        </div>
         
-        <CardContent className="space-y-4">
+        <div className="px-6 space-y-4 flex-1">
           <div>
-            <h4 className="text-sm font-semibold text-primary mb-1">Problems</h4>
-            <p className="text-sm text-muted-foreground">{currentCard.problems}</p>
+            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Problems</h4>
+            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.problems}</p>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-primary mb-1">Solutions</h4>
-            <p className="text-sm text-muted-foreground">{currentCard.solutions}</p>
+            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Solutions</h4>
+            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.solutions}</p>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold text-primary mb-1">Outcomes</h4>
-            <p className="text-sm text-muted-foreground">{currentCard.outcomes}</p>
+            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Outcomes</h4>
+            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.outcomes}</p>
           </div>
+        </div>
 
-          {currentCard.cta && (
-            <div className="pt-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="p-0 h-auto text-accent link-animated"
-                asChild
-              >
-                <Link to={currentCard.cta.href}>
-                  {currentCard.cta.text}
-                </Link>
-              </Button>
-            </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Navigation Controls */}
-      <div className="absolute -left-12 top-1/2 -translate-y-1/2 hidden lg:block">
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm border-border/20 hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          aria-label="Previous industry"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-      </div>
-      
-      <div className="absolute -right-12 top-1/2 -translate-y-1/2 hidden lg:block">
-        <Button
-          variant="outline"
-          size="icon"
-          className="h-8 w-8 rounded-full bg-background/80 backdrop-blur-sm border-border/20 hover:bg-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
-          onClick={nextSlide}
-          disabled={currentSlide === industryCards.length - 1}
-          aria-label="Next industry"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
+        {currentCard.cta && (
+          <div className="p-6 pt-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="p-0 h-auto text-[#007AFF] hover:text-[#007AFF]/80"
+              asChild
+            >
+              <Link to={currentCard.cta.href}>
+                {currentCard.cta.text}
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
 
       {/* Pagination Dots */}
@@ -168,39 +176,18 @@ export default function IndustryCarousel() {
         {industryCards.map((_, index) => (
           <button
             key={index}
+            data-slide-index={index}
             onClick={() => goToSlide(index)}
-            className={`w-2 h-2 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 ${
+            onKeyDown={handleKeyDown}
+            className={`w-2 h-2 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[#007AFF] focus-visible:outline-offset-2 ${
               index === currentSlide
-                ? 'bg-primary scale-110'
-                : 'bg-muted-foreground/30 hover:bg-muted-foreground/50'
+                ? 'bg-[#E52629] scale-110'
+                : 'bg-white/30 hover:bg-white/50'
             }`}
             aria-label={`Go to industry ${index + 1}: ${industryCards[index].title}`}
+            tabIndex={0}
           />
         ))}
-      </div>
-
-      {/* Mobile Navigation */}
-      <div className="flex justify-center space-x-4 mt-6 lg:hidden">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={prevSlide}
-          disabled={currentSlide === 0}
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
-        >
-          <ChevronLeft className="h-4 w-4 mr-1" />
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={nextSlide}
-          disabled={currentSlide === industryCards.length - 1}
-          className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
-        >
-          Next
-          <ChevronRight className="h-4 w-4 ml-1" />
-        </Button>
       </div>
     </div>
   );

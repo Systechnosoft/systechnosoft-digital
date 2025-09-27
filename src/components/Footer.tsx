@@ -33,7 +33,7 @@ export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6 mb-2 lg:mb-3">
           {/* Footer Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
@@ -82,22 +82,22 @@ export default function Footer() {
         </div>
 
         {/* Mini Links */}
-        <div className="text-center mt-6 mb-3">
-          <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
+        <div className="text-center my-2">
+          <div className="flex items-center justify-center text-sm leading-snug text-muted-foreground">
             <Link 
               to="/about" 
               className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
             >
               About Us
             </Link>
-            <span aria-hidden="true">•</span>
+            <span className="mx-2" aria-hidden="true">•</span>
             <Link 
               to="/contact" 
               className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
             >
               Contact
             </Link>
-            <span aria-hidden="true">•</span>
+            <span className="mx-2" aria-hidden="true">•</span>
             <Link 
               to="/careers" 
               className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
@@ -108,12 +108,12 @@ export default function Footer() {
         </div>
 
         {/* Bottom section */}
-        <div className="border-t border-border mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-            <div className="text-sm text-muted-foreground">
+        <div className="border-t border-neutral-200 pt-2 lg:pt-3">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 py-2 lg:py-3">
+            <div className="text-sm leading-snug text-muted-foreground">
               © {new Date().getFullYear()} Systechnosoft Technologies. All rights reserved.
             </div>
-            <div className="flex space-x-6 text-sm">
+            <div className="flex space-x-6 text-sm leading-snug">
               <Link 
                 to="/privacy-policy" 
                 className="text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"

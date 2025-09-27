@@ -106,24 +106,16 @@ export default function Home() {
             Enterprise IT solutions across Infrastructure, Low-code (Appian & Salesforce), 
             and AI/Automation — delivered fast, securely, and at scale.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex justify-center">
             <Button
               size="lg"
               className="btn-hero text-lg px-8 py-4"
               asChild
             >
-              <Link to="/readiness-check">
-                Run Digital Readiness Check
+              <Link to="/readiness-check" aria-label="IT Network Health Check">
+                IT Network Health Check
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="btn-secondary text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
-              asChild
-            >
-              <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">Talk to an Expert</a>
             </Button>
           </div>
         </div>
@@ -297,24 +289,16 @@ export default function Home() {
         </div>
 
         {/* CTA Row - Full Width Below Both Columns */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        <div className="flex justify-center mt-12">
           <Button
             size="lg"
-            className="btn-hero text-lg px-8 py-4"
+            className="btn-hero text-lg px-8 py-4 w-full sm:w-auto"
             asChild
           >
             <Link to="/case-studies">
               View Case Studies
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
-          </Button>
-          <Button
-            variant="outline"
-            size="lg"
-            className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
-            asChild
-          >
-            <Link to="/tools/readiness-check">Run Digital Readiness Check</Link>
           </Button>
         </div>
       </div>
@@ -451,7 +435,7 @@ export default function Home() {
                 </div>
 
                 {/* CTA Buttons - Moved to Left Column */}
-                <div className="flex flex-col sm:flex-row gap-3 mt-8">
+                <div className="flex justify-center mt-8">
                   <Button
                     size="lg"
                     className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
@@ -461,14 +445,6 @@ export default function Home() {
                       View Case Studies
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-4 border-white/30 bg-transparent text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
-                    asChild
-                  >
-                    <Link to="/contact">Talk to an Expert</Link>
                   </Button>
                 </div>
               </div>

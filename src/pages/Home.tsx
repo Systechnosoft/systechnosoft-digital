@@ -121,7 +121,7 @@ export default function Home() {
               className="btn-secondary text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
               asChild
             >
-              <Link to="/contact">Talk to an Expert</Link>
+              <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">Talk to an Expert</a>
             </Button>
           </div>
         </div>
@@ -318,10 +318,10 @@ export default function Home() {
             className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
             asChild
           >
-            <Link to="/contact">
+            <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
               Book a Consultation
               <ArrowRight className="ml-2 h-5 w-5" />
-            </Link>
+            </a>
           </Button>
         </div>
       </section>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import heroBg from "@/assets/hero-bg.jpg";
+import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 
 const pillars = [
   {
@@ -175,28 +176,145 @@ export default function Home() {
       </section>
 
       {/* Why Systechnosoft */}
-      <section className="py-20 bg-muted">
+      <section 
+        className="py-20 bg-cover bg-center bg-no-repeat relative"
+        style={{ 
+          backgroundImage: `linear-gradient(90deg, rgba(28,28,28,0.60) 0%, rgba(28,28,28,0.35) 40%, rgba(28,28,28,0.15) 100%), url(/images/why-bg.jpg)`
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-foreground mb-4">
-              Why Systechnosoft
-            </h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              We deliver measurable business outcomes through proven methodologies and deep domain expertise
-            </p>
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+            {/* Left Column - Feature Slider */}
+            <div className="lg:col-span-5">
+              <WhyFeatureSlider />
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {whyPoints.map((point, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                  <point.icon className="h-6 w-6 text-primary" />
-                </div>
-                <p className="text-lg text-foreground font-inter font-medium">
-                  {point.text}
+            {/* Right Column - Content */}
+            <div className="lg:col-span-7">
+              <div className="text-left">
+                <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-white mb-4">
+                  Why Systechnosoft
+                </h2>
+                <p className="text-xl text-white/90 mb-8 max-w-2xl">
+                  We deliver measurable outcomes with proven methods, secure architectures, and deep domain expertise across Infrastructure, Low-code, and AI.
                 </p>
+
+                {/* KPI Pills */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center">
+                    <span className="text-2xl font-montserrat font-bold text-primary">40%</span>
+                    <span className="text-white/90 text-sm ml-2">faster F2B trading workflows (Banking, AU)</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center">
+                    <span className="text-2xl font-montserrat font-bold text-primary">30%</span>
+                    <span className="text-white/90 text-sm ml-2">efficiency gain in workforce ops (Oil & Gas, US)</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center">
+                    <span className="text-2xl font-montserrat font-bold text-primary">20%</span>
+                    <span className="text-white/90 text-sm ml-2">HR cost reduction (UK)</span>
+                  </div>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center">
+                    <span className="text-2xl font-montserrat font-bold text-primary">50%</span>
+                    <span className="text-white/90 text-sm ml-2">faster intercompany processing (UK FS)</span>
+                  </div>
+                </div>
+
+                {/* Mini Timeline */}
+                <div className="mb-8">
+                  <div className="hidden lg:flex items-center justify-between mb-4">
+                    <div className="flex-1 text-center">
+                      <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">1</span>
+                      </div>
+                      <div className="text-white font-medium text-sm">Discover</div>
+                    </div>
+                    <div className="flex-1 h-0.5 bg-white/30 mx-2"></div>
+                    <div className="flex-1 text-center">
+                      <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">2</span>
+                      </div>
+                      <div className="text-white font-medium text-sm">Pilot</div>
+                    </div>
+                    <div className="flex-1 h-0.5 bg-white/30 mx-2"></div>
+                    <div className="flex-1 text-center">
+                      <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">3</span>
+                      </div>
+                      <div className="text-white font-medium text-sm">Scale</div>
+                    </div>
+                    <div className="flex-1 h-0.5 bg-white/30 mx-2"></div>
+                    <div className="flex-1 text-center">
+                      <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
+                        <span className="text-white text-xs font-bold">4</span>
+                      </div>
+                      <div className="text-white font-medium text-sm">CoE Advisory</div>
+                    </div>
+                  </div>
+                  
+                  {/* Mobile Timeline */}
+                  <div className="lg:hidden space-y-4">
+                    <div className="flex items-start space-x-4">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">1</span>
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">Discover</div>
+                        <div className="text-white/70 text-sm">Problem framing, architecture options, roadmap</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">2</span>
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">Pilot</div>
+                        <div className="text-white/70 text-sm">Prototype + success criteria + security gates</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">3</span>
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">Scale</div>
+                        <div className="text-white/70 text-sm">Harden, integrate, measure outcomes</div>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-4">
+                      <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-xs font-bold">4</span>
+                      </div>
+                      <div>
+                        <div className="text-white font-medium">CoE Advisory</div>
+                        <div className="text-white/70 text-sm">Center of Excellence, reuse & standards</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* CTA Row */}
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button
+                    size="lg"
+                    className="btn-hero text-lg px-8 py-4"
+                    asChild
+                  >
+                    <Link to="/case-studies">
+                      View Case Studies
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
+                    asChild
+                  >
+                    <Link to="/tools/readiness-check">Run Digital Readiness Check</Link>
+                  </Button>
+                </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>

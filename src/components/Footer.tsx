@@ -25,30 +25,47 @@ export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 mb-2 lg:mb-3">
-          {/* Footer Sections */}
-          {footerSections.map((section) => (
-            <div key={section.title}>
-              <h3 className="font-montserrat font-medium text-foreground mb-4">
-                {section.title}
-              </h3>
-              <ul className="space-y-2">
-                {section.links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      to={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+        <div className="grid grid-cols-1 gap-y-4 mb-3 lg:mb-3 lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-[clamp(24px,4vw,48px)]">
+          {/* Services - Left */}
+          <div className="max-w-72 lg:justify-self-start lg:text-left">
+            <h3 className="font-montserrat font-medium text-foreground mb-4">
+              Services
+            </h3>
+            <ul className="space-y-2">
+              {footerSections[0].links.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-          {/* Contact Info */}
-          <div>
+          {/* Industries - Center */}
+          <div className="max-w-72 lg:justify-self-center lg:text-center">
+            <h3 className="font-montserrat font-medium text-foreground mb-4">
+              Industries
+            </h3>
+            <ul className="space-y-2">
+              {footerSections[1].links.map((link) => (
+                <li key={link.name}>
+                  <Link
+                    to={link.href}
+                    className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Contact Info - Right */}
+          <div className="max-w-72 lg:justify-self-end lg:text-left">
             <h3 className="font-montserrat font-medium text-foreground mb-4">
               Systechnosoft Technologies
             </h3>

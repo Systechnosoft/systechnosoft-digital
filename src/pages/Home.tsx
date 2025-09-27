@@ -182,15 +182,10 @@ export default function Home() {
           backgroundImage: `linear-gradient(90deg, rgba(28,28,28,0.60) 0%, rgba(28,28,28,0.35) 40%, rgba(28,28,28,0.15) 100%), url(/images/why-bg.jpg)`
         }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
-            {/* Left Column - Feature Slider */}
-            <div className="lg:col-span-5">
-              <WhyFeatureSlider />
-            </div>
-
-            {/* Right Column - Content */}
-            <div className="lg:col-span-7">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          {/* Left Column - Content */}
+          <div className="lg:col-span-7">
               <div className="text-left">
                 <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-white mb-4">
                   Why Systechnosoft
@@ -292,30 +287,36 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* CTA Row */}
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    size="lg"
-                    className="btn-hero text-lg px-8 py-4"
-                    asChild
-                  >
-                    <Link to="/case-studies">
-                      View Case Studies
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
-                    asChild
-                  >
-                    <Link to="/tools/readiness-check">Run Digital Readiness Check</Link>
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
+
+          {/* Right Column - Feature Carousel */}
+          <div className="lg:col-span-5">
+            <WhyFeatureSlider />
+          </div>
+        </div>
+
+        {/* CTA Row - Full Width Below Both Columns */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+          <Button
+            size="lg"
+            className="btn-hero text-lg px-8 py-4"
+            asChild
+          >
+            <Link to="/case-studies">
+              View Case Studies
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Link>
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20"
+            asChild
+          >
+            <Link to="/tools/readiness-check">Run Digital Readiness Check</Link>
+          </Button>
         </div>
       </section>
 

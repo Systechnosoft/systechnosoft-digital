@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, TrendingUp, Users, Shield, CheckCircle, Code, Database } from "lucide-react";
+import { ChevronLeft, ChevronRight, TrendingUp, Users, Shield, CheckCircle, Code, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -35,7 +35,7 @@ const featureCards = [
     proof: "Integrations via REST/SOAP/JDBC; data fabric patterns."
   },
   {
-    icon: Database,
+    icon: Bot,
     title: "Evidence-backed results",
     description: "We publish anonymized case studies—not vague promises.",
     proof: "Banking AU 40%; O&G US +30%; UK FS 50%."
@@ -68,8 +68,16 @@ export default function WhyFeatureSlider() {
   const currentCard = featureCards[currentSlide];
 
   return (
-    <div className="relative" onKeyDown={handleKeyDown} tabIndex={0}>
-      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white min-h-[300px]">
+    <div 
+      className="relative" 
+      onKeyDown={handleKeyDown} 
+      tabIndex={0}
+      role="region"
+      aria-roledescription="carousel"
+      aria-label="Systechnosoft strengths"
+      aria-live="polite"
+    >
+      <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white min-h-[360px] shadow-sm">
         <CardContent className="p-6">
           <div className="flex flex-col h-full">
             <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mb-4 border-2 border-white/30">

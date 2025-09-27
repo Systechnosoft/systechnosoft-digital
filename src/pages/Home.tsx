@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import heroBg from "@/assets/hero-bg.jpg";
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
+import IndustryCarousel from "@/components/IndustryCarousel";
 
 const pillars = [
   {
@@ -370,29 +371,68 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Industries Strip */}
-      <section className="py-16 bg-muted">
+      {/* Industries We Serve */}
+      <section id="industries-we-serve" className="py-20 bg-muted">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl font-montserrat font-bold text-foreground mb-4">
-              Industries We Serve
-            </h2>
-          </div>
-          <div className="flex justify-center items-center space-x-12">
-            {industries.map((industry, index) => (
-              <Link
-                key={index}
-                to="/industries"
-                className="flex flex-col items-center space-y-2 group focus-enterprise rounded p-4"
-              >
-                <div className="text-4xl group-hover:scale-110 transition-transform">
-                  {industry.icon}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6 items-start">
+            {/* Left Column - Content */}
+            <div className="lg:col-span-7">
+              <div className="text-left">
+                <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-foreground mb-4">
+                  Industries We Serve
+                </h2>
+                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+                  We pair domain knowledge with secure architectures to ship measurable outcomes fast.
+                </p>
+
+                {/* KPI Pills */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                    <span className="text-2xl font-montserrat font-bold text-primary">40%</span>
+                    <span className="text-muted-foreground text-sm ml-2">faster trading workflows (Banking, AU)</span>
+                  </div>
+                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                    <span className="text-2xl font-montserrat font-bold text-primary">30%</span>
+                    <span className="text-muted-foreground text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
+                  </div>
+                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                    <span className="text-sm font-medium text-foreground">Content ops:</span>
+                    <span className="text-muted-foreground text-sm ml-1">faster turnaround (Aviation)</span>
+                  </div>
+                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                    <span className="text-sm font-medium text-foreground">Governance:</span>
+                    <span className="text-muted-foreground text-sm ml-1">improved audit & versioning (Aviation)</span>
+                  </div>
                 </div>
-                <span className="text-sm font-inter font-medium text-foreground group-hover:text-primary transition-colors">
-                  {industry.name}
-                </span>
+              </div>
+            </div>
+
+            {/* Right Column - Industry Carousel */}
+            <div className="lg:col-span-5 self-stretch h-full">
+              <IndustryCarousel />
+            </div>
+          </div>
+
+          {/* CTA Row - Full Width Below Both Columns */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+            <Button
+              size="lg"
+              className="btn-hero text-lg px-8 py-4"
+              asChild
+            >
+              <Link to="/case-studies">
+                View Case Studies
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
-            ))}
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="text-lg px-8 py-4 border-primary/20 text-foreground hover:bg-primary/5 hover:text-primary"
+              asChild
+            >
+              <Link to="/contact">Talk to an Expert</Link>
+            </Button>
           </div>
         </div>
       </section>

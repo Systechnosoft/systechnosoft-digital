@@ -7,8 +7,7 @@ const footerSections = [
     title: "Services",
     links: [
       { name: "IT Infrastructure", href: "/services/infrastructure" },
-      { name: "Appian (Low-code)", href: "/services/appian" },
-      { name: "Salesforce (Low-code)", href: "/services/salesforce" },
+      { name: "Low-code", href: "/services/low-code" },
       { name: "AI & Automation", href: "/services/ai-automation" },
     ],
   },
@@ -24,8 +23,8 @@ const footerSections = [
     title: "Resources",
     links: [
       { name: "Case Studies", href: "/case-studies" },
-      { name: "Insights", href: "/insights" },
-      { name: "Digital Readiness Check", href: "/readiness-check" },
+      { name: "IT Network Health Check", href: "/readiness-check" },
+      { name: "Get a Quotation", href: "/get-quotation" },
       { name: "ROI Estimator", href: "/roi-estimator" },
     ],
   },
@@ -53,7 +52,7 @@ export default function Footer() {
                 className="h-8 w-auto"
               />
             </Link>
-            <p className="text-lg font-bold mb-4 max-w-md">
+            <p className="text-base font-bold mb-4 max-w-md">
               <span className="text-foreground">Maximize Innovation.</span>{' '}
               <span className="text-[#E52629]">Minimize Code.</span>
             </p>
@@ -66,8 +65,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:contact@systechnosoft.com" className="hover:text-foreground transition-colors">
-                  contact@systechnosoft.com
+                <a href="mailto:info@systechnosoft.in" className="hover:text-foreground transition-colors">
+                  info@systechnosoft.in
                 </a>
               </div>
               <div className="flex items-center space-x-2 text-sm text-muted-foreground">

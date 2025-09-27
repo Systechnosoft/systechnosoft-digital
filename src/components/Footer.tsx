@@ -19,21 +19,13 @@ const footerSections = [
       { name: "Aviation", href: "/industries#aviation" },
     ],
   },
-  {
-    title: "Resources",
-    links: [
-      { name: "Case Studies", href: "/case-studies" },
-      { name: "IT Network Health Check", href: "/readiness-check" },
-      { name: "Get a Quotation", href: "/get-quotation" },
-    ],
-  },
 ];
 
 export default function Footer() {
   return (
     <footer className="bg-card border-t border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-y-4 gap-x-6 mb-2 lg:mb-3">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-4 gap-x-8 mb-2 lg:mb-3">
           {/* Footer Sections */}
           {footerSections.map((section) => (
             <div key={section.title}>
@@ -63,7 +55,10 @@ export default function Footer() {
             <div className="space-y-2">
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
-                <span>E-8, Railway Colony, Jagatpura, Jaipur, India</span>
+                <address className="not-italic">
+                  E-8, Railway Colony, Jagatpura,<br />
+                  Jaipur, India
+                </address>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0" />

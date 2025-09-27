@@ -295,8 +295,8 @@ export default function Home() {
             className="btn-hero text-lg px-8 py-4 w-full sm:w-auto"
             asChild
           >
-            <Link to="/case-studies">
-              View Case Studies
+            <Link to="/get-quotation" aria-label="Get a Quotation">
+              Get a Quotation
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>

@@ -111,26 +111,6 @@ export default function Header() {
 
           {/* Right side actions */}
           <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden lg:flex focus-enterprise"
-              aria-label="Search"
-            >
-              <Search className="h-4 w-4" />
-            </Button>
-            
-            <div className="text-sm text-muted-foreground hidden lg:block">EN</div>
-
-            <Button
-              variant="outline"
-              size="sm"
-              className="hidden lg:inline-flex focus-enterprise"
-              asChild
-            >
-              <Link to="/contact">Get Started</Link>
-            </Button>
-
             {/* Mobile menu button */}
             <Button
               variant="ghost"

@@ -372,37 +372,104 @@ export default function Home() {
       </section>
 
       {/* Industries We Serve */}
-      <section id="industries-we-serve" className="py-20 bg-muted">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section 
+        id="industries-we-serve" 
+        className="py-20 relative overflow-hidden"
+        style={{
+          backgroundImage: `linear-gradient(180deg, rgba(28,28,28,0.80) 0%, rgba(28,28,28,0.55) 40%, rgba(28,28,28,0.35) 100%), url('/images/industries-bg.webp')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Decorative SVG Shapes */}
+        <svg 
+          className="absolute top-4 right-4 w-32 h-32 opacity-25 pointer-events-none" 
+          aria-hidden="true"
+          viewBox="0 0 128 128"
+        >
+          <g stroke="#E52629" strokeWidth="0.6" fill="none">
+            <circle cx="20" cy="20" r="8" />
+            <rect x="50" y="10" width="16" height="16" />
+            <path d="M10 50 L40 50 L40 80 L70 80" />
+            <circle cx="90" cy="30" r="6" />
+          </g>
+          <g stroke="#007AFF" strokeWidth="0.6" fill="none">
+            <path d="M20 100 L50 100 L50 70 L80 70" />
+            <circle cx="100" cy="100" r="10" />
+            <rect x="80" y="50" width="12" height="12" />
+          </g>
+        </svg>
+
+        <svg 
+          className="absolute bottom-4 left-4 w-40 h-40 opacity-25 pointer-events-none" 
+          aria-hidden="true"
+          viewBox="0 0 160 160"
+        >
+          <g stroke="#007AFF" strokeWidth="0.6" fill="none">
+            <circle cx="30" cy="30" r="12" />
+            <path d="M60 20 L100 20 L100 60 L140 60" />
+            <rect x="20" y="80" width="20" height="20" />
+          </g>
+          <g stroke="#E52629" strokeWidth="0.6" fill="none">
+            <path d="M80 120 L120 120 L120 80 L140 80" />
+            <circle cx="140" cy="140" r="8" />
+            <rect x="60" y="130" width="14" height="14" />
+          </g>
+        </svg>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6 items-start">
             {/* Left Column - Content */}
             <div className="lg:col-span-7">
               <div className="text-left">
-                <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-foreground mb-4">
+                <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-white mb-4">
                   Industries We Serve
                 </h2>
-                <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+                <p className="text-xl text-white/90 mb-8 max-w-2xl">
                   We pair domain knowledge with secure architectures to ship measurable outcomes fast.
                 </p>
 
                 {/* KPI Pills */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
                     <span className="text-2xl font-montserrat font-bold text-primary">40%</span>
-                    <span className="text-muted-foreground text-sm ml-2">faster trading workflows (Banking, AU)</span>
+                    <span className="text-white/80 text-sm ml-2">faster trading workflows (Banking, AU)</span>
                   </div>
-                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
                     <span className="text-2xl font-montserrat font-bold text-primary">30%</span>
-                    <span className="text-muted-foreground text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
+                    <span className="text-white/80 text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
                   </div>
-                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
-                    <span className="text-sm font-medium text-foreground">Content ops:</span>
-                    <span className="text-muted-foreground text-sm ml-1">faster turnaround (Aviation)</span>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
+                    <span className="text-sm font-medium text-white">Content ops:</span>
+                    <span className="text-white/80 text-sm ml-1">faster turnaround (Aviation)</span>
                   </div>
-                  <div className="bg-background/60 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-border/20">
-                    <span className="text-sm font-medium text-foreground">Governance:</span>
-                    <span className="text-muted-foreground text-sm ml-1">improved audit & versioning (Aviation)</span>
+                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
+                    <span className="text-sm font-medium text-white">Governance:</span>
+                    <span className="text-white/80 text-sm ml-1">improved audit & versioning (Aviation)</span>
                   </div>
+                </div>
+
+                {/* CTA Buttons - Moved to Left Column */}
+                <div className="flex flex-col sm:flex-row gap-3 mt-8">
+                  <Button
+                    size="lg"
+                    className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
+                    asChild
+                  >
+                    <Link to="/case-studies">
+                      View Case Studies
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-4 border-white/30 bg-transparent text-white hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
+                    asChild
+                  >
+                    <Link to="/contact">Talk to an Expert</Link>
+                  </Button>
                 </div>
               </div>
             </div>
@@ -411,28 +478,6 @@ export default function Home() {
             <div className="lg:col-span-5 self-stretch h-full">
               <IndustryCarousel />
             </div>
-          </div>
-
-          {/* CTA Row - Full Width Below Both Columns */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-            <Button
-              size="lg"
-              className="btn-hero text-lg px-8 py-4"
-              asChild
-            >
-              <Link to="/case-studies">
-                View Case Studies
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-4 border-primary/20 text-foreground hover:bg-primary/5 hover:text-primary"
-              asChild
-            >
-              <Link to="/contact">Talk to an Expert</Link>
-            </Button>
           </div>
         </div>
       </section>

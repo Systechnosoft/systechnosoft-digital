@@ -9,14 +9,14 @@ const pillars = [
     icon: Server,
     title: "IT Infrastructure",
     description: "Modernize networks, cloud, and devices with 24×7 managed support.",
-    href: "/services/infrastructure",
+    href: "/services/it-infrastructure",
     cta: "Explore Infrastructure"
   },
   {
     icon: Code,
     title: "Low-code Apps",
     description: "Build enterprise apps faster on Appian & Salesforce.",
-    href: "/services",
+    href: "/services/low-code",
     cta: "See Low-code"
   },
   {
@@ -155,11 +155,14 @@ export default function Home() {
                     {pillar.description}
                   </CardDescription>
                   <Button
-                    variant="outline"
-                    className="btn-accent w-full"
+                    variant="ghost"
+                    className="w-full text-[#1C1C1C] hover:bg-[rgba(229,38,41,0.06)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
                     asChild
                   >
-                    <Link to={pillar.href}>
+                    <Link 
+                      to={pillar.href}
+                      aria-label={`${pillar.cta} services`}
+                    >
                       {pillar.cta}
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>

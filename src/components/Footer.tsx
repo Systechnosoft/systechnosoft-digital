@@ -53,9 +53,9 @@ export default function Footer() {
                 className="h-8 w-auto"
               />
             </Link>
-            <p className="text-muted-foreground text-sm mb-4 max-w-md">
-              Maximize Innovation. Minimize Code. Enterprise IT solutions across Infrastructure, 
-              Low-code, and AI/Automation — delivered fast, securely, and at scale.
+            <p className="text-lg font-bold mb-4 max-w-md">
+              <span className="text-foreground">Maximize Innovation.</span>{' '}
+              <span className="text-[#E52629]">Minimize Code.</span>
             </p>
             
             {/* Contact Info */}

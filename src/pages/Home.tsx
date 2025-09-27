@@ -10,21 +10,21 @@ const pillars = [
     title: "IT Infrastructure",
     description: "Modernize networks, cloud, and devices with 24×7 managed support.",
     href: "/services/it-infrastructure",
-    cta: "Explore Infrastructure"
+    cta: "Explore"
   },
   {
     icon: Code,
     title: "Low-code Apps",
     description: "Build enterprise apps faster on Appian & Salesforce.",
     href: "/services/low-code",
-    cta: "See Low-code"
+    cta: "Explore"
   },
   {
     icon: Bot,
     title: "AI & Automation",
     description: "Automate workflows with SDKs, Zapier, and Make.",
     href: "/services/ai-automation",
-    cta: "Explore AI & Automation"
+    cta: "Explore"
   }
 ];
 
@@ -141,7 +141,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {pillars.map((pillar, index) => (
-              <Card key={index} className="card-enterprise group cursor-pointer">
+              <Card key={index} className="card-enterprise group cursor-pointer flex flex-col h-full">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
                     <pillar.icon className="h-8 w-8 text-primary" />
@@ -150,18 +150,18 @@ export default function Home() {
                     {pillar.title}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-center">
-                  <CardDescription className="text-base mb-6">
+                <CardContent className="text-center flex flex-col flex-grow">
+                  <CardDescription className="text-base mb-6 flex-grow">
                     {pillar.description}
                   </CardDescription>
                   <Button
-                    variant="ghost"
-                    className="w-full text-[#1C1C1C] hover:bg-[rgba(229,38,41,0.06)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
+                    variant="outline"
+                    className="w-full text-foreground hover:bg-primary/5 hover:text-primary border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
                     asChild
                   >
                     <Link 
                       to={pillar.href}
-                      aria-label={`${pillar.cta} services`}
+                      aria-label={`${pillar.cta} ${pillar.title} services`}
                     >
                       {pillar.cta}
                       <ArrowRight className="ml-2 h-4 w-4" />

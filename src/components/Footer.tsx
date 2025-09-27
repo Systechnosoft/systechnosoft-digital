@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { MapPin, Mail, Phone } from "lucide-react";
+import systechnosoftLogo from "@/assets/systechnosoft-logo.png";
 
 const footerSections = [
   {
@@ -45,14 +46,13 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8">
           {/* Company Info */}
           <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-primary rounded flex items-center justify-center">
-                <span className="text-primary-foreground font-montserrat font-bold text-sm">S</span>
-              </div>
-              <span className="font-montserrat font-bold text-xl text-foreground">
-                Systechnosoft
-              </span>
-            </div>
+            <Link to="/" className="flex items-center mb-4 focus-enterprise rounded w-fit">
+              <img 
+                src={systechnosoftLogo} 
+                alt="Systechnosoft Technologies" 
+                className="h-8 w-auto"
+              />
+            </Link>
             <p className="text-muted-foreground text-sm mb-4 max-w-md">
               Maximize Innovation. Minimize Code. Enterprise IT solutions across Infrastructure, 
               Low-code, and AI/Automation — delivered fast, securely, and at scale.

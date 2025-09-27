@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { ChevronLeft, ChevronRight, TrendingUp, Users, Shield, CheckCircle, Code, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -44,18 +44,21 @@ const featureCards = [
 
 export default function WhyFeatureSlider() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  const [hasPointerDown, setHasPointerDown] = useState(false);
 
-  const nextSlide = () => {
+  const nextSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev + 1) % featureCards.length);
-  };
+  }, []);
 
-  const prevSlide = () => {
+  const prevSlide = useCallback(() => {
     setCurrentSlide((prev) => (prev - 1 + featureCards.length) % featureCards.length);
-  };
+  }, []);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     setCurrentSlide(index);
-  };
+  }, []);
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowLeft') {
@@ -64,6 +67,31 @@ export default function WhyFeatureSlider() {
       nextSlide();
     }
   };
+
+  // Autoplay logic
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const shouldPause = isHovered || isFocused || hasPointerDown;
+    if (shouldPause) return;
+
+    const interval = setInterval(nextSlide, 3000);
+    return () => clearInterval(interval);
+  }, [isHovered, isFocused, hasPointerDown, nextSlide]);
+
+  // Resume autoplay after 10s of inactivity
+  useEffect(() => {
+    if (!isHovered && !isFocused && !hasPointerDown) return;
+
+    const timeout = setTimeout(() => {
+      setIsHovered(false);
+      setIsFocused(false);
+      setHasPointerDown(false);
+    }, 10000);
+
+    return () => clearTimeout(timeout);
+  }, [isHovered, isFocused, hasPointerDown]);
 
   const currentCard = featureCards[currentSlide];
 
@@ -76,6 +104,12 @@ export default function WhyFeatureSlider() {
       aria-roledescription="carousel"
       aria-label="Systechnosoft strengths"
       aria-live="polite"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      onFocus={() => setIsFocused(true)}
+      onBlur={() => setIsFocused(false)}
+      onPointerDown={() => setHasPointerDown(true)}
+      onPointerUp={() => setHasPointerDown(false)}
     >
       <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white min-h-[360px] shadow-sm">
         <CardContent className="p-6">

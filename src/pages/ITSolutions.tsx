@@ -303,7 +303,7 @@ export default function ITSolutions() {
                 </Button>
               </Link>
               <Link to="/tools/health-check">
-                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-8 py-4 text-lg">
+                <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg">
                   IT Network Health Check
                 </Button>
               </Link>
@@ -966,7 +966,7 @@ export default function ITSolutions() {
               </Button>
             </Link>
             <Link to="/tools/health-check">
-              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 px-8 py-4">
+              <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4">
                 IT Network Health Check
               </Button>
             </Link>

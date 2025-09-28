@@ -122,12 +122,21 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground font-inter antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-montserrat;
+  }
+  
+  /* Anchor sections - scroll margin for fixed header */
+  .anchor-section {
+    scroll-margin-top: 96px;
   }
 }
 

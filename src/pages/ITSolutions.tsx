@@ -336,7 +336,7 @@ export default function ITSolutions() {
       </nav>
 
       {/* Cloud Services Section */}
-      <section id="cloud-services" className="py-20 bg-background">
+      <section id="cloud-services" className="anchor-section py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Cloud Services</h2>
@@ -400,7 +400,7 @@ export default function ITSolutions() {
       </section>
 
       {/* Data Migration Section */}
-      <section id="data-migration" className="py-20 bg-muted/30">
+      <section id="data-migration" className="anchor-section py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Data Migration</h2>
@@ -456,7 +456,7 @@ export default function ITSolutions() {
       </section>
 
       {/* Managed IT Services Section */}
-      <section id="managed-it-services" className="py-20 bg-background">
+      <section id="managed-it-services" className="anchor-section py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Managed IT Services</h2>
@@ -513,7 +513,7 @@ export default function ITSolutions() {
       </section>
 
       {/* Microsoft Dynamics 365 Section */}
-      <section id="microsoft-dynamics-365" className="py-20 bg-muted/30">
+      <section id="microsoft-dynamics-365" className="anchor-section py-20 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Microsoft Dynamics 365</h2>
@@ -846,7 +846,7 @@ export default function ITSolutions() {
       </section>
 
       {/* Backup & Recovery Section */}
-      <section id="backup-recovery" className="py-20 bg-background">
+      <section id="backup-recovery" className="anchor-section py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Data Backup & Recovery Services</h2>
@@ -925,7 +925,7 @@ export default function ITSolutions() {
       </section>
 
       {/* FAQs Section */}
-      <section id="faqs" className="py-20 bg-background">
+      <section id="faqs" className="anchor-section py-20 bg-background">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold font-montserrat mb-6">Frequently Asked Questions</h2>

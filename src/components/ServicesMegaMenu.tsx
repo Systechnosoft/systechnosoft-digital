@@ -241,11 +241,10 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="group block px-3 py-2 text-[15px] text-white/90 hover:text-white rounded-lg transition-all duration-200 min-h-[44px] flex items-center relative border border-white/10 hover:bg-white/10 hover:border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          className="group relative flex items-center px-0 py-2 text-[15px] text-white/90 hover:text-white transition-all duration-200 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-blue-500 before:absolute before:left-[-10px] before:top-1/2 before:h-4 before:w-1.5 before:-translate-y-1/2 before:rounded-full before:bg-[#E52629] before:opacity-0 before:transition-all before:duration-150 hover:before:opacity-100 focus:before:opacity-100"
                           onClick={() => handleLinkClick(category, item.name, item.href)}
                         >
-                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-6 bg-[#E52629] rounded-r transition-all duration-200 group-hover:w-1"></span>
-                          <span className="font-inter group-hover:translate-x-1 transition-transform duration-200">
+                          <span className="font-inter">
                             {item.name}
                           </span>
                         </Link>

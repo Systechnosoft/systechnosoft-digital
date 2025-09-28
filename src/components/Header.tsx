@@ -4,19 +4,10 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import systechnosoftLogo from "@/assets/systechnosoft-logo.png";
+import ServicesMegaMenu from "./ServicesMegaMenu";
 
 const navigation = [
   { name: "Home", href: "/" },
-  { 
-    name: "Services", 
-    href: "/services",
-    submenu: [
-      { name: "IT Infrastructure", href: "/services/infrastructure" },
-      { name: "Appian (Low-code)", href: "/services/appian" },
-      { name: "Salesforce (Low-code)", href: "/services/salesforce" },
-      { name: "AI & Automation", href: "/services/ai-automation" },
-    ]
-  },
   { name: "Industries", href: "/industries" },
   { name: "Case Studies", href: "/case-studies" },
   { name: "About", href: "/about" },
@@ -25,7 +16,6 @@ const navigation = [
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [servicesMenuOpen, setServicesMenuOpen] = useState(false);
   const location = useLocation();
 
   const isActive = (href: string) => {
@@ -58,53 +48,26 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            {/* Services Mega Menu */}
+            <ServicesMegaMenu 
+              isActive={isActive("/services")}
+              onClose={() => {}}
+            />
+            
+            {/* Other Navigation Items */}
             {navigation.map((item) => (
-              <div key={item.name} className="relative">
-                {item.submenu ? (
-                  <div
-                    className="relative"
-                    onMouseEnter={() => setServicesMenuOpen(true)}
-                    onMouseLeave={() => setServicesMenuOpen(false)}
-                  >
-                    <Link
-                      to={item.href}
-                      className={cn(
-                        "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
-                        isActive(item.href)
-                          ? "text-primary"
-                          : "text-muted-foreground hover:text-foreground"
-                      )}
-                    >
-                      {item.name}
-                    </Link>
-                    {servicesMenuOpen && (
-                      <div className="absolute top-full left-0 mt-2 w-56 bg-popover border border-border rounded-lg shadow-[var(--shadow-elevated)] py-2">
-                        {item.submenu.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            to={subItem.href}
-                            className="block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground focus-enterprise"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                ) : (
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
-                      isActive(item.href)
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    )}
-                  >
-                    {item.name}
-                  </Link>
+              <Link
+                key={item.name}
+                to={item.href}
+                className={cn(
+                  "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+                  isActive(item.href)
+                    ? "text-primary"
+                    : "text-muted-foreground hover:text-foreground"
                 )}
-              </div>
+              >
+                {item.name}
+              </Link>
             ))}
           </nav>
 
@@ -132,35 +95,29 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border">
             <nav className="px-2 pt-2 pb-4 space-y-1">
+              {/* Services Mobile Menu */}
+              <div className="mb-4">
+                <ServicesMegaMenu 
+                  isActive={isActive("/services")}
+                  onClose={() => setMobileMenuOpen(false)}
+                />
+              </div>
+              
+              {/* Other Navigation Items */}
               {navigation.map((item) => (
-                <div key={item.name}>
-                  <Link
-                    to={item.href}
-                    className={cn(
-                      "block px-3 py-2 text-base font-inter font-medium rounded focus-enterprise",
-                      isActive(item.href)
-                        ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                    )}
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                  {item.submenu && (
-                    <div className="ml-4 space-y-1">
-                      {item.submenu.map((subItem) => (
-                        <Link
-                          key={subItem.name}
-                          to={subItem.href}
-                          className="block px-3 py-1 text-sm text-muted-foreground hover:text-foreground focus-enterprise rounded"
-                          onClick={() => setMobileMenuOpen(false)}
-                        >
-                          {subItem.name}
-                        </Link>
-                      ))}
-                    </div>
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className={cn(
+                    "block px-3 py-2 text-base font-inter font-medium rounded focus-enterprise",
+                    isActive(item.href)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   )}
-                </div>
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
               ))}
             </nav>
           </div>

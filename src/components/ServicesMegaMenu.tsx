@@ -156,11 +156,11 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
             {/* Mobile Footer CTAs */}
             <div className="mt-8 space-y-3 pt-6 border-t border-border sticky bottom-0 bg-background">
               <Link
-                to="/get-quotation"
+                to="/contact"
                 className="block w-full bg-primary text-primary-foreground text-center py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-                onClick={() => handleLinkClick('Footer', 'Get a Quotation', '/get-quotation')}
+                onClick={() => handleLinkClick('Footer', 'Claim Your Free Insight', '/contact')}
               >
-                Get a Quotation
+                Claim Your Free Insight
               </Link>
               <Link
                 to="/tools/health-check"
@@ -277,11 +277,11 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                 
                 <div className="flex items-center gap-4">
                   <Link
-                    to="/get-quotation"
+                    to="/contact"
                     className="inline-flex items-center gap-2 bg-[#E52629] hover:bg-[#E52629]/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    onClick={() => handleLinkClick('Footer', 'Get a Quotation', '/get-quotation')}
+                    onClick={() => handleLinkClick('Footer', 'Claim Your Free Insight', '/contact')}
                   >
-                    Get a Quotation
+                    Claim Your Free Insight
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link

@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ArrowRight, Zap, Shield } from "lucide-react";
+import { ArrowRight, Zap, Shield, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
@@ -23,7 +23,7 @@ const servicesData = {
     { name: "Microsoft Dynamics 365", href: "/services/it#microsoft-dynamics-365" },
     { name: "Data Backup & Recovery Services", href: "/services/it#backup-recovery" },
   ],
-  "Low-code": [
+  "Low Code": [
     { name: "Appian", href: "/services/appian#overview" },
     { name: "Salesforce", href: "/services/salesforce#overview" },
   ],
@@ -50,37 +50,84 @@ interface ServicesMegaMenuProps {
 export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const isMobile = useIsMobile();
+  const openTimeoutRef = useRef<NodeJS.Timeout>();
+  const closeTimeoutRef = useRef<NodeJS.Timeout>();
+  const triggerRef = useRef<HTMLButtonElement>(null);
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
     if (!open) onClose();
   };
 
-  const handleLinkClick = () => {
+  const handleLinkClick = (section: string, item: string, url: string) => {
+    // Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', 'menu_link_click', {
+        section,
+        item,
+        url
+      });
+    }
     setIsOpen(false);
     onClose();
   };
+
+  const handleMouseEnter = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
+    if (!isOpen) {
+      openTimeoutRef.current = setTimeout(() => {
+        setIsOpen(true);
+        // Analytics
+        if (typeof window !== 'undefined' && (window as any).gtag) {
+          (window as any).gtag('event', 'menu_open');
+        }
+      }, 140);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (openTimeoutRef.current) {
+      clearTimeout(openTimeoutRef.current);
+    }
+    closeTimeoutRef.current = setTimeout(() => {
+      setIsOpen(false);
+    }, 240);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      setIsOpen(false);
+      triggerRef.current?.focus();
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (openTimeoutRef.current) clearTimeout(openTimeoutRef.current);
+      if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current);
+    };
+  }, []);
 
   if (isMobile) {
     return (
       <Sheet open={isOpen} onOpenChange={handleOpenChange}>
         <SheetTrigger asChild>
-          <Link
-            to="/services"
+          <button
             className={cn(
-              "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1 flex items-center gap-1",
+              "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
               isActive
                 ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
             )}
           >
             Services
-            <ChevronDown className="h-3 w-3" />
-          </Link>
+          </button>
         </SheetTrigger>
-        <SheetContent side="left" className="w-full max-w-sm">
-          <div className="py-6">
-            <h2 className="font-montserrat font-semibold text-xl mb-6">Services</h2>
+        <SheetContent side="bottom" className="h-[90vh] rounded-t-xl">
+          <div className="py-6 h-full overflow-y-auto">
+            <h2 className="font-montserrat font-semibold text-xl mb-6 sticky top-0 bg-background">Services</h2>
             <Accordion type="single" collapsible className="space-y-2">
               {Object.entries(servicesData).map(([category, items]) => (
                 <AccordionItem key={category} value={category} className="border-none">
@@ -94,7 +141,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                           key={item.name}
                           to={item.href}
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors min-h-[44px] flex items-center"
-                          onClick={handleLinkClick}
+                          onClick={() => handleLinkClick(category, item.name, item.href)}
                         >
                           {item.name}
                         </Link>
@@ -106,18 +153,18 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
             </Accordion>
             
             {/* Mobile Footer CTAs */}
-            <div className="mt-8 space-y-3 pt-6 border-t border-border">
+            <div className="mt-8 space-y-3 pt-6 border-t border-border sticky bottom-0 bg-background">
               <Link
                 to="/get-quotation"
                 className="block w-full bg-primary text-primary-foreground text-center py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-                onClick={handleLinkClick}
+                onClick={() => handleLinkClick('Footer', 'Get a Quotation', '/get-quotation')}
               >
                 Get a Quotation
               </Link>
               <Link
                 to="/tools/health-check"
                 className="block w-full border border-border text-center py-3 rounded-md font-medium hover:bg-accent transition-colors"
-                onClick={handleLinkClick}
+                onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
               >
                 IT Network Health Check
               </Link>
@@ -129,48 +176,61 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
   }
 
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
-      <Link
-        to="/services"
-        className={cn(
-          "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1 flex items-center gap-1",
-          isActive
-            ? "text-primary"
-            : "text-muted-foreground hover:text-foreground"
-        )}
-        onFocus={() => setIsOpen(true)}
-        onBlur={(e) => {
-          // Keep menu open if focus moves to menu content
-          if (!e.currentTarget.closest('[data-mega-menu]')?.contains(e.relatedTarget)) {
-            setIsOpen(false);
-          }
-        }}
+    <>
+      <div
+        className="relative"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
       >
-        Services
-        <ChevronDown className={cn("h-3 w-3 transition-transform duration-150", isOpen && "rotate-180")} />
-      </Link>
+        <button
+          ref={triggerRef}
+          className={cn(
+            "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+            isActive
+              ? "text-primary"
+              : "text-muted-foreground hover:text-foreground"
+          )}
+          onFocus={handleMouseEnter}
+          onBlur={(e) => {
+            if (!e.currentTarget.closest('[data-mega-menu-container]')?.contains(e.relatedTarget)) {
+              handleMouseLeave();
+            }
+          }}
+          aria-haspopup="true"
+          aria-expanded={isOpen}
+        >
+          Services
+        </button>
+      </div>
 
+      {/* Fixed Mega Menu Panel */}
       {isOpen && (
         <div
-          data-mega-menu
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-screen max-w-[1320px] z-50 animate-fade-in"
-          style={{ 
-            left: '50%', 
-            transform: 'translateX(-50%)',
-            marginLeft: 'calc(-50vw + 50%)'
-          }}
+          data-mega-menu-container
+          className="fixed left-0 right-0 z-[60]"
+          style={{ top: '64px' }}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onKeyDown={handleKeyDown}
+          role="menu"
         >
-          <div className="bg-background/95 backdrop-blur-md border border-border rounded-xl shadow-[0_20px_40px_-12px_rgba(0,0,0,0.25)] overflow-hidden">
+          <div 
+            className="w-full bg-[#1C1C1C] border-t border-white/10"
+            style={{
+              background: 'linear-gradient(135deg, #1C1C1C 0%, rgba(28, 28, 28, 0.95) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)'
+            }}
+          >
+            {/* Subtle vignette overlay */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 pointer-events-none rounded-b-xl" />
+            
             {/* Main Content Grid */}
-            <div className="p-8">
-              <div className="grid grid-cols-12 gap-8 max-w-6xl mx-auto">
+            <div className="relative p-8">
+              <div className="grid grid-cols-4 gap-8 max-w-[1200px] mx-auto">
                 {Object.entries(servicesData).map(([category, items]) => (
-                  <div key={category} className="col-span-3">
-                    <h3 className="font-montserrat font-semibold text-foreground mb-4 text-base">
+                  <div key={category} className="space-y-4">
+                    <h3 className="font-montserrat font-semibold text-[#F5F5F5] text-base mb-4">
                       {category}
                     </h3>
                     <div className="space-y-1">
@@ -178,10 +238,22 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="group block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded transition-all duration-150 min-h-[44px] flex items-center relative hover:bg-accent/50 focus-enterprise"
-                          onClick={handleLinkClick}
+                          className="group block px-3 py-2 text-sm text-[#3C3C3C] hover:text-[#F5F5F5] rounded-lg transition-all duration-150 min-h-[44px] flex items-center relative focus-enterprise"
+                          style={{
+                            background: 'rgba(255, 255, 255, 0.02)',
+                            border: '1px solid rgba(255, 255, 255, 0.05)'
+                          }}
+                          onClick={() => handleLinkClick(category, item.name, item.href)}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.background = 'rgba(229, 38, 41, 0.1)';
+                            e.currentTarget.style.borderColor = 'rgba(229, 38, 41, 0.3)';
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
+                          }}
                         >
-                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-6 bg-primary rounded-r transition-all duration-150 group-hover:w-1"></span>
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-6 bg-[#E52629] rounded-r transition-all duration-150 group-hover:w-1"></span>
                           <span className="font-inter group-hover:translate-x-1 transition-transform duration-150">
                             {item.name}
                           </span>
@@ -194,38 +266,48 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
             </div>
 
             {/* Footer Strip */}
-            <div className="bg-accent/30 border-t border-border px-8 py-4">
-              <div className="max-w-6xl mx-auto flex items-center justify-between">
+            <div 
+              className="border-t px-8 py-4"
+              style={{
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                background: 'rgba(255, 255, 255, 0.03)'
+              }}
+            >
+              <div className="max-w-[1200px] mx-auto flex items-center justify-between">
+                <div className="flex items-center gap-4 text-sm text-[#3C3C3C]">
+                  <div className="flex items-center gap-1">
+                    <Zap className="h-4 w-4 text-[#E52629]" />
+                    <span>40% faster workflows</span>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <TrendingUp className="h-4 w-4 text-[#007AFF]" />
+                    <span>30% ops efficiency</span>
+                  </div>
+                </div>
+                
                 <div className="flex items-center gap-4">
                   <Link
                     to="/get-quotation"
-                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-2.5 rounded-md font-medium hover:bg-primary/90 transition-colors text-sm"
-                    onClick={handleLinkClick}
+                    className="inline-flex items-center gap-2 bg-[#E52629] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-[#E52629]/90 transition-colors text-sm"
+                    onClick={() => handleLinkClick('Footer', 'Get a Quotation', '/get-quotation')}
                   >
                     Get a Quotation
                     <ArrowRight className="h-4 w-4" />
                   </Link>
                   <Link
                     to="/tools/health-check"
-                    className="inline-flex items-center gap-2 border border-border px-6 py-2.5 rounded-md font-medium hover:bg-accent transition-colors text-sm"
-                    onClick={handleLinkClick}
+                    className="inline-flex items-center gap-2 border border-white/20 text-[#F5F5F5] px-6 py-2.5 rounded-lg font-medium hover:bg-white/10 transition-colors text-sm"
+                    onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
                   >
                     <Shield className="h-4 w-4" />
                     IT Network Health Check
                   </Link>
-                </div>
-                
-                <div className="hidden lg:flex items-center gap-4 text-sm text-muted-foreground">
-                  <div className="flex items-center gap-1">
-                    <Zap className="h-4 w-4 text-primary" />
-                    <span>40% faster workflows</span>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

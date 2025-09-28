@@ -48,6 +48,19 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
+            {/* Home Link */}
+            <Link
+              to="/"
+              className={cn(
+                "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+                isActive("/")
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
+            >
+              Home
+            </Link>
+            
             {/* Services Mega Menu */}
             <ServicesMegaMenu 
               isActive={isActive("/services")}
@@ -55,7 +68,7 @@ export default function Header() {
             />
             
             {/* Other Navigation Items */}
-            {navigation.map((item) => (
+            {navigation.slice(1).map((item) => (
               <Link
                 key={item.name}
                 to={item.href}

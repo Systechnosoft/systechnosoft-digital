@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Link } from "react-router-dom";
 import { ArrowRight, Zap, Shield, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -203,34 +204,36 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         </button>
       </div>
 
-      {/* Fixed Mega Menu Panel */}
-      {isOpen && (
+      {/* Fixed Mega Menu Panel - Portal to body for true full-width */}
+      {isOpen && createPortal(
         <div
           data-mega-menu-container
-          className="fixed left-0 right-0 z-[60]"
+          className="fixed inset-x-0 w-screen z-[70]"
           style={{ top: '64px' }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onKeyDown={handleKeyDown}
           role="menu"
         >
+          {/* Full-width background layer */}
           <div 
-            className="w-full bg-[#1C1C1C] border-t border-white/10"
+            className="w-full"
             style={{
-              background: 'linear-gradient(135deg, #1C1C1C 0%, rgba(28, 28, 28, 0.95) 100%)',
+              background: 'linear-gradient(135deg, rgba(28, 28, 28, 0.95) 0%, rgba(28, 28, 28, 0.90) 100%)',
               backdropFilter: 'blur(20px)',
-              boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.06)'
+              boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
             }}
           >
             {/* Subtle vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/20 pointer-events-none rounded-b-xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30 pointer-events-none" />
             
-            {/* Main Content Grid */}
-            <div className="relative p-8">
-              <div className="grid grid-cols-4 gap-8 max-w-[1200px] mx-auto">
+            {/* Centered content container */}
+            <div className="relative max-w-[1200px] mx-auto px-8 py-8">
+              {/* Main Content Grid */}
+              <div className="grid grid-cols-4 gap-8">
                 {Object.entries(servicesData).map(([category, items]) => (
                   <div key={category} className="space-y-4">
-                    <h3 className="font-montserrat font-semibold text-[#F5F5F5] text-base mb-4">
+                    <h3 className="font-montserrat font-semibold text-white text-base mb-4">
                       {category}
                     </h3>
                     <div className="space-y-1">
@@ -238,23 +241,11 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="group block px-3 py-2 text-sm text-[#3C3C3C] hover:text-[#F5F5F5] rounded-lg transition-all duration-150 min-h-[44px] flex items-center relative focus-enterprise"
-                          style={{
-                            background: 'rgba(255, 255, 255, 0.02)',
-                            border: '1px solid rgba(255, 255, 255, 0.05)'
-                          }}
+                          className="group block px-3 py-2 text-[15px] text-white/90 hover:text-white rounded-lg transition-all duration-200 min-h-[44px] flex items-center relative border border-white/10 hover:bg-white/10 hover:border-white/20 focus:outline-none focus:ring-2 focus:ring-blue-500"
                           onClick={() => handleLinkClick(category, item.name, item.href)}
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.background = 'rgba(229, 38, 41, 0.1)';
-                            e.currentTarget.style.borderColor = 'rgba(229, 38, 41, 0.3)';
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
-                            e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.05)';
-                          }}
                         >
-                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-6 bg-[#E52629] rounded-r transition-all duration-150 group-hover:w-1"></span>
-                          <span className="font-inter group-hover:translate-x-1 transition-transform duration-150">
+                          <span className="absolute left-0 top-1/2 -translate-y-1/2 w-0 h-6 bg-[#E52629] rounded-r transition-all duration-200 group-hover:w-1"></span>
+                          <span className="font-inter group-hover:translate-x-1 transition-transform duration-200">
                             {item.name}
                           </span>
                         </Link>
@@ -270,16 +261,16 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
               className="border-t px-8 py-4"
               style={{
                 borderColor: 'rgba(255, 255, 255, 0.1)',
-                background: 'rgba(255, 255, 255, 0.03)'
+                background: 'rgba(255, 255, 255, 0.05)'
               }}
             >
               <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-                <div className="flex items-center gap-4 text-sm text-[#3C3C3C]">
-                  <div className="flex items-center gap-1">
+                <div className="flex items-center gap-6 text-sm text-[#C9C9C9]">
+                  <div className="flex items-center gap-2">
                     <Zap className="h-4 w-4 text-[#E52629]" />
                     <span>40% faster workflows</span>
                   </div>
-                  <div className="flex items-center gap-1">
+                  <div className="flex items-center gap-2">
                     <TrendingUp className="h-4 w-4 text-[#007AFF]" />
                     <span>30% ops efficiency</span>
                   </div>
@@ -288,7 +279,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                 <div className="flex items-center gap-4">
                   <Link
                     to="/get-quotation"
-                    className="inline-flex items-center gap-2 bg-[#E52629] text-white px-6 py-2.5 rounded-lg font-medium hover:bg-[#E52629]/90 transition-colors text-sm"
+                    className="inline-flex items-center gap-2 bg-[#E52629] hover:bg-[#E52629]/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onClick={() => handleLinkClick('Footer', 'Get a Quotation', '/get-quotation')}
                   >
                     Get a Quotation
@@ -296,7 +287,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                   </Link>
                   <Link
                     to="/tools/health-check"
-                    className="inline-flex items-center gap-2 border border-white/20 text-[#F5F5F5] px-6 py-2.5 rounded-lg font-medium hover:bg-white/10 transition-colors text-sm"
+                    className="inline-flex items-center gap-2 border border-white/20 hover:bg-white/10 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                     onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
                   >
                     <Shield className="h-4 w-4" />
@@ -306,7 +297,8 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
               </div>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );

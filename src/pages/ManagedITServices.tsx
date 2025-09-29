@@ -298,53 +298,6 @@ export default function ManagedITServices() {
           </div>
         </section>
 
-        {/* Sticky Navigation */}
-        <div className="sticky top-16 z-40 bg-white border-b shadow-sm">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex items-center space-x-1 overflow-x-auto scrollbar-hide py-3">
-              {/* External links */}
-              <Link 
-                to="/services/cloud"
-                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Cloud Services
-              </Link>
-              
-              <span className="text-muted-foreground mx-2">|</span>
-              <span className="px-4 py-2 text-sm font-medium text-[#E52629] border-b-2 border-[#E52629]">
-                Managed IT Services
-              </span>
-              
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors ${
-                    activeSection === item.id
-                      ? "text-[#E52629] border-b-2 border-[#E52629]"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {item.label}
-                </button>
-              ))}
-              
-              <span className="text-muted-foreground mx-2">|</span>
-              <Link 
-                to="/services/microsoft-dynamics-365"
-                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Microsoft Dynamics 365
-              </Link>
-              <Link 
-                to="/services/backup-recovery"
-                className="whitespace-nowrap px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Backup & Recovery
-              </Link>
-            </div>
-          </div>
-        </div>
 
         {/* Service Tiles - Light Background */}
         <section className="py-20 bg-[#F5F5F5]">

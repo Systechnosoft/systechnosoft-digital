@@ -224,14 +224,6 @@ export default function ManagedITServices() {
           </div>
 
           <div className="relative max-w-6xl mx-auto px-4 py-24">
-            {/* Breadcrumb */}
-            <nav className="mb-8 text-sm text-white/70">
-              <Link to="/services" className="hover:text-white transition-colors">Services</Link>
-              <span className="mx-2">›</span>
-              <Link to="/services" className="hover:text-white transition-colors">IT Solutions</Link>
-              <span className="mx-2">›</span>
-              <span className="text-white">Managed IT Services</span>
-            </nav>
 
             <div className="text-center">
               <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6">

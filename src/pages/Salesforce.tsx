@@ -191,10 +191,10 @@ const Salesforce = () => {
   return (
     <>
       <Helmet>
-        <title>Salesforce Implementation Services | Systechnosoft</title>
-        <meta name="description" content="Expert Salesforce implementation and integration services. From Sales Cloud to Data Cloud with AI governance. Faster workflows, better ROI." />
-        <meta name="keywords" content="Salesforce implementation, Sales Cloud, Service Cloud, Data Cloud, CRM integration, Salesforce consulting" />
-        <link rel="canonical" href="https://systechnosoft.com/services/low-code/salesforce" />
+        <title>Salesforce Services | Consulting, Implementation & Managed CRM | Systechnosoft</title>
+        <meta name="description" content="End-to-end Salesforce services: Sales/Service/Experience/Marketing Cloud, Data Cloud, Einstein AI, integrations, and managed CRM." />
+        <meta name="keywords" content="Salesforce, CRM, Sales Cloud, Service Cloud, Marketing Cloud, Data Cloud, Einstein AI, Salesforce consulting, Salesforce implementation" />
+        <link rel="canonical" href="https://systechnosoft.com/services/salesforce" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

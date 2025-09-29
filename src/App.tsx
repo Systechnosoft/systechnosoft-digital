@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -34,7 +34,10 @@ const App = () => (
             <Route path="services/managed-it-services" element={<ManagedITServices />} />
             <Route path="services/microsoft-dynamics-365" element={<MicrosoftDynamics365 />} />
             <Route path="services/backup-recovery" element={<BackupRecovery />} />
-            <Route path="services/low-code/salesforce" element={<Salesforce />} />
+            <Route path="services/salesforce" element={<Salesforce />} />
+            {/* Redirect old Salesforce route */}
+            <Route path="services/low-code/salesforce" element={<Navigate to="/services/salesforce" replace />} />
+            <Route path="services/low-code/salesforce/*" element={<Navigate to="/services/salesforce" replace />} />
             <Route path="contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

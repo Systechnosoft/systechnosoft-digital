@@ -27,7 +27,7 @@ const servicesData = {
   ],
   "Low Code": [
     { name: "Appian", href: "/services/appian#overview" },
-    { name: "Salesforce", href: "/services/salesforce#overview" },
+    { name: "Salesforce", href: "/services/salesforce" },
   ],
   "AI & Automation": [
     { name: "AI Development & Integration", href: "/services/ai#ai-development" },

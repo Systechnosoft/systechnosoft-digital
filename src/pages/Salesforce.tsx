@@ -27,7 +27,7 @@ import {
 } from "lucide-react";
 import { scrollToId } from "@/lib/scrollUtils";
 
-// Einstein AI Bot Swarm Animation - Canvas-based with Six Diagonal Emitters
+// Einstein AI Bot Swarm Animation - Wave-based with Six Diagonal Emitters
 const BotSwarmAnimation: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -37,14 +37,14 @@ const BotSwarmAnimation: React.FC = () => {
 
     // Respect reduced motion
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canvas = root.querySelector('.sf-bot-canvas') as HTMLCanvasElement;
-    const core = root.querySelector('.sf-bot-core') as HTMLElement;
+    const canvas = root.querySelector('.sf-bots') as HTMLCanvasElement;
+    const core = root.querySelector('.sf-core') as HTMLElement;
     if (!canvas || !core) return;
     
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // State management
+    // Wave state management
     const state = {
       dpr: Math.min(window.devicePixelRatio || 1, 2),
       w: 0, h: 0, r: 0,
@@ -52,27 +52,17 @@ const BotSwarmAnimation: React.FC = () => {
       last: performance.now(),
       paused: false,
       inView: false,
-      bots: [] as any[],
-      fpsAvg: 60,
-    };
-
-    const CFG = {
-      EMITTERS: 6,
-      EMIT_INTERVAL_MS: [1250, 1750],
-      MAX_BOTS: 18,
-      SPEED: [0.09, 0.14],
-      CURVE_NOISE: 0.18,
-      MERGE_RADIUS: 52,
-      HOVER_HOLD_MS: 10000,
-      GLOW_COLOR: 'rgba(255, 45, 45, 0.55)',
-      BOT_SIZE: [6, 10],
+      currentWave: [] as any[],
+      nextWaveTime: 0,
+      waveActive: false,
+      coreRadius: 36, // will be calculated dynamically
     };
 
     function resize() {
       const rect = root.getBoundingClientRect();
       state.w = Math.max(100, Math.floor(rect.width));
       state.h = Math.max(100, Math.floor(rect.height));
-      state.r = Math.min(state.w, state.h) * 0.5;
+      state.r = Math.min(state.w, state.h) * 0.45; // slightly smaller for vanish radius
       canvas.width = Math.floor(state.w * state.dpr);
       canvas.height = Math.floor(state.h * state.dpr);
       canvas.style.width = state.w + 'px';
@@ -80,154 +70,169 @@ const BotSwarmAnimation: React.FC = () => {
       ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
       state.center.x = state.w / 2;
       state.center.y = state.h / 2;
+      
+      // Calculate core radius from actual core element
+      const coreRect = core.getBoundingClientRect();
+      state.coreRadius = Math.max(coreRect.width, coreRect.height) / 2;
     }
 
-    // Emitter positions: 6 points on circumference at 60° steps
-    function emitters() {
-      const list = [];
-      const angles = [30, 90, 150, 210, 270, 330]; // visually pleasing diagonals
-      for (const deg of angles) {
+    // Six diagonal emitters at exact angles: 0°, 60°, 120°, 180°, 240°, 300°
+    function getEmitterPositions() {
+      const angles = [0, 60, 120, 180, 240, 300];
+      return angles.map(deg => {
         const rad = deg * Math.PI / 180;
-        list.push({
+        return {
           x: state.center.x + Math.cos(rad) * (state.r - 4),
           y: state.center.y + Math.sin(rad) * (state.r - 4),
           angle: rad,
-        });
-      }
-      return list;
-    }
-
-    const emittersCache: any[] = [];
-
-    function resetEmitters() {
-      emittersCache.length = 0;
-      emitters().forEach(e => emittersCache.push({ ...e, t: 0 }));
+        };
+      });
     }
 
     function rand(min: number, max: number) { 
       return min + Math.random() * (max - min); 
     }
 
-    function emitFrom(em: any) {
-      if (state.bots.length >= CFG.MAX_BOTS) return;
-      const size = rand(CFG.BOT_SIZE[0], CFG.BOT_SIZE[1]);
-      const speed = rand(CFG.SPEED[0], CFG.SPEED[1]) * Math.min(state.w, state.h);
-
-      // Slight curve toward center by bending the velocity vector
-      const toCx = state.center.x - em.x;
-      const toCy = state.center.y - em.y;
-      const dist = Math.hypot(toCx, toCy) || 1;
-      let vx = (toCx / dist) * speed;
-      let vy = (toCy / dist) * speed;
-
-      // Curve perturbation orthogonal to direction
-      const nx = -toCy / dist, ny = toCx / dist; // normal vector
-      const bend = (Math.random() * 2 - 1) * CFG.CURVE_NOISE * speed;
-      vx += nx * bend; 
-      vy += ny * bend;
-
-      state.bots.push({
-        x: em.x, y: em.y, vx, vy,
-        size, alpha: 1,
-        merging: false,
+    // Spawn a complete wave of 6 bots
+    function spawnWave() {
+      const emitters = getEmitterPositions();
+      const newWave: any[] = [];
+      
+      emitters.forEach((em) => {
+        const duration = rand(5000, 10000); // 5-10 seconds
+        const size = rand(6, 9);
+        const driftX = rand(-4, 4);
+        const driftY = rand(-4, 4);
+        
+        newWave.push({
+          id: Math.random(),
+          startX: em.x,
+          startY: em.y,
+          targetX: state.center.x + driftX,
+          targetY: state.center.y + driftY,
+          duration,
+          startTime: performance.now(),
+          size,
+          alpha: 1,
+          vanished: false,
+        });
       });
+      
+      state.currentWave = newWave;
+      state.waveActive = true;
     }
 
-    function scheduleEmission(now: number) {
-      const [minI, maxI] = CFG.EMIT_INTERVAL_MS;
-      for (const em of emittersCache) {
-        if (em.t === 0) em.t = now + rand(minI, maxI);
-        if (now >= em.t) {
-          emitFrom(em);
-          em.t = now + rand(minI, maxI);
-        }
-      }
+    // Cubic bezier easing function
+    function easeInOutCubic(t: number): number {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
-    function drawBot(b: any) {
+    function drawBot(bot: any) {
       ctx.save();
-      ctx.globalAlpha = b.alpha;
-      ctx.fillStyle = CFG.GLOW_COLOR;
+      ctx.globalAlpha = bot.alpha;
+      
+      // Outer glow
+      ctx.fillStyle = 'rgba(229, 38, 41, 0.55)';
       ctx.beginPath();
-      ctx.arc(b.x, b.y, b.size * 1.8, 0, Math.PI * 2);
+      ctx.arc(bot.x, bot.y, bot.size * 1.6, 0, Math.PI * 2);
       ctx.fill();
 
-      // inner dot
-      ctx.fillStyle = '#ff2b2b';
+      // Inner core
+      ctx.fillStyle = '#E52629';
       ctx.beginPath();
-      ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
+      ctx.arc(bot.x, bot.y, bot.size * 0.7, 0, Math.PI * 2);
       ctx.fill();
+      
       ctx.restore();
     }
 
+    function updateWave(now: number) {
+      if (!state.waveActive || state.currentWave.length === 0) return;
+
+      const vanishRadius = state.coreRadius + 10; // 10px before core
+      let allVanished = true;
+      let anyVanished = false;
+
+      state.currentWave.forEach(bot => {
+        if (bot.vanished) return;
+        allVanished = false;
+
+        const elapsed = now - bot.startTime;
+        const progress = Math.min(elapsed / bot.duration, 1);
+        const eased = easeInOutCubic(progress);
+        
+        // Calculate position
+        bot.x = bot.startX + (bot.targetX - bot.startX) * eased;
+        bot.y = bot.startY + (bot.targetY - bot.startY) * eased;
+        
+        // Check if bot should vanish
+        const distToCenter = Math.hypot(bot.x - state.center.x, bot.y - state.center.y);
+        if (distToCenter <= vanishRadius) {
+          bot.vanished = true;
+          anyVanished = true;
+        } else {
+          drawBot(bot);
+        }
+      });
+
+      // Trigger core pulse if any bot vanished
+      if (anyVanished) {
+        core.classList.remove('pulse');
+        core.offsetWidth; // force reflow
+        core.classList.add('pulse');
+      }
+
+      // If all bots vanished, schedule next wave
+      if (allVanished) {
+        state.waveActive = false;
+        state.currentWave = [];
+        state.nextWaveTime = now + rand(600, 900); // 600-900ms pause
+      }
+    }
+
     function tick(now: number) {
-      if (!state.inView || state.paused) { 
+      if (!state.inView) { 
         state.last = now; 
         requestAnimationFrame(tick); 
         return; 
       }
 
-      const dt = Math.min(50, now - state.last); // clamp
-      state.last = now;
-
-      // FPS estimate
-      state.fpsAvg = state.fpsAvg * 0.92 + (1000 / Math.max(16.7, dt)) * 0.08;
+      // Handle pause state
+      if (state.paused) {
+        // When paused, still draw current bots but don't update positions or spawn
+        ctx.clearRect(0, 0, state.w, state.h);
+        state.currentWave.forEach(bot => {
+          if (!bot.vanished) drawBot(bot);
+        });
+        state.last = now;
+        requestAnimationFrame(tick);
+        return;
+      }
 
       ctx.clearRect(0, 0, state.w, state.h);
 
-      // emit
-      scheduleEmission(now);
-
-      const mr = CFG.MERGE_RADIUS;
-      const erased = [];
-      for (let i = 0; i < state.bots.length; i++) {
-        const b = state.bots[i];
-        // integrate
-        b.x += b.vx * dt / 16.7;
-        b.y += b.vy * dt / 16.7;
-
-        // check merge
-        const dx = b.x - state.center.x;
-        const dy = b.y - state.center.y;
-        if (!b.merging && (dx*dx + dy*dy) <= mr * mr) {
-          b.merging = true;
-        }
-        if (b.merging) {
-          b.alpha -= 0.08;
-          b.size *= 0.92;
-          if (b.alpha <= 0.02) { erased.push(i); continue; }
-        }
-
-        drawBot(b);
+      // Spawn new wave if needed
+      if (!state.waveActive && now >= state.nextWaveTime) {
+        spawnWave();
       }
 
-      // remove merged
-      if (erased.length) {
-        for (let j = erased.length - 1; j >= 0; j--) state.bots.splice(erased[j], 1);
-        // pulse the core subtly on merge
-        core.classList.remove('sf-core-pulse');
-        // force reflow to restart animation
-        core.offsetWidth;
-        core.classList.add('sf-core-pulse');
-      }
+      // Update current wave
+      updateWave(now);
 
-      // Adaptive throttle: if FPS dips, slow emissions temporarily
-      if (state.fpsAvg < 50 && CFG.EMIT_INTERVAL_MS[0] < 1600) {
-        CFG.EMIT_INTERVAL_MS[0] += 50; CFG.EMIT_INTERVAL_MS[1] += 50;
-      } else if (state.fpsAvg > 58 && CFG.EMIT_INTERVAL_MS[0] > 1200) {
-        CFG.EMIT_INTERVAL_MS[0] -= 25; CFG.EMIT_INTERVAL_MS[1] -= 25;
-      }
-
+      state.last = now;
       requestAnimationFrame(tick);
     }
 
-    function pauseFor(ms: number) {
+    let pauseTimer: NodeJS.Timeout | number;
+
+    function pauseAnimation() {
       state.paused = true;
-      clearTimeout(pauseTimer);
-      pauseTimer = setTimeout(() => { state.paused = false; }, ms);
     }
 
-    let pauseTimer: NodeJS.Timeout | number;
+    function resumeAnimation() {
+      state.paused = false;
+      clearTimeout(pauseTimer);
+    }
 
     // Visibility & interactions
     const io = new IntersectionObserver((ents) => {
@@ -235,29 +240,27 @@ const BotSwarmAnimation: React.FC = () => {
     }, { threshold: 0.1 });
     io.observe(root);
 
-    const handlePointerEnter = () => pauseFor(CFG.HOVER_HOLD_MS);
-    const handlePointerLeave = () => { state.paused = false; };
-    const handleClick = () => {
-      // mobile tap toggles pause/resume
-      state.paused = !state.paused;
-      if (!state.paused) pauseFor(0);
-    };
+    const handlePointerEnter = () => pauseAnimation();
+    const handlePointerLeave = () => resumeAnimation();
+    const handleFocus = () => pauseAnimation();
+    const handleBlur = () => resumeAnimation();
 
     root.addEventListener('pointerenter', handlePointerEnter);
     root.addEventListener('pointerleave', handlePointerLeave);
-    root.addEventListener('click', handleClick);
+    root.addEventListener('focus', handleFocus);
+    root.addEventListener('blur', handleBlur);
 
     // Init
     function start() {
-      resize(); 
-      resetEmitters();
+      resize();
       state.inView = true;
       state.last = performance.now();
+      state.nextWaveTime = performance.now() + 1000; // First wave after 1s
       if (!reduced) requestAnimationFrame(tick);
       else ctx.clearRect(0, 0, state.w, state.h); // static for reduced motion
     }
 
-    const handleResize = () => { resize(); resetEmitters(); };
+    const handleResize = () => resize();
     window.addEventListener('resize', handleResize);
     
     start();
@@ -268,7 +271,8 @@ const BotSwarmAnimation: React.FC = () => {
       window.removeEventListener('resize', handleResize);
       root.removeEventListener('pointerenter', handlePointerEnter);
       root.removeEventListener('pointerleave', handlePointerLeave);
-      root.removeEventListener('click', handleClick);
+      root.removeEventListener('focus', handleFocus);
+      root.removeEventListener('blur', handleBlur);
       clearTimeout(pauseTimer);
     };
   }, []);
@@ -279,7 +283,7 @@ const BotSwarmAnimation: React.FC = () => {
         [data-sf-einstein] {
           position: relative;
         }
-        [data-sf-einstein] .sf-bot-canvas {
+        [data-sf-einstein] .sf-bots {
           position: absolute; 
           inset: 0; 
           width: 100%; 
@@ -287,7 +291,7 @@ const BotSwarmAnimation: React.FC = () => {
           pointer-events: none; 
           z-index: 1;
         }
-        [data-sf-einstein] .sf-bot-core {
+        [data-sf-einstein] .sf-core {
           position: absolute; 
           inset: 0; 
           margin: auto; 
@@ -297,21 +301,28 @@ const BotSwarmAnimation: React.FC = () => {
           place-items: center; 
           z-index: 2;
         }
-        @keyframes sf-core-pulse {
-          0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 43, 43, 0.0)); }
-          35% { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(255, 43, 43, 0.35)); }
-          100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 43, 43, 0.0)); }
+        @keyframes sf-pulse {
+          0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(229, 38, 41, 0)); }
+          40% { transform: scale(1.08); filter: drop-shadow(0 0 14px rgba(229, 38, 41, 0.4)); }
+          100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(229, 38, 41, 0)); }
         }
-        [data-sf-einstein] .sf-core-pulse { 
-          animation: sf-core-pulse 650ms cubic-bezier(.2,.8,.2,1); 
+        [data-sf-einstein] .pulse { 
+          animation: sf-pulse 520ms cubic-bezier(.22, 1, .36, 1); 
         }
         @media (prefers-reduced-motion: reduce) {
-          [data-sf-einstein] .sf-bot-canvas { display: none !important; }
+          [data-sf-einstein] .sf-bots { display: none !important; }
+          [data-sf-einstein] .sf-core {
+            animation: sf-breathe 3s ease-in-out infinite;
+          }
+        }
+        @keyframes sf-breathe {
+          0%, 100% { filter: drop-shadow(0 0 0 rgba(229, 38, 41, 0)); }
+          50% { filter: drop-shadow(0 0 8px rgba(229, 38, 41, 0.3)); }
         }
       `}</style>
       <div 
         ref={containerRef}
-        className="sf-einstein-governance"
+        className="sf-einstein-orb"
         data-sf-einstein
         style={{
           position: 'relative',
@@ -323,8 +334,8 @@ const BotSwarmAnimation: React.FC = () => {
           background: 'radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%)'
         }}
       >
-        <canvas className="sf-bot-canvas" aria-hidden="true" />
-        <div className="sf-bot-core" aria-hidden="true">
+        <canvas className="sf-bots" aria-hidden="true" />
+        <div className="sf-core" aria-hidden="true">
           <Bot className="w-full h-full text-primary" />
         </div>
       </div>

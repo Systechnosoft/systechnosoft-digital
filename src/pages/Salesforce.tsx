@@ -29,23 +29,8 @@ import { scrollToId } from "@/lib/scrollUtils";
 
 const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
-  const [activeSection, setActiveSection] = useState("overview");
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
   const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll();
-  
-  // Navigation items
-  const navItems = [
-    { id: "overview", label: "Overview" },
-    { id: "clouds", label: "Clouds" },
-    { id: "ai-data", label: "AI & Data" },
-    { id: "approach", label: "Approach" },
-    { id: "accelerators", label: "Accelerators" },
-    { id: "case-studies", label: "Case Studies" },
-    { id: "roi", label: "ROI" },
-    { id: "faq", label: "FAQ" },
-    { id: "contact", label: "Contact" }
-  ];
 
   // Animation variants
   const fadeUpVariants = {
@@ -75,29 +60,6 @@ const Salesforce = () => {
     return Math.round((licenseCount * 1200 * (automationUplift / 100) * 12) / 1000);
   };
 
-  // Scroll spy effect
-  useEffect(() => {
-    const observers = navItems.map(item => {
-      const element = document.getElementById(item.id);
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(item.id);
-          }
-        },
-        { rootMargin: "-20% 0px -60% 0px" }
-      );
-
-      observer.observe(element);
-      return observer;
-    });
-
-    return () => {
-      observers.forEach(observer => observer?.disconnect());
-    };
-  }, []);
 
   // Cloud cards data
   const cloudCards = [
@@ -198,38 +160,6 @@ const Salesforce = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        {/* Sticky Navigation */}
-        <motion.nav 
-          className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b"
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-between h-14">
-              <div className="flex items-center space-x-6 overflow-x-auto scrollbar-hide">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToId(item.id)}
-                    className={`text-sm font-medium whitespace-nowrap transition-colors ${
-                      activeSection === item.id
-                        ? "text-primary border-b-2 border-primary"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
-              </div>
-              <motion.div 
-                className="h-1 bg-primary rounded-full"
-                style={{ scaleX: scrollYProgress }}
-              />
-            </div>
-          </div>
-        </motion.nav>
-
         {/* Hero Section */}
         <section 
           ref={heroRef}

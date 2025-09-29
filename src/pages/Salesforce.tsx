@@ -27,6 +27,193 @@ import {
 } from "lucide-react";
 import { scrollToId } from "@/lib/scrollUtils";
 
+// AI Orbit Animation Component
+const AIOrbitAnimation: React.FC = () => {
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const timeoutRef = useRef<NodeJS.Timeout>();
+  const intervalRef = useRef<NodeJS.Timeout>();
+
+  // Check for reduced motion preference
+  const prefersReducedMotion = useReducedMotion();
+
+  // Handle visibility changes and intersection
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      setIsVisible(!document.hidden);
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      observer.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, []);
+
+  // Animation loop controller
+  useEffect(() => {
+    if (prefersReducedMotion || !isVisible || isPaused) return;
+
+    const startAnimation = () => {
+      setIsAnimating(true);
+      
+      // Reset after 8 seconds for next loop
+      timeoutRef.current = setTimeout(() => {
+        setIsAnimating(false);
+        // Small delay before next loop
+        setTimeout(startAnimation, 100);
+      }, 8000);
+    };
+
+    // Start first animation
+    intervalRef.current = setTimeout(startAnimation, 500);
+
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (intervalRef.current) clearTimeout(intervalRef.current);
+    };
+  }, [prefersReducedMotion, isVisible, isPaused]);
+
+  // Handle hover/focus pause
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    // Resume after 10 seconds
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => setIsPaused(false), 10000);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setIsPaused(false);
+  };
+
+  return (
+    <>
+      <style>{`
+        @keyframes sf-node-travel-1 {
+          0% { top: 5%; left: 5%; opacity: 1; transform: rotate(0deg); }
+          100% { top: 50%; left: 50%; opacity: 1; transform: rotate(12deg) translate(-50%, -50%); }
+        }
+        @keyframes sf-node-travel-2 {
+          0% { top: 5%; right: 5%; opacity: 1; transform: rotate(0deg); }
+          100% { top: 50%; right: 50%; opacity: 1; transform: rotate(-12deg) translate(50%, -50%); }
+        }
+        @keyframes sf-node-travel-3 {
+          0% { bottom: 5%; right: 5%; opacity: 1; transform: rotate(0deg); }
+          100% { bottom: 50%; right: 50%; opacity: 1; transform: rotate(12deg) translate(50%, 50%); }
+        }
+        @keyframes sf-node-travel-4 {
+          0% { bottom: 5%; left: 5%; opacity: 1; transform: rotate(0deg); }
+          100% { bottom: 50%; left: 50%; opacity: 1; transform: rotate(-12deg) translate(-50%, 50%); }
+        }
+        @keyframes sf-core-appear {
+          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+          100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+        @keyframes sf-core-pulse {
+          0%, 100% { transform: translate(-50%, -50%) scale(1); }
+          50% { transform: translate(-50%, -50%) scale(1.15); }
+        }
+        @keyframes sf-ripple-expand {
+          0% { opacity: 0.6; width: 0; height: 0; }
+          100% { opacity: 0; width: 280px; height: 280px; }
+        }
+        @keyframes sf-ripple-expand-inner {
+          0% { opacity: 0.8; width: 0; height: 0; }
+          100% { opacity: 0; width: 200px; height: 200px; }
+        }
+        @keyframes sf-breathe {
+          0%, 100% { filter: drop-shadow(0 0 8px rgba(255,59,48,.2)); }
+          50% { filter: drop-shadow(0 0 16px rgba(255,59,48,.4)); }
+        }
+        
+        .sf-orbit-animate .sf-node-1 {
+          animation: sf-node-travel-1 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        .sf-orbit-animate .sf-node-2 {
+          animation: sf-node-travel-2 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+        }
+        .sf-orbit-animate .sf-node-3 {
+          animation: sf-node-travel-3 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+        }
+        .sf-orbit-animate .sf-node-4 {
+          animation: sf-node-travel-4 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
+        }
+        .sf-orbit-animate .sf-core {
+          animation: sf-core-appear 0.4s ease-out 3.4s forwards, sf-core-pulse 0.42s ease-in-out 3.8s forwards;
+        }
+        .sf-orbit-animate .sf-ripple-outer {
+          animation: sf-ripple-expand 0.8s ease-out 4.2s forwards;
+        }
+        .sf-orbit-animate .sf-ripple-inner {
+          animation: sf-ripple-expand-inner 0.8s ease-out 4.3s forwards;
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+          .sf-node, .sf-ripple-outer, .sf-ripple-inner { 
+            animation: none !important; 
+            opacity: 0 !important;
+          }
+          .sf-core { 
+            opacity: 1 !important;
+            animation: sf-breathe 3s ease-in-out infinite !important;
+          }
+        }
+      `}</style>
+      <div 
+        ref={containerRef}
+        id="ai-orbit"
+        className={`relative aspect-square min-h-[560px] md:min-h-[560px] sm:min-h-[360px] rounded-full overflow-hidden ${isAnimating && !isPaused ? 'sf-orbit-animate' : ''}`}
+        style={{
+          background: 'radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%)'
+        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onFocus={handleMouseEnter}
+        onBlur={handleMouseLeave}
+        tabIndex={0}
+      >
+        {/* Four corner nodes */}
+        <div className="sf-node sf-node-1 absolute w-8 h-8 opacity-0" aria-hidden="true">
+          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
+        </div>
+        <div className="sf-node sf-node-2 absolute w-8 h-8 opacity-0" aria-hidden="true">
+          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
+        </div>
+        <div className="sf-node sf-node-3 absolute w-8 h-8 opacity-0" aria-hidden="true">
+          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
+        </div>
+        <div className="sf-node sf-node-4 absolute w-8 h-8 opacity-0" aria-hidden="true">
+          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
+        </div>
+        
+        {/* Central core bot */}
+        <div className="sf-core absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 opacity-0">
+          <Bot className="w-full h-full text-primary" role="img" aria-label="AI core" />
+        </div>
+        
+        {/* Ripple rings */}
+        <div className="sf-ripple-outer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-primary/30 rounded-full opacity-0" aria-hidden="true" />
+        <div className="sf-ripple-inner absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-primary/40 rounded-full opacity-0" aria-hidden="true" />
+      </div>
+    </>
+  );
+};
+
 const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
@@ -577,9 +764,7 @@ const Salesforce = () => {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className="aspect-square bg-gradient-to-br from-primary/10 to-accent/10 rounded-full flex items-center justify-center">
-                  <Bot className="h-32 w-32 text-primary" />
-                </div>
+                <AIOrbitAnimation />
               </motion.div>
             </div>
           </div>

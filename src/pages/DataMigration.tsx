@@ -44,7 +44,6 @@ export default function DataMigration() {
     { id: "dm-security", label: "Security & Compliance" },
     { id: "dm-tooling", label: "Tooling" },
     { id: "dm-proof", label: "Case Studies" },
-    { id: "dm-faqs", label: "FAQs" },
   ];
 
   useEffect(() => {
@@ -703,7 +702,6 @@ export default function DataMigration() {
         {/* FAQs Section - Light */}
         <section 
           id="dm-faqs" 
-          ref={(el) => (sectionsRef.current[7] = el)}
           className="py-20 bg-[#F5F5F5]"
         >
           <div className="max-w-4xl mx-auto px-4">

@@ -27,17 +27,33 @@ import {
 } from "lucide-react";
 import { scrollToId } from "@/lib/scrollUtils";
 
-// AI Orbit Animation Component
-const AIOrbitAnimation: React.FC = () => {
-  const [isAnimating, setIsAnimating] = useState(false);
+// Bot Swarm Animation Component  
+interface BotNode {
+  id: string;
+  angle: number;
+  startTime: number;
+  x: number;
+  y: number;
+  targetX: number;
+  targetY: number;
+}
+
+const BotSwarmAnimation: React.FC = () => {
+  const [botNodes, setBotNodes] = useState<BotNode[]>([]);
   const [isPaused, setIsPaused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
+  const [hasStarted, setHasStarted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const timeoutRef = useRef<NodeJS.Timeout>();
-  const intervalRef = useRef<NodeJS.Timeout>();
+  const animationRef = useRef<number>();
+  const spawnIntervalRef = useRef<NodeJS.Timeout>();
+  const pauseTimeoutRef = useRef<NodeJS.Timeout>();
+  const nodeIdCounter = useRef(0);
 
   // Check for reduced motion preference
   const prefersReducedMotion = useReducedMotion();
+
+  // Six diagonal angles (0°, 60°, 120°, 180°, 240°, 300°)
+  const diagonalAngles = [0, 60, 120, 180, 240, 300];
 
   // Handle visibility changes and intersection
   useEffect(() => {
@@ -64,151 +80,246 @@ const AIOrbitAnimation: React.FC = () => {
     };
   }, []);
 
-  // Animation loop controller
-  useEffect(() => {
-    if (prefersReducedMotion || !isVisible || isPaused) return;
-
-    const startAnimation = () => {
-      setIsAnimating(true);
+  // Initial spawn of 4 intro bots
+  const spawnIntroBots = () => {
+    const newBots: BotNode[] = [];
+    const introAngles = [45, 135, 225, 315]; // NE, NW, SE, SW
+    
+    introAngles.forEach((angle, index) => {
+      const radian = (angle * Math.PI) / 180;
+      const radius = 280; // Start from edge
+      const centerX = 280; // Half of 560px container
+      const centerY = 280;
+      const startX = centerX + Math.cos(radian) * radius;
+      const startY = centerY + Math.sin(radian) * radius;
       
-      // Reset after 8 seconds for next loop
-      timeoutRef.current = setTimeout(() => {
-        setIsAnimating(false);
-        // Small delay before next loop
-        setTimeout(startAnimation, 100);
-      }, 8000);
+      newBots.push({
+        id: `intro-${nodeIdCounter.current++}`,
+        angle,
+        startTime: Date.now() + (index * 200), // Stagger slightly
+        x: startX,
+        y: startY,
+        targetX: centerX,
+        targetY: centerY
+      });
+    });
+    
+    setBotNodes(newBots);
+  };
+
+  // Spawn a new bot from random diagonal
+  const spawnBot = () => {
+    if (isPaused || !isVisible || prefersReducedMotion) return;
+    
+    const angle = diagonalAngles[Math.floor(Math.random() * diagonalAngles.length)];
+    const radian = (angle * Math.PI) / 180;
+    const radius = 280;
+    const centerX = 280;
+    const centerY = 280;
+    const startX = centerX + Math.cos(radian) * radius;
+    const startY = centerY + Math.sin(radian) * radius;
+    
+    // Add small random drift
+    const driftX = (Math.random() - 0.5) * 10;
+    const driftY = (Math.random() - 0.5) * 10;
+    
+    const newBot: BotNode = {
+      id: `bot-${nodeIdCounter.current++}`,
+      angle,
+      startTime: Date.now(),
+      x: startX + driftX,
+      y: startY + driftY,
+      targetX: centerX + driftX * 0.2,
+      targetY: centerY + driftY * 0.2
     };
 
-    // Start first animation
-    intervalRef.current = setTimeout(startAnimation, 500);
+    setBotNodes(prev => {
+      // Limit to 36 concurrent bots (18 on mobile)
+      const maxBots = window.innerWidth < 768 ? 18 : 36;
+      const updated = [...prev, newBot];
+      return updated.length > maxBots ? updated.slice(-maxBots) : updated;
+    });
+  };
+
+  // Animation loop
+  const animate = () => {
+    const now = Date.now();
+    
+    setBotNodes(prev => prev.filter(bot => {
+      const elapsed = now - bot.startTime;
+      const duration = 2600 + Math.random() * 600; // 2.6-3.2s
+      
+      if (elapsed < 0) return true; // Not started yet
+      if (elapsed > duration) {
+        // Bot reached center, trigger core pulse
+        const core = document.querySelector('.sf-core') as HTMLElement;
+        if (core) {
+          core.style.transform = 'translate(-50%, -50%) scale(1.03)';
+          setTimeout(() => {
+            core.style.transform = 'translate(-50%, -50%) scale(1)';
+          }, 180);
+        }
+        return false; // Remove bot
+      }
+      
+      return true;
+    }));
+    
+    if (!isPaused && isVisible) {
+      animationRef.current = requestAnimationFrame(animate);
+    }
+  };
+
+  // Start intro sequence
+  useEffect(() => {
+    if (prefersReducedMotion || !isVisible) return;
+    
+    setTimeout(() => {
+      spawnIntroBots();
+      setHasStarted(true);
+    }, 500);
+  }, [prefersReducedMotion, isVisible]);
+
+  // Main animation loop
+  useEffect(() => {
+    if (prefersReducedMotion || !isVisible || isPaused || !hasStarted) return;
+
+    // Start continuous spawning after intro (2.5s)
+    const startSpawning = setTimeout(() => {
+      spawnIntervalRef.current = setInterval(() => {
+        spawnBot();
+      }, 450 + Math.random() * 150); // 450-600ms
+    }, 2500);
+
+    // Start animation loop
+    animationRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      if (intervalRef.current) clearTimeout(intervalRef.current);
+      clearTimeout(startSpawning);
+      if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
+      if (animationRef.current) cancelAnimationFrame(animationRef.current);
     };
-  }, [prefersReducedMotion, isVisible, isPaused]);
+  }, [prefersReducedMotion, isVisible, isPaused, hasStarted]);
 
   // Handle hover/focus pause
   const handleMouseEnter = () => {
     setIsPaused(true);
+    if (spawnIntervalRef.current) clearInterval(spawnIntervalRef.current);
     // Resume after 10 seconds
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => setIsPaused(false), 10000);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => setIsPaused(false), 10000);
   };
 
   const handleMouseLeave = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
     setIsPaused(false);
+  };
+
+  // Calculate bot position based on progress
+  const getBotStyle = (bot: BotNode): React.CSSProperties => {
+    const elapsed = Date.now() - bot.startTime;
+    const duration = 2600 + Math.random() * 600;
+    
+    if (elapsed < 0) return { opacity: 0 };
+    
+    const progress = Math.min(elapsed / duration, 1);
+    const easeProgress = 1 - Math.pow(1 - progress, 3); // Ease out cubic
+    
+    const currentX = bot.x + (bot.targetX - bot.x) * easeProgress;
+    const currentY = bot.y + (bot.targetY - bot.y) * easeProgress;
+    
+    // Fade out as approaching center
+    const distanceToCenter = Math.sqrt(
+      Math.pow(currentX - bot.targetX, 2) + Math.pow(currentY - bot.targetY, 2)
+    );
+    const opacity = distanceToCenter < 30 ? distanceToCenter / 30 : 1;
+    const scale = distanceToCenter < 30 ? (distanceToCenter / 30) : 1;
+    
+    return {
+      position: 'absolute',
+      left: `${currentX}px`,
+      top: `${currentY}px`,
+      transform: `translate(-50%, -50%) scale(${scale}) rotate(${progress * 12}deg)`,
+      opacity,
+      willChange: 'transform, opacity'
+    };
   };
 
   return (
     <>
       <style>{`
-        @keyframes sf-node-travel-1 {
-          0% { top: 5%; left: 5%; opacity: 1; transform: rotate(0deg); }
-          100% { top: 50%; left: 50%; opacity: 1; transform: rotate(12deg) translate(-50%, -50%); }
-        }
-        @keyframes sf-node-travel-2 {
-          0% { top: 5%; right: 5%; opacity: 1; transform: rotate(0deg); }
-          100% { top: 50%; right: 50%; opacity: 1; transform: rotate(-12deg) translate(50%, -50%); }
-        }
-        @keyframes sf-node-travel-3 {
-          0% { bottom: 5%; right: 5%; opacity: 1; transform: rotate(0deg); }
-          100% { bottom: 50%; right: 50%; opacity: 1; transform: rotate(12deg) translate(50%, 50%); }
-        }
-        @keyframes sf-node-travel-4 {
-          0% { bottom: 5%; left: 5%; opacity: 1; transform: rotate(0deg); }
-          100% { bottom: 50%; left: 50%; opacity: 1; transform: rotate(-12deg) translate(-50%, 50%); }
-        }
-        @keyframes sf-core-appear {
-          0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
-          100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-        }
-        @keyframes sf-core-pulse {
-          0%, 100% { transform: translate(-50%, -50%) scale(1); }
-          50% { transform: translate(-50%, -50%) scale(1.15); }
-        }
-        @keyframes sf-ripple-expand {
-          0% { opacity: 0.6; width: 0; height: 0; }
-          100% { opacity: 0; width: 280px; height: 280px; }
-        }
-        @keyframes sf-ripple-expand-inner {
-          0% { opacity: 0.8; width: 0; height: 0; }
-          100% { opacity: 0; width: 200px; height: 200px; }
-        }
-        @keyframes sf-breathe {
-          0%, 100% { filter: drop-shadow(0 0 8px rgba(255,59,48,.2)); }
-          50% { filter: drop-shadow(0 0 16px rgba(255,59,48,.4)); }
+        #sf-ai-governance {
+          position: relative;
+          aspect-ratio: 1/1;
+          min-height: 560px;
+          border-radius: 50%;
+          overflow: hidden;
+          background: radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%);
         }
         
-        .sf-orbit-animate .sf-node-1 {
-          animation: sf-node-travel-1 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        @media (max-width: 768px) {
+          #sf-ai-governance { min-height: 360px; }
         }
-        .sf-orbit-animate .sf-node-2 {
-          animation: sf-node-travel-2 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s forwards;
+        
+        .sf-core {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 120px;
+          height: 120px;
+          transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+          animation: sf-core-pulse 2s ease-in-out infinite;
         }
-        .sf-orbit-animate .sf-node-3 {
-          animation: sf-node-travel-3 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s forwards;
+        
+        @keyframes sf-core-pulse {
+          0%, 100% { filter: drop-shadow(0 0 12px rgba(255,59,48,.3)); }
+          50% { filter: drop-shadow(0 0 20px rgba(255,59,48,.5)); }
         }
-        .sf-orbit-animate .sf-node-4 {
-          animation: sf-node-travel-4 3.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s forwards;
-        }
-        .sf-orbit-animate .sf-core {
-          animation: sf-core-appear 0.4s ease-out 3.4s forwards, sf-core-pulse 0.42s ease-in-out 3.8s forwards;
-        }
-        .sf-orbit-animate .sf-ripple-outer {
-          animation: sf-ripple-expand 0.8s ease-out 4.2s forwards;
-        }
-        .sf-orbit-animate .sf-ripple-inner {
-          animation: sf-ripple-expand-inner 0.8s ease-out 4.3s forwards;
+        
+        .bot {
+          width: 28px;
+          height: 28px;
+          filter: drop-shadow(0 0 8px rgba(255,59,48,.35));
         }
         
         @media (prefers-reduced-motion: reduce) {
-          .sf-node, .sf-ripple-outer, .sf-ripple-inner { 
-            animation: none !important; 
-            opacity: 0 !important;
-          }
+          .bot { display: none !important; }
           .sf-core { 
-            opacity: 1 !important;
-            animation: sf-breathe 3s ease-in-out infinite !important;
+            animation: sf-core-breathe 3s ease-in-out infinite !important;
           }
+        }
+        
+        @keyframes sf-core-breathe {
+          0%, 100% { filter: drop-shadow(0 0 8px rgba(255,59,48,.2)); }
+          50% { filter: drop-shadow(0 0 16px rgba(255,59,48,.4)); }
         }
       `}</style>
       <div 
         ref={containerRef}
-        id="ai-orbit"
-        className={`relative aspect-square min-h-[560px] md:min-h-[560px] sm:min-h-[360px] rounded-full overflow-hidden ${isAnimating && !isPaused ? 'sf-orbit-animate' : ''}`}
-        style={{
-          background: 'radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%)'
-        }}
+        id="sf-ai-governance"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onFocus={handleMouseEnter}
         onBlur={handleMouseLeave}
         tabIndex={0}
       >
-        {/* Four corner nodes */}
-        <div className="sf-node sf-node-1 absolute w-8 h-8 opacity-0" aria-hidden="true">
-          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
-        </div>
-        <div className="sf-node sf-node-2 absolute w-8 h-8 opacity-0" aria-hidden="true">
-          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
-        </div>
-        <div className="sf-node sf-node-3 absolute w-8 h-8 opacity-0" aria-hidden="true">
-          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
-        </div>
-        <div className="sf-node sf-node-4 absolute w-8 h-8 opacity-0" aria-hidden="true">
-          <Bot className="w-full h-full text-primary drop-shadow-lg" style={{ filter: 'drop-shadow(0 0 8px rgba(255,59,48,.35))' }} />
-        </div>
+        {/* Bot swarm nodes */}
+        {botNodes.map(bot => (
+          <div
+            key={bot.id}
+            className="bot"
+            style={getBotStyle(bot)}
+            aria-hidden="true"
+          >
+            <Bot className="w-full h-full text-primary" />
+          </div>
+        ))}
         
         {/* Central core bot */}
-        <div className="sf-core absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 opacity-0">
+        <div className="sf-core">
           <Bot className="w-full h-full text-primary" role="img" aria-label="AI core" />
         </div>
-        
-        {/* Ripple rings */}
-        <div className="sf-ripple-outer absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-primary/30 rounded-full opacity-0" aria-hidden="true" />
-        <div className="sf-ripple-inner absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 border-2 border-primary/40 rounded-full opacity-0" aria-hidden="true" />
       </div>
     </>
   );
@@ -764,7 +875,7 @@ const Salesforce = () => {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <AIOrbitAnimation />
+                <BotSwarmAnimation />
               </motion.div>
             </div>
           </div>

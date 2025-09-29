@@ -30,7 +30,62 @@ import { scrollToId } from "@/lib/scrollUtils";
 const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
+  const [activeSection, setActiveSection] = useState("overview");
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
+  const heroInView = useInView(heroRef);
+
+  // Navigation items (removed ROI, FAQ, Contact)
+  const navItems = [
+    { id: "overview", label: "Overview" },
+    { id: "clouds", label: "Clouds" },
+    { id: "ai-data", label: "AI & Data" },
+    { id: "approach", label: "Approach" },
+    { id: "accelerators", label: "Accelerators" },
+    { id: "case-studies", label: "Case Studies" }
+  ];
+
+  // Scroll spy effect
+  useEffect(() => {
+    const observers = navItems.map(item => {
+      const element = document.getElementById(item.id);
+      if (!element) return null;
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(item.id);
+          }
+        },
+        { rootMargin: "-20% 0px -60% 0px" }
+      );
+
+      observer.observe(element);
+      return observer;
+    });
+
+    return () => {
+      observers.forEach(observer => observer?.disconnect());
+    };
+  }, []);
+
+  // Carousel auto-rotation effect
+  useEffect(() => {
+    if (shouldReduceMotion || isCarouselPaused) return;
+
+    const interval = setInterval(() => {
+      setCurrentCardIndex((prev) => (prev + 1) % 3);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [shouldReduceMotion, isCarouselPaused]);
+
+  // Handle carousel pause
+  const handleCarouselPause = () => {
+    setIsCarouselPaused(true);
+    setTimeout(() => setIsCarouselPaused(false), 10000);
+  };
 
   // Animation variants
   const fadeUpVariants = {
@@ -183,7 +238,7 @@ const Salesforce = () => {
           </div>
 
           <div className="container mx-auto px-4 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
               {/* Left Content */}
               <div className="space-y-8">
                 <motion.div
@@ -194,7 +249,7 @@ const Salesforce = () => {
                 >
                   <motion.h1 
                     variants={fadeUpVariants}
-                    className="text-4xl md:text-6xl font-bold font-montserrat leading-tight"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat leading-tight"
                   >
                     Salesforce solutions that{" "}
                     <span className="text-primary">move faster</span>—and{" "}
@@ -203,7 +258,7 @@ const Salesforce = () => {
                   
                   <motion.p 
                     variants={fadeUpVariants}
-                    className="text-xl text-muted-foreground max-w-2xl"
+                    className="text-lg md:text-xl text-muted-foreground max-w-2xl"
                   >
                     From Sales/Service to Experience, Marketing, Commerce, and Data Cloud—with AI you can govern.
                   </motion.p>
@@ -247,51 +302,129 @@ const Salesforce = () => {
                 </motion.div>
               </div>
 
-              {/* Right Content - Animated Cards */}
+              {/* Right Content - Animated Carousel Cards */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative"
+                className="relative h-80 flex items-center justify-center"
+                onMouseEnter={handleCarouselPause}
+                onFocus={handleCarouselPause}
               >
-                <div className="relative">
-                  {cloudCards.slice(0, 3).map((card, index) => (
-                    <motion.div
-                      key={card.id}
-                      initial={{ opacity: 0, y: 50, rotate: -5 }}
-                      animate={{ 
-                        opacity: 1, 
-                        y: index * -10, 
-                        rotate: index * 2 - 2,
-                        x: index * 10 
+                <div className="relative w-80 h-64">
+                  {cloudCards.slice(0, 3).map((card, index) => {
+                    const isActive = index === currentCardIndex;
+                    const zIndex = isActive ? 10 : 3 - index;
+                    const opacity = isActive ? 1 : 0.7;
+                    const scale = isActive ? 1 : 0.95;
+                    const yOffset = isActive ? 0 : index * -8;
+                    const xOffset = isActive ? 0 : index * 8;
+                    const rotation = isActive ? 0 : (index - 1) * 2;
+
+                    return (
+                      <motion.div
+                        key={card.id}
+                        initial={{ opacity: 0, y: 50, rotate: -5 }}
+                        animate={{ 
+                          opacity,
+                          scale,
+                          y: yOffset, 
+                          x: xOffset,
+                          rotate: rotation,
+                          zIndex
+                        }}
+                        transition={{ 
+                          duration: shouldReduceMotion ? 0.2 : 0.6,
+                          ease: "easeInOut"
+                        }}
+                        className="absolute inset-0 cursor-pointer"
+                        onClick={() => setCurrentCardIndex(index)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter' || e.key === ' ') {
+                            setCurrentCardIndex(index);
+                            handleCarouselPause();
+                          }
+                        }}
+                        tabIndex={0}
+                        role="button"
+                        aria-label={`View ${card.title} details`}
+                      >
+                        <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors">
+                          <CardHeader>
+                            <CardTitle className="flex items-center gap-3 text-lg">
+                              <card.icon className="h-6 w-6 text-primary" />
+                              {card.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent>
+                            <p className="text-sm text-muted-foreground">
+                              {card.description}
+                            </p>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+                
+                {/* Carousel indicators */}
+                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
+                  {[0, 1, 2].map((index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setCurrentCardIndex(index);
+                        handleCarouselPause();
                       }}
-                      transition={{ 
-                        duration: 0.6, 
-                        delay: 0.4 + index * 0.1 
-                      }}
-                      className="absolute inset-0"
-                      style={{ zIndex: 3 - index }}
-                    >
-                      <Card className="w-80 h-48 bg-card/90 backdrop-blur border-primary/20">
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-3">
-                            <card.icon className="h-6 w-6 text-primary" />
-                            {card.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <p className="text-sm text-muted-foreground">
-                            {card.description}
-                          </p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
+                      className={`w-2 h-2 rounded-full transition-colors ${
+                        index === currentCardIndex ? 'bg-primary' : 'bg-muted-foreground/30'
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
                   ))}
                 </div>
               </motion.div>
             </div>
           </div>
         </section>
+
+        {/* Sticky Local Navigation */}
+        <motion.nav 
+          className={`sticky top-0 z-40 bg-[#1C1C1C]/70 backdrop-blur-md border-b transition-opacity duration-300 ${
+            !heroInView ? 'opacity-100' : 'opacity-0 pointer-events-none'
+          }`}
+          initial={{ y: -100 }}
+          animate={{ y: !heroInView ? 0 : -100 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="container mx-auto px-4">
+            <div className="flex items-center justify-center h-14">
+              <div className="flex items-center space-x-8">
+                {navItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToId(item.id)}
+                    className={`text-sm font-medium whitespace-nowrap transition-colors relative ${
+                      activeSection === item.id
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                    }`}
+                  >
+                    {item.label}
+                    {activeSection === item.id && (
+                      <motion.div
+                        className="absolute -bottom-3 left-0 right-0 h-0.5 bg-primary"
+                        layoutId="activeNavItem"
+                        initial={false}
+                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                      />
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </motion.nav>
 
         {/* Why Salesforce × Systechnosoft */}
         <section className="py-20 bg-muted/30">

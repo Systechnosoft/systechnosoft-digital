@@ -37,16 +37,12 @@ const BotSwarmAnimation: React.FC = () => {
 
     // Respect reduced motion
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const canvas = root.querySelector('.sf-bots') as HTMLCanvasElement;
+    const swarmContainer = root.querySelector('.sf-bot-swarm') as HTMLElement;
     const core = root.querySelector('.sf-core') as HTMLElement;
-    if (!canvas || !core) return;
-    
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!swarmContainer || !core) return;
 
     // Wave state management
     const state = {
-      dpr: Math.min(window.devicePixelRatio || 1, 2),
       w: 0, h: 0, r: 0,
       center: { x: 0, y: 0 },
       last: performance.now(),
@@ -63,11 +59,6 @@ const BotSwarmAnimation: React.FC = () => {
       state.w = Math.max(100, Math.floor(rect.width));
       state.h = Math.max(100, Math.floor(rect.height));
       state.r = Math.min(state.w, state.h) * 0.45; // slightly smaller for vanish radius
-      canvas.width = Math.floor(state.w * state.dpr);
-      canvas.height = Math.floor(state.h * state.dpr);
-      canvas.style.width = state.w + 'px';
-      canvas.style.height = state.h + 'px';
-      ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
       state.center.x = state.w / 2;
       state.center.y = state.h / 2;
       
@@ -93,6 +84,22 @@ const BotSwarmAnimation: React.FC = () => {
       return min + Math.random() * (max - min); 
     }
 
+    function createBotNode() {
+      const node = document.createElement('div');
+      node.classList.add('bot-node');
+      node.setAttribute('aria-hidden', 'true');
+      node.innerHTML = `
+        <svg class="mini-bot" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="9" width="14" height="10" rx="2"/>
+          <line x1="9" y1="13" x2="9" y2="13"/>
+          <line x1="15" y1="13" x2="15" y2="13"/>
+          <path d="M7 19h10"/>
+          <path d="M12 7v-2"/>
+          <circle cx="12" cy="4" r="1"/>
+        </svg>`;
+      return node;
+    }
+
     // Spawn a complete wave of 6 bots
     function spawnWave() {
       const emitters = getEmitterPositions();
@@ -104,8 +111,12 @@ const BotSwarmAnimation: React.FC = () => {
         const driftX = rand(-4, 4);
         const driftY = rand(-4, 4);
         
+        const node = createBotNode();
+        swarmContainer.appendChild(node);
+        
         newWave.push({
           id: Math.random(),
+          node,
           startX: em.x,
           startY: em.y,
           targetX: state.center.x + driftX,
@@ -127,23 +138,12 @@ const BotSwarmAnimation: React.FC = () => {
       return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
     }
 
-    function drawBot(bot: any) {
-      ctx.save();
-      ctx.globalAlpha = bot.alpha;
+    function updateBotPosition(bot: any) {
+      if (!bot.node) return;
       
-      // Outer glow
-      ctx.fillStyle = 'rgba(229, 38, 41, 0.55)';
-      ctx.beginPath();
-      ctx.arc(bot.x, bot.y, bot.size * 1.6, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Inner core
-      ctx.fillStyle = '#E52629';
-      ctx.beginPath();
-      ctx.arc(bot.x, bot.y, bot.size * 0.7, 0, Math.PI * 2);
-      ctx.fill();
-      
-      ctx.restore();
+      bot.node.style.left = `${bot.x - 9}px`; // Center the 18px node
+      bot.node.style.top = `${bot.y - 9}px`;
+      bot.node.style.opacity = bot.alpha;
     }
 
     function updateWave(now: number) {
@@ -170,8 +170,12 @@ const BotSwarmAnimation: React.FC = () => {
         if (distToCenter <= vanishRadius) {
           bot.vanished = true;
           anyVanished = true;
+          if (bot.node) {
+            bot.node.remove();
+            bot.node = null;
+          }
         } else {
-          drawBot(bot);
+          updateBotPosition(bot);
         }
       });
 
@@ -199,17 +203,11 @@ const BotSwarmAnimation: React.FC = () => {
 
       // Handle pause state
       if (state.paused) {
-        // When paused, still draw current bots but don't update positions or spawn
-        ctx.clearRect(0, 0, state.w, state.h);
-        state.currentWave.forEach(bot => {
-          if (!bot.vanished) drawBot(bot);
-        });
+        // When paused, keep current positions but don't update or spawn
         state.last = now;
         requestAnimationFrame(tick);
         return;
       }
-
-      ctx.clearRect(0, 0, state.w, state.h);
 
       // Spawn new wave if needed
       if (!state.waveActive && now >= state.nextWaveTime) {
@@ -257,7 +255,7 @@ const BotSwarmAnimation: React.FC = () => {
       state.last = performance.now();
       state.nextWaveTime = performance.now() + 1000; // First wave after 1s
       if (!reduced) requestAnimationFrame(tick);
-      else ctx.clearRect(0, 0, state.w, state.h); // static for reduced motion
+      // No canvas clearing needed for DOM-based approach
     }
 
     const handleResize = () => resize();
@@ -274,6 +272,10 @@ const BotSwarmAnimation: React.FC = () => {
       root.removeEventListener('focus', handleFocus);
       root.removeEventListener('blur', handleBlur);
       clearTimeout(pauseTimer);
+      // Clean up any remaining bot nodes
+      state.currentWave.forEach(bot => {
+        if (bot.node) bot.node.remove();
+      });
     };
   }, []);
 
@@ -283,7 +285,7 @@ const BotSwarmAnimation: React.FC = () => {
         [data-sf-einstein] {
           position: relative;
         }
-        [data-sf-einstein] .sf-bots {
+        [data-sf-einstein] .sf-bot-swarm {
           position: absolute; 
           inset: 0; 
           width: 100%; 
@@ -301,6 +303,26 @@ const BotSwarmAnimation: React.FC = () => {
           place-items: center; 
           z-index: 2;
         }
+        
+        /* Visual for moving bot nodes */
+        .sf-bot-swarm .bot-node {
+          position: absolute;
+          width: 18px; 
+          height: 18px;
+          background: transparent !important;
+          display: grid; 
+          place-items: center;
+          color: #E52629;
+          filter: drop-shadow(0 0 3px rgba(229, 38, 41, 0.25));
+          pointer-events: none;
+          opacity: 0.95;
+        }
+        .sf-bot-swarm .bot-node .mini-bot {
+          width: 16px; 
+          height: 16px;
+          transform: translateZ(0);
+        }
+        
         @keyframes sf-pulse {
           0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(229, 38, 41, 0)); }
           40% { transform: scale(1.08); filter: drop-shadow(0 0 14px rgba(229, 38, 41, 0.4)); }
@@ -310,10 +332,11 @@ const BotSwarmAnimation: React.FC = () => {
           animation: sf-pulse 520ms cubic-bezier(.22, 1, .36, 1); 
         }
         @media (prefers-reduced-motion: reduce) {
-          [data-sf-einstein] .sf-bots { display: none !important; }
+          [data-sf-einstein] .sf-bot-swarm { display: none !important; }
           [data-sf-einstein] .sf-core {
             animation: sf-breathe 3s ease-in-out infinite;
           }
+          .sf-bot-swarm .bot-node { filter: none; }
         }
         @keyframes sf-breathe {
           0%, 100% { filter: drop-shadow(0 0 0 rgba(229, 38, 41, 0)); }
@@ -334,7 +357,7 @@ const BotSwarmAnimation: React.FC = () => {
           background: 'radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%)'
         }}
       >
-        <canvas className="sf-bots" aria-hidden="true" />
+        <div className="sf-bot-swarm" aria-hidden="true" />
         <div className="sf-core" aria-hidden="true">
           <Bot className="w-full h-full text-primary" />
         </div>

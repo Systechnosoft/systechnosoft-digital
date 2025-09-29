@@ -12,6 +12,7 @@ import DataMigration from "./pages/DataMigration";
 import ManagedITServices from "./pages/ManagedITServices";
 import MicrosoftDynamics365 from "./pages/MicrosoftDynamics365";
 import BackupRecovery from "./pages/BackupRecovery";
+import Salesforce from "./pages/Salesforce";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +34,7 @@ const App = () => (
             <Route path="services/managed-it-services" element={<ManagedITServices />} />
             <Route path="services/microsoft-dynamics-365" element={<MicrosoftDynamics365 />} />
             <Route path="services/backup-recovery" element={<BackupRecovery />} />
+            <Route path="services/low-code/salesforce" element={<Salesforce />} />
             <Route path="contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

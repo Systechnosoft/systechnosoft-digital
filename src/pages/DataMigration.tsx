@@ -115,14 +115,6 @@ export default function DataMigration() {
           
           <div className="relative pt-32 pb-24 px-4">
             <div className="max-w-6xl mx-auto">
-              {/* Breadcrumb */}
-              <nav className="mb-8" aria-label="Breadcrumb">
-                <ol className="flex items-center space-x-2 text-sm text-white/70">
-                  <li><Link to="/" className="hover:text-white">Services</Link></li>
-                  <li className="before:content-['›'] before:mx-2">IT Solutions</li>
-                  <li className="before:content-['›'] before:mx-2 text-white font-medium">Data Migration</li>
-                </ol>
-              </nav>
 
               <div className="max-w-4xl mx-auto text-center">
                 <h1 className="font-montserrat font-bold text-6xl lg:text-7xl mb-6">

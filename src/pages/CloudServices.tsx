@@ -111,18 +111,6 @@ export default function CloudServices() {
       </Helmet>
 
       <main className="min-h-screen">
-        {/* Breadcrumbs */}
-        <nav className="bg-gray-50 py-3">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <ol className="flex items-center space-x-2 text-sm text-gray-600">
-              <li><Link to="/" className="hover:text-gray-900">Services</Link></li>
-              <ChevronRight className="h-4 w-4" />
-              <li><span className="text-gray-500">IT Solutions</span></li>
-              <ChevronRight className="h-4 w-4" />
-              <li><span className="text-gray-900 font-medium">Cloud Services</span></li>
-            </ol>
-          </div>
-        </nav>
 
         {/* Hero Section */}
         <section id="cloud-hero" className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white py-24">

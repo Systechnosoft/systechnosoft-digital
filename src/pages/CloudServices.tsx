@@ -1,6 +1,4 @@
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { useEffect, useReducer } from "react";
 import {
   Cloud,
   Shield,
@@ -21,67 +19,17 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-// Animation variants
-const fadeInUp = {
-  initial: { opacity: 0, y: 20 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6 }
-};
-
-const staggerContainer = {
-  animate: {
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
-
-// Animated particles component
+// Simple animated particles component with CSS animations
 const AnimatedParticles = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Animated nodes */}
-      <motion.div
-        className="absolute top-20 left-20 w-2 h-2 bg-[#E52629]/40 rounded-full"
-        animate={{
-          y: [-10, 10, -10],
-          x: [-5, 5, -5],
-          scale: [0.8, 1.2, 0.8],
-        }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut"
-        }}
-      />
-      <motion.div
-        className="absolute top-40 right-32 w-1.5 h-1.5 bg-[#007AFF]/40 rounded-full"
-        animate={{
-          y: [5, -15, 5],
-          x: [8, -3, 8],
-          scale: [1, 0.6, 1],
-        }}
-        transition={{
-          duration: 5,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 1
-        }}
-      />
-      <motion.div
-        className="absolute bottom-32 left-1/3 w-2.5 h-2.5 bg-white/20 rounded-full"
-        animate={{
-          y: [-8, 12, -8],
-          x: [-10, 6, -10],
-          scale: [0.9, 1.1, 0.9],
-        }}
-        transition={{
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: 2
-        }}
-      />
+      <div className="absolute top-20 left-20 w-2 h-2 bg-[#E52629]/40 rounded-full animate-pulse" 
+           style={{ animationDuration: '4s' }} />
+      <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-[#007AFF]/40 rounded-full animate-pulse" 
+           style={{ animationDuration: '5s', animationDelay: '1s' }} />
+      <div className="absolute bottom-32 left-1/3 w-2.5 h-2.5 bg-white/20 rounded-full animate-pulse" 
+           style={{ animationDuration: '6s', animationDelay: '2s' }} />
     </div>
   );
 };
@@ -216,35 +164,24 @@ export default function CloudServices() {
       {/* Hero Section */}
       <section className="relative pt-24 pb-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            className="max-w-4xl mx-auto text-center"
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-          >
-            <motion.div variants={fadeInUp} className="flex justify-center mb-6">
+          <div className="max-w-4xl mx-auto text-center animate-fade-in">
+            <div className="flex justify-center mb-6">
               <Badge variant="outline" className="border-[#E52629]/30 text-[#E52629] bg-[#E52629]/10 px-4 py-2">
                 <Cloud className="w-4 h-4 mr-2" />
                 Cloud Transformation
               </Badge>
-            </motion.div>
+            </div>
             
-            <motion.h1 
-              variants={fadeInUp}
-              className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent"
-            >
+            <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
               Cloud Services
-            </motion.h1>
+            </h1>
             
-            <motion.p 
-              variants={fadeInUp}
-              className="font-inter text-xl text-white/90 mb-8 leading-relaxed"
-            >
+            <p className="font-inter text-xl text-white/90 mb-8 leading-relaxed">
               Modernize, migrate, and operate securely across Azure, AWS, and Google Workspace—with measurable outcomes and zero-trust by design.
-            </motion.p>
+            </p>
 
             {/* KPI Chips */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap justify-center gap-4 mb-10">
+            <div className="flex flex-wrap justify-center gap-4 mb-10">
               <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
                 99.9% uptime designs
               </Badge>
@@ -254,10 +191,10 @@ export default function CloudServices() {
               <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
                 24×7 monitoring
               </Badge>
-            </motion.div>
+            </div>
 
             {/* CTAs */}
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact?subject=Cloud%20Services">
                 <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg">
                   Claim Your Free Insight
@@ -273,36 +210,24 @@ export default function CloudServices() {
                   Talk to an Architect
                 </Button>
               </Link>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* What We Deliver Section */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-4">What We Deliver</h2>
             <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
               Comprehensive cloud solutions designed for enterprise scale and security
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            variants={staggerContainer}
-            viewport={{ once: true }}
-            className="grid md:grid-cols-3 gap-8"
-          >
+          <div className="grid md:grid-cols-3 gap-8">
             {deliverables.map((item, index) => (
-              <motion.div key={index} variants={fadeInUp}>
+              <div key={index} className="animate-fade-in hover-scale">
                 <Card className="bg-white/5 border-white/10 backdrop-blur-sm h-full">
                   <CardContent className="p-8">
                     <item.icon className="h-12 w-12 text-[#E52629] mb-6" />
@@ -314,37 +239,25 @@ export default function CloudServices() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Services We Offer Section */}
       <section className="py-16 px-4 bg-black/20">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-4">Services We Offer</h2>
             <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
               End-to-end cloud migration and management services
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            variants={staggerContainer}
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {services.map((service, index) => (
-              <motion.div key={index} variants={fadeInUp}>
+              <div key={index} className="animate-fade-in hover-scale">
                 <Card className="bg-white/5 border-white/10 backdrop-blur-sm h-full hover:bg-white/10 transition-colors">
                   <CardContent className="p-6">
                     <service.icon className="h-10 w-10 text-[#007AFF] mb-4" />
@@ -364,37 +277,25 @@ export default function CloudServices() {
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* How We Migrate Section */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-4">How We Migrate</h2>
             <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
               Our proven 4-step migration methodology
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            variants={staggerContainer}
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {migrationSteps.map((step, index) => (
-              <motion.div key={index} variants={fadeInUp}>
+              <div key={index} className="animate-fade-in hover-scale">
                 <Card className="bg-gradient-to-b from-white/10 to-white/5 border-white/10 backdrop-blur-sm h-full">
                   <CardContent className="p-6 text-center">
                     <div className="text-2xl font-montserrat font-bold text-[#E52629] mb-4">
@@ -409,100 +310,72 @@ export default function CloudServices() {
                     </p>
                   </CardContent>
                 </Card>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Security by Design Section */}
       <section className="py-16 px-4 bg-black/20">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-4">Security by Design</h2>
             <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
               Zero-trust architecture principles built into every migration
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            variants={staggerContainer}
-            viewport={{ once: true }}
-            className="max-w-4xl mx-auto"
-          >
+          <div className="max-w-4xl mx-auto">
             <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
               <CardContent className="p-8">
                 <div className="space-y-4">
                   {securityFeatures.map((feature, index) => (
-                    <motion.div 
+                    <div 
                       key={index}
-                      variants={fadeInUp}
-                      className="flex items-start"
+                      className="flex items-start animate-fade-in"
+                      style={{ animationDelay: `${index * 0.1}s` }}
                     >
                       <CheckCircle className="h-5 w-5 text-[#E52629] mr-3 mt-0.5 flex-shrink-0" />
                       <span className="font-inter text-white/90">{feature}</span>
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Toolchain & Platforms Section */}
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-4">Toolchain & Platforms</h2>
             <p className="font-inter text-xl text-white/80">
               Industry-leading technologies we leverage
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-            className="flex flex-wrap justify-center gap-4"
-          >
+          <div className="flex flex-wrap justify-center gap-4">
             {platforms.map((platform, index) => (
               <Badge 
                 key={index}
                 variant="secondary" 
-                className="bg-white/10 text-white border-white/20 px-6 py-3 text-base"
+                className="bg-white/10 text-white border-white/20 px-6 py-3 text-base animate-fade-in"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {platform}
               </Badge>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
       <section className="py-24 px-4 bg-gradient-to-r from-[#E52629]/10 to-[#007AFF]/10">
         <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            viewport={{ once: true }}
-          >
+          <div className="animate-fade-in">
             <h2 className="font-montserrat font-bold text-4xl mb-6">
               Ready to Modernize Your Cloud Infrastructure?
             </h2>
@@ -527,7 +400,7 @@ export default function CloudServices() {
                 </Button>
               </Link>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

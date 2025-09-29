@@ -27,290 +27,305 @@ import {
 } from "lucide-react";
 import { scrollToId } from "@/lib/scrollUtils";
 
-// Bot Swarm Animation Component with Six Diagonal Flows
-interface BotNode {
-  id: string;
-  x: number;
-  y: number;
-  angle: number;
-  birthTime: number;
-  duration: number;
-  targetX: number;
-  targetY: number;
-}
-
+// Einstein AI Bot Swarm Animation - Canvas-based with Six Diagonal Emitters
 const BotSwarmAnimation: React.FC = () => {
-  const [botNodes, setBotNodes] = useState<BotNode[]>([]);
-  const [isHovered, setIsHovered] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [coreScale, setCoreScale] = useState(1);
   const containerRef = useRef<HTMLDivElement>(null);
-  const animationRef = useRef<number>();
-  const lastSpawnRef = useRef<number>(0);
-  const nextSpawnTimeRef = useRef<number>(450);
-  const idCounterRef = useRef<number>(0);
-  const introPhaseRef = useRef<boolean>(true);
 
-  // Check for reduced motion preference
-  const prefersReducedMotion = useReducedMotion();
-
-  // IntersectionObserver and visibility change handling
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) return;
+    const root = containerRef.current;
+    if (!root) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    );
-    observer.observe(container);
+    // Respect reduced motion
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const canvas = root.querySelector('.sf-bot-canvas') as HTMLCanvasElement;
+    const core = root.querySelector('.sf-bot-core') as HTMLElement;
+    if (!canvas || !core) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    const handleVisibilityChange = () => {
-      setIsVisible(!document.hidden);
+    // State management
+    const state = {
+      dpr: Math.min(window.devicePixelRatio || 1, 2),
+      w: 0, h: 0, r: 0,
+      center: { x: 0, y: 0 },
+      last: performance.now(),
+      paused: false,
+      inView: false,
+      bots: [] as any[],
+      fpsAvg: 60,
     };
-    document.addEventListener('visibilitychange', handleVisibilityChange);
 
+    const CFG = {
+      EMITTERS: 6,
+      EMIT_INTERVAL_MS: [1250, 1750],
+      MAX_BOTS: 18,
+      SPEED: [0.09, 0.14],
+      CURVE_NOISE: 0.18,
+      MERGE_RADIUS: 52,
+      HOVER_HOLD_MS: 10000,
+      GLOW_COLOR: 'rgba(255, 45, 45, 0.55)',
+      BOT_SIZE: [6, 10],
+    };
+
+    function resize() {
+      const rect = root.getBoundingClientRect();
+      state.w = Math.max(100, Math.floor(rect.width));
+      state.h = Math.max(100, Math.floor(rect.height));
+      state.r = Math.min(state.w, state.h) * 0.5;
+      canvas.width = Math.floor(state.w * state.dpr);
+      canvas.height = Math.floor(state.h * state.dpr);
+      canvas.style.width = state.w + 'px';
+      canvas.style.height = state.h + 'px';
+      ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
+      state.center.x = state.w / 2;
+      state.center.y = state.h / 2;
+    }
+
+    // Emitter positions: 6 points on circumference at 60° steps
+    function emitters() {
+      const list = [];
+      const angles = [30, 90, 150, 210, 270, 330]; // visually pleasing diagonals
+      for (const deg of angles) {
+        const rad = deg * Math.PI / 180;
+        list.push({
+          x: state.center.x + Math.cos(rad) * (state.r - 4),
+          y: state.center.y + Math.sin(rad) * (state.r - 4),
+          angle: rad,
+        });
+      }
+      return list;
+    }
+
+    const emittersCache: any[] = [];
+
+    function resetEmitters() {
+      emittersCache.length = 0;
+      emitters().forEach(e => emittersCache.push({ ...e, t: 0 }));
+    }
+
+    function rand(min: number, max: number) { 
+      return min + Math.random() * (max - min); 
+    }
+
+    function emitFrom(em: any) {
+      if (state.bots.length >= CFG.MAX_BOTS) return;
+      const size = rand(CFG.BOT_SIZE[0], CFG.BOT_SIZE[1]);
+      const speed = rand(CFG.SPEED[0], CFG.SPEED[1]) * Math.min(state.w, state.h);
+
+      // Slight curve toward center by bending the velocity vector
+      const toCx = state.center.x - em.x;
+      const toCy = state.center.y - em.y;
+      const dist = Math.hypot(toCx, toCy) || 1;
+      let vx = (toCx / dist) * speed;
+      let vy = (toCy / dist) * speed;
+
+      // Curve perturbation orthogonal to direction
+      const nx = -toCy / dist, ny = toCx / dist; // normal vector
+      const bend = (Math.random() * 2 - 1) * CFG.CURVE_NOISE * speed;
+      vx += nx * bend; 
+      vy += ny * bend;
+
+      state.bots.push({
+        x: em.x, y: em.y, vx, vy,
+        size, alpha: 1,
+        merging: false,
+      });
+    }
+
+    function scheduleEmission(now: number) {
+      const [minI, maxI] = CFG.EMIT_INTERVAL_MS;
+      for (const em of emittersCache) {
+        if (em.t === 0) em.t = now + rand(minI, maxI);
+        if (now >= em.t) {
+          emitFrom(em);
+          em.t = now + rand(minI, maxI);
+        }
+      }
+    }
+
+    function drawBot(b: any) {
+      ctx.save();
+      ctx.globalAlpha = b.alpha;
+      ctx.fillStyle = CFG.GLOW_COLOR;
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.size * 1.8, 0, Math.PI * 2);
+      ctx.fill();
+
+      // inner dot
+      ctx.fillStyle = '#ff2b2b';
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.size, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function tick(now: number) {
+      if (!state.inView || state.paused) { 
+        state.last = now; 
+        requestAnimationFrame(tick); 
+        return; 
+      }
+
+      const dt = Math.min(50, now - state.last); // clamp
+      state.last = now;
+
+      // FPS estimate
+      state.fpsAvg = state.fpsAvg * 0.92 + (1000 / Math.max(16.7, dt)) * 0.08;
+
+      ctx.clearRect(0, 0, state.w, state.h);
+
+      // emit
+      scheduleEmission(now);
+
+      const mr = CFG.MERGE_RADIUS;
+      const erased = [];
+      for (let i = 0; i < state.bots.length; i++) {
+        const b = state.bots[i];
+        // integrate
+        b.x += b.vx * dt / 16.7;
+        b.y += b.vy * dt / 16.7;
+
+        // check merge
+        const dx = b.x - state.center.x;
+        const dy = b.y - state.center.y;
+        if (!b.merging && (dx*dx + dy*dy) <= mr * mr) {
+          b.merging = true;
+        }
+        if (b.merging) {
+          b.alpha -= 0.08;
+          b.size *= 0.92;
+          if (b.alpha <= 0.02) { erased.push(i); continue; }
+        }
+
+        drawBot(b);
+      }
+
+      // remove merged
+      if (erased.length) {
+        for (let j = erased.length - 1; j >= 0; j--) state.bots.splice(erased[j], 1);
+        // pulse the core subtly on merge
+        core.classList.remove('sf-core-pulse');
+        // force reflow to restart animation
+        core.offsetWidth;
+        core.classList.add('sf-core-pulse');
+      }
+
+      // Adaptive throttle: if FPS dips, slow emissions temporarily
+      if (state.fpsAvg < 50 && CFG.EMIT_INTERVAL_MS[0] < 1600) {
+        CFG.EMIT_INTERVAL_MS[0] += 50; CFG.EMIT_INTERVAL_MS[1] += 50;
+      } else if (state.fpsAvg > 58 && CFG.EMIT_INTERVAL_MS[0] > 1200) {
+        CFG.EMIT_INTERVAL_MS[0] -= 25; CFG.EMIT_INTERVAL_MS[1] -= 25;
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    function pauseFor(ms: number) {
+      state.paused = true;
+      clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => { state.paused = false; }, ms);
+    }
+
+    let pauseTimer: NodeJS.Timeout | number;
+
+    // Visibility & interactions
+    const io = new IntersectionObserver((ents) => {
+      state.inView = ents.some(e => e.isIntersecting);
+    }, { threshold: 0.1 });
+    io.observe(root);
+
+    const handlePointerEnter = () => pauseFor(CFG.HOVER_HOLD_MS);
+    const handlePointerLeave = () => { state.paused = false; };
+    const handleClick = () => {
+      // mobile tap toggles pause/resume
+      state.paused = !state.paused;
+      if (!state.paused) pauseFor(0);
+    };
+
+    root.addEventListener('pointerenter', handlePointerEnter);
+    root.addEventListener('pointerleave', handlePointerLeave);
+    root.addEventListener('click', handleClick);
+
+    // Init
+    function start() {
+      resize(); 
+      resetEmitters();
+      state.inView = true;
+      state.last = performance.now();
+      if (!reduced) requestAnimationFrame(tick);
+      else ctx.clearRect(0, 0, state.w, state.h); // static for reduced motion
+    }
+
+    const handleResize = () => { resize(); resetEmitters(); };
+    window.addEventListener('resize', handleResize);
+    
+    start();
+
+    // Cleanup
     return () => {
-      observer.disconnect();
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      io.disconnect();
+      window.removeEventListener('resize', handleResize);
+      root.removeEventListener('pointerenter', handlePointerEnter);
+      root.removeEventListener('pointerleave', handlePointerLeave);
+      root.removeEventListener('click', handleClick);
+      clearTimeout(pauseTimer);
     };
   }, []);
-
-  // Hover handlers with pause logic
-  const handleMouseEnter = () => setIsHovered(true);
-  const handleMouseLeave = () => setIsHovered(false);
-
-  // Core micro-pulse trigger
-  const triggerCorePulse = () => {
-    setCoreScale(1.06);
-    setTimeout(() => setCoreScale(1), 200);
-  };
-
-  // Main animation loop
-  useEffect(() => {
-    if (!isVisible || prefersReducedMotion) return;
-
-    let animationActive = true;
-    const containerSize = window.innerWidth < 768 ? 360 : 560;
-    const centerX = containerSize / 2;
-    const centerY = containerSize / 2;
-    const radius = containerSize * 0.42;
-    const maxBots = window.innerWidth < 768 ? 18 : 36;
-    const absorbRadius = 18;
-    
-    // Six diagonal angles (0°, 60°, 120°, 180°, 240°, 300°)
-    const diagonals = [0, 60, 120, 180, 240, 300];
-    
-    // Initial intro sequence - spawn 4 bots from corners
-    const spawnIntroBots = () => {
-      const introBots: BotNode[] = [];
-      const introAngles = [45, 135, 225, 315]; // NE, SE, SW, NW corners
-      
-      introAngles.forEach((angle, i) => {
-        introBots.push({
-          id: `intro-${i}`,
-          x: centerX + radius * Math.cos((angle * Math.PI) / 180),
-          y: centerY + radius * Math.sin((angle * Math.PI) / 180),
-          angle: (angle * Math.PI) / 180,
-          birthTime: performance.now() + i * 100,
-          duration: 2000,
-          targetX: centerX,
-          targetY: centerY
-        });
-      });
-      
-      setBotNodes(introBots);
-      lastSpawnRef.current = performance.now();
-    };
-
-    // Start with intro
-    spawnIntroBots();
-    
-    const animate = (currentTime: number) => {
-      if (!animationActive) return;
-      
-      setBotNodes(prevNodes => {
-        // Update existing bots
-        const updatedNodes = prevNodes.map(bot => {
-          const elapsed = currentTime - bot.birthTime;
-          const progress = Math.min(elapsed / bot.duration, 1);
-          
-          if (progress >= 1) {
-            return null; // Mark for removal
-          }
-          
-          // Cubic-bezier easing (0.22, 1, 0.36, 1)
-          const t = progress;
-          const ease = 1 - Math.pow(1 - t, 3);
-          
-          // Calculate position with subtle drift
-          const startX = centerX + radius * Math.cos(bot.angle);
-          const startY = centerY + radius * Math.sin(bot.angle);
-          const noiseX = (Math.random() - 0.5) * 8; // ±4px drift
-          const noiseY = (Math.random() - 0.5) * 8;
-          
-          const x = startX + (centerX - startX) * ease + noiseX;
-          const y = startY + (centerY - startY) * ease + noiseY;
-          
-          return { ...bot, x, y };
-        }).filter(Boolean) as BotNode[];
-        
-        // Check for bots reaching absorb radius and trigger core pulse
-        const botsToRemove = updatedNodes.filter(bot => {
-          const distanceToCenter = Math.sqrt(
-            Math.pow(bot.x - centerX, 2) + Math.pow(bot.y - centerY, 2)
-          );
-          return distanceToCenter <= absorbRadius;
-        });
-        
-        // Trigger core pulse for each absorbed bot
-        if (botsToRemove.length > 0) {
-          triggerCorePulse();
-        }
-        
-        // Keep only bots outside absorb radius
-        const activeNodes = updatedNodes.filter(bot => {
-          const distanceToCenter = Math.sqrt(
-            Math.pow(bot.x - centerX, 2) + Math.pow(bot.y - centerY, 2)
-          );
-          return distanceToCenter > absorbRadius;
-        });
-        
-        // After intro phase (2.5s), start continuous spawning
-        if (introPhaseRef.current && currentTime - lastSpawnRef.current > 2500) {
-          introPhaseRef.current = false;
-        }
-        
-        // Continuous spawning logic (only if not paused by hover)
-        if (!introPhaseRef.current && !isHovered && activeNodes.length < maxBots) {
-          if (currentTime - lastSpawnRef.current >= nextSpawnTimeRef.current) {
-            // Pick random diagonal
-            const angle = diagonals[Math.floor(Math.random() * diagonals.length)];
-            
-            const newBot: BotNode = {
-              id: `bot-${idCounterRef.current++}`,
-              x: centerX + radius * Math.cos((angle * Math.PI) / 180),
-              y: centerY + radius * Math.sin((angle * Math.PI) / 180),
-              angle: (angle * Math.PI) / 180,
-              birthTime: currentTime,
-              duration: 2600 + Math.random() * 400, // 2.6-3.0s
-              targetX: centerX,
-              targetY: centerY
-            };
-            
-            activeNodes.push(newBot);
-            lastSpawnRef.current = currentTime;
-            nextSpawnTimeRef.current = 420 + Math.random() * 100; // 420-520ms
-          }
-        }
-        
-        // Cap at max bots for performance (remove oldest)
-        return activeNodes.slice(-maxBots);
-      });
-      
-      animationRef.current = requestAnimationFrame(animate);
-    };
-    
-    animationRef.current = requestAnimationFrame(animate);
-    
-    return () => {
-      animationActive = false;
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
-    };
-  }, [isVisible, isHovered, prefersReducedMotion]);
-
-  // Get bot styles with GPU acceleration
-  const getBotStyle = (bot: BotNode): React.CSSProperties => ({
-    position: 'absolute',
-    left: bot.x - 14, // Half of 28px
-    top: bot.y - 14,
-    transform: `scale(${0.6 + Math.sin((performance.now() - bot.birthTime) * 0.002) * 0.05})`,
-    opacity: Math.min((performance.now() - bot.birthTime) / 200, 1),
-    willChange: 'transform, opacity'
-  });
 
   return (
     <>
       <style>{`
-        #sf-ai-governance-visual {
+        [data-sf-einstein] {
           position: relative;
-          width: 100%;
-          min-height: 560px;
-          aspect-ratio: 1/1;
-          border-radius: 50%;
-          overflow: hidden;
-          background: radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%);
         }
-        
-        #botCore {
-          position: absolute;
-          left: 50%;
-          top: 50%;
-          width: 64px;
-          height: 64px;
-          transform: translate(-50%, -50%) scale(${coreScale});
-          filter: drop-shadow(0 0 12px rgba(255,59,48,.4));
-          animation: sf-core-pulse 2.2s ease-in-out infinite;
-          transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        [data-sf-einstein] .sf-bot-canvas {
+          position: absolute; 
+          inset: 0; 
+          width: 100%; 
+          height: 100%;
+          pointer-events: none; 
+          z-index: 1;
         }
-        
-        #botSwarm {
-          position: absolute;
-          inset: 0;
+        [data-sf-einstein] .sf-bot-core {
+          position: absolute; 
+          inset: 0; 
+          margin: auto; 
+          width: 72px; 
+          height: 72px;
+          display: grid; 
+          place-items: center; 
+          z-index: 2;
         }
-        
         @keyframes sf-core-pulse {
-          0%, 100% { filter: drop-shadow(0 0 12px rgba(255,59,48,.4)); }
-          50% { filter: drop-shadow(0 0 20px rgba(255,59,48,.6)); }
+          0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 43, 43, 0.0)); }
+          35% { transform: scale(1.08); filter: drop-shadow(0 0 12px rgba(255, 43, 43, 0.35)); }
+          100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 43, 43, 0.0)); }
         }
-        
-        .bot {
-          width: 28px;
-          height: 28px;
-          filter: drop-shadow(0 0 8px rgba(255,59,48,.35));
+        [data-sf-einstein] .sf-core-pulse { 
+          animation: sf-core-pulse 650ms cubic-bezier(.2,.8,.2,1); 
         }
-        
-        @media (max-width: 768px) {
-          #sf-ai-governance-visual { min-height: 360px; }
-        }
-        
         @media (prefers-reduced-motion: reduce) {
-          .bot { display: none !important; }
-          #botCore { 
-            animation: sf-core-breathe 3s ease-in-out infinite !important;
-          }
-        }
-        
-        @keyframes sf-core-breathe {
-          0%, 100% { filter: drop-shadow(0 0 8px rgba(255,59,48,.2)); }
-          50% { filter: drop-shadow(0 0 16px rgba(255,59,48,.4)); }
+          [data-sf-einstein] .sf-bot-canvas { display: none !important; }
         }
       `}</style>
       <div 
         ref={containerRef}
-        id="sf-ai-governance-visual"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-        onFocus={handleMouseEnter}
-        onBlur={handleMouseLeave}
-        tabIndex={0}
+        className="sf-einstein-governance"
+        data-sf-einstein
+        style={{
+          position: 'relative',
+          width: '100%',
+          minHeight: '560px',
+          aspectRatio: '1/1',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          background: 'radial-gradient(120% 120% at 60% 40%, rgba(255,59,48,.12), rgba(86,90,255,.10) 60%, transparent 100%)'
+        }}
       >
-        <div id="botSwarm" aria-hidden="true">
-          {botNodes.map(bot => (
-            <div
-              key={bot.id}
-              className="bot"
-              style={getBotStyle(bot)}
-            >
-              <Bot className="w-full h-full text-primary" />
-            </div>
-          ))}
-        </div>
-        
-        <div id="botCore">
-          <Bot className="w-full h-full text-primary" role="img" aria-label="AI core" />
+        <canvas className="sf-bot-canvas" aria-hidden="true" />
+        <div className="sf-bot-core" aria-hidden="true">
+          <Bot className="w-full h-full text-primary" />
         </div>
       </div>
     </>

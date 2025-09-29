@@ -19,7 +19,7 @@ import {
 
 const servicesData = {
   "IT Solutions": [
-    { name: "Cloud Services", href: "/services/cloud-services" },
+    { name: "Cloud Services", href: "/services/cloud" },
     { name: "Data Migration", href: "/services/data-migration" },
     { name: "Managed IT Services", href: "/services/managed-it-services" },
     { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365" },

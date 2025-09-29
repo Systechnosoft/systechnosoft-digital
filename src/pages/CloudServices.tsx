@@ -1,408 +1,693 @@
+import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import {
-  Cloud,
-  Shield,
-  Zap,
-  TrendingUp,
-  CheckCircle,
-  ArrowRight,
-  Globe,
-  Database,
-  Network,
+import { 
+  Cloud, 
+  Shield, 
+  Zap, 
+  TrendingUp, 
+  Database, 
   Lock,
-  BarChart3,
+  ArrowRight,
+  CheckCircle,
+  Server,
   Settings,
-  Users,
-  CloudRain,
+  Globe,
+  BarChart3,
+  ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 
-// Simple animated particles component with CSS animations
-const AnimatedParticles = () => {
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Animated nodes */}
-      <div className="absolute top-20 left-20 w-2 h-2 bg-[#E52629]/40 rounded-full animate-pulse" 
-           style={{ animationDuration: '4s' }} />
-      <div className="absolute top-40 right-32 w-1.5 h-1.5 bg-[#007AFF]/40 rounded-full animate-pulse" 
-           style={{ animationDuration: '5s', animationDelay: '1s' }} />
-      <div className="absolute bottom-32 left-1/3 w-2.5 h-2.5 bg-white/20 rounded-full animate-pulse" 
-           style={{ animationDuration: '6s', animationDelay: '2s' }} />
-    </div>
-  );
-};
-
-// Circuit pattern SVG
+// Background Components
 const CircuitPattern = () => (
-  <svg className="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 1200 800">
-    <defs>
-      <pattern id="circuit" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
-        <rect width="120" height="120" fill="transparent"/>
-        <path d="M20,20 L100,20 L100,40 M40,40 L40,80 L80,80 M80,60 L100,60 L100,100 L20,100 L20,80" 
-              stroke="currentColor" strokeWidth="0.5" fill="none"/>
-        <circle cx="20" cy="20" r="1.5" fill="currentColor"/>
-        <circle cx="100" cy="40" r="1.5" fill="currentColor"/>
-        <circle cx="40" cy="80" r="1.5" fill="currentColor"/>
-        <circle cx="100" cy="100" r="1.5" fill="currentColor"/>
-      </pattern>
-    </defs>
-    <rect width="100%" height="100%" fill="url(#circuit)" className="text-white"/>
-  </svg>
+  <div className="absolute inset-0 overflow-hidden opacity-30">
+    <svg 
+      width="100%" 
+      height="100%" 
+      className="absolute inset-0"
+      viewBox="0 0 400 400"
+      preserveAspectRatio="xMidYMid slice"
+    >
+      <defs>
+        <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+          <path 
+            d="M20 20h60M20 80h60M80 20v60M20 50h30v30h30" 
+            stroke="rgba(255,255,255,0.1)" 
+            strokeWidth="1" 
+            fill="none"
+          />
+          <circle cx="50" cy="50" r="3" fill="rgba(229, 38, 41, 0.3)" />
+          <circle cx="20" cy="20" r="2" fill="rgba(0, 122, 255, 0.3)" />
+          <circle cx="80" cy="80" r="2" fill="rgba(0, 122, 255, 0.3)" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#circuit)" />
+    </svg>
+  </div>
 );
 
-const deliverables = [
-  {
-    icon: Globe,
-    title: "Landing Zones & Governance",
-    description: "Well-architected foundations on Azure/AWS with identity, policy, networking, logging, cost guardrails.",
-  },
-  {
-    icon: Shield,
-    title: "Resilient Architecture",
-    description: "HA/DR patterns, backups, replication, and tested runbooks that hit your RTO/RPO.",
-  },
-  {
-    icon: BarChart3,
-    title: "Observability & FinOps",
-    description: "Unified monitoring, SLOs, cost visibility, and continuous optimization.",
-  },
+// Sub-navigation data
+const subNavItems = [
+  { id: "migrations", label: "Cloud Migrations" },
+  { id: "modernization", label: "Modernization & Re-platforming" },
+  { id: "security", label: "Security & IAM" },
+  { id: "devops", label: "DevOps / SRE" },
+  { id: "finops", label: "Cost Optimization (FinOps)" },
+  { id: "backup-dr", label: "Backup & DR" },
+  { id: "managed-ops", label: "Managed Cloud Ops" },
+  { id: "case-studies", label: "Case Studies" },
+  { id: "faq", label: "FAQ" }
 ];
 
-const services = [
-  {
-    icon: Cloud,
-    title: "Azure Migrations",
-    description: "Lift-and-shift, replatforming, AKS, Landing Zones, Entra ID, hybrid connectivity.",
-    features: ["Azure Landing Zones", "AKS Containers", "Entra ID Integration", "Hybrid Networking"]
+// Data structures
+const migrationServices = [
+  { 
+    icon: <Cloud className="h-6 w-6" />, 
+    title: "Azure to Azure / VMware to Azure",
+    description: "Seamless migration paths with minimal downtime"
   },
-  {
-    icon: Database,
-    title: "AWS Migrations",
-    description: "EC2/RDS/EKS, VPC/IAM, Control Tower, Organizations, hybrid and DR.",
-    features: ["AWS Control Tower", "EKS Kubernetes", "IAM & Organizations", "Disaster Recovery"]
+  { 
+    icon: <Server className="h-6 w-6" />, 
+    title: "AWS lift-and-shift & refactor",
+    description: "Optimized EC2, RDS, and EKS migrations"
   },
-  {
-    icon: Users,
-    title: "Google Workspace Migrations",
-    description: "Tenant moves, identity, email/calendar/docs, coexistence and cutover.",
-    features: ["Tenant Migration", "Identity Sync", "Email & Calendar", "Document Migration"]
+  { 
+    icon: <Globe className="h-6 w-6" />, 
+    title: "GCP workloads",
+    description: "Complete Google Cloud Platform transitions"
   },
-  {
-    icon: Network,
-    title: "SharePoint Migration",
-    description: "From on-prem or file shares to SharePoint Online—with governance and retention.",
-    features: ["On-Prem Migration", "File Share Import", "Governance Policies", "Retention Rules"]
+  { 
+    icon: <Database className="h-6 w-6" />, 
+    title: "Microsoft 365 & SharePoint",
+    description: "Modern workplace transformations"
   },
-  {
-    icon: Settings,
-    title: "SaaS Enablement & SSO",
-    description: "SaaS discovery, selection, SSO/MFA, provisioning, license hygiene, cost control.",
-    features: ["SaaS Discovery", "SSO/MFA Setup", "User Provisioning", "License Management"]
+  { 
+    icon: <Settings className="h-6 w-6" />, 
+    title: "Google Workspace",
+    description: "Collaborative cloud productivity suites"
   },
-  {
-    icon: CloudRain,
-    title: "Cloud Operations",
-    description: "Monitoring, alerting, backup/restore, incident/changes, patching, platform upgrades.",
-    features: ["24x7 Monitoring", "Backup & Restore", "Incident Response", "Patch Management"]
-  },
+  { 
+    icon: <ArrowRight className="h-6 w-6" />, 
+    title: "Tenant-to-tenant",
+    description: "Complex organizational mergers and splits"
+  }
 ];
 
-const migrationSteps = [
+const modernizationCards = [
   {
-    step: "01",
-    title: "Discover",
-    description: "Inventory, readiness, baselines, business drivers.",
-    icon: Database,
+    title: "Containerization (AKS/EKS/GKE)",
+    description: "Transform monoliths into scalable microservices with Kubernetes orchestration",
+    icon: <Server className="h-8 w-8" />
   },
   {
-    step: "02", 
-    title: "Plan",
-    description: "Landing zone, IAM, network, security, migration wave plan.",
-    icon: Settings,
+    title: "Serverless (Functions/Lambda/Cloud Run)",
+    description: "Event-driven architectures that scale automatically and reduce operational overhead",
+    icon: <Zap className="h-8 w-8" />
   },
   {
-    step: "03",
-    title: "Migrate", 
-    description: "Tools (Azure Migrate, DMS, AWS MGN), validation, cutover.",
-    icon: ArrowRight,
-  },
-  {
-    step: "04",
-    title: "Stabilize & Optimize",
-    description: "Hardening, SLOs, backups/DR, FinOps, handover.",
-    icon: TrendingUp,
-  },
+    title: "Data platforms (PaaS DB, managed Kafka)",
+    description: "Modernize data infrastructure with fully managed database and streaming platforms",
+    icon: <Database className="h-8 w-8" />
+  }
 ];
 
 const securityFeatures = [
-  "Identity & Access (Entra ID/AWS IAM, least privilege, conditional access, SSO/MFA)",
-  "Data Protection (encryption at rest/in transit, KMS, rotation, retention)",
-  "Network Security (private endpoints, WAF, NSGs/security groups, micro-seg)",
-  "Backup & DR (policy-backups, geo-redundancy, recovery tests)",
-  "Compliance (logs, audit trails, immutable archives, alerts)",
+  {
+    title: "Entra ID / SSO",
+    description: "Unified identity management across all cloud resources",
+    icon: <Lock className="h-6 w-6" />
+  },
+  {
+    title: "Privileged Access",
+    description: "Just-in-time access and zero-standing privileges",
+    icon: <Shield className="h-6 w-6" />
+  },
+  {
+    title: "CIS Benchmarks",
+    description: "Industry-standard security configurations",
+    icon: <CheckCircle className="h-6 w-6" />
+  },
+  {
+    title: "Posture mgmt (Defender, Security Hub)",
+    description: "Continuous security monitoring and compliance",
+    icon: <Settings className="h-6 w-6" />
+  }
 ];
 
-const platforms = ["Azure", "AWS", "Google Workspace", "Terraform", "GitHub"];
+const finopsCards = [
+  {
+    title: "Rightsizing",
+    description: "Optimize resource allocation for cost efficiency",
+    metric: "↓ 30-50% costs"
+  },
+  {
+    title: "Reservations/Savings Plans",
+    description: "Strategic capacity planning and commitment discounts",
+    metric: "↓ 20-40% costs"
+  },
+  {
+    title: "Storage tiering",
+    description: "Automated lifecycle policies for optimal storage costs",
+    metric: "↓ 60% storage costs"
+  },
+  {
+    title: "Idle kill-switches",
+    description: "Automated shutdown of unused resources",
+    metric: "↓ 15-25% costs"
+  }
+];
+
+const managedOpsFeatures = [
+  {
+    title: "24×7 NOC",
+    description: "Round-the-clock network operations center monitoring",
+    icon: <Globe className="h-6 w-6" />
+  },
+  {
+    title: "Patch mgmt",
+    description: "Automated security updates and maintenance windows",
+    icon: <Settings className="h-6 w-6" />
+  },
+  {
+    title: "Config drift",
+    description: "Infrastructure as Code compliance monitoring",
+    icon: <CheckCircle className="h-6 w-6" />
+  },
+  {
+    title: "Compliance (SOC2/ISO)",
+    description: "Continuous audit readiness and regulatory compliance",
+    icon: <Shield className="h-6 w-6" />
+  }
+];
+
+const caseStudies = [
+  {
+    title: "40% faster workflows",
+    industry: "Banking, AU",
+    description: "Streamlined cloud operations and automated deployments"
+  },
+  {
+    title: "30% ops efficiency",
+    industry: "Oil & Gas, US",
+    description: "Modernized infrastructure monitoring and incident response"
+  },
+  {
+    title: "50% faster intercompany",
+    industry: "UK FS",
+    description: "Optimized multi-tenant architecture and data flows"
+  }
+];
+
+const faqItems = [
+  {
+    question: "What are typical migration timelines?",
+    answer: "Migration timelines vary based on complexity. Simple lift-and-shift migrations typically take 2-4 months, while comprehensive modernization projects may span 6-12 months. We provide detailed project timelines during our discovery phase."
+  },
+  {
+    question: "How do you minimize downtime during migrations?",
+    answer: "We use proven migration strategies including blue-green deployments, database replication, and phased cutover approaches. Most migrations achieve less than 4 hours of planned downtime with comprehensive rollback procedures."
+  },
+  {
+    question: "What is the shared responsibility model?",
+    answer: "Cloud providers secure the infrastructure while you secure your data and applications. We help you understand and implement your responsibilities including identity management, network security, and data encryption."
+  },
+  {
+    question: "How do you ensure security during migration?",
+    answer: "We implement zero-trust security principles from day one, including encrypted data transfer, identity verification, network segmentation, and continuous security monitoring throughout the migration process."
+  },
+  {
+    question: "Do you support multi-cloud strategies?",
+    answer: "Yes, we design multi-cloud and hybrid cloud architectures based on your specific requirements. This includes workload distribution, data sovereignty considerations, and vendor risk management strategies."
+  },
+  {
+    question: "What ongoing support do you provide?",
+    answer: "We offer 24×7 managed services including monitoring, incident response, security patching, cost optimization, and regular architecture reviews to ensure your cloud infrastructure remains optimized and secure."
+  }
+];
 
 export default function CloudServices() {
+  const [activeSection, setActiveSection] = useState("migrations");
+
+  // Scroll spy effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = subNavItems.map(item => document.getElementById(item.id));
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = sections[i];
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(subNavItems[i].id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 160; // Account for sticky header and subnav
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#0b0f14] to-[#12161d] text-white">
-      {/* Background Elements */}
-      <div className="fixed inset-0 pointer-events-none">
-        <CircuitPattern />
-        
-        {/* Radial glows */}
-        <div className="absolute top-20 right-20 w-96 h-96 bg-[#E52629]/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-40 left-20 w-80 h-80 bg-[#007AFF]/20 rounded-full blur-3xl" />
-        
-        {/* Animated particles */}
-        <AnimatedParticles />
-      </div>
+    <>
+      <Helmet>
+        <title>Cloud Services | Systechnosoft Technologies</title>
+        <meta 
+          name="description" 
+          content="Secure, scalable cloud services—Azure, AWS, Google Cloud, M365/Workspace migrations, Zero-Trust IAM, DevOps/SRE, FinOps, Backup & DR, Managed Ops." 
+        />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Cloud Services",
+            "provider": {
+              "@type": "Organization",
+              "name": "Systechnosoft Technologies",
+              "url": "https://systechnosoft.com"
+            },
+            "areaServed": ["IN", "Global"],
+            "sameAs": "https://systechnosoft.com"
+          })}
+        </script>
+      </Helmet>
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="max-w-4xl mx-auto text-center animate-fade-in">
-            <div className="flex justify-center mb-6">
-              <Badge variant="outline" className="border-[#E52629]/30 text-[#E52629] bg-[#E52629]/10 px-4 py-2">
-                <Cloud className="w-4 h-4 mr-2" />
-                Cloud Transformation
-              </Badge>
-            </div>
-            
-            <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-white via-white to-white/80 bg-clip-text text-transparent">
-              Cloud Services
-            </h1>
-            
-            <p className="font-inter text-xl text-white/90 mb-8 leading-relaxed">
-              Modernize, migrate, and operate securely across Azure, AWS, and Google Workspace—with measurable outcomes and zero-trust by design.
-            </p>
+      <main className="min-h-screen">
+        {/* Breadcrumbs */}
+        <nav className="bg-muted/30 py-3">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <ol className="flex items-center space-x-2 text-sm text-muted-foreground">
+              <li><Link to="/" className="hover:text-foreground">Home</Link></li>
+              <ChevronRight className="h-4 w-4" />
+              <li><Link to="/services" className="hover:text-foreground">Services</Link></li>
+              <ChevronRight className="h-4 w-4" />
+              <li><span className="text-muted-foreground">IT Solutions</span></li>
+              <ChevronRight className="h-4 w-4" />
+              <li><span className="text-foreground font-medium">Cloud Services</span></li>
+            </ol>
+          </div>
+        </nav>
 
-            {/* KPI Chips */}
-            <div className="flex flex-wrap justify-center gap-4 mb-10">
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                99.9% uptime designs
-              </Badge>
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                Zero-trust aligned
-              </Badge>
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                24×7 monitoring
-              </Badge>
-            </div>
+        {/* Hero Section (Dark) */}
+        <section className="relative bg-gradient-to-br from-[hsl(var(--sys-black))] to-[hsl(var(--sys-charcoal))] text-white py-24">
+          <CircuitPattern />
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center">
+              <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
+                Cloud Services
+              </h1>
+              <p className="font-inter text-xl text-white/90 mb-8 max-w-3xl mx-auto">
+                Design, migrate, secure, and operate on Azure, AWS, and Google Cloud—with measurable outcomes.
+              </p>
+              
+              {/* Stat chips */}
+              <div className="flex flex-wrap justify-center gap-4 mb-12">
+                <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
+                  99.9% uptime designs
+                </Badge>
+                <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
+                  Zero-trust aligned
+                </Badge>
+                <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
+                  24×7 monitoring
+                </Badge>
+              </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?subject=Cloud%20Services">
-                <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg">
-                  Claim Your Free Insight
-                  <ArrowRight className="ml-2 h-5 w-5" />
+              {/* CTAs */}
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                  <Link to="/contact?topic=cloud-services">
+                    Claim Your Free Insight
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
                 </Button>
-              </Link>
-              <Link to="/contact?subject=Cloud%20Architecture">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
+                <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                  <Link to="/contact?topic=network-health">
+                    IT Network Health Check
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Sticky Sub-navigation */}
+        <div className="sticky top-16 z-40 bg-background/95 backdrop-blur-md border-b border-border">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex overflow-x-auto py-4 space-x-8 scrollbar-none">
+              {subNavItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={cn(
+                    "whitespace-nowrap px-3 py-2 text-sm font-medium transition-colors rounded-full",
+                    activeSection === item.id
+                      ? "bg-primary text-primary-foreground"
+                      : "text-muted-foreground hover:text-foreground"
+                  )}
                 >
-                  Talk to an Architect
-                </Button>
-              </Link>
-            </div>
+                  {item.label}
+                </button>
+              ))}
+            </nav>
           </div>
         </div>
-      </section>
 
-      {/* What We Deliver Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-4">What We Deliver</h2>
-            <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
-              Comprehensive cloud solutions designed for enterprise scale and security
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {deliverables.map((item, index) => (
-              <div key={index} className="animate-fade-in hover-scale">
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm h-full">
-                  <CardContent className="p-8">
-                    <item.icon className="h-12 w-12 text-[#E52629] mb-6" />
-                    <h3 className="font-montserrat font-semibold text-xl text-white mb-4">
-                      {item.title}
-                    </h3>
-                    <p className="font-inter text-white/80 leading-relaxed">
-                      {item.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Services We Offer Section */}
-      <section className="py-16 px-4 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-4">Services We Offer</h2>
-            <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
-              End-to-end cloud migration and management services
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <div key={index} className="animate-fade-in hover-scale">
-                <Card className="bg-white/5 border-white/10 backdrop-blur-sm h-full hover:bg-white/10 transition-colors">
-                  <CardContent className="p-6">
-                    <service.icon className="h-10 w-10 text-[#007AFF] mb-4" />
-                    <h3 className="font-montserrat font-semibold text-lg text-white mb-3">
-                      {service.title}
-                    </h3>
-                    <p className="font-inter text-white/80 text-sm mb-4 leading-relaxed">
-                      {service.description}
-                    </p>
-                    <div className="space-y-2">
-                      {service.features.map((feature, idx) => (
-                        <div key={idx} className="flex items-center text-sm text-white/70">
-                          <CheckCircle className="h-4 w-4 text-[#E52629] mr-2 flex-shrink-0" />
-                          {feature}
-                        </div>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How We Migrate Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-4">How We Migrate</h2>
-            <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
-              Our proven 4-step migration methodology
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {migrationSteps.map((step, index) => (
-              <div key={index} className="animate-fade-in hover-scale">
-                <Card className="bg-gradient-to-b from-white/10 to-white/5 border-white/10 backdrop-blur-sm h-full">
-                  <CardContent className="p-6 text-center">
-                    <div className="text-2xl font-montserrat font-bold text-[#E52629] mb-4">
-                      {step.step}
-                    </div>
-                    <step.icon className="h-10 w-10 text-white mx-auto mb-4" />
-                    <h3 className="font-montserrat font-semibold text-lg text-white mb-3">
-                      {step.title}
-                    </h3>
-                    <p className="font-inter text-white/80 text-sm leading-relaxed">
-                      {step.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Security by Design Section */}
-      <section className="py-16 px-4 bg-black/20">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-4">Security by Design</h2>
-            <p className="font-inter text-xl text-white/80 max-w-3xl mx-auto">
-              Zero-trust architecture principles built into every migration
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            <Card className="bg-white/5 border-white/10 backdrop-blur-sm">
-              <CardContent className="p-8">
-                <div className="space-y-4">
-                  {securityFeatures.map((feature, index) => (
-                    <div 
-                      key={index}
-                      className="flex items-start animate-fade-in"
-                      style={{ animationDelay: `${index * 0.1}s` }}
-                    >
-                      <CheckCircle className="h-5 w-5 text-[#E52629] mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="font-inter text-white/90">{feature}</span>
+        {/* Cloud Migrations Section (Light) */}
+        <section id="migrations" className="py-20 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-6 text-foreground">
+                  Cloud Migrations
+                </h2>
+                <div className="space-y-6">
+                  {migrationServices.map((service, index) => (
+                    <div key={index} className="flex items-start space-x-4">
+                      <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
+                        {service.icon}
+                      </div>
+                      <div>
+                        <h3 className="font-montserrat font-semibold text-lg mb-2">
+                          {service.title}
+                        </h3>
+                        <p className="text-muted-foreground">
+                          {service.description}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
-
-      {/* Toolchain & Platforms Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-4">Toolchain & Platforms</h2>
-            <p className="font-inter text-xl text-white/80">
-              Industry-leading technologies we leverage
-            </p>
-          </div>
-
-          <div className="flex flex-wrap justify-center gap-4">
-            {platforms.map((platform, index) => (
-              <Badge 
-                key={index}
-                variant="secondary" 
-                className="bg-white/10 text-white border-white/20 px-6 py-3 text-base animate-fade-in"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                {platform}
-              </Badge>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-4 bg-gradient-to-r from-[#E52629]/10 to-[#007AFF]/10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="animate-fade-in">
-            <h2 className="font-montserrat font-bold text-4xl mb-6">
-              Ready to Modernize Your Cloud Infrastructure?
-            </h2>
-            <p className="font-inter text-xl text-white/90 mb-8">
-              Get a free cloud readiness assessment and migration roadmap tailored to your business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?subject=Cloud%20Services">
-                <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg">
-                  Claim Your Free Insight
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/tools/health-check">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
-                >
-                  <Shield className="mr-2 h-5 w-5" />
-                  IT Network Health Check
-                </Button>
-              </Link>
+              </div>
+              
+              <div className="space-y-4">
+                <h3 className="font-montserrat font-semibold text-xl mb-6">Outcomes</h3>
+                <div className="flex flex-wrap gap-3">
+                  <Badge className="bg-green-100 text-green-800 px-4 py-2">
+                    Lower downtime
+                  </Badge>
+                  <Badge className="bg-blue-100 text-blue-800 px-4 py-2">
+                    Governed change
+                  </Badge>
+                  <Badge className="bg-purple-100 text-purple-800 px-4 py-2">
+                    Faster cutover
+                  </Badge>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+
+        {/* Modernization Section (Dark) */}
+        <section id="modernization" className="py-20 bg-gradient-to-br from-[hsl(var(--sys-black))] to-[hsl(var(--sys-charcoal))] text-white relative">
+          <div className="absolute inset-0 opacity-20">
+            <div className="absolute inset-0" style={{
+              backgroundImage: 'radial-gradient(circle at 2px 2px, rgba(255,255,255,0.15) 1px, transparent 0)',
+              backgroundSize: '40px 40px'
+            }} />
+          </div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Modernization & Re-platforming
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              {modernizationCards.map((card, index) => (
+                <Card key={index} className="bg-white/10 border-white/20 text-white">
+                  <CardContent className="p-6">
+                    <div className="text-primary mb-4">
+                      {card.icon}
+                    </div>
+                    <h3 className="font-montserrat font-semibold text-xl mb-3">
+                      {card.title}
+                    </h3>
+                    <p className="text-white/80">
+                      {card.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="text-center">
+              <p className="text-white/80 text-sm">
+                Blueprints + IaC (Bicep/Terraform) for reproducible releases.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Security & IAM Section (Light) */}
+        <section id="security" className="py-20 bg-muted/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Security & IAM
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              {securityFeatures.map((feature, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <div className="text-primary mb-4">
+                      {feature.icon}
+                    </div>
+                    <h3 className="font-montserrat font-semibold text-lg mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="bg-accent text-accent-foreground p-6 rounded-lg text-center">
+              <p className="font-medium">
+                Zero-Trust reference design included.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* DevOps / SRE Section (White) */}
+        <section id="devops" className="py-20 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              DevOps / SRE
+            </h2>
+            
+            <div className="text-center mb-12">
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
+                <Badge className="px-4 py-2 text-lg">CI/CD</Badge>
+                <Badge className="px-4 py-2 text-lg">GitOps</Badge>
+                <Badge className="px-4 py-2 text-lg">Observability (Grafana/Prometheus/App Insights/CloudWatch)</Badge>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-8 max-w-2xl mx-auto">
+                <div className="text-center p-6 bg-green-50 rounded-lg">
+                  <TrendingUp className="h-12 w-12 text-green-600 mx-auto mb-3" />
+                  <p className="font-semibold text-green-800">Mean Time to Recover ↓</p>
+                </div>
+                <div className="text-center p-6 bg-blue-50 rounded-lg">
+                  <BarChart3 className="h-12 w-12 text-blue-600 mx-auto mb-3" />
+                  <p className="font-semibold text-blue-800">Change Failure Rate ↓</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FinOps Section (Light) */}
+        <section id="finops" className="py-20 bg-muted/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Cost Optimization (FinOps)
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {finopsCards.map((card, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <h3 className="font-montserrat font-semibold text-lg mb-3">
+                      {card.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm mb-4">
+                      {card.description}
+                    </p>
+                    <Badge variant="secondary" className="text-green-700 bg-green-100">
+                      {card.metric}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Backup & DR Section (Dark) */}
+        <section id="backup-dr" className="py-20 bg-gradient-to-br from-[hsl(var(--sys-black))] to-[hsl(var(--sys-charcoal))] text-white relative">
+          <div className="absolute inset-0 opacity-30">
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `linear-gradient(45deg, transparent 45%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 55%),
+                                 linear-gradient(-45deg, transparent 45%, rgba(255,255,255,0.1) 49%, rgba(255,255,255,0.1) 51%, transparent 55%)`,
+                backgroundSize: '40px 40px'
+              }}
+            />
+          </div>
+          
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Backup & Disaster Recovery
+            </h2>
+            
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div className="space-y-6">
+                {["Remote backups", "Cloud data protection", "Hybrid/tiered storage", "Live archiving (outsourced)", "DR playbooks"].map((item, index) => (
+                  <div key={index} className="flex items-center space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0" />
+                    <span className="text-white/90">{item}</span>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="text-center">
+                <Badge className="bg-primary text-primary-foreground px-6 py-3 text-lg">
+                  RPO/RTO defined
+                </Badge>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Managed Ops Section (White) */}
+        <section id="managed-ops" className="py-20 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Managed Cloud Operations
+            </h2>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {managedOpsFeatures.map((feature, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6 text-center">
+                    <div className="text-primary mb-4 flex justify-center">
+                      {feature.icon}
+                    </div>
+                    <h3 className="font-montserrat font-semibold text-lg mb-3">
+                      {feature.title}
+                    </h3>
+                    <p className="text-muted-foreground text-sm">
+                      {feature.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Case Studies Section (Light) */}
+        <section id="case-studies" className="py-20 bg-muted/20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Case Studies
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {caseStudies.map((study, index) => (
+                <Card key={index} className="hover:shadow-lg transition-shadow">
+                  <CardContent className="p-6">
+                    <h3 className="font-montserrat font-semibold text-xl mb-2 text-primary">
+                      {study.title}
+                    </h3>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      {study.industry}
+                    </p>
+                    <p className="text-muted-foreground">
+                      {study.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section (White) */}
+        <section id="faq" className="py-20 bg-background">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+              Frequently Asked Questions
+            </h2>
+            
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqItems.map((item, index) => (
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="font-montserrat font-semibold text-left">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Final CTA Section (Dark) */}
+        <section className="py-20 bg-gradient-to-r from-[hsl(var(--sys-black))] to-[hsl(var(--sys-charcoal))] text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-6">
+              Ready to Modernize on the Cloud?
+            </h2>
+            <p className="text-xl text-white/90 mb-12 max-w-2xl mx-auto">
+              Start your cloud transformation journey with our expert team and proven methodologies.
+            </p>
+            
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90">
+                <Link to="/contact?topic=cloud-services">
+                  Claim Your Free Insight
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
+                <Link to="/contact?topic=solutions-architect">
+                  Talk to an Architect
+                </Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }

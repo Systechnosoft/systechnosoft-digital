@@ -26,7 +26,7 @@ const App = () => (
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="services" element={<Services />} />
-            <Route path="services/cloud-services" element={<CloudServices />} />
+            <Route path="services/cloud" element={<CloudServices />} />
             <Route path="services/data-migration" element={<DataMigration />} />
             <Route path="services/managed-it-services" element={<ManagedITServices />} />
             <Route path="services/microsoft-dynamics-365" element={<MicrosoftDynamics365 />} />

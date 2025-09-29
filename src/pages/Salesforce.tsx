@@ -75,7 +75,7 @@ const Salesforce = () => {
     if (shouldReduceMotion || isCarouselPaused) return;
 
     const interval = setInterval(() => {
-      setCurrentCardIndex((prev) => (prev + 1) % 3);
+      setCurrentCardIndex((prev) => (prev + 1) % 6);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -214,7 +214,11 @@ const Salesforce = () => {
         <link rel="canonical" href="https://systechnosoft.com/services/salesforce" />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background"
+        style={{
+          scrollMarginTop: '80px' // Account for local nav height
+        }}
+      >
         {/* Hero Section */}
         <section 
           ref={heroRef}
@@ -302,119 +306,121 @@ const Salesforce = () => {
                 </motion.div>
               </div>
 
-              {/* Right Content - Animated Carousel Cards */}
+              {/* Right Content - 6-Item Flip Carousel */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative h-80 flex items-center justify-center"
+                className="sf-hero-carousel relative h-80 flex items-center justify-center"
                 onMouseEnter={handleCarouselPause}
                 onFocus={handleCarouselPause}
+                role="region"
+                aria-label="Salesforce Cloud Services Carousel"
+                aria-live="polite"
               >
-                <div className="relative w-80 h-64">
-                  {cloudCards.slice(0, 3).map((card, index) => {
+                <div 
+                  className="relative w-80 h-64"
+                  style={{ perspective: '1000px' }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'ArrowLeft') {
+                      e.preventDefault();
+                      setCurrentCardIndex((prev) => (prev - 1 + 6) % 6);
+                      handleCarouselPause();
+                    } else if (e.key === 'ArrowRight') {
+                      e.preventDefault();
+                      setCurrentCardIndex((prev) => (prev + 1) % 6);
+                      handleCarouselPause();
+                    }
+                  }}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${cloudCards[currentCardIndex].title} card ${currentCardIndex + 1} of 6. Use arrow keys to navigate.`}
+                >
+                  {cloudCards.map((card, index) => {
                     const isActive = index === currentCardIndex;
-                    const zIndex = isActive ? 10 : 3 - index;
-                    const opacity = isActive ? 1 : 0.7;
-                    const scale = isActive ? 1 : 0.95;
-                    const yOffset = isActive ? 0 : index * -8;
-                    const xOffset = isActive ? 0 : index * 8;
-                    const rotation = isActive ? 0 : (index - 1) * 2;
-
+                    
                     return (
                       <motion.div
                         key={card.id}
-                        initial={{ opacity: 0, y: 50, rotate: -5 }}
+                        initial={{ rotateY: 180, opacity: 0 }}
                         animate={{ 
-                          opacity,
-                          scale,
-                          y: yOffset, 
-                          x: xOffset,
-                          rotate: rotation,
-                          zIndex
+                          rotateY: isActive ? 0 : 180,
+                          opacity: isActive ? 1 : 0,
+                          scale: isActive ? 1 : 0.8,
                         }}
                         transition={{ 
-                          duration: shouldReduceMotion ? 0.2 : 0.6,
+                          duration: shouldReduceMotion ? 0.2 : 0.5,
                           ease: "easeInOut"
                         }}
-                        className="absolute inset-0 cursor-pointer"
-                        onClick={() => setCurrentCardIndex(index)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' || e.key === ' ') {
-                            setCurrentCardIndex(index);
-                            handleCarouselPause();
-                          }
+                        className="absolute inset-0"
+                        style={{
+                          transformStyle: 'preserve-3d',
+                          perspective: '1000px',
+                          backfaceVisibility: 'hidden'
                         }}
-                        tabIndex={0}
-                        role="button"
-                        aria-label={`View ${card.title} details`}
                       >
-                        <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors">
+                        <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors shadow-lg">
                           <CardHeader>
                             <CardTitle className="flex items-center gap-3 text-lg">
-                              <card.icon className="h-6 w-6 text-primary" />
-                              {card.title}
+                              <card.icon className="h-6 w-6 text-primary flex-shrink-0" />
+                              <span>{card.title}</span>
                             </CardTitle>
                           </CardHeader>
                           <CardContent>
-                            <p className="text-sm text-muted-foreground">
+                            <p className="text-sm text-muted-foreground mb-3">
                               {card.description}
                             </p>
+                            <div className="space-y-1">
+                              {card.features.slice(0, 2).map((feature, featureIndex) => (
+                                <div key={featureIndex} className="flex items-center gap-2 text-xs text-muted-foreground">
+                                  <CheckCircle className="h-3 w-3 text-primary flex-shrink-0" />
+                                  <span>{feature}</span>
+                                </div>
+                              ))}
+                            </div>
                           </CardContent>
                         </Card>
                       </motion.div>
                     );
                   })}
                 </div>
-                
-                {/* Carousel indicators */}
-                <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2">
-                  {[0, 1, 2].map((index) => (
-                    <button
-                      key={index}
-                      onClick={() => {
-                        setCurrentCardIndex(index);
-                        handleCarouselPause();
-                      }}
-                      className={`w-2 h-2 rounded-full transition-colors ${
-                        index === currentCardIndex ? 'bg-primary' : 'bg-muted-foreground/30'
-                      }`}
-                      aria-label={`Go to slide ${index + 1}`}
-                    />
-                  ))}
-                </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Sticky Local Navigation */}
-        <motion.nav 
-          className={`sticky top-0 z-40 bg-[#1C1C1C]/70 backdrop-blur-md border-b transition-opacity duration-300 ${
-            !heroInView ? 'opacity-100' : 'opacity-0 pointer-events-none'
-          }`}
-          initial={{ y: -100 }}
-          animate={{ y: !heroInView ? 0 : -100 }}
-          transition={{ duration: 0.3 }}
+        {/* Local Section Navigation - Below Hero */}
+        <nav 
+          id="sf-localnav"
+          className="sf-localnav py-6 bg-background border-b border-muted/20"
+          role="navigation"
+          aria-label="Salesforce page sections"
         >
           <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center h-14">
-              <div className="flex items-center space-x-8">
+            <div className="flex items-center justify-center">
+              <div 
+                className="flex items-center space-x-8 overflow-x-auto md:overflow-visible"
+                style={{
+                  msOverflowStyle: 'none',
+                  scrollbarWidth: 'none'
+                }}
+              >
                 {navItems.map((item) => (
                   <button
                     key={item.id}
                     onClick={() => scrollToId(item.id)}
-                    className={`text-sm font-medium whitespace-nowrap transition-colors relative ${
+                    className={`text-sm font-medium whitespace-nowrap transition-colors relative py-2 px-4 rounded-full ${
                       activeSection === item.id
-                        ? "text-primary"
-                        : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary bg-primary/5"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                     }`}
+                    aria-current={activeSection === item.id ? "true" : "false"}
                   >
                     {item.label}
                     {activeSection === item.id && (
                       <motion.div
-                        className="absolute -bottom-3 left-0 right-0 h-0.5 bg-primary"
-                        layoutId="activeNavItem"
+                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full"
+                        layoutId="activeNavUnderline"
                         initial={false}
                         transition={{ type: "spring", stiffness: 380, damping: 30 }}
                       />
@@ -424,10 +430,10 @@ const Salesforce = () => {
               </div>
             </div>
           </div>
-        </motion.nav>
+        </nav>
 
         {/* Why Salesforce × Systechnosoft */}
-        <section className="py-20 bg-muted/30">
+        <section id="outcomes" className="py-20 bg-muted/30" style={{ marginTop: 0 }}>
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"

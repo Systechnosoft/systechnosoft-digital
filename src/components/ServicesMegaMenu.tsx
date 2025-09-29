@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Zap, Shield, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { scrollToId, isOnPage } from "@/lib/scrollUtils";
+
 import {
   Sheet,
   SheetContent,
@@ -19,11 +19,11 @@ import {
 
 const servicesData = {
   "IT Solutions": [
-    { name: "Cloud Services", href: "/services/it#cloud-services" },
-    { name: "Data Migration", href: "/services/it#data-migration" },
-    { name: "Managed IT Services", href: "/services/it#managed-it-services" },
-    { name: "Microsoft Dynamics 365", href: "/services/it#microsoft-dynamics-365" },
-    { name: "Data Backup & Recovery Services", href: "/services/it#backup-recovery" },
+    { name: "Cloud Services", href: "/services/cloud-services" },
+    { name: "Data Migration", href: "/services/data-migration" },
+    { name: "Managed IT Services", href: "/services/managed-it-services" },
+    { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365" },
+    { name: "Data Backup & Recovery Services", href: "/services/backup-recovery" },
   ],
   "Low Code": [
     { name: "Appian", href: "/services/appian#overview" },
@@ -61,7 +61,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
     if (!open) onClose();
   };
 
-  const handleLinkClick = (section: string, item: string, url: string, anchor?: string) => {
+  const handleLinkClick = (section: string, item: string, url: string) => {
     // Analytics
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'menu_link_click', {
@@ -69,14 +69,6 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         item,
         url
       });
-    }
-    
-    // Handle same-page navigation for IT Solutions
-    if (anchor && url.startsWith('/services/it#') && isOnPage('/services/it')) {
-      scrollToId(anchor, 96);
-      setIsOpen(false);
-      onClose();
-      return;
     }
     
     setIsOpen(false);
@@ -152,9 +144,8 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                           key={item.name}
                           to={item.href}
                           className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors min-h-[44px] flex items-center"
-                          onClick={() => {
-                            const anchor = item.href.includes('#') ? item.href.split('#')[1] : undefined;
-                            handleLinkClick(category, item.name, item.href, anchor);
+                           onClick={() => {
+                            handleLinkClick(category, item.name, item.href);
                           }}
                         >
                           {item.name}
@@ -255,10 +246,9 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                           key={item.name}
                           to={item.href}
                           className="group relative flex items-center px-0 py-2 text-[15px] text-white/90 hover:text-white transition-all duration-200 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-blue-500 before:absolute before:left-[-10px] before:top-1/2 before:h-4 before:w-1.5 before:-translate-y-1/2 before:rounded-full before:bg-[#E52629] before:opacity-0 before:transition-all before:duration-150 hover:before:opacity-100 focus:before:opacity-100"
-                          onClick={() => {
-                            const anchor = item.href.includes('#') ? item.href.split('#')[1] : undefined;
-                            handleLinkClick(category, item.name, item.href, anchor);
-                          }}
+                           onClick={() => {
+                             handleLinkClick(category, item.name, item.href);
+                           }}
                         >
                           <span className="font-inter">
                             {item.name}

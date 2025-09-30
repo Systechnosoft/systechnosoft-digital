@@ -13,6 +13,7 @@ import ManagedITServices from "./pages/ManagedITServices";
 import MicrosoftDynamics365 from "./pages/MicrosoftDynamics365";
 import BackupRecovery from "./pages/BackupRecovery";
 import Salesforce from "./pages/Salesforce";
+import AIAutomation from "./pages/AIAutomation";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="services/microsoft-dynamics-365" element={<MicrosoftDynamics365 />} />
             <Route path="services/backup-recovery" element={<BackupRecovery />} />
             <Route path="services/salesforce" element={<Salesforce />} />
+            <Route path="ai-automation" element={<AIAutomation />} />
             {/* Redirect old Salesforce route */}
             <Route path="services/low-code/salesforce" element={<Navigate to="/services/salesforce" replace />} />
             <Route path="services/low-code/salesforce/*" element={<Navigate to="/services/salesforce" replace />} />

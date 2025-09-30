@@ -141,8 +141,8 @@ const BotSwarmAnimation: React.FC = () => {
     function updateBotPosition(bot: any) {
       if (!bot.node) return;
       
-      bot.node.style.left = `${bot.x - 9}px`; // Center the 18px node
-      bot.node.style.top = `${bot.y - 9}px`;
+      bot.node.style.left = `${bot.x}px`; // Center the 54px node with transform
+      bot.node.style.top = `${bot.y}px`;
       bot.node.style.opacity = bot.alpha;
     }
 
@@ -304,22 +304,23 @@ const BotSwarmAnimation: React.FC = () => {
           z-index: 2;
         }
         
-        /* Visual for moving bot nodes */
+        /* Visual for moving bot nodes - 3x bigger */
         .sf-bot-swarm .bot-node {
           position: absolute;
-          width: 18px; 
-          height: 18px;
+          width: 54px; 
+          height: 54px;
           background: transparent !important;
           display: grid; 
           place-items: center;
           color: #E52629;
-          filter: drop-shadow(0 0 3px rgba(229, 38, 41, 0.25));
+          filter: drop-shadow(0 0 9px rgba(229, 38, 41, 0.25));
           pointer-events: none;
           opacity: 0.95;
+          transform: translate(-50%, -50%);
         }
         .sf-bot-swarm .bot-node .mini-bot {
-          width: 16px; 
-          height: 16px;
+          width: 48px; 
+          height: 48px;
           transform: translateZ(0);
         }
         
@@ -842,18 +843,15 @@ const Salesforce = () => {
                         </CardTitle>
                         <p className="text-sm text-muted-foreground">{cloud.description}</p>
                       </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {cloud.features.map((feature, idx) => (
-                            <li key={idx} className="flex items-center gap-2 text-sm">
-                              <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-                        <Button variant="outline" className="w-full mt-4 group-hover:bg-primary group-hover:text-primary-foreground">
-                          Learn More <ChevronRight className="ml-2 h-4 w-4" />
-                        </Button>
+                       <CardContent className="pb-6">
+                         <ul className="space-y-2">
+                           {cloud.features.map((feature, idx) => (
+                             <li key={idx} className="flex items-center gap-2 text-sm">
+                               <CheckCircle className="h-4 w-4 text-primary flex-shrink-0" />
+                               {feature}
+                             </li>
+                           ))}
+                         </ul>
                       </CardContent>
                     </Card>
                   </motion.div>

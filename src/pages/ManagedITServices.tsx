@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 
   Shield, 
@@ -15,6 +16,15 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+const heroCards = [
+  { icon: "🎧", title: "24×7 Helpdesk", benefit: "Multi-channel L1-L2 support with SLAs" },
+  { icon: "🔧", title: "Onsite Support", benefit: "Scheduled visits & emergency dispatch" },
+  { icon: "🌐", title: "Network Management", benefit: "Switching, routing, NAC, policy control" },
+  { icon: "📊", title: "RMM", benefit: "Endpoint monitoring & patch management" },
+  { icon: "🔐", title: "Security Monitoring", benefit: "AD health, firewall, event logs" },
+  { icon: "📡", title: "Wireless Solutions", benefit: "Wi-Fi planning, deployment, optimization" }
+];
 
 export default function ManagedITServices() {
   const [activeSection, setActiveSection] = useState("helpdesk");
@@ -209,86 +219,83 @@ export default function ManagedITServices() {
       </Helmet>
 
       <div className="min-h-screen bg-background text-foreground">
-        {/* Hero Section - Dark */}
-        <section className="relative bg-gradient-to-b from-[#1C1C1C] to-[#3C3C3C] text-white overflow-hidden">
-          {/* Tech Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <svg className="w-full h-full" viewBox="0 0 1000 600" fill="none">
-              <path d="M100 100L200 100L200 200M200 100L300 200L400 100M500 150L600 50L700 150M300 300L400 200L500 300M600 350L700 250L800 350" 
-                    stroke="currentColor" strokeWidth="2" />
-              <circle cx="150" cy="150" r="5" fill="currentColor" />
-              <circle cx="350" cy="150" r="5" fill="currentColor" />
-              <circle cx="550" cy="100" r="5" fill="currentColor" />
-              <circle cx="750" cy="200" r="5" fill="currentColor" />
-            </svg>
-          </div>
+        {/* Hero Section */}
+        <HeroBackground>
+          <section className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column */}
+                <div className="text-center lg:text-left">
+                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+                    Managed IT Services
+                  </h1>
+                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
+                    Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
+                  </p>
+                  
+                  {/* Hero Chips */}
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12">
+                    <span className="px-4 py-2 bg-[#E52629]/10 border border-[#E52629]/20 rounded-full text-sm font-medium text-[#E52629]">
+                      24×7 monitoring
+                    </span>
+                    <span className="px-4 py-2 bg-[#007AFF]/10 border border-[#007AFF]/20 rounded-full text-sm font-medium text-[#007AFF]">
+                      SLA-backed
+                    </span>
+                    <span className="px-4 py-2 bg-[#E52629]/10 border border-[#E52629]/20 rounded-full text-sm font-medium text-[#E52629]">
+                      Zero‑trust aligned
+                    </span>
+                  </div>
+                  
+                  {/* CTAs */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Link to="/contact">
+                      <Button 
+                        size="lg" 
+                        className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold"
+                        onClick={() => {
+                          // GA event tracking
+                          if (typeof window !== 'undefined' && (window as any).gtag) {
+                            (window as any).gtag('event', 'cta_it_health_check', {
+                              page_location: window.location.href,
+                              page_title: document.title
+                            });
+                          }
+                        }}
+                      >
+                        <Shield className="mr-2 h-5 w-5" />
+                        IT Network Health Check
+                      </Button>
+                    </Link>
+                    <Link to="/contact">
+                      <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                        onClick={() => {
+                          // GA event tracking  
+                          if (typeof window !== 'undefined' && (window as any).gtag) {
+                            (window as any).gtag('event', 'cta_free_insight', {
+                              page_location: window.location.href,
+                              page_title: document.title
+                            });
+                          }
+                        }}
+                      >
+                        Claim Your Free Insight
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
 
-          <div className="relative max-w-6xl mx-auto px-4 py-24">
-
-            <div className="text-center">
-              <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6">
-                Managed IT Services
-              </h1>
-              <p className="font-inter text-xl lg:text-2xl text-white/90 mb-8 max-w-4xl mx-auto">
-                Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
-              </p>
-              
-              {/* Hero Chips */}
-              <div className="flex flex-wrap justify-center gap-3 mb-12">
-                <span className="px-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm font-medium">
-                  24×7 monitoring
-                </span>
-                <span className="px-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm font-medium">
-                  SLA-backed
-                </span>
-                <span className="px-4 py-2 bg-white/10 border border-white/20 rounded-full text-sm font-medium">
-                  Zero‑trust aligned
-                </span>
-              </div>
-              
-              {/* CTAs */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
-                  <Button 
-                    size="lg" 
-                    className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg"
-                    onClick={() => {
-                      // GA event tracking
-                      if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'cta_it_health_check', {
-                          page_location: window.location.href,
-                          page_title: document.title
-                        });
-                      }
-                    }}
-                  >
-                    <Shield className="mr-2 h-5 w-5" />
-                    IT Network Health Check
-                  </Button>
-                </Link>
-                <Link to="/contact">
-                  <Button 
-                    variant="outline" 
-                    size="lg" 
-                    className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
-                    onClick={() => {
-                      // GA event tracking  
-                      if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'cta_free_insight', {
-                          page_location: window.location.href,
-                          page_title: document.title
-                        });
-                      }
-                    }}
-                  >
-                    Claim Your Free Insight
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
-                </Link>
+                {/* Right Column - Rotating Cards */}
+                <div className="flex justify-center lg:justify-end">
+                  <HeroMotionSystem cards={heroCards} ariaLabel="Managed IT highlights" />
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </HeroBackground>
 
 
         {/* Service Tiles - Light Background */}
@@ -342,20 +349,20 @@ export default function ManagedITServices() {
           </div>
         </section>
 
-        {/* Final CTA - Dark */}
-        <section className="py-20 bg-gradient-to-b from-[#1C1C1C] to-[#3C3C3C] text-white">
+        {/* Final CTA */}
+        <section className="py-20 bg-white border-t border-[#E6E6E6]">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6">
+            <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6 text-[#1C1C1C]">
               Ready to Transform Your IT Operations?
             </h2>
-            <p className="font-inter text-xl text-white/90 mb-8">
+            <p className="font-inter text-xl text-[#3C3C3C] mb-8">
               Let's discuss how our managed IT services can improve your uptime, security, and operational efficiency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button 
                   size="lg" 
-                  className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg"
+                  className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold"
                 >
                   Schedule a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -365,7 +372,7 @@ export default function ManagedITServices() {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
                 >
                   Explore All Services
                 </Button>

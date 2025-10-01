@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 
   ChevronRight,
@@ -64,6 +65,15 @@ const subNavItems = [
   { id: "migration", label: "Migration" },
   { id: "support", label: "Support" },
   { id: "copilot", label: "Copilot & Power Platform" }
+];
+
+const heroCards = [
+  { icon: "💼", title: "Sales Cloud", benefit: "Lead routing, AI scoring, CPQ integration" },
+  { icon: "🎧", title: "Service Cloud", benefit: "Omnichannel support, case management" },
+  { icon: "💰", title: "Finance & Operations", benefit: "GL, AP/AR, budgeting, reporting" },
+  { icon: "📦", title: "Supply Chain", benefit: "Inventory, procurement, warehouse mgmt" },
+  { icon: "👥", title: "HR & Talent", benefit: "Recruitment, onboarding, payroll" },
+  { icon: "🤖", title: "AI & Copilot", benefit: "Intelligent automation & insights" }
 ];
 
 export default function MicrosoftDynamics365() {
@@ -154,42 +164,53 @@ export default function MicrosoftDynamics365() {
       <main className="min-h-screen">
 
         {/* Hero Section */}
-        <section id="hero" className="relative bg-gradient-to-br from-gray-900 to-gray-800 text-white py-24">
-          <CircuitPattern />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl mb-6">
-              Microsoft Dynamics 365
-            </h1>
-            <p className="text-xl text-white/90 mb-8 max-w-4xl mx-auto">
-              Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale.
-            </p>
-            
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <Badge className="bg-white/10 text-white border-white/20 px-4 py-2">99.9% uptime architectures</Badge>
-              <Badge className="bg-white/10 text-white border-white/20 px-4 py-2">Zero‑trust aligned</Badge>
-              <Badge className="bg-white/10 text-white border-white/20 px-4 py-2">Azure-native integrations</Badge>
-            </div>
+        <HeroBackground>
+          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column */}
+                <div className="text-center lg:text-left">
+                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+                    Microsoft Dynamics 365
+                  </h1>
+                  <p className="text-xl text-[#3C3C3C] mb-8 max-w-4xl">
+                    Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale.
+                  </p>
+                  
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12">
+                    <Badge className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">99.9% uptime architectures</Badge>
+                    <Badge className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">Zero‑trust aligned</Badge>
+                    <Badge className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">Azure-native integrations</Badge>
+                  </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90" 
-                      onClick={() => {
-                        if (typeof window !== 'undefined' && (window as any).gtag) {
-                          (window as any).gtag('event', 'svc_d365_hero_cta', {
-                            cta: 'claim_free_insight'
-                          });
-                        }
-                      }}>
-                <Link to="/contact?src=d365-hero">
-                  Claim Your Free Insight 
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                <Link to="/contact?type=expert-talk">Talk to an Expert</Link>
-              </Button>
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 px-8 py-4 text-lg font-semibold" 
+                            onClick={() => {
+                              if (typeof window !== 'undefined' && (window as any).gtag) {
+                                (window as any).gtag('event', 'svc_d365_hero_cta', {
+                                  cta: 'claim_free_insight'
+                                });
+                              }
+                            }}>
+                      <Link to="/contact?src=d365-hero">
+                        Claim Your Free Insight 
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Link>
+                    </Button>
+                    <Button asChild variant="outline" size="lg" className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold">
+                      <Link to="/contact?type=expert-talk">Talk to an Expert</Link>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Right Column - Rotating Cards */}
+                <div className="flex justify-center lg:justify-end">
+                  <HeroMotionSystem cards={heroCards} ariaLabel="Dynamics 365 highlights" />
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </HeroBackground>
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
@@ -266,10 +287,9 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Consulting Section */}
-        <section id="consulting" ref={(el) => (sectionsRef.current[1] = el)} className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
-          <CircuitPattern />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+        <section id="consulting" ref={(el) => (sectionsRef.current[1] = el)} className="py-20 bg-white border-t border-[#E6E6E6]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
               Advisory & Roadmapping
             </h2>
             
@@ -278,49 +298,49 @@ export default function MicrosoftDynamics365() {
                 <div className="flex items-start space-x-4">
                   <Eye className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Current‑state assessment & process mapping</h3>
-                    <p className="text-white/80">Comprehensive analysis of existing systems and workflows</p>
+                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Current‑state assessment & process mapping</h3>
+                    <p className="text-[#3C3C3C]">Comprehensive analysis of existing systems and workflows</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
                   <Target className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Solution blueprinting</h3>
-                    <p className="text-white/80">Sales, Service, Finance, and Supply Chain architecture design</p>
+                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Solution blueprinting</h3>
+                    <p className="text-[#3C3C3C]">Sales, Service, Finance, and Supply Chain architecture design</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
                   <Shield className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Security & compliance planning</h3>
-                    <p className="text-white/80">DLP, governance, and regulatory alignment strategies</p>
+                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Security & compliance planning</h3>
+                    <p className="text-[#3C3C3C]">DLP, governance, and regulatory alignment strategies</p>
                   </div>
                 </div>
                 <div className="flex items-start space-x-4">
                   <Workflow className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Rollout roadmap & change management</h3>
-                    <p className="text-white/80">Phased implementation with user adoption strategies</p>
+                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Rollout roadmap & change management</h3>
+                    <p className="text-[#3C3C3C]">Phased implementation with user adoption strategies</p>
                   </div>
                 </div>
               </div>
               
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
                 <CardHeader>
-                  <CardTitle>Deliverables</CardTitle>
+                  <CardTitle className="text-[#1C1C1C]">Deliverables</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-400" />
-                    <span>Discovery report with recommendations</span>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-[#1C1C1C]">Discovery report with recommendations</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-400" />
-                    <span>Solution architecture deck</span>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-[#1C1C1C]">Solution architecture deck</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-400" />
-                    <span>Phased rollout plan with timelines</span>
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span className="text-[#1C1C1C]">Phased rollout plan with timelines</span>
                   </div>
                 </CardContent>
               </Card>

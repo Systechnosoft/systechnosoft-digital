@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+const heroCards = [
+  { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
+  { icon: "💾", title: "Data Protection", benefit: "Immutable backups, WORM, S3 Object Lock" },
+  { icon: "🔄", title: "Disaster Recovery", benefit: "Cross-region failover, automated drills" },
+  { icon: "🔐", title: "Security & Compliance", benefit: "Encrypted at rest & in transit" },
+  { icon: "📊", title: "Hybrid Storage", benefit: "On-prem + cloud tiers for durability" },
+  { icon: "⏱️", title: "Fast Recovery", benefit: "RPO 15 min, RTO < 2hrs for tier-1" }
+];
 
 export default function BackupRecovery() {
   return (
@@ -22,56 +32,61 @@ export default function BackupRecovery() {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section id="hero" className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white py-24 overflow-hidden">
-          {/* Animated background circuit pattern */}
-          <div className="absolute inset-0 opacity-20">
-            <div className="absolute top-1/4 left-1/4 w-32 h-32 border border-blue-500/30 rounded-full animate-pulse"></div>
-            <div className="absolute top-3/4 right-1/4 w-24 h-24 border border-red-500/30 rounded-full animate-pulse delay-1000"></div>
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 border border-blue-400/20 rounded-full animate-pulse delay-500"></div>
-          </div>
-          
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="font-montserrat font-bold text-5xl md:text-6xl mb-6">
-              Data Backup & Recovery Services
-            </h1>
-            <p className="font-inter text-xl md:text-2xl text-gray-300 mb-8 max-w-4xl mx-auto">
-              Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
-            </p>
-            
-            {/* Badge Pills */}
-            <div className="flex flex-wrap justify-center gap-3 mb-12">
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                99.9%+ restore success (tests)
-              </Badge>
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                Zero-trust aligned
-              </Badge>
-              <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                24×7 monitoring
-              </Badge>
+        <HeroBackground>
+          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column */}
+                <div className="text-center lg:text-left">
+                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+                    Data Backup & Recovery Services
+                  </h1>
+                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
+                    Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
+                  </p>
+                  
+                  {/* Badge Pills */}
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12">
+                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                      99.9%+ restore success (tests)
+                    </Badge>
+                    <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
+                      Zero-trust aligned
+                    </Badge>
+                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                      24×7 monitoring
+                    </Badge>
+                  </div>
+                  
+                  {/* CTAs */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Link to="/contact">
+                      <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
+                        Claim Your Free Insight
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                    <Link to="/contact?topic=dr-readiness">
+                      <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                      >
+                        <Shield className="mr-2 h-5 w-5" />
+                        Request DR Review
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+
+                {/* Right Column - Rotating Cards */}
+                <div className="flex justify-center lg:justify-end">
+                  <HeroMotionSystem cards={heroCards} ariaLabel="Backup and recovery highlights" />
+                </div>
+              </div>
             </div>
-            
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact">
-                <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg">
-                  Claim Your Free Insight
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/contact?topic=dr-readiness">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
-                >
-                  <Shield className="mr-2 h-5 w-5" />
-                  Request DR Readiness Review
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
+          </section>
+        </HeroBackground>
 
         {/* Outcome Highlights */}
         <section className="py-16 bg-gray-50">

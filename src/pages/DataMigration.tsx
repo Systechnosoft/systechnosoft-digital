@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 
   Database, 
@@ -31,6 +32,15 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
+
+const heroCards = [
+  { icon: "🔄", title: "Identity Migration", benefit: "Azure AD, Google Workspace, on-prem AD" },
+  { icon: "📧", title: "Email & Collaboration", benefit: "Exchange, M365, Google Workspace" },
+  { icon: "💾", title: "Database Migration", benefit: "SQL, Oracle, MySQL, NoSQL platforms" },
+  { icon: "📁", title: "File Systems", benefit: "OneDrive, SharePoint, network shares" },
+  { icon: "🔐", title: "Security & Compliance", benefit: "Zero-downtime, encrypted transfers" },
+  { icon: "✅", title: "Validation & Testing", benefit: "99.9% integrity checks, rollback ready" }
+];
 
 export default function DataMigration() {
   const [activeSection, setActiveSection] = useState("dm-overview");
@@ -97,68 +107,61 @@ export default function DataMigration() {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section - Dark */}
-        <section id="dm-hero" className="relative overflow-hidden bg-gradient-to-b from-[#1C1C1C] to-[#3C3C3C] text-white">
-          {/* Circuit Background Pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-              <defs>
-                <pattern id="circuit" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <circle cx="2" cy="2" r="1" fill="currentColor" opacity="0.3"/>
-                  <circle cx="18" cy="18" r="1" fill="currentColor" opacity="0.3"/>
-                  <path d="M2,2 L18,2 M18,2 L18,18 M18,18 L2,18" stroke="currentColor" strokeWidth="0.5" opacity="0.2"/>
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#circuit)"/>
-            </svg>
-          </div>
-          
-          <div className="relative pt-32 pb-24 px-4">
-            <div className="max-w-6xl mx-auto">
-
-              <div className="max-w-4xl mx-auto text-center">
-                <h1 className="font-montserrat font-bold text-6xl lg:text-7xl mb-6">
-                  Data Migration
-                </h1>
-                <p className="font-inter text-xl lg:text-2xl text-white/90 mb-8 leading-relaxed">
-                  Move identities, files, messages, apps, and databases—securely and with minimal downtime—across on‑prem, Azure, AWS, Google Cloud, Microsoft 365, and Google Workspace.
-                </p>
-                
-                {/* Badges */}
-                <div className="flex flex-wrap justify-center gap-3 mb-10">
-                  <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                    99.9% integrity checks
-                  </Badge>
-                  <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                    Zero-trust aligned
-                  </Badge>
-                  <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2">
-                    Cutover with rollback
-                  </Badge>
+        {/* Hero Section */}
+        <HeroBackground>
+          <section id="dm-hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-2 gap-12 items-center">
+                {/* Left Column */}
+                <div className="text-center lg:text-left">
+                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+                    Data Migration
+                  </h1>
+                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 leading-relaxed max-w-3xl">
+                    Move identities, files, messages, apps, and databases—securely and with minimal downtime—across on‑prem, Azure, AWS, Google Cloud, Microsoft 365, and Google Workspace.
+                  </p>
+                  
+                  {/* Badges */}
+                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                      99.9% integrity checks
+                    </Badge>
+                    <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
+                      Zero-trust aligned
+                    </Badge>
+                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                      Cutover with rollback
+                    </Badge>
+                  </div>
+                  
+                  {/* CTAs */}
+                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <Link to="/contact?src=data-migration-hero">
+                      <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
+                        Claim Your Free Insight
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                    <Link to="/contact?type=mra">
+                      <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                      >
+                        Request Assessment
+                      </Button>
+                    </Link>
+                  </div>
                 </div>
-                
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link to="/contact?src=data-migration-hero">
-                    <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
-                      Claim Your Free Insight
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Link to="/contact?type=mra">
-                    <Button 
-                      variant="outline" 
-                      size="lg" 
-                      className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg font-semibold"
-                    >
-                      Request Migration Readiness Assessment
-                    </Button>
-                  </Link>
+
+                {/* Right Column - Rotating Cards */}
+                <div className="flex justify-center lg:justify-end">
+                  <HeroMotionSystem cards={heroCards} ariaLabel="Data migration highlights" />
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </HeroBackground>
 
         {/* Sticky Navigation */}
         <nav 
@@ -248,22 +251,14 @@ export default function DataMigration() {
           </div>
         </section>
 
-        {/* Workloads Section - Dark */}
+        {/* Workloads Section */}
         <section 
           id="dm-workloads" 
           ref={(el) => (sectionsRef.current[1] = el)}
-          className="py-20 bg-gradient-to-b from-[#1C1C1C] to-[#3C3C3C] text-white relative overflow-hidden"
+          className="py-20 bg-[#F5F5F5]"
         >
-          {/* Grid Pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="w-full h-full" style={{
-              backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-              backgroundSize: '30px 30px'
-            }} />
-          </div>
-          
-          <div className="relative max-w-6xl mx-auto px-4">
-            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
               Workloads We Migrate
             </h2>
             
@@ -300,18 +295,18 @@ export default function DataMigration() {
                   items: ["Virtual machines", "Containers", "Networking", "Storage systems"]
                 }
               ].map((workload, index) => (
-                <Card key={index} className="bg-white/10 border-white/20 text-white hover:bg-white/15 transition-colors">
+                <Card key={index} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-2">
                       <div className="text-[#E52629]">{workload.icon}</div>
-                      <CardTitle className="text-xl font-montserrat">{workload.title}</CardTitle>
+                      <CardTitle className="text-xl font-montserrat text-[#1C1C1C]">{workload.title}</CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-2">
                       {workload.items.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2 text-white/90">
-                          <CheckCircle className="h-4 w-4 text-green-400 flex-shrink-0" />
+                        <li key={idx} className="flex items-center gap-2 text-[#3C3C3C]">
+                          <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
                           <span className="font-inter text-sm">{item}</span>
                         </li>
                       ))}

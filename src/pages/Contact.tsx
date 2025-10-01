@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin, Mail, Phone, CheckCircle } from "lucide-react";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,6 +8,13 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+
+const heroCards = [
+  { icon: "📞", title: "24/7 Support", benefit: "Always here when you need us" },
+  { icon: "🚀", title: "Fast Response", benefit: "Get back to you within 24 hours" },
+  { icon: "💡", title: "Expert Guidance", benefit: "Tailored solutions for your needs" },
+  { icon: "🤝", title: "Partnership Approach", benefit: "Long-term success together" },
+];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -103,18 +111,34 @@ export default function Contact() {
   }
 
   return (
-    <div className="py-20 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-foreground mb-6">
-            Get Started Today
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Ready to maximize innovation while minimizing code? Let's discuss how we can 
-            accelerate your digital transformation journey.
-          </p>
-        </div>
+    <>
+      {/* Hero Section */}
+      <HeroBackground>
+        <section id="hero" className="relative py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column */}
+              <div className="text-center lg:text-left">
+                <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-[#1C1C1C] mb-6">
+                  Get Started Today
+                </h1>
+                <p className="text-xl text-[#3C3C3C] max-w-3xl">
+                  Ready to maximize innovation while minimizing code? Let's discuss how we can 
+                  accelerate your digital transformation journey.
+                </p>
+              </div>
+
+              {/* Right Column - Rotating Cards */}
+              <div className="flex justify-center lg:justify-end">
+                <HeroMotionSystem cards={heroCards} ariaLabel="Contact Systechnosoft" />
+              </div>
+            </div>
+          </div>
+        </section>
+      </HeroBackground>
+
+      <div className="py-12 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
@@ -316,5 +340,6 @@ export default function Contact() {
         </div>
       </div>
     </div>
+    </>
   );
 }

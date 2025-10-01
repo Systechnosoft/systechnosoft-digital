@@ -179,11 +179,11 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Three particle ribbons (charcoal, red, blue)
+    // Three translucent ribbons for light background (red, blue, neutral grey)
     const ribbons = [
-      { color: "rgba(60, 60, 60, 0.6)", angle: 0 },      // charcoal
-      { color: "rgba(229, 38, 41, 0.7)", angle: 120 },   // red
-      { color: "rgba(0, 122, 255, 0.6)", angle: 240 },   // blue
+      { color: "rgba(229, 38, 41, 0.35)", angle: 0 },    // red
+      { color: "rgba(0, 122, 255, 0.3)", angle: 120 },   // blue
+      { color: "rgba(120, 120, 120, 0.25)", angle: 240 }, // neutral grey
     ];
 
     let time = 0;
@@ -227,13 +227,13 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
         }
       });
 
-      // Draw central "S" core glow
+      // Draw central "S" core glow (subtle for light background)
       const coreAlpha = convergePhase > 0.8 ? 1 : convergePhase / 0.8;
       const glowSize = 30 + (convergePhase * 20);
       
       const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, glowSize);
-      gradient.addColorStop(0, `rgba(229, 38, 41, ${coreAlpha * 0.8})`);
-      gradient.addColorStop(0.5, `rgba(229, 38, 41, ${coreAlpha * 0.4})`);
+      gradient.addColorStop(0, `rgba(229, 38, 41, ${coreAlpha * 0.3})`);
+      gradient.addColorStop(0.5, `rgba(229, 38, 41, ${coreAlpha * 0.15})`);
       gradient.addColorStop(1, "rgba(229, 38, 41, 0)");
       
       ctx.fillStyle = gradient;
@@ -243,7 +243,7 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
 
       // Draw "S" letter
       if (convergePhase > 0.5) {
-        ctx.fillStyle = `rgba(229, 38, 41, ${coreAlpha})`;
+        ctx.fillStyle = `rgba(229, 38, 41, ${coreAlpha * 0.9})`;
         ctx.font = "bold 32px Montserrat, sans-serif";
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
@@ -484,10 +484,17 @@ export default function AIAutomation() {
         {/* Hero Section */}
         <section 
           id="hero" 
-          className="ai-hero anchor-section relative min-h-[80vh] flex items-center bg-[hsl(var(--sys-black))] text-white overflow-hidden"
+          className="ai-hero anchor-section relative min-h-[72vh] lg:min-h-[84vh] flex items-center bg-white overflow-hidden"
         >
-          {/* Background with radial vignette */}
-          <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-black/40" />
+          {/* Background with subtle corner gradients and grid overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-red-50/40 via-white to-blue-50/30" />
+          <div 
+            className="absolute inset-0 opacity-[0.03]" 
+            style={{
+              backgroundImage: 'linear-gradient(#E6E6E6 1px, transparent 1px), linear-gradient(90deg, #E6E6E6 1px, transparent 1px)',
+              backgroundSize: '40px 40px'
+            }}
+          />
           
           {/* Animation container */}
           <div className="absolute inset-0 lg:right-0 lg:left-1/2 flex items-center justify-center">
@@ -502,19 +509,19 @@ export default function AIAutomation() {
             onKeyDown={handleAnimationKeyDown}
             aria-pressed={heroAnimationPaused}
             aria-label={heroAnimationPaused ? "Play animation" : "Pause animation"}
-            className="absolute top-8 right-8 z-10 p-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors focus-enterprise"
+            className="absolute top-8 right-8 z-10 p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors focus-enterprise shadow-sm border border-gray-200"
           >
             {heroAnimationPaused ? (
-              <Play className="h-5 w-5" />
+              <Play className="h-5 w-5 text-gray-700" />
             ) : (
-              <Pause className="h-5 w-5" />
+              <Pause className="h-5 w-5 text-gray-700" />
             )}
           </button>
 
           <div className="container relative z-10 px-6 lg:px-12">
             <div className="max-w-2xl">
               <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat text-[#1C1C1C]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -523,7 +530,7 @@ export default function AIAutomation() {
               </motion.h1>
 
               <motion.p
-                className="text-lg md:text-xl mb-8 text-gray-200"
+                className="text-lg md:text-xl mb-8 text-[#3C3C3C]"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -538,13 +545,13 @@ export default function AIAutomation() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
               >
-                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
                   50+ enterprise solutions
                 </span>
-                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
                   4× fewer manual steps
                 </span>
-                <span className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium">
+                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
                   Build-to-impact in 4–8 weeks
                 </span>
               </motion.div>
@@ -559,7 +566,7 @@ export default function AIAutomation() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white font-montserrat font-medium"
+                  className="bg-[#E52629] hover:bg-[#D02022] text-white font-montserrat font-medium shadow-lg"
                 >
                   <a href="/contact?type=discovery">
                     Book a 30-minute discovery
@@ -570,7 +577,7 @@ export default function AIAutomation() {
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-white/30 text-white hover:bg-white/10 font-montserrat font-medium"
+                  className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-montserrat font-medium"
                 >
                   <a href="#use-cases">See use cases</a>
                 </Button>
@@ -580,11 +587,11 @@ export default function AIAutomation() {
         </section>
 
         {/* Use Cases Carousel */}
-        <section id="use-cases" className="ai-use-cases anchor-section py-20 bg-background">
+        <section id="use-cases" className="ai-use-cases anchor-section py-20 bg-[#F5F5F5]">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Real-World Use Cases</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Real-World Use Cases</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
                 From intake to insights—see how AI accelerates outcomes across functions.
               </p>
             </div>
@@ -594,25 +601,25 @@ export default function AIAutomation() {
                 items={useCases}
                 label="AI automation use cases"
                 renderSlide={(useCase) => (
-                  <Card className="card-enterprise p-8">
-                    <h3 className="text-2xl font-bold mb-6 text-primary">{useCase.title}</h3>
-                    <div className="space-y-4">
-                      <div>
-                        <p className="font-semibold text-foreground mb-2">Outcome</p>
-                        <p className="text-muted-foreground">{useCase.outcome}</p>
-                      </div>
-                      <div>
-                        <p className="font-semibold text-foreground mb-2">How it works</p>
-                        <p className="text-muted-foreground">{useCase.how}</p>
-                      </div>
-                    </div>
-                    <a 
-                      href="#approach" 
-                      className="inline-flex items-center mt-6 text-accent hover:underline focus-enterprise"
-                    >
-                      See example <ArrowRight className="ml-2 h-4 w-4" />
-                    </a>
-                  </Card>
+                   <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8">
+                     <h3 className="text-2xl font-bold mb-6 text-[#E52629]">{useCase.title}</h3>
+                     <div className="space-y-4">
+                       <div>
+                         <p className="font-semibold text-[#1C1C1C] mb-2">Outcome</p>
+                         <p className="text-[#3C3C3C]">{useCase.outcome}</p>
+                       </div>
+                       <div>
+                         <p className="font-semibold text-[#1C1C1C] mb-2">How it works</p>
+                         <p className="text-[#3C3C3C]">{useCase.how}</p>
+                       </div>
+                     </div>
+                     <a 
+                       href="#approach" 
+                       className="inline-flex items-center mt-6 text-[#007AFF] hover:underline focus-enterprise"
+                     >
+                       See example <ArrowRight className="ml-2 h-4 w-4" />
+                     </a>
+                   </Card>
                 )}
               />
             </div>
@@ -620,11 +627,11 @@ export default function AIAutomation() {
         </section>
 
         {/* Capabilities Grid */}
-        <section id="capabilities" className="ai-capabilities anchor-section py-20 bg-muted/30">
+        <section id="capabilities" className="ai-capabilities anchor-section py-20 bg-white">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our AI Capabilities</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Our AI Capabilities</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
                 End-to-end AI services from strategy to production-grade deployment.
               </p>
             </div>
@@ -642,15 +649,15 @@ export default function AIAutomation() {
                     ease: [0.22, 1, 0.36, 1] // ease-out-expo
                   }}
                 >
-                  <Card className="card-enterprise p-6 h-full hover:scale-[1.03] hover:translate-y-[-6px] transition-transform duration-300 group">
+                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-6 h-full hover:scale-[1.03] hover:translate-y-[-6px] hover:shadow-lg transition-all duration-300 group">
                     <CardHeader>
-                      <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
-                        <capability.icon className="h-6 w-6 text-primary" />
+                      <div className="w-12 h-12 rounded-lg bg-[#E52629]/10 flex items-center justify-center mb-4 group-hover:bg-[#E52629]/20 transition-colors">
+                        <capability.icon className="h-6 w-6 text-[#E52629]" />
                       </div>
-                      <CardTitle className="text-xl">{capability.title}</CardTitle>
+                      <CardTitle className="text-xl text-[#1C1C1C]">{capability.title}</CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <CardDescription className="text-base">
+                      <CardDescription className="text-base text-[#3C3C3C]">
                         {capability.description}
                       </CardDescription>
                     </CardContent>
@@ -662,7 +669,7 @@ export default function AIAutomation() {
         </section>
 
         {/* KPI Ribbon */}
-        <section id="kpis" className="ai-kpis anchor-section py-16 bg-primary text-white">
+        <section id="kpis" className="ai-kpis anchor-section py-16 bg-[#E52629] text-white">
           <div className="container px-6 lg:px-12">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
               {kpis.map((kpi, index) => (
@@ -685,11 +692,11 @@ export default function AIAutomation() {
         </section>
 
         {/* Approach */}
-        <section id="approach" className="ai-approach anchor-section py-20 bg-background">
+        <section id="approach" className="ai-approach anchor-section py-20 bg-[#F5F5F5]">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Approach</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Our Approach</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
                 Structured, iterative, and outcome-focused—every step.
               </p>
             </div>
@@ -719,12 +726,12 @@ export default function AIAutomation() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                 >
-                  <Card className="card-enterprise p-8 h-full">
-                    <div className="text-4xl font-bold text-primary/20 mb-4 font-montserrat">
+                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8 h-full">
+                    <div className="text-4xl font-bold text-[#E52629]/20 mb-4 font-montserrat">
                       {phase.step}
                     </div>
-                    <h3 className="text-2xl font-bold mb-4">{phase.title}</h3>
-                    <p className="text-muted-foreground">{phase.description}</p>
+                    <h3 className="text-2xl font-bold mb-4 text-[#1C1C1C]">{phase.title}</h3>
+                    <p className="text-[#3C3C3C]">{phase.description}</p>
                   </Card>
                 </motion.div>
               ))}
@@ -733,11 +740,11 @@ export default function AIAutomation() {
         </section>
 
         {/* Accelerators */}
-        <section id="accelerators" className="ai-accelerators anchor-section py-20 bg-muted/30">
+        <section id="accelerators" className="ai-accelerators anchor-section py-20 bg-white">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Pre-Built Accelerators</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Pre-Built Accelerators</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
                 Jump-start your pilot with proven components—customize and deploy in days.
               </p>
             </div>
@@ -751,12 +758,12 @@ export default function AIAutomation() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                 >
-                  <Card className="card-enterprise p-6 hover:shadow-[var(--shadow-elevated)] transition-shadow">
-                    <h3 className="font-bold mb-2">{accelerator.name}</h3>
-                    <p className="text-sm text-muted-foreground mb-4">{accelerator.description}</p>
+                  <Card className="bg-white border border-[#E6E6E6] shadow-sm hover:shadow-md transition-shadow p-6">
+                    <h3 className="font-bold mb-2 text-[#1C1C1C]">{accelerator.name}</h3>
+                    <p className="text-sm text-[#3C3C3C] mb-4">{accelerator.description}</p>
                     <Button 
                       variant="link" 
-                      className="p-0 h-auto text-accent hover:underline focus-enterprise"
+                      className="p-0 h-auto text-[#007AFF] hover:underline focus-enterprise"
                       asChild
                     >
                       <a href="/contact?type=accelerator">Get started →</a>
@@ -769,11 +776,11 @@ export default function AIAutomation() {
         </section>
 
         {/* Case Studies */}
-        <section id="case-studies" className="ai-case-studies anchor-section py-20 bg-background">
+        <section id="case-studies" className="ai-case-studies anchor-section py-20 bg-[#F5F5F5]">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Success Stories</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Success Stories</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
                 Real outcomes from real deployments.
               </p>
             </div>
@@ -783,12 +790,12 @@ export default function AIAutomation() {
                 items={caseStudies}
                 label="Client success stories"
                 renderSlide={(study) => (
-                  <Card className="card-enterprise p-8 text-center">
-                    <div className="text-3xl font-bold text-primary mb-4 font-montserrat">
+                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8 text-center">
+                    <div className="text-3xl font-bold text-[#E52629] mb-4 font-montserrat">
                       {study.metric}
                     </div>
-                    <p className="text-lg mb-4">{study.outcome}</p>
-                    <p className="text-sm text-muted-foreground">— {study.company}</p>
+                    <p className="text-lg mb-4 text-[#1C1C1C]">{study.outcome}</p>
+                    <p className="text-sm text-[#3C3C3C]">— {study.company}</p>
                   </Card>
                 )}
               />
@@ -802,10 +809,10 @@ export default function AIAutomation() {
         </section>
 
         {/* FAQ */}
-        <section id="faq" className="ai-faq anchor-section py-20 bg-muted/30">
+        <section id="faq" className="ai-faq anchor-section py-20 bg-white">
           <div className="container px-6 lg:px-12">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Frequently Asked Questions</h2>
             </div>
 
             <div className="max-w-3xl mx-auto">
@@ -814,12 +821,12 @@ export default function AIAutomation() {
                   <AccordionItem 
                     key={index} 
                     value={`item-${index}`}
-                    className="border rounded-lg px-6 bg-card"
+                    className="border border-[#E6E6E6] rounded-lg px-6 bg-white"
                   >
-                    <AccordionTrigger className="hover:no-underline text-left font-semibold">
+                    <AccordionTrigger className="hover:no-underline text-left font-semibold text-[#1C1C1C]">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
+                    <AccordionContent className="text-[#3C3C3C]">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -830,17 +837,17 @@ export default function AIAutomation() {
         </section>
 
         {/* Contact Form */}
-        <section id="contact" className="ai-contact anchor-section py-20 bg-background">
+        <section id="contact" className="ai-contact anchor-section py-20 bg-[#F5F5F5]">
           <div className="container px-6 lg:px-12">
             <div className="max-w-2xl mx-auto">
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Build Together</h2>
-                <p className="text-lg text-muted-foreground">
+                <h2 className="text-3xl md:text-4xl font-bold mb-4 text-[#1C1C1C]">Let's Build Together</h2>
+                <p className="text-lg text-[#3C3C3C]">
                   Share your challenge—we'll respond within 24 hours with next steps.
                 </p>
               </div>
 
-              <Card className="card-enterprise p-8">
+              <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8">
                 <form className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
@@ -891,9 +898,9 @@ export default function AIAutomation() {
                       required 
                       className="mt-1"
                     />
-                    <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer">
+                    <Label htmlFor="consent" className="text-sm leading-relaxed cursor-pointer text-[#3C3C3C]">
                       By submitting, you agree to be contacted and to our{" "}
-                      <a href="/privacy" className="text-accent hover:underline">
+                      <a href="/privacy" className="text-[#007AFF] hover:underline">
                         privacy policy
                       </a>
                       . We handle all PII in compliance with GDPR and DPDP regulations.

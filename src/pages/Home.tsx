@@ -192,14 +192,19 @@ export default function Home() {
 
       {/* Why Systechnosoft */}
       <section 
-        className="py-20 bg-white border-t border-[#E6E6E6]"
+        id="why"
+        aria-labelledby="why-title"
+        className="py-14 sm:py-16 lg:py-20 bg-white border-t border-[#E6E6E6]"
       >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6 items-start">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           {/* Left Column - Content */}
           <div className="lg:col-span-7">
             <div className="text-left">
-              <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4">
+              <h2 
+                id="why-title"
+                className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4"
+              >
                 Why Systechnosoft
               </h2>
               <p className="text-xl text-[#3C3C3C] mb-8 max-w-2xl">
@@ -207,52 +212,49 @@ export default function Home() {
               </p>
 
               {/* KPI Pills */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                <div className="bg-[#E52629]/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-[#E52629]/20">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-8">
+                <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
                   <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
                   <span className="text-[#1C1C1C] text-sm ml-2">faster F2B trading workflows (Banking, AU)</span>
                 </div>
-                <div className="bg-[#007AFF]/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-[#007AFF]/20">
+                <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
                   <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
                   <span className="text-[#1C1C1C] text-sm ml-2">efficiency gain in workforce ops (Oil & Gas, US)</span>
                 </div>
-                <div className="bg-[#E52629]/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-[#E52629]/20">
+                <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
                   <span className="text-2xl font-montserrat font-bold text-[#E52629]">20%</span>
                   <span className="text-[#1C1C1C] text-sm ml-2">HR cost reduction (UK)</span>
                 </div>
-                <div className="bg-[#007AFF]/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-[#007AFF]/20">
+                <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
                   <span className="text-2xl font-montserrat font-bold text-[#007AFF]">50%</span>
                   <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
                 </div>
               </div>
 
-              {/* Mini Timeline */}
-              <div className="mb-8">
-                <div className="hidden lg:flex items-center justify-between mb-4">
-                  <div className="flex-1 text-center">
-                    <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">1</span>
+              {/* Process Stepper */}
+              <div className="mt-8 md:mt-10">
+                <div className="hidden lg:grid grid-cols-4 items-start text-center gap-6">
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
+                      <span className="text-white text-xs font-semibold">1</span>
                     </div>
                     <div className="text-[#1C1C1C] font-medium text-sm">Discover</div>
                   </div>
-                  <div className="flex-1 h-0.5 bg-[#E6E6E6] mx-2"></div>
-                  <div className="flex-1 text-center">
-                    <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">2</span>
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
+                      <span className="text-white text-xs font-semibold">2</span>
                     </div>
                     <div className="text-[#1C1C1C] font-medium text-sm">Pilot</div>
                   </div>
-                  <div className="flex-1 h-0.5 bg-[#E6E6E6] mx-2"></div>
-                  <div className="flex-1 text-center">
-                    <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">3</span>
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
+                      <span className="text-white text-xs font-semibold">3</span>
                     </div>
                     <div className="text-[#1C1C1C] font-medium text-sm">Scale</div>
                   </div>
-                  <div className="flex-1 h-0.5 bg-[#E6E6E6] mx-2"></div>
-                  <div className="flex-1 text-center">
-                    <div className="w-8 h-8 bg-primary rounded-full mx-auto mb-2 flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">4</span>
+                  <div className="flex flex-col items-center">
+                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
+                      <span className="text-white text-xs font-semibold">4</span>
                     </div>
                     <div className="text-[#1C1C1C] font-medium text-sm">CoE Advisory</div>
                   </div>
@@ -308,10 +310,10 @@ export default function Home() {
         </div>
 
         {/* CTA Row - Full Width Below Both Columns */}
-        <div className="flex justify-center mt-12">
+        <div className="flex justify-center mt-10">
           <Button
             size="lg"
-            className="btn-hero text-lg px-8 py-4 w-full sm:w-auto"
+            className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
             asChild
           >
             <Link to="/get-quotation" aria-label="Get a Quotation">
@@ -376,88 +378,50 @@ export default function Home() {
 
       {/* Industries We Serve */}
       <section 
-        id="industries-we-serve" 
-        className="py-20 relative overflow-hidden"
-        style={{
-          backgroundImage: `linear-gradient(180deg, rgba(28,28,28,0.80) 0%, rgba(28,28,28,0.55) 40%, rgba(28,28,28,0.35) 100%), url('/images/industries-bg.webp')`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
+        id="industries" 
+        aria-labelledby="industries-title"
+        className="py-14 sm:py-16 lg:py-20 bg-white border-t border-[#E6E6E6]"
       >
-        {/* Decorative SVG Shapes */}
-        <svg 
-          className="absolute top-4 right-4 w-32 h-32 opacity-25 pointer-events-none" 
-          aria-hidden="true"
-          viewBox="0 0 128 128"
-        >
-          <g stroke="#E52629" strokeWidth="0.6" fill="none">
-            <circle cx="20" cy="20" r="8" />
-            <rect x="50" y="10" width="16" height="16" />
-            <path d="M10 50 L40 50 L40 80 L70 80" />
-            <circle cx="90" cy="30" r="6" />
-          </g>
-          <g stroke="#007AFF" strokeWidth="0.6" fill="none">
-            <path d="M20 100 L50 100 L50 70 L80 70" />
-            <circle cx="100" cy="100" r="10" />
-            <rect x="80" y="50" width="12" height="12" />
-          </g>
-        </svg>
-
-        <svg 
-          className="absolute bottom-4 left-4 w-40 h-40 opacity-25 pointer-events-none" 
-          aria-hidden="true"
-          viewBox="0 0 160 160"
-        >
-          <g stroke="#007AFF" strokeWidth="0.6" fill="none">
-            <circle cx="30" cy="30" r="12" />
-            <path d="M60 20 L100 20 L100 60 L140 60" />
-            <rect x="20" y="80" width="20" height="20" />
-          </g>
-          <g stroke="#E52629" strokeWidth="0.6" fill="none">
-            <path d="M80 120 L120 120 L120 80 L140 80" />
-            <circle cx="140" cy="140" r="8" />
-            <rect x="60" y="130" width="14" height="14" />
-          </g>
-        </svg>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-x-8 gap-y-6 items-start">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
             {/* Left Column - Content */}
             <div className="lg:col-span-7">
               <div className="text-left">
-                <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-white mb-4">
+                <h2 
+                  id="industries-title"
+                  className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4"
+                >
                   Industries We Serve
                 </h2>
-                <p className="text-xl text-white/90 mb-8 max-w-2xl">
+                <p className="text-xl text-[#3C3C3C] mb-8 max-w-2xl">
                   We pair domain knowledge with secure architectures to ship measurable outcomes fast.
                 </p>
 
                 {/* KPI Pills */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
-                    <span className="text-2xl font-montserrat font-bold text-primary">40%</span>
-                    <span className="text-white/80 text-sm ml-2">faster trading workflows (Banking, AU)</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-8">
+                  <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
+                    <span className="text-[#1C1C1C] text-sm ml-2">faster trading workflows (Banking, AU)</span>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
-                    <span className="text-2xl font-montserrat font-bold text-primary">30%</span>
-                    <span className="text-white/80 text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
+                  <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
+                    <span className="text-[#1C1C1C] text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
-                    <span className="text-sm font-medium text-white">Content ops:</span>
-                    <span className="text-white/80 text-sm ml-1">faster turnaround (Aviation)</span>
+                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <span className="text-sm font-medium text-[#1C1C1C]">Content ops:</span>
+                    <span className="text-[#3C3C3C] text-sm ml-1">faster turnaround (Aviation)</span>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 text-center border border-white/20">
-                    <span className="text-sm font-medium text-white">Governance:</span>
-                    <span className="text-white/80 text-sm ml-1">improved audit & versioning (Aviation)</span>
+                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <span className="text-sm font-medium text-[#1C1C1C]">Governance:</span>
+                    <span className="text-[#3C3C3C] text-sm ml-1">improved audit & versioning (Aviation)</span>
                   </div>
                 </div>
 
-                {/* CTA Buttons - Moved to Left Column */}
-                <div className="flex justify-center mt-8">
+                {/* CTA Button */}
+                <div className="flex justify-center lg:justify-start mt-8">
                   <Button
                     size="lg"
-                    className="bg-primary text-white hover:bg-primary/90 text-lg px-8 py-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2"
+                    className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     asChild
                   >
                     <Link to="/case-studies">

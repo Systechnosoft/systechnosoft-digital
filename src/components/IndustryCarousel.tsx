@@ -120,38 +120,34 @@ export default function IndustryCarousel() {
       onPointerUp={() => setHasPointerDown(false)}
     >
       <div 
-        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto rounded-lg border border-white/[0.14] shadow-[0_1px_8px_rgba(0,0,0,0.25)] flex flex-col justify-between"
-        style={{
-          background: 'rgba(28,28,28,0.55)',
-          backdropFilter: 'blur(6px)',
-        }}
+        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto bg-white border border-[#E6E6E6] rounded-2xl p-6 sm:p-7 md:p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-transform hover:translate-y-[-2px]"
       >
-        <div className="text-center p-6 pb-4">
-          <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="text-center pb-4">
+          <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-4">
             <IconComponent 
-              className="h-8 w-8 text-white" 
+              className="h-8 w-8 text-[#E52629]" 
               aria-hidden="true"
             />
           </div>
-          <h3 className="text-xl font-montserrat font-bold text-white">
+          <h3 className="text-xl font-montserrat font-bold text-[#1C1C1C]">
             {currentCard.title}
           </h3>
         </div>
         
-        <div className="px-6 space-y-4 flex-1">
+        <div className="space-y-4 flex-1">
           <div>
-            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Problems</h4>
-            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.problems}</p>
+            <h4 className="text-sm font-medium text-[#E52629] mb-1">Problems</h4>
+            <p className="text-sm text-[#3C3C3C]">{currentCard.problems}</p>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Solutions</h4>
-            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.solutions}</p>
+            <h4 className="text-sm font-medium text-[#E52629] mb-1">Solutions</h4>
+            <p className="text-sm text-[#3C3C3C]">{currentCard.solutions}</p>
           </div>
           
           <div>
-            <h4 className="text-sm font-semibold mb-1" style={{ color: '#E52629' }}>Outcomes</h4>
-            <p className="text-sm" style={{ color: '#F5F5F5' }}>{currentCard.outcomes}</p>
+            <h4 className="text-sm font-medium text-[#E52629] mb-1">Outcomes</h4>
+            <p className="text-sm text-[#3C3C3C]">{currentCard.outcomes}</p>
           </div>
         </div>
       </div>
@@ -164,10 +160,10 @@ export default function IndustryCarousel() {
             data-slide-index={index}
             onClick={() => goToSlide(index)}
             onKeyDown={handleKeyDown}
-            className={`w-2 h-2 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[#007AFF] focus-visible:outline-offset-2 ${
+            className={`w-2 h-2 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[#E52629] focus-visible:outline-offset-2 ${
               index === currentSlide
                 ? 'bg-[#E52629] scale-110'
-                : 'bg-white/30 hover:bg-white/50'
+                : 'bg-[#E6E6E6] hover:bg-[#E52629]/50'
             }`}
             aria-label={`Go to industry ${index + 1}: ${industryCards[index].title}`}
             tabIndex={0}

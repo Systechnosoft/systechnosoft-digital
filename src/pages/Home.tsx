@@ -194,123 +194,62 @@ export default function Home() {
       <section 
         id="why"
         aria-labelledby="why-title"
-        className="py-14 sm:py-16 lg:py-20 bg-white border-t border-[#E6E6E6]"
+        className="py-14 sm:py-16 lg:py-20 bg-white"
       >
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Left Column - Content */}
-          <div className="lg:col-span-7">
-            <div className="text-left">
-              <h2 
-                id="why-title"
-                className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4"
-              >
-                Why Systechnosoft
-              </h2>
-              <p className="text-xl text-[#3C3C3C] mb-8 max-w-2xl">
-                We deliver measurable outcomes with proven methods, secure architectures, and deep domain expertise across Infrastructure, Low-code, and AI.
-              </p>
+      <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 
+          id="why-title"
+          className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4"
+        >
+          Why Systechnosoft
+        </h2>
+        <p className="text-xl text-[#3C3C3C] mb-8 max-w-[840px] mx-auto">
+          We deliver measurable outcomes with proven methods, secure architectures, and deep domain expertise across Infrastructure, Low-code, and AI.
+        </p>
 
-              {/* KPI Pills */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-8">
-                <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                  <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
-                  <span className="text-[#1C1C1C] text-sm ml-2">faster F2B trading workflows (Banking, AU)</span>
-                </div>
-                <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                  <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
-                  <span className="text-[#1C1C1C] text-sm ml-2">efficiency gain in workforce ops (Oil & Gas, US)</span>
-                </div>
-                <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                  <span className="text-2xl font-montserrat font-bold text-[#E52629]">20%</span>
-                  <span className="text-[#1C1C1C] text-sm ml-2">HR cost reduction (UK)</span>
-                </div>
-                <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                  <span className="text-2xl font-montserrat font-bold text-[#007AFF]">50%</span>
-                  <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
-                </div>
-              </div>
-
-              {/* Process Stepper */}
-              <div className="mt-8 md:mt-10">
-                <div className="hidden lg:grid grid-cols-4 items-start text-center gap-6">
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
-                      <span className="text-white text-xs font-semibold">1</span>
-                    </div>
-                    <div className="text-[#1C1C1C] font-medium text-sm">Discover</div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
-                      <span className="text-white text-xs font-semibold">2</span>
-                    </div>
-                    <div className="text-[#1C1C1C] font-medium text-sm">Pilot</div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
-                      <span className="text-white text-xs font-semibold">3</span>
-                    </div>
-                    <div className="text-[#1C1C1C] font-medium text-sm">Scale</div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <div className="w-8 h-8 bg-[#E52629] rounded-full flex items-center justify-center mb-2">
-                      <span className="text-white text-xs font-semibold">4</span>
-                    </div>
-                    <div className="text-[#1C1C1C] font-medium text-sm">CoE Advisory</div>
-                  </div>
-                </div>
-                
-                {/* Mobile Timeline */}
-                <div className="lg:hidden space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">1</span>
-                    </div>
-                    <div>
-                      <div className="text-[#1C1C1C] font-medium">Discover</div>
-                      <div className="text-[#3C3C3C] text-sm">Problem framing, architecture options, roadmap</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">2</span>
-                    </div>
-                    <div>
-                      <div className="text-[#1C1C1C] font-medium">Pilot</div>
-                      <div className="text-[#3C3C3C] text-sm">Prototype + success criteria + security gates</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">3</span>
-                    </div>
-                    <div>
-                      <div className="text-[#1C1C1C] font-medium">Scale</div>
-                      <div className="text-[#3C3C3C] text-sm">Harden, integrate, measure outcomes</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0">
-                      <span className="text-white text-xs font-bold">4</span>
-                    </div>
-                    <div>
-                      <div className="text-[#1C1C1C] font-medium">CoE Advisory</div>
-                      <div className="text-[#3C3C3C] text-sm">Center of Excellence, reuse & standards</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        {/* KPI Pills */}
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 place-items-stretch">
+          <div className="bg-[#FFE7E8] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+            <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
+            <span className="text-[#1C1C1C] text-sm ml-2">faster F2B trading workflows (Banking, AU)</span>
           </div>
-
-          {/* Right Column - Feature Carousel */}
-          <div className="lg:col-span-5 self-stretch h-full">
-            <WhyFeatureSlider />
+          <div className="bg-[#EAF3FF] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+            <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
+            <span className="text-[#1C1C1C] text-sm ml-2">efficiency gain in workforce ops (Oil & Gas, US)</span>
+          </div>
+          <div className="bg-[#FFE7E8] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+            <span className="text-2xl font-montserrat font-bold text-[#E52629]">20%</span>
+            <span className="text-[#1C1C1C] text-sm ml-2">HR cost reduction (UK)</span>
+          </div>
+          <div className="bg-[#EAF3FF] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+            <span className="text-2xl font-montserrat font-bold text-[#007AFF]">50%</span>
+            <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
           </div>
         </div>
 
-        {/* CTA Row - Full Width Below Both Columns */}
-        <div className="flex justify-center mt-10">
+        {/* Process Stepper */}
+        <div className="mt-10 grid grid-cols-4 gap-6 items-start justify-items-center">
+          <div className="flex flex-col items-center">
+            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">1</div>
+            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Discover</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">2</div>
+            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Pilot</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">3</div>
+            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Scale</div>
+          </div>
+          <div className="flex flex-col items-center">
+            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">4</div>
+            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">CoE Advisory</div>
+          </div>
+        </div>
+        <div className="mt-3 h-px bg-[#E6E6E6]"></div>
+
+        {/* CTA */}
+        <div className="mt-10 flex justify-center">
           <Button
             size="lg"
             className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
@@ -380,7 +319,7 @@ export default function Home() {
       <section 
         id="industries" 
         aria-labelledby="industries-title"
-        className="py-14 sm:py-16 lg:py-20 bg-white border-t border-[#E6E6E6]"
+        className="py-14 sm:py-16 lg:py-20 bg-white"
       >
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">

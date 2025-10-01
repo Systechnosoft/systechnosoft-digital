@@ -25,11 +25,15 @@ import {
   Users,
   BarChart3,
   CheckCircle,
+  CheckCircle2,
   Award,
   TrendingDown,
   Activity,
   GitBranch,
-  Boxes
+  Boxes,
+  DollarSign,
+  ShieldCheck,
+  RefreshCw
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -44,33 +48,33 @@ import { Label } from "@/components/ui/label";
 const cloudServiceCards = [
   { 
     icon: "🎯", 
-    title: "Cloud Strategy & Readiness", 
-    benefit: "Landing zone design, TCO analysis, and migration roadmap" 
+    title: "Strategy & Readiness", 
+    benefit: "Landing zone, TCO, roadmap" 
   },
   { 
     icon: "🚀", 
     title: "Migration & Modernization", 
-    benefit: "Rehost, refactor, and re-platform with minimal downtime" 
+    benefit: "Tested cutovers, apps & data" 
   },
   { 
     icon: "⚙️", 
     title: "Managed Cloud (SLA)", 
-    benefit: "24×7 ops, patching, and SRE runbooks with defined SLAs" 
+    benefit: "24×7, incident response, SRE" 
   },
   { 
     icon: "🔐", 
     title: "Security & Compliance", 
-    benefit: "IAM, network policies, CIS/ISO/DPDP guardrails by default" 
+    benefit: "IAM, audit trails, guardrails" 
   },
   { 
     icon: "💾", 
-    title: "Backup & Disaster Recovery", 
-    benefit: "RPO/RTO design, automated drills, and failover testing" 
+    title: "Backup & DR", 
+    benefit: "RPO/RTO targets, recovery playbooks" 
   },
   { 
     icon: "💰", 
     title: "FinOps & Cost Optimization", 
-    benefit: "Rightsizing, auto-schedules, and reserved instance planning" 
+    benefit: "Rightsizing, savings plans" 
   },
 ];
 
@@ -78,43 +82,43 @@ const cloudServiceCards = [
 const servicePillars = [
   {
     icon: Target,
-    title: "Cloud Strategy & Readiness",
-    bullets: ["Landing zone design", "TCO & ROI modeling", "Roadmap & risk assessment"],
+    title: "Strategy & Readiness",
+    bullets: ["Landing zone", "TCO/ROI", "Roadmap & risk plan"],
   },
   {
-    icon: Workflow,
+    icon: RefreshCw,
     title: "Migration & Modernization",
-    bullets: ["Rehost/refactor strategies", "Database & data migration", "App re-architecture"],
+    bullets: ["Rehost, refactor, or re‑platform", "Tested cutovers", "Apps and data"],
   },
   {
     icon: Settings,
-    title: "Managed Cloud (SLA-based)",
-    bullets: ["24×7 monitoring & alerts", "Incident management", "Patch & capacity planning"],
+    title: "Managed Cloud (SLA)",
+    bullets: ["24×7 monitoring", "Incident response", "Patching & SRE runbooks"],
   },
   {
-    icon: Shield,
+    icon: ShieldCheck,
     title: "Security & Compliance",
-    bullets: ["IAM & SSO integration", "Network policies & segmentation", "CIS/ISO/DPDP guardrails"],
+    bullets: ["IAM & network policy", "Encryption & audit trails", "CIS/ISO/DPDP guardrails"],
   },
   {
-    icon: HardDrive,
-    title: "Backup & Disaster Recovery",
-    bullets: ["RPO/RTO design & testing", "Automated backup schedules", "Failover runbooks & drills"],
+    icon: Database,
+    title: "Backup & DR",
+    bullets: ["Clear RPO/RTO targets", "Drills & recovery playbooks", "Failover testing"],
   },
   {
-    icon: TrendingDown,
+    icon: DollarSign,
     title: "FinOps & Cost Optimization",
-    bullets: ["Rightsize & auto-schedule resources", "Reserved/Savings Plans analysis", "Chargeback & showback models"],
+    bullets: ["Rightsizing & schedules", "Reservations/savings plans", "Showback/chargeback"],
   },
   {
-    icon: GitBranch,
+    icon: Zap,
     title: "DevOps & Automation",
-    bullets: ["CI/CD pipelines", "IaC (Terraform/Bicep)", "Observability (logs, APM, tracing)"],
+    bullets: ["CI/CD pipelines", "IaC (Terraform/Bicep)", "Observability (logs, metrics, APM)"],
   },
   {
     icon: BarChart3,
     title: "Data & Analytics on Cloud",
-    bullets: ["Cloud data warehousing", "ETL/ELT pipelines", "BI dashboards & reporting"],
+    bullets: ["Warehousing & ETL/ELT", "BI dashboards", "Alerts"],
   },
 ];
 
@@ -854,13 +858,14 @@ export default function CloudServices() {
                     id="cloud-hero-heading"
                     className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight"
                   >
-                    Cloud services that{" "}
-                    <span className="text-[#E52629]">deploy faster</span>—and{" "}
-                    <span className="text-[#E52629]">scale smarter</span>
+                    Cloud done right—
+                    <span className="text-[#E52629]">secure</span>,{" "}
+                    <span className="text-[#E52629]">efficient</span>,
+                    production‑ready
                   </h1>
                   
                   <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-2xl">
-                    From strategy to scale on AWS, Azure, and GCP—with security, FinOps, and managed operations baked in.
+                    Plan, migrate, and run on AWS, Azure, and GCP with security, cost control, and uptime built‑in—so your teams can focus on the work that matters.
                   </p>
                 </div>
 
@@ -871,7 +876,7 @@ export default function CloudServices() {
                   transition={{ delay: 0.2, duration: 0.4 }}
                   className="flex flex-wrap gap-3"
                 >
-                  {["4–8 week migrations", "99.95% uptime targets", "24×7 managed support"].map((badge) => (
+                  {["24×7 support", "Certified engineers", "Governance & compliance"].map((badge) => (
                     <Badge 
                       key={badge}
                       variant="secondary" 
@@ -906,7 +911,7 @@ export default function CloudServices() {
                     size="lg"
                     className="border-[#3C3C3C] text-[#3C3C3C] hover:bg-[#3C3C3C] hover:text-white font-semibold transition-all"
                   >
-                    <a href="#services">See Services</a>
+                    <a href="#services">See what we deliver</a>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -929,10 +934,10 @@ export default function CloudServices() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-6">
-                Cloud Platforms Built for Outcomes
+                Plain‑English Overview
               </h2>
               <p className="text-lg text-[#3C3C3C] leading-relaxed">
-                We design, migrate, and operate secure, scalable cloud platforms on AWS, Azure, and GCP—delivering faster delivery, reduced ops toil, and predictable costs with measurable SLAs.
+                Cloud should make life simpler, not harder. We keep your environments reliable, secure, and cost‑smart—while you keep building. With Systechnosoft, you get always‑on support from certified engineers, clear runbooks, and calm operations.
               </p>
             </div>
 
@@ -973,10 +978,10 @@ export default function CloudServices() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Cloud Services Across the Lifecycle
+                What We Deliver
               </h2>
               <p className="text-lg text-[#3C3C3C]">
-                From strategy to scale, we cover every stage of your cloud journey
+                At a glance
               </p>
             </div>
 
@@ -1023,72 +1028,127 @@ export default function CloudServices() {
           </div>
         </section>
 
+        {/* Why Choose Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+                Why teams choose Systechnosoft
+              </h2>
+            </div>
+            
+            <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+              {[
+                {
+                  title: "Fewer fires, more focus",
+                  description: "We run the day‑to‑day so your teams can ship features.",
+                  icon: Zap
+                },
+                {
+                  title: "Security first",
+                  description: "Guardrails by default; least‑privilege access; audit‑ready.",
+                  icon: ShieldCheck
+                },
+                {
+                  title: "Predictable ops",
+                  description: "Runbooks, SLOs, and clear escalation paths.",
+                  icon: CheckCircle2
+                },
+                {
+                  title: "Costs under control",
+                  description: "We tune spend without slowing delivery.",
+                  icon: DollarSign
+                }
+              ].map((item, idx) => (
+                <Card key={idx} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <item.icon className="w-10 h-10 text-[#E52629] mb-4" />
+                    <h3 className="text-xl font-bold font-montserrat text-[#1C1C1C] mb-2">
+                      {item.title}
+                    </h3>
+                    <p className="text-[#3C3C3C]">{item.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
         {/* Platforms Section */}
         <section id="platforms" className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Multi-Cloud & Hybrid Expertise
+                Platform Support
               </h2>
-              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
-                We support AWS, Azure, GCP, and hybrid/on-prem environments with unified management
-              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
-              <Card className="bg-white border-[#E6E6E6]">
-                <CardHeader>
-                  <div className="text-4xl mb-4">☁️</div>
-                  <CardTitle className="text-xl font-montserrat text-[#1C1C1C]">AWS</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {["EC2", "EKS", "RDS", "S3", "IAM", "CloudWatch"].map((tech) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white border-[#E6E6E6]">
-                <CardHeader>
-                  <div className="text-4xl mb-4">⚡</div>
-                  <CardTitle className="text-xl font-montserrat text-[#1C1C1C]">Azure</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {["AKS", "App Service", "SQL DB", "Storage", "Entra ID", "Monitor"].map((tech) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white border-[#E6E6E6]">
-                <CardHeader>
-                  <div className="text-4xl mb-4">🚀</div>
-                  <CardTitle className="text-xl font-montserrat text-[#1C1C1C]">GCP</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-2">
-                    {["GKE", "Cloud SQL", "BigQuery", "Cloud Storage", "IAM", "Operations"].map((tech) => (
-                      <Badge key={tech} variant="secondary" className="text-xs">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
+              {[
+                { name: "AWS", icon: "☁️" },
+                { name: "Azure", icon: "⚡" },
+                { name: "Google Cloud", icon: "🚀" }
+              ].map((platform, idx) => (
+                <Card key={idx} className="bg-white border-[#E6E6E6] text-center">
+                  <CardHeader>
+                    <div className="text-5xl mb-4">{platform.icon}</div>
+                    <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">
+                      {platform.name}
+                    </CardTitle>
+                  </CardHeader>
+                </Card>
+              ))}
             </div>
-
+            
             <div className="text-center">
-              <p className="text-sm text-[#3C3C3C] mb-4">
-                <strong>Also supporting:</strong> Microsoft 365 / Dynamics 365 • Hybrid/On-prem (VMware, Kubernetes)
+              <p className="text-[#3C3C3C]">
+                Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Migration Tracks Section */}
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+                Migration Tracks
+              </h2>
+            </div>
+            
+            <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-6">
+              {[
+                {
+                  title: "Azure migrations",
+                  description: "Move apps, data, and services to Azure with landing zones, containerization where it fits, and secure IAM. We plan, test, and execute with minimal downtime."
+                },
+                {
+                  title: "Microsoft 365 (M365) migrations",
+                  description: "Tenant‑to‑tenant, Exchange→M365, or Google Workspace→M365. We handle identity, mailflow, and coexistence so users keep working."
+                },
+                {
+                  title: "AWS migrations",
+                  description: "Lift‑and‑shift or refactor to managed services. We map dependencies, rehearse cutovers, and align to your security baseline."
+                },
+                {
+                  title: "Google Workspace migrations",
+                  description: "Mail, files, and collaboration moved with governance intact. Change management included so adoption sticks."
+                },
+                {
+                  title: "SaaS enablement",
+                  description: "Shift from licenses to subscriptions safely. We align data, identity, and automation so SaaS lands cleanly and scales."
+                }
+              ].map((track, idx) => (
+                <Card key={idx} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-6">
+                    <h3 className="text-xl font-bold font-montserrat text-[#1C1C1C] mb-3">
+                      {track.title}
+                    </h3>
+                    <p className="text-[#3C3C3C]">{track.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
         </section>
@@ -1119,32 +1179,29 @@ export default function CloudServices() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Our Approach: Discover → Pilot → Scale
+                How We Work
               </h2>
-              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">
-                A proven methodology that minimizes risk and maximizes outcomes
-              </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="max-w-5xl mx-auto grid md:grid-cols-3 gap-8">
               {[
                 {
                   step: "1",
                   title: "Discover",
-                  outcome: "Baseline assessment & migration roadmap",
-                  bullets: ["TCO analysis & business case", "Landing zone design & governance model"],
+                  outcome: "Right‑sized plan",
+                  bullets: ["Short assessment", "Clear baseline"],
                 },
                 {
                   step: "2",
-                  title: "Pilot (4–8 weeks)",
-                  outcome: "Proven outcomes on a contained workload",
-                  bullets: ["Migrate/refactor 1–2 core apps", "Establish monitoring, security, and DR"],
+                  title: "Migrate/Pilot",
+                  outcome: "Controlled execution",
+                  bullets: ["Pilot or phased migration", "Minimal risk"],
                 },
                 {
                   step: "3",
-                  title: "Scale",
-                  outcome: "Enterprise-wide rollout with SLA-based ops",
-                  bullets: ["Phased migration of remaining workloads", "24×7 managed services & FinOps optimization"],
+                  title: "Run & Optimize",
+                  outcome: "Continuous improvements",
+                  bullets: ["Operate with SLAs", "Tune and harden"],
                 },
               ].map((phase, idx) => (
                 <Card key={idx} className="bg-white border-[#E6E6E6] relative">
@@ -1163,7 +1220,7 @@ export default function CloudServices() {
                     <ul className="space-y-2">
                       {phase.bullets.map((bullet, bIdx) => (
                         <li key={bIdx} className="flex items-start text-sm text-[#3C3C3C]">
-                          <CheckCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-[#007AFF]" />
+                          <CheckCircle2 className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-[#007AFF]" />
                           {bullet}
                         </li>
                       ))}
@@ -1171,6 +1228,49 @@ export default function CloudServices() {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What You Can Expect Section */}
+        <section className="py-20 bg-[#F5F5F5]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+                What You Can Expect
+              </h2>
+            </div>
+            
+            <div className="max-w-4xl mx-auto grid md:grid-cols-3 gap-8">
+              {[
+                {
+                  icon: Users,
+                  title: "Certified, experienced engineers"
+                },
+                {
+                  icon: Clock,
+                  title: "24×7 availability with clear SLAs"
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "Security built‑in (IAM, encryption, least privilege)"
+                }
+              ].map((item, idx) => (
+                <Card key={idx} className="bg-white border-[#E6E6E6] text-center hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-8">
+                    <item.icon className="w-12 h-12 text-[#E52629] mx-auto mb-4" />
+                    <h3 className="text-lg font-bold font-montserrat text-[#1C1C1C]">
+                      {item.title}
+                    </h3>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            
+            <div className="max-w-3xl mx-auto mt-12 text-center">
+              <p className="text-[#3C3C3C] text-sm">
+                <strong>Privacy & compliance:</strong> We follow WCAG 2.2 AA for UX and respect India's DPDP along with GDPR/CCPA where applicable. Forms collect only what's needed, with explicit consent.
+              </p>
             </div>
           </div>
         </section>
@@ -1296,103 +1396,30 @@ export default function CloudServices() {
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Get Started with Cloud
+                Ready to simplify cloud?
               </h2>
               <p className="text-lg text-[#3C3C3C]">
-                Schedule a free cloud assessment or reach out with questions
+                Let's discuss your cloud requirements and create a tailored plan.
               </p>
             </div>
 
-            <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
-              <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-[#1C1C1C] font-medium">
-                        Name *
-                      </Label>
-                      <Input
-                        id="name"
-                        required
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="bg-white border-[#E6E6E6]"
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-[#1C1C1C] font-medium">
-                        Work Email *
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        required
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="bg-white border-[#E6E6E6]"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="company" className="text-[#1C1C1C] font-medium">
-                      Company *
-                    </Label>
-                    <Input
-                      id="company"
-                      required
-                      value={formData.company}
-                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="bg-white border-[#E6E6E6]"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-[#1C1C1C] font-medium">
-                      Message *
-                    </Label>
-                    <Textarea
-                      id="message"
-                      required
-                      rows={4}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="bg-white border-[#E6E6E6]"
-                    />
-                  </div>
-
-                  <div className="flex items-start space-x-3">
-                    <Checkbox
-                      id="consent"
-                      checked={formData.consent}
-                      onCheckedChange={(checked) => 
-                        setFormData({ ...formData, consent: checked as boolean })
-                      }
-                      required
-                    />
-                    <Label 
-                      htmlFor="consent" 
-                      className="text-sm text-[#3C3C3C] leading-relaxed cursor-pointer"
-                    >
-                      By submitting, you agree to be contacted and to our{" "}
-                      <Link to="/privacy" className="text-[#007AFF] underline">
-                        privacy policy
-                      </Link>
-                      . *
-                    </Label>
-                  </div>
-
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-[#E52629] hover:bg-[#D02022] text-white font-semibold"
-                  >
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button 
+                asChild
+                size="lg"
+                className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold"
+              >
+                <Link to="/contact?type=cloud-assessment">Get a Cloud Assessment</Link>
+              </Button>
+              <Button 
+                asChild
+                size="lg"
+                variant="outline"
+                className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-semibold"
+              >
+                <Link to="/contact">Talk to an expert</Link>
+              </Button>
+            </div>
           </div>
         </section>
       </main>

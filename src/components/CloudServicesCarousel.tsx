@@ -68,7 +68,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
       return;
     }
 
-    const interval = slidesPerView === 1 ? 5000 : 4000;
+    const interval = 3000;
     const maxIndex = Math.max(0, services.length - slidesPerView);
 
     timeoutRef.current = setTimeout(() => {
@@ -248,13 +248,14 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         <ChevronRight className="h-5 w-5 text-[#1C1C1C]" />
       </Button>
 
-      {/* Status indicator */}
+      {/* Status indicator - screen reader only */}
       <div
-        className="carousel__status mt-6 text-center text-sm font-medium text-[#3C3C3C]"
+        className="sr-only"
         aria-live="polite"
         aria-atomic="true"
+        id="cloud-svcs-status"
       >
-        {currentIndex + 1} / {maxIndex + 1}
+        Slide {currentIndex + 1} of {maxIndex + 1}
       </div>
     </div>
   );

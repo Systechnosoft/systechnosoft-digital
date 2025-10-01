@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle, LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -16,34 +15,33 @@ interface CloudServicesCarouselProps {
 
 export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(3);
   const [isPaused, setIsPaused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [slidesPerView, setSlidesPerView] = useState(1);
-  const [isTransitioning, setIsTransitioning] = useState(true);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const trackRef = useRef<HTMLUListElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const transitionEndHandlerRef = useRef<(() => void) | null>(null);
 
-  // Create infinite loop array: clone last perView at start, first perView at end
-  const getInfiniteSlides = useCallback(() => {
+  // Build infinite slides array with clones
+  const buildInfiniteSlides = useCallback(() => {
     const cloneStart = services.slice(-slidesPerView);
     const cloneEnd = services.slice(0, slidesPerView);
     return [...cloneStart, ...services, ...cloneEnd];
   }, [services, slidesPerView]);
 
-  const infiniteSlides = getInfiniteSlides();
+  const infiniteSlides = buildInfiniteSlides();
 
-  // Determine slides per view based on screen size
+  // Update slides per view
   useEffect(() => {
     const updateSlidesPerView = () => {
-      if (window.matchMedia("(min-width: 1024px)").matches) {
-        setSlidesPerView(3);
-      } else if (window.matchMedia("(min-width: 640px)").matches) {
-        setSlidesPerView(2);
-      } else {
-        setSlidesPerView(1);
-      }
+      const width = window.innerWidth;
+      const newPerView = width >= 1024 ? 3 : width >= 640 ? 2 : 1;
+      setSlidesPerView(newPerView);
     };
 
     updateSlidesPerView();
@@ -51,18 +49,16 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     return () => window.removeEventListener("resize", updateSlidesPerView);
   }, []);
 
-  // Initialize to show cards 2, 3, 4 on desktop (start at index = slidesPerView)
+  // Initialize starting position (show cards 2, 3, 4 on desktop)
   useEffect(() => {
     setCurrentIndex(slidesPerView);
   }, [slidesPerView]);
 
-  // Intersection Observer to pause when off-screen
+  // Intersection observer for visibility
   useEffect(() => {
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.intersectionRatio >= 0.2);
-      },
-      { threshold: [0.2] }
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.2 }
     );
 
     if (sectionRef.current) {
@@ -72,131 +68,137 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     return () => observer.disconnect();
   }, []);
 
-  // Auto-advance logic with infinite loop
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (prefersReducedMotion || isPaused || !isVisible) {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      return;
+  // Apply transform
+  const applyTransform = useCallback((index: number, animate: boolean) => {
+    if (!trackRef.current || !viewportRef.current) return;
+
+    const slideWidth = viewportRef.current.clientWidth / slidesPerView;
+    const offset = -index * slideWidth;
+
+    if (animate) {
+      trackRef.current.style.transition = "transform 340ms cubic-bezier(0.22, 1, 0.36, 1)";
+      setIsTransitioning(true);
+    } else {
+      trackRef.current.style.transition = "none";
+      setIsTransitioning(false);
     }
 
-    const interval = 3000;
-
-    timeoutRef.current = setTimeout(() => {
-      setIsTransitioning(true);
-      setCurrentIndex((prev) => prev + 1);
-    }, interval);
-
-    return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-      }
-    };
-  }, [currentIndex, isPaused, isVisible]);
+    trackRef.current.style.transform = `translate3d(${offset}px, 0, 0)`;
+  }, [slidesPerView]);
 
   // Handle infinite loop wraparound
   useEffect(() => {
     if (!isTransitioning) return;
 
-    const total = services.length;
-    const maxIndex = total + slidesPerView;
-
-    if (currentIndex >= maxIndex) {
-      // Reached end clones, jump back to real start without animation
-      const timer = setTimeout(() => {
-        setIsTransitioning(false);
+    const handleTransitionEnd = () => {
+      const total = services.length;
+      
+      if (currentIndex >= total + slidesPerView) {
+        // Wrapped to end clones, jump to real start
         setCurrentIndex(slidesPerView);
-        requestAnimationFrame(() => {
-          setIsTransitioning(true);
-        });
-      }, 340);
-      return () => clearTimeout(timer);
-    } else if (currentIndex < slidesPerView) {
-      // Reached start clones, jump to real end without animation
-      const timer = setTimeout(() => {
         setIsTransitioning(false);
+        applyTransform(slidesPerView, false);
+      } else if (currentIndex < slidesPerView) {
+        // Wrapped to start clones, jump to real end
         setCurrentIndex(total);
-        requestAnimationFrame(() => {
-          setIsTransitioning(true);
-        });
-      }, 340);
-      return () => clearTimeout(timer);
-    }
-  }, [currentIndex, services.length, slidesPerView, isTransitioning]);
+        setIsTransitioning(false);
+        applyTransform(total, false);
+      } else {
+        setIsTransitioning(false);
+      }
+    };
 
-  // Pause with resume after 10s
+    transitionEndHandlerRef.current = handleTransitionEnd;
+
+    if (trackRef.current) {
+      trackRef.current.addEventListener("transitionend", handleTransitionEnd);
+      return () => {
+        trackRef.current?.removeEventListener("transitionend", handleTransitionEnd);
+      };
+    }
+  }, [currentIndex, services.length, slidesPerView, isTransitioning, applyTransform]);
+
+  // Apply transform when index changes
+  useEffect(() => {
+    applyTransform(currentIndex, isTransitioning);
+  }, [currentIndex, applyTransform, isTransitioning]);
+
+  // Auto-advance
+  useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    
+    if (prefersReducedMotion || isPaused || !isVisible) {
+      if (autoplayTimerRef.current) {
+        clearTimeout(autoplayTimerRef.current);
+        autoplayTimerRef.current = null;
+      }
+      return;
+    }
+
+    autoplayTimerRef.current = setTimeout(() => {
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => prev + 1);
+    }, 3000);
+
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearTimeout(autoplayTimerRef.current);
+      }
+    };
+  }, [currentIndex, isPaused, isVisible]);
+
+  // Pause handlers
   const handlePause = useCallback(() => {
     setIsPaused(true);
-    if (pauseTimeoutRef.current) {
-      clearTimeout(pauseTimeoutRef.current);
-    }
-    pauseTimeoutRef.current = setTimeout(() => {
-      setIsPaused(false);
-    }, 10000);
+    if (pauseTimerRef.current) clearTimeout(pauseTimerRef.current);
+    pauseTimerRef.current = setTimeout(() => setIsPaused(false), 10000);
   }, []);
 
   const handleResume = useCallback(() => {
-    if (pauseTimeoutRef.current) {
-      clearTimeout(pauseTimeoutRef.current);
+    if (pauseTimerRef.current) {
+      clearTimeout(pauseTimerRef.current);
     }
   }, []);
 
-  const goToPrevious = () => {
+  // Navigation
+  const goToPrevious = useCallback(() => {
     handlePause();
     setIsTransitioning(true);
     setCurrentIndex((prev) => prev - 1);
-  };
+  }, [handlePause]);
 
-  const goToNext = () => {
+  const goToNext = useCallback(() => {
     handlePause();
     setIsTransitioning(true);
     setCurrentIndex((prev) => prev + 1);
-  };
+  }, [handlePause]);
 
   // Keyboard navigation
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "ArrowLeft") {
       e.preventDefault();
       goToPrevious();
     } else if (e.key === "ArrowRight") {
       e.preventDefault();
       goToNext();
-    } else if (e.key === "Home") {
-      e.preventDefault();
-      handlePause();
-      setIsTransitioning(true);
-      setCurrentIndex(slidesPerView);
-    } else if (e.key === "End") {
-      e.preventDefault();
-      handlePause();
-      setIsTransitioning(true);
-      setCurrentIndex(services.length);
     }
+  }, [goToPrevious, goToNext]);
+
+  // Get real slide index for screen reader
+  const getRealIndex = () => {
+    let realIdx = currentIndex - slidesPerView;
+    const total = services.length;
+    realIdx = ((realIdx % total) + total) % total;
+    return realIdx + 1;
   };
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  
-  // Calculate actual displayed slide for screen reader
-  const getRealIndex = () => {
-    let realIdx = currentIndex - slidesPerView;
-    if (realIdx < 0) realIdx = services.length + realIdx;
-    if (realIdx >= services.length) realIdx = realIdx % services.length;
-    return realIdx + 1;
-  };
 
   return (
     <div
       ref={sectionRef}
       className="cloud-services-carousel relative"
       data-cloud-carousel
-      style={{
-        "--slide-w-sm": "100%",
-        "--slide-w-md": "calc(50% - 12px)",
-        "--slide-w-lg": "calc(33.333% - 16px)",
-      } as React.CSSProperties}
     >
       {/* Navigation Buttons */}
       <Button
@@ -214,6 +216,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
       <div
         ref={viewportRef}
         className="carousel__viewport overflow-hidden"
+        style={{ contain: "paint" }}
         tabIndex={0}
         onKeyDown={handleKeyDown}
         onMouseEnter={handlePause}
@@ -225,49 +228,31 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         aria-roledescription="carousel"
         aria-label="Cloud services we deliver"
       >
-        <motion.ul
+        <ul
+          ref={trackRef}
           id="carousel-track"
-          className="carousel__track flex gap-6"
-          animate={{
-            x: `calc(-${currentIndex} * (var(--slide-w-sm) + 24px))`,
-          }}
-          transition={
-            !isTransitioning || prefersReducedMotion
-              ? { duration: 0 }
-              : {
-                  duration: 0.34,
-                  ease: [0.22, 1, 0.36, 1],
-                }
-          }
+          className="carousel__track flex flex-nowrap"
           style={{
             willChange: "transform",
-            contain: "paint",
           }}
         >
           {infiniteSlides.map((service, idx) => {
             const Icon = service.icon;
+            const isClone = idx < slidesPerView || idx >= slidesPerView + services.length;
+            
             return (
               <li
-                key={idx}
-                className="flex-shrink-0 w-[var(--slide-w-sm)] sm:w-[var(--slide-w-md)] lg:w-[var(--slide-w-lg)]"
+                key={`slide-${idx}`}
+                className="slide flex-shrink-0 px-3"
+                style={{
+                  flexBasis: `${100 / slidesPerView}%`,
+                }}
+                aria-hidden={isClone ? "true" : undefined}
+                data-clone={isClone ? "" : undefined}
               >
-                <Card
-                  className="h-full min-h-[200px] bg-white border-[#E6E6E6] rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]"
-                  tabIndex={0}
-                >
+                <Card className="h-full min-h-[200px] bg-white border-[#E6E6E6] rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-all duration-300 hover:shadow-lg hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]">
                   <CardHeader className="p-0 mb-4">
-                    <motion.div
-                      initial={prefersReducedMotion ? {} : { rotate: 0 }}
-                      animate={prefersReducedMotion ? {} : { rotate: [0, -10, 10, -10, 0] }}
-                      transition={{
-                        duration: 0.5,
-                        delay: idx * 0.1,
-                        ease: "easeInOut",
-                      }}
-                    >
-                      <Icon className="h-8 w-8 text-[#E52629] mb-3" />
-                    </motion.div>
-                    <h3 className="sr-only">{service.title}</h3>
+                    <Icon className="h-8 w-8 text-[#E52629] mb-3" />
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C]">
                       {service.title}
                     </CardTitle>
@@ -286,7 +271,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
               </li>
             );
           })}
-        </motion.ul>
+        </ul>
       </div>
 
       <Button

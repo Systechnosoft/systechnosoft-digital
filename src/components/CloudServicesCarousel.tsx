@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, CheckCircle, LucideIcon } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,10 +19,20 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
   const [isPaused, setIsPaused] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [slidesPerView, setSlidesPerView] = useState(1);
+  const [isTransitioning, setIsTransitioning] = useState(true);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+
+  // Create infinite loop array: clone last perView at start, first perView at end
+  const getInfiniteSlides = useCallback(() => {
+    const cloneStart = services.slice(-slidesPerView);
+    const cloneEnd = services.slice(0, slidesPerView);
+    return [...cloneStart, ...services, ...cloneEnd];
+  }, [services, slidesPerView]);
+
+  const infiniteSlides = getInfiniteSlides();
 
   // Determine slides per view based on screen size
   useEffect(() => {
@@ -41,6 +51,11 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     return () => window.removeEventListener("resize", updateSlidesPerView);
   }, []);
 
+  // Initialize to show cards 2, 3, 4 on desktop (start at index = slidesPerView)
+  useEffect(() => {
+    setCurrentIndex(slidesPerView);
+  }, [slidesPerView]);
+
   // Intersection Observer to pause when off-screen
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,7 +72,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     return () => observer.disconnect();
   }, []);
 
-  // Auto-advance logic
+  // Auto-advance logic with infinite loop
   useEffect(() => {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion || isPaused || !isVisible) {
@@ -69,10 +84,10 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     }
 
     const interval = 3000;
-    const maxIndex = Math.max(0, services.length - slidesPerView);
 
     timeoutRef.current = setTimeout(() => {
-      setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+      setIsTransitioning(true);
+      setCurrentIndex((prev) => prev + 1);
     }, interval);
 
     return () => {
@@ -80,7 +95,37 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [currentIndex, isPaused, isVisible, services.length, slidesPerView]);
+  }, [currentIndex, isPaused, isVisible]);
+
+  // Handle infinite loop wraparound
+  useEffect(() => {
+    if (!isTransitioning) return;
+
+    const total = services.length;
+    const maxIndex = total + slidesPerView;
+
+    if (currentIndex >= maxIndex) {
+      // Reached end clones, jump back to real start without animation
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(slidesPerView);
+        requestAnimationFrame(() => {
+          setIsTransitioning(true);
+        });
+      }, 340);
+      return () => clearTimeout(timer);
+    } else if (currentIndex < slidesPerView) {
+      // Reached start clones, jump to real end without animation
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+        setCurrentIndex(total);
+        requestAnimationFrame(() => {
+          setIsTransitioning(true);
+        });
+      }, 340);
+      return () => clearTimeout(timer);
+    }
+  }, [currentIndex, services.length, slidesPerView, isTransitioning]);
 
   // Pause with resume after 10s
   const handlePause = useCallback(() => {
@@ -101,14 +146,14 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
 
   const goToPrevious = () => {
     handlePause();
-    const maxIndex = Math.max(0, services.length - slidesPerView);
-    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev - 1);
   };
 
   const goToNext = () => {
     handlePause();
-    const maxIndex = Math.max(0, services.length - slidesPerView);
-    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+    setIsTransitioning(true);
+    setCurrentIndex((prev) => prev + 1);
   };
 
   // Keyboard navigation
@@ -122,16 +167,25 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
     } else if (e.key === "Home") {
       e.preventDefault();
       handlePause();
-      setCurrentIndex(0);
+      setIsTransitioning(true);
+      setCurrentIndex(slidesPerView);
     } else if (e.key === "End") {
       e.preventDefault();
       handlePause();
-      setCurrentIndex(Math.max(0, services.length - slidesPerView));
+      setIsTransitioning(true);
+      setCurrentIndex(services.length);
     }
   };
 
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const maxIndex = Math.max(0, services.length - slidesPerView);
+  
+  // Calculate actual displayed slide for screen reader
+  const getRealIndex = () => {
+    let realIdx = currentIndex - slidesPerView;
+    if (realIdx < 0) realIdx = services.length + realIdx;
+    if (realIdx >= services.length) realIdx = realIdx % services.length;
+    return realIdx + 1;
+  };
 
   return (
     <div
@@ -149,10 +203,9 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         variant="outline"
         size="icon"
         onClick={goToPrevious}
-        disabled={currentIndex === 0}
         aria-label="Previous"
         aria-controls="carousel-track"
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-[#E6E6E6] shadow-md hover:bg-[#F7F7F7] disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-[#E52629] -translate-x-1/2"
+        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-[#E6E6E6] shadow-md hover:bg-[#F7F7F7] focus-visible:outline-2 focus-visible:outline-[#E52629] -translate-x-1/2"
       >
         <ChevronLeft className="h-5 w-5 text-[#1C1C1C]" />
       </Button>
@@ -179,10 +232,10 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
             x: `calc(-${currentIndex} * (var(--slide-w-sm) + 24px))`,
           }}
           transition={
-            prefersReducedMotion
+            !isTransitioning || prefersReducedMotion
               ? { duration: 0 }
               : {
-                  duration: 0.36,
+                  duration: 0.34,
                   ease: [0.22, 1, 0.36, 1],
                 }
           }
@@ -191,7 +244,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
             contain: "paint",
           }}
         >
-          {services.map((service, idx) => {
+          {infiniteSlides.map((service, idx) => {
             const Icon = service.icon;
             return (
               <li
@@ -240,10 +293,9 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         variant="outline"
         size="icon"
         onClick={goToNext}
-        disabled={currentIndex >= maxIndex}
         aria-label="Next"
         aria-controls="carousel-track"
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-[#E6E6E6] shadow-md hover:bg-[#F7F7F7] disabled:opacity-30 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-[#E52629] translate-x-1/2"
+        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 h-10 w-10 rounded-full bg-white border-[#E6E6E6] shadow-md hover:bg-[#F7F7F7] focus-visible:outline-2 focus-visible:outline-[#E52629] translate-x-1/2"
       >
         <ChevronRight className="h-5 w-5 text-[#1C1C1C]" />
       </Button>
@@ -255,7 +307,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
         aria-atomic="true"
         id="cloud-svcs-status"
       >
-        Slide {currentIndex + 1} of {maxIndex + 1}
+        Slide {getRealIndex()} of {services.length}
       </div>
     </div>
   );

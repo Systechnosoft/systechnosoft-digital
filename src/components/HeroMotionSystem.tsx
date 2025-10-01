@@ -132,9 +132,12 @@ export function HeroBackground({ children, className = "" }: HeroBackgroundProps
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
-    <div className={`relative bg-white ${className}`}>
+    <div 
+      className={`relative isolate overflow-clip [@supports(not(overflow:clip))]:overflow-hidden bg-white ${className}`}
+      style={{ contain: 'layout paint' }}
+    >
       {/* Animated background - matching Salesforce */}
-      <div className="absolute inset-0 opacity-10 pointer-events-none">
+      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
         {!prefersReducedMotion && (
           <motion.div
@@ -149,7 +152,13 @@ export function HeroBackground({ children, className = "" }: HeroBackgroundProps
         )}
       </div>
       
-      <div className="relative z-10">
+      {/* Bottom edge guard */}
+      <div 
+        className="absolute inset-x-0 bottom-0 h-12 z-[1] bg-gradient-to-b from-white/0 to-white pointer-events-none"
+        aria-hidden="true"
+      />
+      
+      <div className="relative z-[2]">
         {children}
       </div>
     </div>

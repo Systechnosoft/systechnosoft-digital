@@ -115,11 +115,6 @@ const servicePillars = [
     title: "DevOps & Automation",
     bullets: ["CI/CD pipelines", "IaC (Terraform/Bicep)", "Observability (logs, metrics, APM)"],
   },
-  {
-    icon: BarChart3,
-    title: "Data & Analytics on Cloud",
-    bullets: ["Warehousing & ETL/ELT", "BI dashboards", "Alerts"],
-  },
 ];
 
 // KPIs data
@@ -932,37 +927,25 @@ export default function CloudServices() {
         {/* Overview Section */}
         <section id="overview" className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-12">
+            <div className="text-center max-w-3xl mx-auto mb-8">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-6">
-                Plain‑English Overview
+                Overview
               </h2>
-              <p className="text-lg text-[#3C3C3C] leading-relaxed">
+              <p className="text-lg text-[#3C3C3C] leading-relaxed md:border-t md:border-[#E6E6E6] md:mt-6 md:pt-6">
                 Cloud should make life simpler, not harder. We keep your environments reliable, secure, and cost‑smart—while you keep building. With Systechnosoft, you get always‑on support from certified engineers, clear runbooks, and calm operations.
               </p>
             </div>
 
-            {/* Trust Badges */}
-            <div className="flex justify-center gap-8 mb-12 flex-wrap">
-              <Badge variant="outline" className="px-6 py-3 text-base border-[#E6E6E6] bg-white">
-                <Award className="h-5 w-5 mr-2 text-[#E52629]" />
-                AWS Partner
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base border-[#E6E6E6] bg-white">
-                <Award className="h-5 w-5 mr-2 text-[#007AFF]" />
-                Azure Certified
-              </Badge>
-              <Badge variant="outline" className="px-6 py-3 text-base border-[#E6E6E6] bg-white">
-                <Award className="h-5 w-5 mr-2 text-[#3C3C3C]" />
-                GCP Expert
-              </Badge>
-            </div>
-
             {/* KPI Strip */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 justify-center">
               {kpis.map((kpi, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] text-center">
+                <Card 
+                  key={idx} 
+                  className="bg-white border-[#E6E6E6] text-center"
+                  aria-label={`${kpi.value}${kpi.suffix} ${kpi.label}`}
+                >
                   <CardContent className="p-6">
-                    <div className="text-4xl font-bold text-[#E52629] mb-2">
+                    <div className="text-4xl font-bold text-[#E52629] mb-2 tabular-nums">
                       <AnimatedCounter end={kpi.value} suffix={kpi.suffix} />
                     </div>
                     <div className="text-sm font-medium text-[#3C3C3C]">{kpi.label}</div>
@@ -985,7 +968,7 @@ export default function CloudServices() {
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="cloud-services grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-6 lg:[&>*:nth-last-child(2)]:col-start-2">
               {servicePillars.map((service, idx) => {
                 const Icon = service.icon;
                 return (
@@ -999,9 +982,10 @@ export default function CloudServices() {
                       duration: 0.5,
                       ease: [0.22, 1, 0.36, 1]
                     }}
+                    className="h-full"
                   >
                     <Card 
-                      className="h-full bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus-within:ring-2 focus-within:ring-[#007AFF]"
+                      className="h-full min-h-[200px] bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]"
                       tabIndex={0}
                     >
                       <CardHeader>
@@ -1293,21 +1277,14 @@ export default function CloudServices() {
                   key={idx} 
                   className="bg-white border-[#E6E6E6] hover:shadow-md transition-shadow"
                 >
-                  <CardHeader>
+                  <CardHeader className="p-6 md:p-7">
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center">
                       <Boxes className="h-5 w-5 mr-2 text-[#E52629]" />
                       {acc.name}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-[#3C3C3C] mb-4">{acc.description}</p>
-                    <Button 
-                      asChild 
-                      variant="link" 
-                      className="text-[#007AFF] p-0 h-auto font-medium"
-                    >
-                      <Link to="/contact?type=accelerator">Learn more →</Link>
-                    </Button>
+                  <CardContent className="p-6 md:p-7 pt-0">
+                    <p className="text-sm text-[#3C3C3C]">{acc.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -1333,23 +1310,16 @@ export default function CloudServices() {
               autoAdvanceMs={4000}
               renderSlide={(study) => (
                 <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
-                  <CardContent className="p-8">
+                  <CardContent className="p-8 md:py-8">
                     <div className="text-sm font-semibold text-[#007AFF] mb-2">
                       {study.company}
                     </div>
-                    <div className="text-3xl font-bold text-[#E52629] mb-4">
+                    <div className="text-3xl md:text-4xl font-semibold text-[#E52629] mb-4">
                       {study.metric}
                     </div>
-                    <p className="text-lg text-[#3C3C3C] mb-6">
+                    <p className="text-lg text-[#3C3C3C]">
                       {study.outcome}
                     </p>
-                    <Button 
-                      asChild 
-                      variant="link" 
-                      className="text-[#007AFF] p-0 h-auto font-medium"
-                    >
-                      <Link to="/contact?type=case-study">Read full story →</Link>
-                    </Button>
                   </CardContent>
                 </Card>
               )}

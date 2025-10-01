@@ -3,8 +3,6 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
-  Play, 
-  Pause, 
   ArrowRight, 
   ChevronLeft, 
   ChevronRight,
@@ -185,154 +183,325 @@ const caseStudies = [
   },
 ];
 
-// Particle Constellation Animation - Light Theme (same as AI Automation)
-function ParticleConstellationAnimation({ isPaused }: { isPaused: boolean }) {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationRef = useRef<number>();
-  const particlesRef = useRef<Array<{
-    x: number;
-    y: number;
-    vx: number;
-    vy: number;
-    size: number;
-  }>>([]);
-  const prefersReducedMotion = useRef(
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
+// Cloud Swarm Animation - Adapted from Salesforce BotSwarm
+const CloudSwarmAnimation: React.FC = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (prefersReducedMotion.current) return;
-    
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const root = containerRef.current;
+    if (!root) return;
 
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
+    // Respect reduced motion
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const swarmContainer = root.querySelector('.cloud-swarm') as HTMLElement;
+    const core = root.querySelector('.cloud-core') as HTMLElement;
+    if (!swarmContainer || !core) return;
 
-    // Set canvas size with DPR
-    const dpr = window.devicePixelRatio || 1;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * dpr;
-    canvas.height = rect.height * dpr;
-    ctx.scale(dpr, dpr);
+    // Wave state management
+    const state = {
+      w: 0, h: 0, r: 0,
+      center: { x: 0, y: 0 },
+      last: performance.now(),
+      paused: false,
+      inView: false,
+      currentWave: [] as any[],
+      nextWaveTime: 0,
+      waveActive: false,
+      coreRadius: 36,
+    };
 
-    const width = rect.width;
-    const height = rect.height;
-
-    // Initialize particles
-    if (particlesRef.current.length === 0) {
-      const particleCount = Math.min(50, Math.floor(width * height / 15000));
-      for (let i = 0; i < particleCount; i++) {
-        particlesRef.current.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.3,
-          vy: (Math.random() - 0.5) * 0.3,
-          size: Math.random() * 2 + 1,
-        });
-      }
+    function resize() {
+      const rect = root.getBoundingClientRect();
+      state.w = Math.max(100, Math.floor(rect.width));
+      state.h = Math.max(100, Math.floor(rect.height));
+      state.r = Math.min(state.w, state.h) * 0.45;
+      state.center.x = state.w / 2;
+      state.center.y = state.h / 2;
+      
+      const coreRect = core.getBoundingClientRect();
+      state.coreRadius = Math.max(coreRect.width, coreRect.height) / 2;
     }
 
-    const particles = particlesRef.current;
-    const connectionDistance = 120;
-    let time = 0;
+    // Six diagonal emitters
+    function getEmitterPositions() {
+      const angles = [0, 60, 120, 180, 240, 300];
+      return angles.map(deg => {
+        const rad = deg * Math.PI / 180;
+        return {
+          x: state.center.x + Math.cos(rad) * (state.r - 4),
+          y: state.center.y + Math.sin(rad) * (state.r - 4),
+          angle: rad,
+        };
+      });
+    }
 
-    function animate() {
-      if (!ctx || !canvas) return;
+    function rand(min: number, max: number) { 
+      return min + Math.random() * (max - min); 
+    }
+
+    function createCloudNode() {
+      const node = document.createElement('div');
+      node.classList.add('cloud-node');
+      node.setAttribute('aria-hidden', 'true');
+      node.innerHTML = `
+        <svg class="mini-cloud" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/>
+        </svg>`;
+      return node;
+    }
+
+    // Spawn a complete wave of 6 clouds
+    function spawnWave() {
+      const emitters = getEmitterPositions();
+      const newWave: any[] = [];
       
-      ctx.clearRect(0, 0, width, height);
-
-      if (!isPaused) {
-        time += 0.016; // ~60fps
-
-        // Update particle positions
-        particles.forEach((p) => {
-          p.x += p.vx;
-          p.y += p.vy;
-
-          // Wrap around edges
-          if (p.x < 0) p.x = width;
-          if (p.x > width) p.x = 0;
-          if (p.y < 0) p.y = height;
-          if (p.y > height) p.y = 0;
+      emitters.forEach((em) => {
+        const duration = rand(5000, 10000);
+        const size = rand(6, 9);
+        const driftX = rand(-4, 4);
+        const driftY = rand(-4, 4);
+        
+        const node = createCloudNode();
+        swarmContainer.appendChild(node);
+        
+        newWave.push({
+          id: Math.random(),
+          node,
+          startX: em.x,
+          startY: em.y,
+          targetX: state.center.x + driftX,
+          targetY: state.center.y + driftY,
+          duration,
+          startTime: performance.now(),
+          size,
+          alpha: 1,
+          vanished: false,
         });
-      }
-
-      // Draw connection lines
-      ctx.strokeStyle = "rgba(229, 38, 41, 0.08)";
-      ctx.lineWidth = 1;
+      });
       
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
+      state.currentWave = newWave;
+      state.waveActive = true;
+    }
 
-          if (distance < connectionDistance) {
-            const opacity = (1 - distance / connectionDistance) * 0.15;
-            ctx.strokeStyle = `rgba(229, 38, 41, ${opacity})`;
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.stroke();
+    function easeInOutCubic(t: number): number {
+      return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+    }
+
+    function updateCloudPosition(cloud: any) {
+      if (!cloud.node) return;
+      
+      cloud.node.style.left = `${cloud.x}px`;
+      cloud.node.style.top = `${cloud.y}px`;
+      cloud.node.style.opacity = cloud.alpha;
+    }
+
+    function updateWave(now: number) {
+      if (!state.waveActive || state.currentWave.length === 0) return;
+
+      const vanishRadius = state.coreRadius + 10;
+      let allVanished = true;
+      let anyVanished = false;
+
+      state.currentWave.forEach(cloud => {
+        if (cloud.vanished) return;
+        allVanished = false;
+
+        const elapsed = now - cloud.startTime;
+        const progress = Math.min(elapsed / cloud.duration, 1);
+        const eased = easeInOutCubic(progress);
+        
+        cloud.x = cloud.startX + (cloud.targetX - cloud.startX) * eased;
+        cloud.y = cloud.startY + (cloud.targetY - cloud.startY) * eased;
+        
+        const distToCenter = Math.hypot(cloud.x - state.center.x, cloud.y - state.center.y);
+        if (distToCenter <= vanishRadius) {
+          cloud.vanished = true;
+          anyVanished = true;
+          if (cloud.node) {
+            cloud.node.remove();
+            cloud.node = null;
           }
-        }
-      }
-
-      // Draw particles with subtle glow
-      particles.forEach((p, idx) => {
-        const colorCycle = (idx % 3);
-        let color;
-        if (colorCycle === 0) {
-          color = `rgba(229, 38, 41, ${0.6 + Math.sin(time * 2 + idx) * 0.2})`;
-        } else if (colorCycle === 1) {
-          color = `rgba(0, 122, 255, ${0.5 + Math.sin(time * 2 + idx) * 0.2})`;
         } else {
-          color = `rgba(120, 120, 120, ${0.4 + Math.sin(time * 2 + idx) * 0.2})`;
+          updateCloudPosition(cloud);
         }
-
-        // Subtle glow
-        ctx.shadowBlur = 4;
-        ctx.shadowColor = color;
-        ctx.fillStyle = color;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
       });
 
-      animationRef.current = requestAnimationFrame(animate);
+      if (anyVanished) {
+        core.classList.remove('pulse');
+        core.offsetWidth;
+        core.classList.add('pulse');
+      }
+
+      if (allVanished) {
+        state.waveActive = false;
+        state.currentWave = [];
+        state.nextWaveTime = now + rand(600, 900);
+      }
     }
 
-    animate();
+    function tick(now: number) {
+      if (!state.inView) { 
+        state.last = now; 
+        requestAnimationFrame(tick); 
+        return; 
+      }
+
+      if (state.paused) {
+        state.last = now;
+        requestAnimationFrame(tick);
+        return;
+      }
+
+      if (!state.waveActive && now >= state.nextWaveTime) {
+        spawnWave();
+      }
+
+      updateWave(now);
+
+      state.last = now;
+      requestAnimationFrame(tick);
+    }
+
+    let pauseTimer: NodeJS.Timeout | number;
+
+    function pauseAnimation() {
+      state.paused = true;
+    }
+
+    function resumeAnimation() {
+      state.paused = false;
+      clearTimeout(pauseTimer);
+    }
+
+    const io = new IntersectionObserver((ents) => {
+      state.inView = ents.some(e => e.isIntersecting);
+    }, { threshold: 0.1 });
+    io.observe(root);
+
+    const handlePointerEnter = () => pauseAnimation();
+    const handlePointerLeave = () => resumeAnimation();
+    const handleFocus = () => pauseAnimation();
+    const handleBlur = () => resumeAnimation();
+
+    root.addEventListener('pointerenter', handlePointerEnter);
+    root.addEventListener('pointerleave', handlePointerLeave);
+    root.addEventListener('focus', handleFocus);
+    root.addEventListener('blur', handleBlur);
+
+    function start() {
+      resize();
+      state.inView = true;
+      state.last = performance.now();
+      state.nextWaveTime = performance.now() + 1000;
+      if (!reduced) requestAnimationFrame(tick);
+    }
+
+    const handleResize = () => resize();
+    window.addEventListener('resize', handleResize);
+    
+    start();
 
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
+      io.disconnect();
+      window.removeEventListener('resize', handleResize);
+      root.removeEventListener('pointerenter', handlePointerEnter);
+      root.removeEventListener('pointerleave', handlePointerLeave);
+      root.removeEventListener('focus', handleFocus);
+      root.removeEventListener('blur', handleBlur);
+      clearTimeout(pauseTimer);
+      state.currentWave.forEach(cloud => {
+        if (cloud.node) cloud.node.remove();
+      });
     };
-  }, [isPaused]);
-
-  if (prefersReducedMotion.current) {
-    return (
-      <div className="cloud-hero-fallback w-full h-full flex items-center justify-center">
-        <img 
-          src="/img/cloud-constellation-still.avif" 
-          alt="Cloud constellation visualization"
-          className="w-full h-full object-cover opacity-40"
-        />
-      </div>
-    );
-  }
+  }, []);
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="cloud-hero-canvas w-full h-full"
-      aria-hidden="true"
-    />
+    <>
+      <style>{`
+        [data-cloud-swarm] {
+          position: relative;
+        }
+        [data-cloud-swarm] .cloud-swarm {
+          position: absolute; 
+          inset: 0; 
+          width: 100%; 
+          height: 100%;
+          pointer-events: none; 
+          z-index: 1;
+        }
+        [data-cloud-swarm] .cloud-core {
+          position: absolute; 
+          inset: 0; 
+          margin: auto; 
+          width: 72px; 
+          height: 72px;
+          display: grid; 
+          place-items: center; 
+          z-index: 2;
+        }
+        
+        .cloud-swarm .cloud-node {
+          position: absolute;
+          width: 54px; 
+          height: 54px;
+          background: transparent !important;
+          display: grid; 
+          place-items: center;
+          color: #007AFF;
+          filter: drop-shadow(0 0 9px rgba(0, 122, 255, 0.25));
+          pointer-events: none;
+          opacity: 0.95;
+          transform: translate(-50%, -50%);
+        }
+        .cloud-swarm .cloud-node .mini-cloud {
+          width: 48px; 
+          height: 48px;
+          transform: translateZ(0);
+        }
+        
+        @keyframes cloud-pulse {
+          0% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 122, 255, 0)); }
+          40% { transform: scale(1.08); filter: drop-shadow(0 0 14px rgba(0, 122, 255, 0.4)); }
+          100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(0, 122, 255, 0)); }
+        }
+        [data-cloud-swarm] .pulse { 
+          animation: cloud-pulse 520ms cubic-bezier(.22, 1, .36, 1); 
+        }
+        @media (prefers-reduced-motion: reduce) {
+          [data-cloud-swarm] .cloud-swarm { display: none !important; }
+          [data-cloud-swarm] .cloud-core {
+            animation: cloud-breathe 3s ease-in-out infinite;
+          }
+          .cloud-swarm .cloud-node { filter: none; }
+        }
+        @keyframes cloud-breathe {
+          0%, 100% { filter: drop-shadow(0 0 0 rgba(0, 122, 255, 0)); }
+          50% { filter: drop-shadow(0 0 8px rgba(0, 122, 255, 0.3)); }
+        }
+      `}</style>
+      <div 
+        ref={containerRef}
+        className="cloud-swarm-orb"
+        data-cloud-swarm
+        style={{
+          position: 'relative',
+          width: '100%',
+          minHeight: '560px',
+          maxWidth: '560px',
+          aspectRatio: '1/1',
+          borderRadius: '50%',
+          overflow: 'hidden',
+          background: 'radial-gradient(120% 120% at 60% 40%, rgba(0,122,255,.12), rgba(229,38,41,.08) 60%, transparent 100%)'
+        }}
+      >
+        <div className="cloud-swarm" aria-hidden="true" />
+        <div className="cloud-core" aria-hidden="true">
+          <Cloud className="w-full h-full text-[#007AFF]" />
+        </div>
+      </div>
+    </>
   );
-}
+};
 
 // Rotating Service Cards
 function RotatingServiceCards() {
@@ -602,7 +771,6 @@ function AnimatedCounter({
 }
 
 export default function CloudServices() {
-  const [heroAnimationPaused, setHeroAnimationPaused] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -610,20 +778,6 @@ export default function CloudServices() {
     message: "",
     consent: false,
   });
-
-  const toggleHeroAnimation = () => {
-    setHeroAnimationPaused((prev) => !prev);
-  };
-
-  const handleAnimationKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === " " || e.key === "Enter") {
-      e.preventDefault();
-      toggleHeroAnimation();
-    }
-    if (e.key === "Escape") {
-      setHeroAnimationPaused(true);
-    }
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -679,11 +833,6 @@ export default function CloudServices() {
           id="hero" 
           className="cloud-hero relative bg-white min-h-[72vh] lg:min-h-[84vh] flex items-center overflow-hidden"
         >
-          {/* Background Animation */}
-          <div className="absolute inset-0 z-0">
-            <ParticleConstellationAnimation isPaused={heroAnimationPaused} />
-          </div>
-
           {/* Subtle corner gradients */}
           <div className="absolute inset-0 z-0 pointer-events-none">
             <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-red-50/40 via-transparent to-transparent opacity-60" />
@@ -701,21 +850,6 @@ export default function CloudServices() {
               backgroundSize: '60px 60px'
             }}
           />
-
-          {/* Pause/Play Control */}
-          <button
-            onClick={toggleHeroAnimation}
-            onKeyDown={handleAnimationKeyDown}
-            aria-label={heroAnimationPaused ? "Play animation" : "Pause animation"}
-            aria-pressed={heroAnimationPaused}
-            className="absolute top-6 right-6 z-20 bg-gray-100 hover:bg-gray-200 rounded-full p-3 transition-colors focus:outline-none focus:ring-2 focus:ring-[#007AFF] focus:ring-offset-2"
-          >
-            {heroAnimationPaused ? (
-              <Play className="h-5 w-5 text-[#3C3C3C]" />
-            ) : (
-              <Pause className="h-5 w-5 text-[#3C3C3C]" />
-            )}
-          </button>
 
           {/* Content */}
           <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
@@ -780,9 +914,9 @@ export default function CloudServices() {
                 </div>
               </div>
 
-              {/* Right Column - Rotating Cards */}
+              {/* Right Column - Cloud Swarm Animation */}
               <div className="flex justify-center lg:justify-end">
-                <RotatingServiceCards />
+                <CloudSwarmAnimation />
               </div>
             </div>
           </div>

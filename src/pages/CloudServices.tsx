@@ -828,77 +828,75 @@ export default function CloudServices() {
       </Helmet>
 
       <main className="min-h-screen bg-white" data-page="cloud-services">
-        {/* Hero Section */}
+        {/* Hero Section - Using Hero Theme */}
         <section 
           id="hero" 
-          className="cloud-hero relative bg-white min-h-[72vh] lg:min-h-[84vh] flex items-center overflow-hidden"
+          className="cloud-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#FFF8F8] via-white to-[#FFF0F0]"
         >
-          {/* Subtle corner gradients */}
+          {/* Subtle corner gradients (Hero Theme) */}
           <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-red-50/40 via-transparent to-transparent opacity-60" />
-            <div className="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-blue-50/30 via-transparent to-transparent opacity-60" />
+            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-red-50/40 via-transparent to-transparent rounded-full blur-3xl" />
+            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-pink-50/30 via-transparent to-transparent rounded-full blur-3xl" />
           </div>
 
-          {/* Faint tech grid */}
-          <div 
-            className="absolute inset-0 z-0 pointer-events-none opacity-[0.03]"
-            style={{
-              backgroundImage: `
-                linear-gradient(to right, #E6E6E6 1px, transparent 1px),
-                linear-gradient(to bottom, #E6E6E6 1px, transparent 1px)
-              `,
-              backgroundSize: '60px 60px'
-            }}
-          />
-
           {/* Content */}
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20 w-full">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
               {/* Left Column - Copy */}
-              <div className="space-y-8">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="space-y-8"
+              >
                 <div className="space-y-6">
                   <h1 
                     id="cloud-hero-heading"
-                    className="font-montserrat font-bold text-[#1C1C1C] leading-tight"
-                    style={{ fontSize: 'clamp(28px, 5.2vw, 48px)', lineHeight: '1.15' }}
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight"
                   >
-                    Cloud done right—secure, efficient, production‑ready
+                    Cloud services that{" "}
+                    <span className="text-[#E52629]">deploy faster</span>—and{" "}
+                    <span className="text-[#E52629]">scale smarter</span>
                   </h1>
                   
-                  <p 
-                    className="text-[#3C3C3C] leading-relaxed"
-                    style={{ fontSize: 'clamp(16px, 2.2vw, 20px)', lineHeight: '1.5' }}
-                  >
-                    Plan, migrate, and run on AWS, Azure, and GCP with FinOps, security, and uptime baked in—without slowing your teams.
+                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-2xl">
+                    From strategy to scale on AWS, Azure, and GCP—with security, FinOps, and managed operations baked in.
                   </p>
                 </div>
 
-                {/* Proof Chips */}
-                <div className="flex flex-wrap gap-3">
-                  {["4–8 week migrations", "24×7 managed support", "Compliance & guardrails by default"].map((chip, idx) => (
-                    <motion.div
-                      key={chip}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.08, duration: 0.3 }}
-                      className="bg-white border border-[#E6E6E6] px-4 py-2 rounded-full text-sm font-medium text-[#3C3C3C] hover:shadow-sm transition-shadow focus-within:ring-2 focus-within:ring-[#007AFF]"
+                {/* Proof Badges (Hero Theme) */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.4 }}
+                  className="flex flex-wrap gap-3"
+                >
+                  {["4–8 week migrations", "99.95% uptime targets", "24×7 managed support"].map((badge) => (
+                    <Badge 
+                      key={badge}
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#3C3C3C] hover:shadow-sm transition-shadow"
                     >
-                      {chip}
-                    </motion.div>
+                      {badge}
+                    </Badge>
                   ))}
-                </div>
+                </motion.div>
 
-                {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4">
+                {/* CTAs (Hero Theme) */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4"
+                >
                   <Button
                     asChild
                     size="lg"
-                    className="bg-[#E52629] hover:bg-[#D02022] text-white font-inter font-semibold tracking-wide transition-all hover:scale-105 hover:shadow-lg focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2"
-                    style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', letterSpacing: '0.2px' }}
+                    className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold group"
                   >
                     <Link to="/contact?type=cloud-assessment">
                       Get a Cloud Assessment
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </Link>
                   </Button>
 
@@ -906,18 +904,22 @@ export default function CloudServices() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-inter font-semibold tracking-wide transition-all focus:ring-2 focus:ring-[#007AFF] focus:ring-offset-2"
-                    style={{ fontSize: 'clamp(14px, 1.5vw, 16px)', letterSpacing: '0.2px' }}
+                    className="border-[#3C3C3C] text-[#3C3C3C] hover:bg-[#3C3C3C] hover:text-white font-semibold transition-all"
                   >
-                    <a href="#services">See services</a>
+                    <a href="#services">See Services</a>
                   </Button>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
 
               {/* Right Column - Cloud Swarm Animation */}
-              <div className="flex justify-center lg:justify-end">
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="flex justify-center lg:justify-end"
+              >
                 <CloudSwarmAnimation />
-              </div>
+              </motion.div>
             </div>
           </div>
         </section>

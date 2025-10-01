@@ -827,15 +827,23 @@ export default function CloudServices() {
       </Helmet>
 
       <main className="min-h-screen bg-white" data-page="cloud-services">
-        {/* Hero Section - Using Hero Theme */}
+        {/* Hero Section - Using Salesforce Hero Motion System */}
         <section 
           id="hero" 
-          className="cloud-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-[#FFF8F8] via-white to-[#FFF0F0]"
+          className="cloud-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white"
         >
-          {/* Subtle corner gradients (Hero Theme) */}
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-gradient-to-br from-red-50/40 via-transparent to-transparent rounded-full blur-3xl" />
-            <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-gradient-to-tl from-pink-50/30 via-transparent to-transparent rounded-full blur-3xl" />
+          {/* Animated background - matching Salesforce */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
           </div>
 
           {/* Content */}
@@ -904,21 +912,21 @@ export default function CloudServices() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-[#3C3C3C] text-[#3C3C3C] hover:bg-[#3C3C3C] hover:text-white font-semibold transition-all"
+                    className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-semibold transition-all"
                   >
                     <a href="#services">See what we deliver</a>
                   </Button>
                 </motion.div>
               </motion.div>
 
-              {/* Right Column - Cloud Swarm Animation */}
+              {/* Right Column - Rotating Service Cards (matching Salesforce) */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="flex justify-center lg:justify-end"
               >
-                <CloudSwarmAnimation />
+                <RotatingServiceCards />
               </motion.div>
             </div>
           </div>

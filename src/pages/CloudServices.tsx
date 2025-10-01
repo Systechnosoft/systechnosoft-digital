@@ -43,6 +43,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
+import { CloudServicesCarousel } from "@/components/CloudServicesCarousel";
 
 // Service cards data for hero rotating carousel
 const cloudServiceCards = [
@@ -964,11 +965,11 @@ export default function CloudServices() {
           </div>
         </section>
 
-        {/* Services Pillars Grid */}
-        <section id="services" className="py-20 bg-white">
+        {/* Services Pillars Carousel */}
+        <section id="services" className="cloud-services py-20 bg-white" aria-labelledby="services-title">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
-              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              <h2 id="services-title" className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
                 What We Deliver
               </h2>
               <p className="text-lg text-[#3C3C3C]">
@@ -976,47 +977,7 @@ export default function CloudServices() {
               </p>
             </div>
 
-            <div className="cloud-services grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-6 lg:[&>*:nth-last-child(2)]:col-start-2">
-              {servicePillars.map((service, idx) => {
-                const Icon = service.icon;
-                return (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ 
-                      delay: idx * 0.1, 
-                      duration: 0.5,
-                      ease: [0.22, 1, 0.36, 1]
-                    }}
-                    className="h-full"
-                  >
-                    <Card 
-                      className="h-full min-h-[200px] bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300 hover:scale-[1.03] hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]"
-                      tabIndex={0}
-                    >
-                      <CardHeader>
-                        <Icon className="h-8 w-8 text-[#E52629] mb-4" />
-                        <CardTitle className="text-lg font-montserrat text-[#1C1C1C]">
-                          {service.title}
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
-                          {service.bullets.map((bullet, bIdx) => (
-                            <li key={bIdx} className="flex items-start text-sm text-[#3C3C3C]">
-                              <CheckCircle className="h-4 w-4 mr-2 mt-0.5 flex-shrink-0 text-[#007AFF]" />
-                              {bullet}
-                            </li>
-                          ))}
-                        </ul>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                );
-              })}
-            </div>
+            <CloudServicesCarousel services={servicePillars} />
           </div>
         </section>
 

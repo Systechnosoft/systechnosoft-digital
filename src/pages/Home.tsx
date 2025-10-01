@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 import IndustryCarousel from "@/components/IndustryCarousel";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { HeroBackground } from "@/components/HeroMotionSystem";
 
 const pillars = [
   {
@@ -86,14 +86,6 @@ const outcomes = [
   { metric: "24/7", description: "Managed infrastructure support" }
 ];
 
-const heroCards = [
-  { icon: "🏗️", title: "IT Infrastructure", benefit: "24×7 managed support, modern networks" },
-  { icon: "⚡", title: "Low-code Apps", benefit: "Appian & Salesforce enterprise solutions" },
-  { icon: "🤖", title: "AI & Automation", benefit: "Workflow automation at scale" },
-  { icon: "☁️", title: "Cloud Services", benefit: "Multi-cloud strategy & migration" },
-  { icon: "🔐", title: "Security", benefit: "Zero-trust architecture & compliance" },
-  { icon: "📊", title: "Data Modernization", benefit: "Analytics & data platform engineering" }
-];
 
 export default function Home() {
   return (
@@ -104,24 +96,31 @@ export default function Home() {
           id="hero"
           className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24"
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column */}
-              <div className="text-center lg:text-left">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold text-[#1C1C1C] mb-6 leading-tight">
+          <div className="max-w-[960px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-white/70 backdrop-blur-[2px] border border-[#E6E6E6] rounded-2xl p-6 sm:p-8 md:p-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)]">
+              <div className="text-center flex flex-col gap-y-5 sm:gap-y-6 md:gap-y-8">
+                <h1 
+                  className="font-montserrat font-bold text-[#1C1C1C] leading-tight"
+                  style={{ fontSize: 'clamp(32px, 6vw, 72px)' }}
+                >
                   Maximize Innovation.{" "}
                   <span className="text-[#E52629]">
                     Minimize Code.
                   </span>
                 </h1>
-                <p className="text-xl md:text-2xl text-[#3C3C3C] mb-8 max-w-3xl leading-relaxed">
+                
+                <p 
+                  className="text-[#3C3C3C] leading-relaxed max-w-3xl mx-auto"
+                  style={{ fontSize: 'clamp(16px, 2.4vw, 20px)' }}
+                >
                   Enterprise IT solutions across Infrastructure, Low-code (Appian & Salesforce), 
                   and AI/Automation — delivered fast, securely, and at scale.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                
+                <div className="flex flex-col sm:flex-row justify-center gap-3 mt-2">
                   <Button
                     size="lg"
-                    className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold"
+                    className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold hover:scale-[1.03] active:scale-[0.99] transition-transform focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     asChild
                   >
                     <Link to="/readiness-check" aria-label="IT Network Health Check">
@@ -132,17 +131,12 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold hover:scale-[1.03] active:scale-[0.99] transition-transform focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     asChild
                   >
                     <Link to="/contact">Get Started</Link>
                   </Button>
                 </div>
-              </div>
-
-              {/* Right Column - Rotating Cards */}
-              <div className="flex justify-center lg:justify-end">
-                <HeroMotionSystem cards={heroCards} ariaLabel="Home highlights" />
               </div>
             </div>
           </div>

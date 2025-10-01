@@ -150,10 +150,17 @@ const caseStudies = [
   },
 ];
 
-// Hero animation component (simplified - placeholder for actual converging streams animation)
-function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
+// Particle Constellation Animation - Light Theme
+function ParticleConstellationAnimation({ isPaused }: { isPaused: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
+  const particlesRef = useRef<Array<{
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+    size: number;
+  }>>([]);
   const prefersReducedMotion = useRef(
     window.matchMedia("(prefers-reduced-motion: reduce)").matches
   );
@@ -176,18 +183,24 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
 
     const width = rect.width;
     const height = rect.height;
-    const centerX = width / 2;
-    const centerY = height / 2;
 
-    // Three translucent ribbons for light background (red, blue, neutral grey)
-    const ribbons = [
-      { color: "rgba(229, 38, 41, 0.35)", angle: 0 },    // red
-      { color: "rgba(0, 122, 255, 0.3)", angle: 120 },   // blue
-      { color: "rgba(120, 120, 120, 0.25)", angle: 240 }, // neutral grey
-    ];
+    // Initialize particles
+    if (particlesRef.current.length === 0) {
+      const particleCount = Math.min(50, Math.floor(width * height / 15000));
+      for (let i = 0; i < particleCount; i++) {
+        particlesRef.current.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.3,
+          vy: (Math.random() - 0.5) * 0.3,
+          size: Math.random() * 2 + 1,
+        });
+      }
+    }
 
+    const particles = particlesRef.current;
+    const connectionDistance = 120;
     let time = 0;
-    const cycleTime = 9000; // 9 seconds
 
     function animate() {
       if (!ctx || !canvas) return;
@@ -195,60 +208,63 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
       ctx.clearRect(0, 0, width, height);
 
       if (!isPaused) {
-        time += 16; // ~60fps
-        if (time > cycleTime) time = 0;
+        time += 0.016; // ~60fps
+
+        // Update particle positions
+        particles.forEach((p) => {
+          p.x += p.vx;
+          p.y += p.vy;
+
+          // Wrap around edges
+          if (p.x < 0) p.x = width;
+          if (p.x > width) p.x = 0;
+          if (p.y < 0) p.y = height;
+          if (p.y > height) p.y = 0;
+        });
       }
 
-      const progress = time / cycleTime;
-      const convergePhase = progress < 0.4 ? progress / 0.4 : 0; // converge in first 40%
-      const diffusePhase = progress > 0.4 && progress < 0.6 ? (progress - 0.4) / 0.2 : progress > 0.6 ? 1 : 0;
+      // Draw connection lines
+      ctx.strokeStyle = "rgba(229, 38, 41, 0.08)";
+      ctx.lineWidth = 1;
+      
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
 
-      ribbons.forEach((ribbon) => {
-        const startAngle = (ribbon.angle * Math.PI) / 180;
-        const startX = centerX + Math.cos(startAngle) * width * 0.4 * (1 - convergePhase);
-        const startY = centerY + Math.sin(startAngle) * height * 0.4 * (1 - convergePhase);
-        
-        const endX = centerX + Math.cos(startAngle) * width * 0.3 * diffusePhase;
-        const endY = centerY + Math.sin(startAngle) * height * 0.3 * diffusePhase;
-
-        // Draw particle stream
-        const particles = 15;
-        for (let i = 0; i < particles; i++) {
-          const t = i / particles;
-          const x = startX + (endX - startX) * t * convergePhase + (endX - centerX) * t * diffusePhase;
-          const y = startY + (endY - startY) * t * convergePhase + (endY - centerY) * t * diffusePhase;
-          const size = 2 + Math.sin(t * Math.PI) * 2;
-          const alpha = 0.3 + Math.sin(t * Math.PI) * 0.4;
-
-          ctx.fillStyle = ribbon.color.replace(/[\d.]+\)$/, `${alpha})`);
-          ctx.beginPath();
-          ctx.arc(x, y, size, 0, Math.PI * 2);
-          ctx.fill();
+          if (distance < connectionDistance) {
+            const opacity = (1 - distance / connectionDistance) * 0.15;
+            ctx.strokeStyle = `rgba(229, 38, 41, ${opacity})`;
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.stroke();
+          }
         }
-      });
-
-      // Draw central "S" core glow (subtle for light background)
-      const coreAlpha = convergePhase > 0.8 ? 1 : convergePhase / 0.8;
-      const glowSize = 30 + (convergePhase * 20);
-      
-      const gradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, glowSize);
-      gradient.addColorStop(0, `rgba(229, 38, 41, ${coreAlpha * 0.3})`);
-      gradient.addColorStop(0.5, `rgba(229, 38, 41, ${coreAlpha * 0.15})`);
-      gradient.addColorStop(1, "rgba(229, 38, 41, 0)");
-      
-      ctx.fillStyle = gradient;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, glowSize, 0, Math.PI * 2);
-      ctx.fill();
-
-      // Draw "S" letter
-      if (convergePhase > 0.5) {
-        ctx.fillStyle = `rgba(229, 38, 41, ${coreAlpha * 0.9})`;
-        ctx.font = "bold 32px Montserrat, sans-serif";
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText("S", centerX, centerY);
       }
+
+      // Draw particles with subtle glow
+      particles.forEach((p, idx) => {
+        const colorCycle = (idx % 3);
+        let color;
+        if (colorCycle === 0) {
+          color = `rgba(229, 38, 41, ${0.6 + Math.sin(time * 2 + idx) * 0.2})`;
+        } else if (colorCycle === 1) {
+          color = `rgba(0, 122, 255, ${0.5 + Math.sin(time * 2 + idx) * 0.2})`;
+        } else {
+          color = `rgba(120, 120, 120, ${0.4 + Math.sin(time * 2 + idx) * 0.2})`;
+        }
+
+        // Subtle glow
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = color;
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
 
       animationRef.current = requestAnimationFrame(animate);
     }
@@ -264,11 +280,11 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
 
   if (prefersReducedMotion.current) {
     return (
-      <div className="ai-hero-fallback">
+      <div className="ai-hero-fallback w-full h-full flex items-center justify-center">
         <img 
-          src="/public/img/ai-converge-fallback.avif" 
-          alt="AI convergence visualization"
-          className="w-full h-full object-cover opacity-80"
+          src="/img/ai-constellation-still.avif" 
+          alt="AI constellation visualization"
+          className="w-full h-full object-cover opacity-40"
         />
       </div>
     );
@@ -280,6 +296,140 @@ function ConvergingStreamsAnimation({ isPaused }: { isPaused: boolean }) {
       className="ai-hero-canvas w-full h-full"
       aria-hidden="true"
     />
+  );
+}
+
+// Rotating Use Case Cards
+function RotatingUseCaseCards() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout>();
+  const pauseTimeoutRef = useRef<NodeJS.Timeout>();
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const useCaseCards = [
+    { icon: "🎯", title: "Intake & Triage", benefit: "Route 85% of requests automatically within 2 minutes" },
+    { icon: "🔐", title: "KYC/Onboarding", benefit: "Cut onboarding time from 3 days to 4 hours" },
+    { icon: "💬", title: "Ticket Deflection (NLP)", benefit: "Resolve 60% of tier-1 queries without human touch" },
+    { icon: "📄", title: "Invoice Extraction (CV)", benefit: "Process 500+ invoices/hour with 98% accuracy" },
+    { icon: "⚡", title: "Proactive Alerts", benefit: "Predict issues 3-7 days before they occur" },
+    { icon: "🤖", title: "Agent Assist", benefit: "Boost agent productivity by 40% with AI suggestions" },
+  ];
+
+  useEffect(() => {
+    if (isPaused) return;
+
+    timerRef.current = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % useCaseCards.length);
+    }, 3000);
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, [isPaused, useCaseCards.length]);
+
+  const handleMouseEnter = () => {
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 10000);
+  };
+
+  const handleMouseLeave = () => {
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    setIsPaused(false);
+  };
+
+  const handleFocus = () => {
+    setIsPaused(true);
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsPaused(false);
+    }, 10000);
+  };
+
+  const handleBlur = () => {
+    if (pauseTimeoutRef.current) clearTimeout(pauseTimeoutRef.current);
+    setIsPaused(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setCurrentIndex((prev) => (prev - 1 + useCaseCards.length) % useCaseCards.length);
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setCurrentIndex((prev) => (prev + 1) % useCaseCards.length);
+    }
+  };
+
+  const currentCard = useCaseCards[currentIndex];
+
+  return (
+    <div
+      className="ai-rotating-cards w-full max-w-[360px] lg:max-w-[360px] md:max-w-[300px] mx-auto"
+      role="region"
+      aria-label="AI use cases"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      style={{
+        ['--card-w' as string]: '360px',
+        ['--card-h' as string]: '210px',
+      }}
+    >
+      <div 
+        className="relative bg-white border border-[#E6E6E6] rounded-lg shadow-lg overflow-hidden"
+        style={{ 
+          width: 'var(--card-w)', 
+          height: 'var(--card-h)',
+          perspective: '1000px'
+        }}
+      >
+        <motion.div
+          key={currentIndex}
+          initial={prefersReducedMotion ? { opacity: 0 } : { opacity: 0.85, rotateY: -8 }}
+          animate={{ opacity: 1, rotateY: 0 }}
+          transition={{ 
+            duration: prefersReducedMotion ? 0.3 : 0.35, 
+            ease: [0.22, 1, 0.36, 1] 
+          }}
+          className="absolute inset-0 p-6 flex flex-col justify-between"
+          aria-live="polite"
+        >
+          <div>
+            <div className="text-4xl mb-4">{currentCard.icon}</div>
+            <h3 className="text-xl font-bold text-[#1C1C1C] mb-3 font-montserrat">
+              {currentCard.title}
+            </h3>
+            <p className="text-sm text-[#3C3C3C] leading-relaxed">
+              {currentCard.benefit}
+            </p>
+          </div>
+          
+          <div className="text-xs text-[#3C3C3C]/60 font-medium">
+            {currentIndex + 1} of {useCaseCards.length}
+          </div>
+        </motion.div>
+
+        {/* Hidden titles for screen readers */}
+        <div className="sr-only">
+          {useCaseCards.map((card, idx) => (
+            <span key={idx}>{card.title}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Keyboard hint */}
+      <p className="text-xs text-center mt-3 text-[#3C3C3C]/60">
+        Use ← → arrow keys to navigate
+      </p>
+    </div>
   );
 }
 
@@ -485,22 +635,34 @@ export default function AIAutomation() {
         <section 
           id="hero" 
           className="ai-hero anchor-section relative min-h-[72vh] lg:min-h-[84vh] flex items-center bg-white overflow-hidden"
+          data-page="ai-automation"
+          style={{
+            ['--hero-red' as string]: '#E52629',
+            ['--hero-blue' as string]: '#007AFF',
+            ['--hero-ink' as string]: '#1C1C1C',
+            ['--hero-text' as string]: '#3C3C3C',
+            ['--hero-card' as string]: '#FFFFFF',
+            ['--hero-border' as string]: '#E6E6E6',
+            ['--hero-ease' as string]: 'cubic-bezier(.22,1,.36,1)',
+            ['--hero-bg-loop' as string]: '22s',
+            ['--hero-slide' as string]: '340ms',
+          }}
         >
-          {/* Background with subtle corner gradients and grid overlay */}
+          {/* Background with subtle corner gradients */}
           <div className="absolute inset-0 bg-gradient-to-br from-red-50/40 via-white to-blue-50/30" />
+          
+          {/* Faint tech grid overlay */}
           <div 
-            className="absolute inset-0 opacity-[0.03]" 
+            className="absolute inset-0 opacity-[0.10]" 
             style={{
               backgroundImage: 'linear-gradient(#E6E6E6 1px, transparent 1px), linear-gradient(90deg, #E6E6E6 1px, transparent 1px)',
               backgroundSize: '40px 40px'
             }}
           />
           
-          {/* Animation container */}
-          <div className="absolute inset-0 lg:right-0 lg:left-1/2 flex items-center justify-center">
-            <div className="w-full max-w-2xl aspect-video">
-              <ConvergingStreamsAnimation isPaused={heroAnimationPaused} />
-            </div>
+          {/* Particle Constellation Background */}
+          <div className="absolute inset-0">
+            <ParticleConstellationAnimation isPaused={heroAnimationPaused} />
           </div>
 
           {/* Animation controls */}
@@ -509,79 +671,103 @@ export default function AIAutomation() {
             onKeyDown={handleAnimationKeyDown}
             aria-pressed={heroAnimationPaused}
             aria-label={heroAnimationPaused ? "Play animation" : "Pause animation"}
-            className="absolute top-8 right-8 z-10 p-3 bg-gray-100 hover:bg-gray-200 rounded-full transition-colors focus-enterprise shadow-sm border border-gray-200"
+            className="absolute top-8 right-8 z-20 px-4 py-2 bg-white/90 hover:bg-white backdrop-blur-sm rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 shadow-md border border-[#E6E6E6] text-sm font-medium text-[#1C1C1C]"
           >
             {heroAnimationPaused ? (
-              <Play className="h-5 w-5 text-gray-700" />
+              <span className="flex items-center gap-2">
+                <Play className="h-4 w-4" />
+                Play
+              </span>
             ) : (
-              <Pause className="h-5 w-5 text-gray-700" />
+              <span className="flex items-center gap-2">
+                <Pause className="h-4 w-4" />
+                Pause
+              </span>
             )}
           </button>
 
-          <div className="container relative z-10 px-6 lg:px-12">
-            <div className="max-w-2xl">
-              <motion.h1
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 font-montserrat text-[#1C1C1C]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                AI & Automation that ship outcomes
-              </motion.h1>
-
-              <motion.p
-                className="text-lg md:text-xl mb-8 text-[#3C3C3C]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                Unify data, decisions, and workflows—apply ML, NLP, and computer vision over low-code rails to move KPIs in weeks, not months.
-              </motion.p>
-
-              {/* Proof chips */}
-              <motion.div
-                className="flex flex-wrap gap-4 mb-8"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.4 }}
-              >
-                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
-                  50+ enterprise solutions
-                </span>
-                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
-                  4× fewer manual steps
-                </span>
-                <span className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-full text-sm font-medium text-[#1C1C1C]">
-                  Build-to-impact in 4–8 weeks
-                </span>
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div
-                className="flex flex-wrap gap-4"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.6 }}
-              >
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-[#E52629] hover:bg-[#D02022] text-white font-montserrat font-medium shadow-lg"
+          <div className="container relative z-10 px-6 lg:px-12 py-16">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Column - Copy */}
+              <div className="max-w-2xl">
+                <motion.h1
+                  id="ai-hero"
+                  className="text-[clamp(28px,5.2vw,48px)] leading-[1.15] font-bold mb-6 font-montserrat text-[#1C1C1C]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
                 >
-                  <a href="/contact?type=discovery">
-                    Book a 30-minute discovery
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-montserrat font-medium"
+                  AI & Automation that ship outcomes
+                </motion.h1>
+
+                <motion.p
+                  className="text-[clamp(16px,2.2vw,20px)] leading-[1.5] mb-8 text-[#3C3C3C]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
                 >
-                  <a href="#use-cases">See use cases</a>
-                </Button>
-              </motion.div>
+                  Unify data, decisions, and workflows—apply ML, NLP, and computer vision over low-code rails to move KPIs in weeks, not months.
+                </motion.p>
+
+                {/* Proof chips with staggered entrance */}
+                <motion.div
+                  className="flex flex-wrap gap-3 mb-8"
+                  initial="hidden"
+                  animate="visible"
+                  variants={{
+                    hidden: { opacity: 0 },
+                    visible: {
+                      opacity: 1,
+                      transition: {
+                        staggerChildren: 0.08
+                      }
+                    }
+                  }}
+                >
+                  {["50+ enterprise solutions", "4× fewer manual steps", "Build-to-impact in 4–8 weeks"].map((chip, idx) => (
+                    <motion.span
+                      key={idx}
+                      variants={{
+                        hidden: { opacity: 0, y: 10 },
+                        visible: { 
+                          opacity: 1, 
+                          y: 0,
+                          transition: { duration: 0.4, delay: 0.3 + idx * 0.08 }
+                        }
+                      }}
+                      whileHover={{ y: -2 }}
+                      className="px-4 py-2 bg-white/80 backdrop-blur-sm border border-[#E6E6E6] rounded-full text-[12px] md:text-[13px] font-medium text-[#1C1C1C] shadow-sm hover:shadow-md transition-all focus:outline-none focus:ring-2 focus:ring-[#007AFF] focus:ring-offset-1"
+                      tabIndex={0}
+                    >
+                      {chip}
+                    </motion.span>
+                  ))}
+                </motion.div>
+
+                {/* CTAs */}
+                <motion.div
+                  className="flex flex-wrap gap-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.6 }}
+                >
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-[#E52629] hover:bg-[#D02022] text-white font-montserrat font-semibold shadow-lg hover:shadow-xl hover:scale-[1.03] transition-all focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 text-[14px] md:text-[16px] tracking-wide"
+                  >
+                    <a href="/contact?type=discovery">
+                      Book a 30-minute discovery
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </a>
+                  </Button>
+                </motion.div>
+              </div>
+
+              {/* Right Column - Rotating Use Case Cards */}
+              <div className="flex items-center justify-center lg:justify-end">
+                <RotatingUseCaseCards />
+              </div>
             </div>
           </div>
         </section>

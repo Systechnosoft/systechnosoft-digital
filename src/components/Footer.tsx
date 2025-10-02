@@ -73,8 +73,8 @@ export default function Footer() {
               <div className="flex items-start gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4 mt-0.5 flex-shrink-0" />
                 <address className="not-italic">
-                  E-8, Railway Colony, Jagatpura,<br />
-                  Jaipur, India
+                  49 5th Ave #1187, Brooklyn,<br />
+                  NY 11217, United States
                 </address>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -85,8 +85,8 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <a href="tel:+911234567890" className="hover:text-foreground transition-colors">
-                  +91 123 456 7890
+                <a href="tel:+13473051255" className="hover:text-foreground transition-colors">
+                  (347) 305-1255
                 </a>
               </div>
             </div>

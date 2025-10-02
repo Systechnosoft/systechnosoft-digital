@@ -6,7 +6,6 @@ import {
   ArrowRight, 
   Shield, 
   Headphones, 
-  Wrench, 
   Network, 
   Monitor, 
   Users, 
@@ -16,10 +15,10 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
 
 const heroCards = [
   { icon: "🎧", title: "24×7 Helpdesk", benefit: "Multi-channel L1-L2 support with SLAs" },
-  { icon: "🔧", title: "Onsite Support", benefit: "Scheduled visits & emergency dispatch" },
   { icon: "🌐", title: "Network Management", benefit: "Switching, routing, NAC, policy control" },
   { icon: "📊", title: "RMM", benefit: "Endpoint monitoring & patch management" },
   { icon: "🔐", title: "Security Monitoring", benefit: "AD health, firewall, event logs" },
@@ -31,10 +30,9 @@ export default function ManagedITServices() {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   const navItems = [
-    { id: "helpdesk", label: "Helpdesk" },
-    { id: "onsite-support", label: "Onsite Support" },
-    { id: "network-management", label: "Network Management" },
     { id: "rmm", label: "Remote Monitoring & Management" },
+    { id: "network-management", label: "Network Management" },
+    { id: "helpdesk", label: "Helpdesk" },
     { id: "active-directory-monitoring", label: "Active Directory Monitoring" },
     { id: "event-log-monitoring", label: "Event Log Monitoring" },
     { id: "access-point-solutions", label: "Access Point Solutions" },
@@ -60,6 +58,8 @@ export default function ManagedITServices() {
     return () => observer.disconnect();
   }, []);
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -76,30 +76,17 @@ export default function ManagedITServices() {
 
   const services = [
     {
-      id: "helpdesk",
-      icon: Headphones,
-      title: "Helpdesk",
-      description: "Multi‑channel L1–L2 support, SLAs, ITSM workflows, knowledge base.",
+      id: "rmm",
+      icon: Monitor,
+      title: "Remote Monitoring & Management (RMM)",
+      description: "Endpoint/server monitoring, patch management, config drift.",
       bullets: [
-        "Ticketing automation",
-        "Response SLOs",
-        "Root‑cause tracking",
-        "Self‑service portal"
+        "Health checks",
+        "Patch windows",
+        "Automations",
+        "Alert routing"
       ],
-      outcome: "Faster incident resolution (↓MTTR)"
-    },
-    {
-      id: "onsite-support",
-      icon: Wrench,
-      title: "Onsite Support",
-      description: "Scheduled visits, smart‑hands, incident response.",
-      bullets: [
-        "Planned field visits",
-        "Emergency dispatch",
-        "Asset handover support",
-        "Break/fix"
-      ],
-      outcome: "Hands‑on coverage when remote isn't enough"
+      outcome: "Proactive maintenance, fewer outages"
     },
     {
       id: "network-management",
@@ -116,17 +103,17 @@ export default function ManagedITServices() {
       outcome: "Stable, policy‑driven networks"
     },
     {
-      id: "rmm",
-      icon: Monitor,
-      title: "Remote Monitoring & Management (RMM)",
-      description: "Endpoint/server monitoring, patch management, config drift.",
+      id: "helpdesk",
+      icon: Headphones,
+      title: "Helpdesk",
+      description: "Multi‑channel L1–L2 support, SLAs, ITSM workflows, knowledge base.",
       bullets: [
-        "Health checks",
-        "Patch windows",
-        "Automations",
-        "Alert routing"
+        "Ticketing automation",
+        "Response SLOs",
+        "Root‑cause tracking",
+        "Self‑service portal"
       ],
-      outcome: "Proactive maintenance, fewer outages"
+      outcome: "Faster incident resolution (↓MTTR)"
     },
     {
       id: "active-directory-monitoring",
@@ -299,22 +286,37 @@ export default function ManagedITServices() {
 
 
         {/* Service Tiles - Light Background */}
-        <section className="py-20 bg-[#F5F5F5]">
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid md:grid-cols-2 gap-8">
-              {services.map((service, index) => {
-                const Icon = service.icon;
-                return (
+        <section id="mis-services" className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7 lg:[&>*:nth-last-child(1)]:col-start-1 lg:[&>*:nth-last-child(1)]:md:col-start-auto lg:[&>*:last-child]:col-start-2"
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={{
+              hidden: {},
+              show: { transition: { staggerChildren: prefersReducedMotion ? 0 : 0.08 } }
+            }}
+          >
+            {services.map((service, index) => {
+              const Icon = service.icon;
+              return (
+                <motion.div
+                  key={service.id}
+                  variants={prefersReducedMotion ? {} : {
+                    hidden: { opacity: 0, y: 50 },
+                    show: { opacity: 1, y: 0, transition: { duration: 0.32, ease: [0.22, 1, 0.36, 1] } }
+                  }}
+                >
                   <Card 
-                    key={service.id}
                     id={service.id}
                     ref={(el) => (sectionsRef.current[index] = el)}
-                    className="hover:shadow-lg transition-shadow duration-300 border-0 shadow-md"
+                    className="bg-white border border-[#E6E6E6] rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[260px] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     style={{ scrollMarginTop: '120px' }}
+                    tabIndex={0}
                   >
-                    <CardHeader className="pb-4">
+                    <CardHeader className="pb-4 p-0">
                       <div className="flex items-start gap-4">
-                        <div className="p-3 bg-[#E52629]/10 rounded-lg">
+                        <div className="p-3 bg-[#E52629]/10 rounded-lg transition-transform will-change-transform hover:rotate-3">
                           <Icon className="h-6 w-6 text-[#E52629]" />
                         </div>
                         <div className="flex-1">
@@ -327,7 +329,7 @@ export default function ManagedITServices() {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0">
+                    <CardContent className="pt-0 p-0">
                       <ul className="space-y-2 mb-4">
                         {service.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-center text-sm text-muted-foreground">
@@ -343,14 +345,14 @@ export default function ManagedITServices() {
                       </div>
                     </CardContent>
                   </Card>
-                );
-              })}
-            </div>
-          </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 bg-white border-t border-[#E6E6E6]">
+        <section className="py-12 sm:py-16 lg:py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6 text-[#1C1C1C]">
               Ready to Transform Your IT Operations?

@@ -607,9 +607,6 @@ function RotatingServiceCards() {
             </p>
           </div>
           
-          <div className="text-xs text-[#3C3C3C]/60 font-medium">
-            {currentIndex + 1} of {cloudServiceCards.length}
-          </div>
         </motion.div>
 
         {/* Hidden titles for screen readers */}
@@ -619,11 +616,6 @@ function RotatingServiceCards() {
           ))}
         </div>
       </div>
-
-      {/* Keyboard hint */}
-      <p className="text-xs text-center mt-3 text-[#3C3C3C]/60">
-        Use ← → arrow keys to navigate
-      </p>
     </div>
   );
 }
@@ -632,7 +624,7 @@ function RotatingServiceCards() {
 function Carousel({ 
   items, 
   renderSlide, 
-  autoAdvanceMs = 4000,
+  autoAdvanceMs = 3000,
   label
 }: { 
   items: any[]; 
@@ -642,31 +634,41 @@ function Carousel({
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [pausedUntil, setPausedUntil] = useState(0);
   const timerRef = useRef<NodeJS.Timeout>();
 
   useEffect(() => {
-    if (isPaused) return;
+    const tick = () => {
+      if (Date.now() >= pausedUntil) {
+        setCurrentIndex((prev) => (prev + 1) % items.length);
+      }
+      timerRef.current = setTimeout(tick, autoAdvanceMs);
+    };
 
-    timerRef.current = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % items.length);
-    }, autoAdvanceMs);
+    timerRef.current = setTimeout(tick, autoAdvanceMs);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isPaused, items.length, autoAdvanceMs]);
+  }, [items.length, autoAdvanceMs, pausedUntil]);
 
-  const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+  const handleMouseEnter = () => {
+    setPausedUntil(Date.now() + 10000);
   };
 
-  const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % items.length);
+  const handleFocus = () => {
+    setPausedUntil(Date.now() + 10000);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") handlePrev();
-    if (e.key === "ArrowRight") handleNext();
+    if (e.key === "ArrowLeft") {
+      setCurrentIndex((prev) => (prev - 1 + items.length) % items.length);
+      setPausedUntil(Date.now() + 10000);
+    }
+    if (e.key === "ArrowRight") {
+      setCurrentIndex((prev) => (prev + 1) % items.length);
+      setPausedUntil(Date.now() + 10000);
+    }
   };
 
   return (
@@ -675,39 +677,14 @@ function Carousel({
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
-      onMouseEnter={() => setIsPaused(true)}
-      onMouseLeave={() => setIsPaused(false)}
-      onFocus={() => setIsPaused(true)}
-      onBlur={() => setIsPaused(false)}
+      onMouseEnter={handleMouseEnter}
+      onFocus={handleFocus}
       onKeyDown={handleKeyDown}
       tabIndex={0}
+      data-cloud-results
     >
       <div className="relative min-h-[200px]" aria-live="polite">
         {renderSlide(items[currentIndex], currentIndex)}
-      </div>
-
-      <div className="flex items-center justify-between mt-6">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handlePrev}
-          aria-label="Previous slide"
-        >
-          <ChevronLeft className="h-4 w-4" />
-        </Button>
-
-        <span className="text-sm text-muted-foreground" style={{ fontVariantNumeric: 'tabular-nums' }}>
-          {currentIndex + 1} / {items.length}
-        </span>
-
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleNext}
-          aria-label="Next slide"
-        >
-          <ChevronRight className="h-4 w-4" />
-        </Button>
       </div>
     </div>
   );
@@ -849,9 +826,9 @@ export default function CloudServices() {
 
           {/* Content */}
           <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center max-w-[1200px] mx-auto">
               {/* Left Column - Copy */}
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
@@ -860,7 +837,7 @@ export default function CloudServices() {
                 <div className="space-y-6">
                   <h1 
                     id="cloud-hero-heading"
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight max-w-[16ch]"
                   >
                     Cloud done right—
                     <span className="text-[#E52629]">secure</span>,{" "}
@@ -925,7 +902,7 @@ export default function CloudServices() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex justify-center lg:justify-end"
+                className="flex justify-center lg:justify-start"
               >
                 <RotatingServiceCards />
               </motion.div>
@@ -934,35 +911,16 @@ export default function CloudServices() {
         </section>
 
         {/* Overview Section */}
-        <section id="overview" className="py-20 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center max-w-3xl mx-auto mb-8">
-              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-6">
-                Overview
-              </h2>
-              <p className="text-lg text-[#3C3C3C] leading-relaxed md:border-t md:border-[#E6E6E6] md:mt-6 md:pt-6">
-                Cloud should make life simpler, not harder. We keep your environments reliable, secure, and cost‑smart—while you keep building. With Systechnosoft, you get always‑on support from certified engineers, clear runbooks, and calm operations.
-              </p>
-            </div>
-
-            {/* KPI Strip */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 justify-center">
-              {kpis.map((kpi, idx) => (
-                <Card 
-                  key={idx} 
-                  className="bg-white border-[#E6E6E6] text-center"
-                  aria-label={`${kpi.value}${kpi.suffix} ${kpi.label}`}
-                >
-                  <CardContent className="p-6">
-                    <div className="text-4xl font-bold text-[#E52629] mb-2 tabular-nums">
-                      <AnimatedCounter end={kpi.value} suffix={kpi.suffix} />
-                    </div>
-                    <div className="text-sm font-medium text-[#3C3C3C]">{kpi.label}</div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
+        <section id="cloud-overview" className="cloud-overview mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center">
+          <h2 className="text-3xl lg:text-[40px] font-semibold text-[#1C1C1C]">Overview</h2>
+          <p className="mt-6 text-lg lg:text-xl text-[#3C3C3C] leading-relaxed">
+            Cloud should make life simpler, not harder. We keep your environments reliable, secure, and cost‑smart—while you keep building. With Systechnosoft, you get always‑on support from certified engineers, clear runbooks, and calm operations.
+          </p>
+          <ul className="mt-7 flex flex-wrap justify-center gap-3" aria-label="Key benefits">
+            <li className="px-3.5 py-2 rounded-full border border-[#E6E6E6] text-[#1C1C1C] text-sm">24×7 support</li>
+            <li className="px-3.5 py-2 rounded-full border border-[#E6E6E6] text-[#1C1C1C] text-sm">Certified engineers</li>
+            <li className="px-3.5 py-2 rounded-full border border-[#E6E6E6] text-[#1C1C1C] text-sm">Governance & compliance</li>
+          </ul>
         </section>
 
         {/* Cloud Certifications Section */}
@@ -1050,16 +1008,6 @@ export default function CloudServices() {
               ))}
             </div>
 
-            {/* Optional verification note */}
-            <motion.p 
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="text-center mt-8 text-xs text-[#3C3C3C]"
-            >
-              Certification logos are trademarks of their respective owners.
-            </motion.p>
           </div>
         </section>
 
@@ -1212,7 +1160,7 @@ export default function CloudServices() {
                 { value: 8, suffix: " weeks", label: "Typical pilot to production" },
                 { value: 30, suffix: "%", label: "Average cost reduction" },
                 { value: 99.95, suffix: "%", label: "Uptime targets with managed ops" },
-                { value: 15, suffix: " min", label: "P1 incident response (SLA)" },
+                { value: 2, suffix: " h", label: "P1 incident response (SLA)" },
               ].map((stat, idx) => (
                 <div key={idx}>
                   <div className="text-5xl font-bold mb-2" style={{ fontVariantNumeric: 'tabular-nums' }}>
@@ -1374,7 +1322,7 @@ export default function CloudServices() {
             <Carousel
               items={caseStudies}
               label="Case studies"
-              autoAdvanceMs={4000}
+              autoAdvanceMs={3000}
               renderSlide={(study) => (
                 <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
                   <CardContent className="p-8 md:py-8">

@@ -805,13 +805,15 @@ export default function CloudServices() {
       </Helmet>
 
       <main className="min-h-screen bg-white" data-page="cloud-services">
-        {/* Hero Section - Using Salesforce Hero Motion System */}
+        {/* Hero Section - Hero Motion System */}
         <section 
           id="hero" 
-          className="cloud-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white"
+          data-page="cloud"
+          className="sf-hero cloud-hero relative min-h-[72vh] lg:min-h-[88vh] flex items-center overflow-hidden bg-white"
+          aria-labelledby="cloud-hero-title"
         >
-          {/* Animated background - matching Salesforce */}
-          <div className="absolute inset-0 opacity-10">
+          {/* Animated background - Hero Motion System */}
+          <div className="sf-hero__bg absolute inset-0 opacity-10" aria-hidden="true">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
             <motion.div
               className="absolute inset-0"
@@ -825,19 +827,19 @@ export default function CloudServices() {
           </div>
 
           {/* Content */}
-          <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-            <div className="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center max-w-[1200px] mx-auto">
+          <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
               {/* Left Column - Copy */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="space-y-8"
+                className="cloud-hero__left space-y-6 max-w-[44rem]"
               >
                 <div className="space-y-6">
                   <h1 
-                    id="cloud-hero-heading"
-                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight max-w-[16ch]"
+                    id="cloud-hero-title"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight"
                   >
                     Cloud done right—
                     <span className="text-[#E52629]">secure</span>,{" "}
@@ -845,42 +847,47 @@ export default function CloudServices() {
                     production‑ready
                   </h1>
                   
-                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-2xl">
+                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                     Plan, migrate, and run on AWS, Azure, and GCP with security, cost control, and uptime built‑in—so your teams can focus on the work that matters.
                   </p>
                 </div>
 
-                {/* Hero Image */}
-                <motion.figure 
+                {/* Benefit Chips */}
+                <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.4 }}
-                  className="mt-6 w-full max-w-[520px] aspect-[16/9] rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden bg-white/80"
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="sf-hero__chips flex flex-wrap gap-3"
+                  aria-label="Key benefits"
                 >
-                  <img
-                    src="/images/cloud-hero-illustration.webp"
-                    width={1040} 
-                    height={585}
-                    alt="Abstract cloud computing illustration"
-                    className="h-full w-full object-cover" 
-                    loading="eager" 
-                    decoding="async"
-                    srcSet="/images/cloud-hero-illustration.webp 1040w"
-                    sizes="(max-width: 768px) 92vw, 520px"
-                  />
-                </motion.figure>
+                  {["24×7 support", "Certified engineers", "Governance & compliance"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </motion.div>
 
-                {/* CTAs (Hero Theme) */}
+                {/* CTAs */}
                 <motion.div 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-4"
+                  className="flex flex-col sm:flex-row gap-3"
                 >
                   <Button
                     asChild
                     size="lg"
-                    className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold group"
+                    className="bg-[#E52629] hover:bg-[#D02022] hover:scale-[1.03] text-white font-semibold group transition-all shadow-md hover:shadow-lg"
                   >
                     <Link to="/contact?type=cloud-assessment">
                       Get a Cloud Assessment
@@ -892,22 +899,40 @@ export default function CloudServices() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-semibold transition-all"
+                    className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 hover:scale-[1.03] font-semibold transition-all"
                   >
                     <a href="#services">See what we deliver</a>
                   </Button>
                 </motion.div>
               </motion.div>
 
-              {/* Right Column - Rotating Service Cards (matching Salesforce) */}
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.8 }}
+              {/* Right Column - Hero Image */}
+              <motion.figure 
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="flex justify-center lg:justify-start"
+                className="cloud-hero__art relative isolate group"
               >
-                <RotatingServiceCards />
-              </motion.div>
+                <img
+                  src="/images/cloud-hero-illustration.webp"
+                  width={920} 
+                  height={600}
+                  alt="Cloud infrastructure illustration with connected network nodes"
+                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                  loading="eager" 
+                  decoding="async"
+                  srcSet="/images/cloud-hero-illustration.webp 920w"
+                  sizes="(min-width: 1024px) 48vw, 92vw"
+                />
+                {/* Subtle brand glow */}
+                <span 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                  style={{
+                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                  }}
+                />
+              </motion.figure>
             </div>
           </div>
         </section>

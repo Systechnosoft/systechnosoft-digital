@@ -47,7 +47,7 @@ export default function DataMigration() {
     { id: "dm-cutover", label: "Cutover & Validation" },
     { id: "dm-security", label: "Security & Compliance" },
     { id: "dm-tooling", label: "Tools" },
-    { id: "dm-proof", label: "Case Studies" },
+    { id: "dm-proof", label: "Insights" },
   ];
 
   useEffect(() => {
@@ -653,7 +653,7 @@ export default function DataMigration() {
         >
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
-              Proven Results
+              Insights
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8 mb-12">

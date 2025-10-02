@@ -46,7 +46,7 @@ export default function DataMigration() {
     { id: "dm-methods", label: "Methods & Phases" },
     { id: "dm-cutover", label: "Cutover & Validation" },
     { id: "dm-security", label: "Security & Compliance" },
-    { id: "dm-tooling", label: "Tooling" },
+    { id: "dm-tooling", label: "Tools" },
     { id: "dm-proof", label: "Case Studies" },
   ];
 
@@ -202,58 +202,73 @@ export default function DataMigration() {
               We deliver tenant‑to‑tenant, on‑prem→cloud, and cloud→cloud migrations with measurable outcomes and signed SLAs.
             </p>
             
-            {/* Centered Feature Card */}
-            <Card className="bg-white border-gray-200 shadow-md mb-12">
-              <CardContent className="p-8">
-                <h3 className="sr-only">Migration capabilities</h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
-                      <Users className="h-5 w-5 text-[#E52629]" />
+            {/* Three Feature Cards */}
+            <div className="grid md:grid-cols-3 gap-6 mb-12">
+              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col items-center text-center gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Users className="h-6 w-6 text-[#E52629]" />
                     </div>
                     <div>
-                      <p className="font-inter text-gray-800">
-                        <strong>Identity & directory moves via Entra ID</strong> (Azure AD) with hybrid support
+                      <h3 className="font-montserrat font-bold text-lg text-[#1C1C1C] mb-2">
+                        Identity & Directory
+                      </h3>
+                      <p className="font-inter text-gray-700 text-sm">
+                        Entra ID (Azure AD) moves with hybrid support
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
-                      <Mail className="h-5 w-5 text-[#E52629]" />
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col items-center text-center gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Mail className="h-6 w-6 text-[#E52629]" />
                     </div>
                     <div>
-                      <p className="font-inter text-gray-800">
-                        <strong>Email, files, SharePoint/Teams, Google Workspace</strong> migrations
+                      <h3 className="font-montserrat font-bold text-lg text-[#1C1C1C] mb-2">
+                        Collaboration & Files
+                      </h3>
+                      <p className="font-inter text-gray-700 text-sm">
+                        Email, files, SharePoint/Teams, Google Workspace migrations
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
-                      <Database className="h-5 w-5 text-[#E52629]" />
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex flex-col items-center text-center gap-4">
+                    <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Database className="h-6 w-6 text-[#E52629]" />
                     </div>
                     <div>
-                      <p className="font-inter text-gray-800">
-                        <strong>Databases, data lakes, and enterprise applications</strong>
+                      <h3 className="font-montserrat font-bold text-lg text-[#1C1C1C] mb-2">
+                        Data & Apps
+                      </h3>
+                      <p className="font-inter text-gray-700 text-sm">
+                        Databases, data lakes, and enterprise applications
                       </p>
                     </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
             
             {/* Outcome Pills - matching Home page style */}
             <div className="flex flex-wrap justify-center gap-4">
-              <div className="bg-[#FDE8E8] text-[#E52629] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#E52629]/20">
+              <div className="bg-[#FDE8E8] text-[#E52629] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#E52629]/20 text-center hover:shadow-md transition-shadow">
                 40% faster workflows
-                <span className="block text-sm font-normal mt-1 opacity-80">Banking, AU</span>
               </div>
-              <div className="bg-[#E8F4FF] text-[#007AFF] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#007AFF]/20">
+              <div className="bg-[#E8F4FF] text-[#007AFF] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#007AFF]/20 text-center hover:shadow-md transition-shadow">
                 30% ops efficiency
-                <span className="block text-sm font-normal mt-1 opacity-80">Oil & Gas, US</span>
               </div>
-              <div className="bg-[#F0FFF4] text-[#10B981] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#10B981]/20">
+              <div className="bg-[#F0FFF4] text-[#10B981] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#10B981]/20 text-center hover:shadow-md transition-shadow">
                 50% faster intercompany processing
-                <span className="block text-sm font-normal mt-1 opacity-80">UK FS</span>
               </div>
             </div>
           </div>
@@ -573,7 +588,7 @@ export default function DataMigration() {
         >
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
-              Tooling & Integrations
+              Tools & Integrations
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -664,7 +679,7 @@ export default function DataMigration() {
               ].map((study, index) => (
                 <Card key={index} className="bg-white border-gray-200 text-center hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="mx-auto w-16 h-16 bg-[#E52629] rounded-full flex items-center justify-center mb-4">
+                    <div className="mx-auto w-16 h-16 bg-[#FDE8E8] text-[#E52629] rounded-full flex items-center justify-center mb-4">
                       {study.icon}
                     </div>
                     <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
@@ -787,8 +802,7 @@ export default function DataMigration() {
                 { name: "Cloud Services", href: "/services/cloud" },
                 { name: "Managed IT Services", href: "/services/managed-it" },
                 { name: "Backup & Recovery", href: "/services/backup" },
-                { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365" },
-                { name: "Cybersecurity", href: "/services/cybersecurity" }
+                { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365" }
               ].map((service, index) => (
                 <Link
                   key={index}

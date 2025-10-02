@@ -1019,7 +1019,7 @@ const Salesforce = () => {
                   {[...Array(2)].map((_, setIndex) => (
                     <div key={setIndex} className="flex gap-4">
                       {[
-                        "AppExchange Packages", "CI/CD Templates", "200+ Connectors", "SAP Integration", 
+                        "AppExchange Packages", "200+ Connectors", "SAP Integration", 
                         "Microsoft 365", "Slack Integration", "DocuSign", "Tableau", "MuleSoft", "Heroku",
                         "Einstein Analytics", "Pardot", "CPQ", "Field Service", "Community Cloud"
                       ].map((item, index) => (
@@ -1078,70 +1078,6 @@ const Salesforce = () => {
           </div>
         </section>
 
-        {/* ROI Calculator */}
-        <section id="roi" className="py-20 bg-muted/30">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggeredFadeUp}
-              className="max-w-4xl mx-auto space-y-8"
-            >
-              <motion.h2 variants={fadeUpVariants} className="text-3xl font-bold font-montserrat text-center">
-                ROI Calculator
-              </motion.h2>
-              
-              <Card className="p-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Number of Salesforce Licenses: {roiValues.licenses[0]}
-                      </label>
-                      <Slider
-                        value={roiValues.licenses}
-                        onValueChange={(value) => setRoiValues(prev => ({ ...prev, licenses: value }))}
-                        max={1000}
-                        min={10}
-                        step={10}
-                        className="w-full"
-                      />
-                    </div>
-                    
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        Automation Uplift: {roiValues.automation[0]}%
-                      </label>
-                      <Slider
-                        value={roiValues.automation}
-                        onValueChange={(value) => setRoiValues(prev => ({ ...prev, automation: value }))}
-                        max={80}
-                        min={10}
-                        step={5}
-                        className="w-full"
-                      />
-                    </div>
-                  </div>
-                  
-                  <motion.div 
-                    key={calculateROI()}
-                    initial={{ scale: 0.95 }}
-                    animate={{ scale: 1 }}
-                    className="text-center p-6 bg-primary/5 rounded-lg border-2 border-primary/20"
-                  >
-                    <div className="text-4xl font-bold text-primary mb-2">
-                      ${calculateROI()}K
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      Estimated Annual ROI
-                    </div>
-                  </motion.div>
-                </div>
-              </Card>
-            </motion.div>
-          </div>
-        </section>
 
         {/* FAQ */}
         <section id="faq" className="py-20">
@@ -1206,14 +1142,11 @@ const Salesforce = () => {
               
               <motion.div 
                 variants={fadeUpVariants}
-                className="flex flex-col sm:flex-row gap-4 justify-center"
+                className="flex justify-center"
               >
-                <Button size="lg" className="group" onClick={() => window.location.href = '/contact'}>
-                  Start Your Project
+                <Button size="lg" className="group focus-visible:outline-2 focus-visible:outline-[#E52629]" onClick={() => window.location.href = '/contact'}>
+                  Schedule a Consultation
                   <Rocket className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button variant="outline" size="lg">
-                  Schedule a Demo
                 </Button>
               </motion.div>
             </motion.div>

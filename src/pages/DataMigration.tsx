@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { HeroBackground } from "@/components/HeroMotionSystem";
+import { CountUpNumber } from "@/components/CountUpNumber";
+import heroImage from "@/assets/hero-data-migration.png";
 import { 
   ArrowRight, 
   Database, 
@@ -33,14 +35,6 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
-const heroCards = [
-  { icon: "🔄", title: "Identity Migration", benefit: "Azure AD, Google Workspace, on-prem AD" },
-  { icon: "📧", title: "Email & Collaboration", benefit: "Exchange, M365, Google Workspace" },
-  { icon: "💾", title: "Database Migration", benefit: "SQL, Oracle, MySQL, NoSQL platforms" },
-  { icon: "📁", title: "File Systems", benefit: "OneDrive, SharePoint, network shares" },
-  { icon: "🔐", title: "Security & Compliance", benefit: "Zero-downtime, encrypted transfers" },
-  { icon: "✅", title: "Validation & Testing", benefit: "99.9% integrity checks, rollback ready" }
-];
 
 export default function DataMigration() {
   const [activeSection, setActiveSection] = useState("dm-overview");
@@ -146,7 +140,7 @@ export default function DataMigration() {
                       <Button 
                         variant="outline" 
                         size="lg" 
-                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                        className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-[#E31B23] focus-visible:ring-offset-2"
                       >
                         Request Assessment
                       </Button>
@@ -154,9 +148,15 @@ export default function DataMigration() {
                   </div>
                 </div>
 
-                {/* Right Column - Rotating Cards */}
+                {/* Right Column - Hero Image */}
                 <div className="flex justify-center lg:justify-end">
-                  <HeroMotionSystem cards={heroCards} ariaLabel="Data migration highlights" />
+                  <img 
+                    src={heroImage} 
+                    alt="Secure, zero-downtime data migration across clouds" 
+                    className="w-full max-w-[640px] rounded-2xl shadow-[8px_20px_60px_rgba(0,0,0,0.08)] border border-black/[0.06]"
+                    loading="eager"
+                    decoding="async"
+                  />
                 </div>
               </div>
             </div>
@@ -194,60 +194,68 @@ export default function DataMigration() {
           ref={(el) => (sectionsRef.current[0] = el)}
           className="py-20 bg-white"
         >
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="font-montserrat font-bold text-4xl mb-6 text-[#1C1C1C]">
-                  Migration Excellence
-                </h2>
-                <div className="space-y-4 text-gray-700 font-inter text-lg">
-                  <p>
-                    We deliver tenant‑to‑tenant, on‑prem→cloud, and cloud→cloud migrations with measurable outcomes and signed SLAs.
-                  </p>
-                  <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <Users className="h-5 w-5 text-[#E52629] mt-1 flex-shrink-0" />
-                      <span>Identity & directory moves via <strong>Entra ID</strong> (Azure AD) with hybrid support</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Mail className="h-5 w-5 text-[#E52629] mt-1 flex-shrink-0" />
-                      <span>Email, files, SharePoint/Teams, Google Workspace migrations</span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <Database className="h-5 w-5 text-[#E52629] mt-1 flex-shrink-0" />
-                      <span>Databases, data lakes, and enterprise applications</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              
-              <div className="relative">
-                {/* Placeholder for isometric illustration */}
-                <div className="bg-gradient-to-br from-[#F5F5F5] to-gray-200 rounded-2xl p-8 text-center aspect-square flex items-center justify-center">
-                  <div className="space-y-4">
-                    <Cloud className="h-16 w-16 text-[#007AFF] mx-auto" />
-                    <ArrowRightLeft className="h-12 w-12 text-[#E52629] mx-auto" />
-                    <p className="text-gray-600 font-inter">Cloud Data Flow Visualization</p>
+          <div className="max-w-[1040px] mx-auto px-4">
+            <h2 className="font-montserrat font-bold text-4xl mb-6 text-center text-[#1C1C1C]">
+              Migration Excellence
+            </h2>
+            <p className="text-center text-gray-700 font-inter text-lg mb-12 max-w-3xl mx-auto">
+              We deliver tenant‑to‑tenant, on‑prem→cloud, and cloud→cloud migrations with measurable outcomes and signed SLAs.
+            </p>
+            
+            {/* Centered Feature Card */}
+            <Card className="bg-white border-gray-200 shadow-md mb-12">
+              <CardContent className="p-8">
+                <h3 className="sr-only">Migration capabilities</h3>
+                <div className="grid md:grid-cols-3 gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Users className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <p className="font-inter text-gray-800">
+                        <strong>Identity & directory moves via Entra ID</strong> (Azure AD) with hybrid support
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Mail className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <p className="font-inter text-gray-800">
+                        <strong>Email, files, SharePoint/Teams, Google Workspace</strong> migrations
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Database className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <p className="font-inter text-gray-800">
+                        <strong>Databases, data lakes, and enterprise applications</strong>
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
             
-            {/* KPI Pills */}
-            <div className="mt-16 flex flex-wrap justify-center gap-6">
-              <div className="bg-gradient-to-r from-[#E52629] to-red-600 text-white px-6 py-4 rounded-full font-montserrat font-semibold">
+            {/* Outcome Pills - matching Home page style */}
+            <div className="flex flex-wrap justify-center gap-4">
+              <div className="bg-[#FDE8E8] text-[#E52629] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#E52629]/20">
                 40% faster workflows
+                <span className="block text-sm font-normal mt-1 opacity-80">Banking, AU</span>
               </div>
-              <div className="bg-gradient-to-r from-[#007AFF] to-blue-600 text-white px-6 py-4 rounded-full font-montserrat font-semibold">
+              <div className="bg-[#E8F4FF] text-[#007AFF] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#007AFF]/20">
                 30% ops efficiency
+                <span className="block text-sm font-normal mt-1 opacity-80">Oil & Gas, US</span>
               </div>
-              <div className="bg-gradient-to-r from-green-500 to-green-600 text-white px-6 py-4 rounded-full font-montserrat font-semibold">
+              <div className="bg-[#F0FFF4] text-[#10B981] px-6 py-3.5 rounded-full font-montserrat font-semibold border border-[#10B981]/20">
                 50% faster intercompany processing
+                <span className="block text-sm font-normal mt-1 opacity-80">UK FS</span>
               </div>
             </div>
-            <p className="text-center text-sm text-gray-500 mt-4 font-inter">
-              <em>Representative program outcomes; details on request</em>
-            </p>
           </div>
         </section>
 
@@ -461,26 +469,30 @@ export default function DataMigration() {
             </div>
 
             {/* Success Metrics */}
-            <div className="mt-16 bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-8">
-              <h3 className="font-montserrat font-semibold text-2xl mb-6 text-center text-[#1C1C1C]">
+            <div className="mt-16 py-12">
+              <h3 className="font-montserrat font-bold text-4xl mb-10 text-center text-[#1C1C1C]">
                 Migration Success Metrics
               </h3>
-              <div className="grid md:grid-cols-4 gap-6 text-center">
+              <div className="grid md:grid-cols-4 gap-8 text-center">
                 <div>
-                  <div className="text-3xl font-montserrat font-bold text-green-600 mb-2">99.9%</div>
-                  <div className="font-inter text-gray-700">Data Integrity</div>
+                  <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
+                    <CountUpNumber end={99.9} duration={1400} suffix="%" className="text-4xl font-montserrat font-bold text-[#E52629]" startSeed={95} />
+                  </div>
+                  <div className="font-inter text-gray-700 font-medium">Data Integrity</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-montserrat font-bold text-blue-600 mb-2">&lt;2hrs</div>
-                  <div className="font-inter text-gray-700">Typical Downtime</div>
+                  <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">&lt;2hrs</div>
+                  <div className="font-inter text-gray-700 font-medium">Typical Downtime</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-montserrat font-bold text-[#E52629] mb-2">24/7</div>
-                  <div className="font-inter text-gray-700">Support Window</div>
+                  <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">24/7</div>
+                  <div className="font-inter text-gray-700 font-medium">Support Window</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-montserrat font-bold text-purple-600 mb-2">100%</div>
-                  <div className="font-inter text-gray-700">Rollback Ready</div>
+                  <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
+                    <CountUpNumber end={100} duration={1400} suffix="%" className="text-4xl font-montserrat font-bold text-[#E52629]" startSeed={85} />
+                  </div>
+                  <div className="font-inter text-gray-700 font-medium">Rollback Ready</div>
                 </div>
               </div>
             </div>
@@ -521,9 +533,9 @@ export default function DataMigration() {
                   items: ["Real-time logs", "Anomaly detection", "Audit trails", "Incident response"]
                 }
               ].map((feature, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+                <Card key={index} className="text-center hover:shadow-lg transition-shadow bg-white border-gray-200">
                   <CardHeader>
-                    <div className="mx-auto w-12 h-12 bg-[#007AFF] text-white rounded-full flex items-center justify-center mb-3">
+                    <div className="mx-auto w-12 h-12 bg-[#E52629]/10 text-[#E52629] rounded-full flex items-center justify-center mb-3">
                       {feature.icon}
                     </div>
                     <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
@@ -542,7 +554,7 @@ export default function DataMigration() {
             </div>
 
             {/* Compliance Note */}
-            <div className="mt-12 bg-[#007AFF] text-white rounded-lg p-6 text-center">
+            <div className="mt-12 bg-[#E52629] text-white rounded-lg p-6 text-center">
               <h3 className="font-montserrat font-semibold text-xl mb-2">
                 Zero-Trust Reference Design Included
               </h3>
@@ -618,14 +630,14 @@ export default function DataMigration() {
           </div>
         </section>
 
-        {/* Case Studies Section - Dark */}
+        {/* Case Studies Section - Light */}
         <section 
           id="dm-proof" 
           ref={(el) => (sectionsRef.current[6] = el)}
-          className="py-20 bg-gradient-to-b from-[#1C1C1C] to-[#3C3C3C] text-white"
+          className="py-20 bg-white"
         >
           <div className="max-w-6xl mx-auto px-4">
-            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
               Proven Results
             </h2>
             
@@ -650,7 +662,7 @@ export default function DataMigration() {
                   icon: <Target className="h-8 w-8" />
                 }
               ].map((study, index) => (
-                <Card key={index} className="bg-white/10 border-white/20 text-white text-center">
+                <Card key={index} className="bg-white border-gray-200 text-center hover:shadow-lg transition-shadow">
                   <CardHeader>
                     <div className="mx-auto w-16 h-16 bg-[#E52629] rounded-full flex items-center justify-center mb-4">
                       {study.icon}
@@ -658,12 +670,12 @@ export default function DataMigration() {
                     <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
                       {study.metric}
                     </div>
-                    <CardTitle className="font-montserrat text-xl">
+                    <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
                       {study.outcome}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="font-inter text-white/80 text-sm">
+                    <p className="font-inter text-gray-600 text-sm">
                       {study.context}
                     </p>
                   </CardContent>
@@ -676,9 +688,9 @@ export default function DataMigration() {
                 <Button 
                   variant="outline" 
                   size="lg"
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-3"
+                  className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-[#E31B23] focus-visible:ring-offset-2"
                 >
-                  View Detailed Case Studies
+                  View detailed case studies
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               </Link>
@@ -736,32 +748,30 @@ export default function DataMigration() {
           </div>
         </section>
 
-        {/* CTA Band - Dark */}
-        <section className="py-20 bg-gradient-to-r from-[#1C1C1C] via-[#3C3C3C] to-[#1C1C1C] text-white">
+        {/* CTA Band - Red */}
+        <section className="py-20 bg-[#E52629] text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
               Ready to Modernize Your Data?
             </h2>
-            <p className="font-inter text-xl text-white/90 mb-10">
+            <p className="font-inter text-xl text-white/95 mb-10">
               Start your migration journey with a comprehensive assessment and personalized roadmap.
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact?src=data-migration-cta">
-                <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
-                  Claim Your Free Insight
+            <div className="flex justify-center">
+              <a 
+                href="https://calendly.com/systechnosoft-info/30min" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Button 
+                  size="lg" 
+                  className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+                >
+                  Book a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-              </Link>
-              <Link to="/contact?type=quote">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg font-semibold"
-                >
-                  Get a Quotation
-                </Button>
-              </Link>
+              </a>
             </div>
           </div>
         </section>

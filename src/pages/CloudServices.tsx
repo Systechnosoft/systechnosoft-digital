@@ -965,6 +965,104 @@ export default function CloudServices() {
           </div>
         </section>
 
+        {/* Cloud Certifications Section */}
+        <section 
+          id="cloud-certs" 
+          className="relative py-12 sm:py-16 lg:py-20 bg-white overflow-hidden" 
+          aria-labelledby="cloud-certs-title"
+        >
+          {/* Subtle corner glows */}
+          <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-[#E52629] opacity-[0.06] blur-[120px] pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#007AFF] opacity-[0.06] blur-[120px] pointer-events-none" aria-hidden="true" />
+          
+          <div className="relative z-10 max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12 md:mb-16">
+              <motion.h2 
+                id="cloud-certs-title"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4"
+              >
+                Certified Cloud Expertise
+              </motion.h2>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="text-base md:text-lg text-[#3C3C3C] max-w-[780px] mx-auto"
+              >
+                Our engineers hold current certifications across AWS, Azure, and Google Cloud.
+              </motion.p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+              {[
+                {
+                  name: "AWS Certified Solutions Architect – Associate",
+                  image: "/certifications/aws-saa.png",
+                  alt: "AWS Certified Solutions Architect – Associate badge"
+                },
+                {
+                  name: "Microsoft Certified: Azure Administrator Associate",
+                  image: "/certifications/azure-admin.png",
+                  alt: "Microsoft Certified: Azure Administrator Associate badge"
+                },
+                {
+                  name: "Google Cloud Certified: Associate Cloud Engineer",
+                  image: "/certifications/gcp-ace.png",
+                  alt: "Google Cloud Certified: Associate Cloud Engineer badge"
+                }
+              ].map((cert, idx) => (
+                <motion.div
+                  key={cert.name}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ 
+                    duration: 0.32, 
+                    delay: idx * 0.08, 
+                    ease: [0.22, 1, 0.36, 1] 
+                  }}
+                  whileHover={{ 
+                    y: -4,
+                    transition: { duration: 0.2 }
+                  }}
+                  className="bg-white border border-[#E6E6E6] rounded-2xl p-6 flex flex-col items-center text-center group focus-visible:outline-2 focus-visible:outline-[#E52629] focus-visible:outline-offset-2 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                  tabIndex={0}
+                >
+                  <motion.img
+                    src={cert.image}
+                    alt={cert.alt}
+                    className="w-[120px] h-auto sm:w-[140px] lg:w-[160px] object-contain"
+                    loading="lazy"
+                    whileHover={{
+                      rotate: 3,
+                      transition: { duration: 0.2 }
+                    }}
+                  />
+                  <p className="mt-4 text-sm md:text-base text-[#1C1C1C] font-medium">
+                    {cert.name}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Optional verification note */}
+            <motion.p 
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: 0.3 }}
+              className="text-center mt-8 text-xs text-[#3C3C3C]"
+            >
+              Certification logos are trademarks of their respective owners.
+            </motion.p>
+          </div>
+        </section>
+
         {/* Services Pillars Carousel */}
         <section id="services" className="cloud-services py-20 bg-white" aria-labelledby="services-title">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

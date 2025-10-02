@@ -316,40 +316,48 @@ export default function Home() {
       <section 
         id="industries" 
         aria-labelledby="industries-title"
-        className="py-14 sm:py-16 lg:py-20 bg-white"
+        className="py-8 sm:py-10 lg:py-12 bg-white"
       >
-        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+        <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 lg:gap-8 items-start">
             {/* Left Column - Content */}
-            <div className="lg:col-span-7">
+            <div className="lg:max-w-[640px]">
               <div className="text-left">
                 <h2 
                   id="industries-title"
-                  className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-4"
+                  className="text-3xl md:text-4xl font-montserrat font-bold text-[#1C1C1C] mb-3"
                 >
                   Industries We Serve
                 </h2>
-                <p className="text-xl text-[#3C3C3C] mb-8 max-w-2xl">
+                <p className="text-xl text-[#3C3C3C] mb-6 max-w-2xl">
                   We pair domain knowledge with secure architectures to ship measurable outcomes fast.
                 </p>
 
                 {/* KPI Pills */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 mb-8">
-                  <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
-                    <span className="text-[#1C1C1C] text-sm ml-2">faster trading workflows (Banking, AU)</span>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
+                  <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <div>
+                      <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
+                      <span className="text-[#1C1C1C] text-sm ml-2">faster trading workflows (Banking, AU)</span>
+                    </div>
                   </div>
-                  <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
-                    <span className="text-[#1C1C1C] text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
+                  <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <div>
+                      <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
+                      <span className="text-[#1C1C1C] text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
+                    </div>
                   </div>
-                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <span className="text-sm font-medium text-[#1C1C1C]">Content ops:</span>
-                    <span className="text-[#3C3C3C] text-sm ml-1">faster turnaround (Aviation)</span>
+                  <div className="bg-[#F0FFF4] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <div>
+                      <span className="text-2xl font-montserrat font-bold text-[#10B981]">50%</span>
+                      <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
+                    </div>
                   </div>
-                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <span className="text-sm font-medium text-[#1C1C1C]">Governance:</span>
-                    <span className="text-[#3C3C3C] text-sm ml-1">improved audit & versioning (Aviation)</span>
+                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+                    <div>
+                      <span className="text-sm font-medium text-[#1C1C1C]">Content ops:</span>
+                      <span className="text-[#3C3C3C] text-sm ml-1">faster turnaround (Aviation)</span>
+                    </div>
                   </div>
                 </div>
 
@@ -357,7 +365,7 @@ export default function Home() {
             </div>
 
             {/* Right Column - Industry Carousel */}
-            <div className="lg:col-span-5 self-stretch h-full">
+            <div className="lg:max-w-[560px] self-start">
               <IndustryCarousel />
             </div>
           </div>

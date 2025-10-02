@@ -5,27 +5,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
+import { CountUpNumber } from "@/components/CountUpNumber";
 
 const pillars = [
   {
     icon: Server,
     title: "IT Infrastructure",
     description: "Modernize networks, cloud, and devices with 24×7 managed support.",
-    href: "/services/it-infrastructure",
+    href: "/services/managed-it-services",
     cta: "Explore"
   },
   {
     icon: Code,
     title: "Low-code Apps",
     description: "Build enterprise apps faster on Appian & Salesforce.",
-    href: "/services/low-code",
+    href: "/services/appian",
     cta: "Explore"
   },
   {
     icon: Bot,
     title: "AI & Automation",
     description: "Automate workflows with SDKs, Zapier, and Make.",
-    href: "/services/ai-automation",
+    href: "/services/ai",
     cta: "Explore"
   }
 ];
@@ -51,25 +52,26 @@ const whyPoints = [
 
 const caseStudies = [
   {
-    title: "Low-code (Global Bank, AU)",
+    title: "Global Bank (AU)",
     metric: "40%",
-    description: "faster trading workflows; stronger compliance",
-    industry: "Financial Services",
-    href: "/case-studies/global-bank-trading"
+    description: (
+      <>
+        Faster trading workflows<br />stronger compliance
+      </>
+    ),
+    href: "/case-studies"
   },
   {
     title: "Oil & Gas (USA)",
     metric: "30%",
-    description: "operational efficiency via workforce automation",
-    industry: "Oil & Gas",
-    href: "/case-studies/usa-oil-gas"
+    description: "Operational efficiency via workforce automation",
+    href: "/case-studies"
   },
   {
     title: "Financial Services (UK)",
     metric: "50%",
-    description: "faster intercompany processing",
-    industry: "Financial Services",
-    href: "/case-studies/uk-financial"
+    description: "Faster intercompany processing",
+    href: "/case-studies"
   }
 ];
 
@@ -131,7 +133,7 @@ export default function Home() {
                   <Button
                     variant="outline"
                     size="lg"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold hover:scale-[1.03] active:scale-[0.99] transition-transform focus-visible:outline-2 focus-visible:outline-[#E52629]"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white px-8 py-4 text-lg font-semibold hover:scale-[1.01] hover:shadow-lg active:scale-[0.99] transition-all focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     asChild
                   >
                     <Link to="/contact">Get Started</Link>
@@ -255,7 +257,7 @@ export default function Home() {
             className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
             asChild
           >
-            <Link to="/get-quotation" aria-label="Get a Quotation">
+            <Link to="/contact" aria-label="Get a Quotation">
               Get a Quotation
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
@@ -289,25 +291,20 @@ export default function Home() {
                     </CardTitle>
                   </div>
                 </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-base mb-4">
+                <CardContent className="text-center">
+                  <CardDescription className="text-base mb-6">
                     {study.description}
                   </CardDescription>
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">
-                      {study.industry}
-                    </span>
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-0 h-auto text-accent link-animated"
-                      asChild
-                    >
-                      <Link to={study.href}>
-                        Read More
-                      </Link>
-                    </Button>
-                  </div>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="p-0 h-auto text-accent link-animated mx-auto"
+                    asChild
+                  >
+                    <Link to={study.href}>
+                      Read More
+                    </Link>
+                  </Button>
                 </CardContent>
               </Card>
             ))}
@@ -356,19 +353,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* CTA Button */}
-                <div className="flex justify-center lg:justify-start mt-8">
-                  <Button
-                    size="lg"
-                    className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
-                    asChild
-                  >
-                    <Link to="/case-studies">
-                      View Case Studies
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                </div>
               </div>
             </div>
 
@@ -393,16 +377,38 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {outcomes.map((outcome, index) => (
-              <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-montserrat font-bold text-primary mb-4">
-                  {outcome.metric}
-                </div>
-                <p className="text-sm text-muted-foreground">
-                  {outcome.description}
-                </p>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-montserrat font-bold text-primary mb-4">
+                <CountUpNumber end={40} duration={1200} suffix="%" startSeed={10} />
               </div>
-            ))}
+              <p className="text-sm text-muted-foreground">
+                Average reduction in process time
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-montserrat font-bold text-primary mb-4">
+                <CountUpNumber end={30} duration={1200} suffix="%" startSeed={10} />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Operational efficiency gains
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-montserrat font-bold text-primary mb-4">
+                <CountUpNumber end={50} duration={1200} suffix="%" startSeed={10} />
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Faster application delivery
+              </p>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-montserrat font-bold text-primary mb-4">
+                <CountUpNumber end={24} duration={1000} startSeed={10} />/7
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Managed infrastructure support
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -120,7 +120,7 @@ export default function IndustryCarousel() {
       onPointerUp={() => setHasPointerDown(false)}
     >
       <div 
-        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto bg-white border border-[#E6E6E6] rounded-2xl p-6 sm:p-7 md:p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-transform hover:translate-y-[-2px]"
+        className="h-full min-h-[460px] max-h-[460px] lg:min-h-[460px] lg:max-h-[460px] md:min-h-auto bg-white border border-[#E6E6E6] rounded-2xl p-6 sm:p-7 md:p-8 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-transform hover:translate-y-[-2px]"
       >
         <div className="text-center pb-4">
           <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -152,24 +152,6 @@ export default function IndustryCarousel() {
         </div>
       </div>
 
-      {/* Pagination Dots */}
-      <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex space-x-2">
-        {industryCards.map((_, index) => (
-          <button
-            key={index}
-            data-slide-index={index}
-            onClick={() => goToSlide(index)}
-            onKeyDown={handleKeyDown}
-            className={`w-2 h-2 rounded-full transition-all focus-visible:outline-2 focus-visible:outline-solid focus-visible:outline-[#E52629] focus-visible:outline-offset-2 ${
-              index === currentSlide
-                ? 'bg-[#E52629] scale-110'
-                : 'bg-[#E6E6E6] hover:bg-[#E52629]/50'
-            }`}
-            aria-label={`Go to industry ${index + 1}: ${industryCards[index].title}`}
-            tabIndex={0}
-          />
-        ))}
-      </div>
     </div>
   );
 }

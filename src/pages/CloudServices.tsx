@@ -850,23 +850,25 @@ export default function CloudServices() {
                   </p>
                 </div>
 
-                {/* Proof Badges (Hero Theme) */}
-                <motion.div 
+                {/* Hero Image */}
+                <motion.figure 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.4 }}
-                  className="flex flex-wrap gap-3"
+                  className="mt-6 w-full max-w-[520px] aspect-[16/9] rounded-2xl border border-[#E6E6E6] shadow-sm overflow-hidden bg-white/80"
                 >
-                  {["24×7 support", "Certified engineers", "Governance & compliance"].map((badge) => (
-                    <Badge 
-                      key={badge}
-                      variant="secondary" 
-                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#3C3C3C] hover:shadow-sm transition-shadow"
-                    >
-                      {badge}
-                    </Badge>
-                  ))}
-                </motion.div>
+                  <img
+                    src="/images/cloud-hero-illustration.webp"
+                    width={1040} 
+                    height={585}
+                    alt="Abstract cloud computing illustration"
+                    className="h-full w-full object-cover" 
+                    loading="eager" 
+                    decoding="async"
+                    srcSet="/images/cloud-hero-illustration.webp 1040w"
+                    sizes="(max-width: 768px) 92vw, 520px"
+                  />
+                </motion.figure>
 
                 {/* CTAs (Hero Theme) */}
                 <motion.div 
@@ -1032,7 +1034,7 @@ export default function CloudServices() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Why teams choose Systechnosoft
+                Why choose Systechnosoft
               </h2>
             </div>
             
@@ -1102,6 +1104,12 @@ export default function CloudServices() {
             <div className="text-center">
               <p className="text-[#3C3C3C]">
                 Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
+                <Link 
+                  to="/services/data-migration" 
+                  className="ml-3 inline-flex items-center text-[#007AFF] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] rounded sm:ml-0 sm:mt-2 sm:block"
+                >
+                  Know more →
+                </Link>
               </p>
             </div>
           </div>
@@ -1133,10 +1141,6 @@ export default function CloudServices() {
                 {
                   title: "Google Workspace migrations",
                   description: "Mail, files, and collaboration moved with governance intact. Change management included so adoption sticks."
-                },
-                {
-                  title: "SaaS enablement",
-                  description: "Shift from licenses to subscriptions safely. We align data, identity, and automation so SaaS lands cleanly and scales."
                 }
               ].map((track, idx) => (
                 <Card key={idx} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300">

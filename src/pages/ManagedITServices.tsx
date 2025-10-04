@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { HeroBackground } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 
   Shield, 
@@ -11,19 +11,13 @@ import {
   Users, 
   FileText, 
   Wifi, 
-  ShieldCheck 
+  ShieldCheck,
+  UserPlus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
-const heroCards = [
-  { icon: "🎧", title: "24×7 Helpdesk", benefit: "Multi-channel L1-L2 support with SLAs" },
-  { icon: "🌐", title: "Network Management", benefit: "Switching, routing, NAC, policy control" },
-  { icon: "📊", title: "RMM", benefit: "Endpoint monitoring & patch management" },
-  { icon: "🔐", title: "Security Monitoring", benefit: "AD health, firewall, event logs" },
-  { icon: "📡", title: "Wireless Solutions", benefit: "Wi-Fi planning, deployment, optimization" }
-];
 
 export default function ManagedITServices() {
   const [activeSection, setActiveSection] = useState("helpdesk");
@@ -166,6 +160,19 @@ export default function ManagedITServices() {
         "HA failover testing"
       ],
       outcome: "Secure perimeter with minimal attack surface"
+    },
+    {
+      id: "collaboration",
+      icon: UserPlus,
+      title: "Collaboration",
+      description: "Managed Microsoft 365, Azure, Google Workspace, and cloud file services—kept current and secure so your teams can focus on work instead of updates.",
+      bullets: [
+        "Tenant governance & lifecycle",
+        "Teams/SharePoint/Drive best‑practice setup",
+        "Security baselines & DLP",
+        "Automation for updates & app rollout"
+      ],
+      outcome: "Enable secure collaboration"
     }
   ];
 
@@ -255,9 +262,8 @@ export default function ManagedITServices() {
                     </Link>
                     <Link to="/contact">
                       <Button 
-                        variant="outline" 
                         size="lg" 
-                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                        className="bg-white text-[#E53935] border border-[#E53935] hover:bg-[#E53935] hover:text-white hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E53935] active:translate-y-[1px] px-8 py-4 text-lg font-semibold transition-all"
                         onClick={() => {
                           // GA event tracking  
                           if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -275,9 +281,14 @@ export default function ManagedITServices() {
                   </div>
                 </div>
 
-                {/* Right Column - Rotating Cards */}
+                {/* Right Column - Hero Visual */}
                 <div className="flex justify-center lg:justify-end">
-                  <HeroMotionSystem cards={heroCards} ariaLabel="Managed IT highlights" />
+                  <img 
+                    src="/images/managed-it-ops.svg" 
+                    alt="Managed IT operations: monitoring, security and automation"
+                    className="w-full max-w-2xl h-auto"
+                    loading="eager"
+                  />
                 </div>
               </div>
             </div>
@@ -372,9 +383,8 @@ export default function ManagedITServices() {
               </Link>
               <Link to="/services">
                 <Button 
-                  variant="outline" 
                   size="lg" 
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                  className="bg-white text-[#E53935] border border-[#E53935] hover:bg-[#E53935] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E53935] px-8 py-4 text-lg font-semibold transition-all"
                 >
                   Explore All Services
                 </Button>

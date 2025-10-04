@@ -221,15 +221,8 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         >
           {/* Full-width background layer */}
           <div 
-            className="w-full"
-            style={{
-              background: 'linear-gradient(135deg, rgba(28, 28, 28, 0.95) 0%, rgba(28, 28, 28, 0.90) 100%)',
-              backdropFilter: 'blur(20px)',
-              boxShadow: '0 20px 40px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08)'
-            }}
+            className="w-full bg-gradient-to-br from-rose-50 via-white to-rose-50 ring-1 ring-rose-100/80 shadow-xl shadow-rose-100/50 rounded-2xl backdrop-blur-sm"
           >
-            {/* Subtle vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/30 pointer-events-none" />
             
             {/* Centered content container */}
             <div className="relative max-w-[1200px] mx-auto px-8 py-8">
@@ -237,7 +230,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
               <div className="grid grid-cols-4 gap-8">
                 {Object.entries(servicesData).map(([category, items]) => (
                   <div key={category} className="space-y-4">
-                    <h3 className="font-montserrat font-semibold text-white text-base mb-4">
+                    <h3 className="font-montserrat font-semibold text-slate-900 text-base mb-4 hover:text-rose-600 transition-colors duration-150">
                       {category}
                     </h3>
                     <div className="space-y-1">
@@ -245,7 +238,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="group relative flex items-center px-0 py-2 text-[15px] text-white/90 hover:text-white transition-all duration-200 min-h-[44px] focus:outline-none focus:ring-2 focus:ring-blue-500 before:absolute before:left-[-10px] before:top-1/2 before:h-4 before:w-1.5 before:-translate-y-1/2 before:rounded-full before:bg-[#E52629] before:opacity-0 before:transition-all before:duration-150 hover:before:opacity-100 focus:before:opacity-100"
+                          className="block rounded-md px-2 py-1 text-[15px] text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
                            onClick={() => {
                              handleLinkClick(category, item.name, item.href);
                            }}
@@ -263,20 +256,16 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
 
             {/* Footer Strip */}
             <div 
-              className="border-t px-8 py-4"
-              style={{
-                borderColor: 'rgba(255, 255, 255, 0.1)',
-                background: 'rgba(255, 255, 255, 0.05)'
-              }}
+              className="sticky bottom-0 border-t border-rose-100 px-8 py-4 bg-white/80 backdrop-blur rounded-b-2xl"
             >
               <div className="max-w-[1200px] mx-auto flex items-center justify-between">
-                <div className="flex items-center gap-6 text-sm text-[#C9C9C9]">
+                <div className="flex items-center gap-6 text-sm text-slate-600">
                   <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-[#E52629]" />
+                    <Zap className="h-4 w-4 text-rose-500" />
                     <span>40% faster workflows</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <TrendingUp className="h-4 w-4 text-[#007AFF]" />
+                    <TrendingUp className="h-4 w-4 text-rose-500" />
                     <span>30% ops efficiency</span>
                   </div>
                 </div>
@@ -284,7 +273,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                 <div className="flex items-center gap-4">
                   <Link
                     to="/contact"
-                    className="inline-flex items-center gap-2 bg-[#E52629] hover:bg-[#E52629]/90 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="inline-flex items-center gap-2 bg-rose-600 hover:bg-rose-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
                     onClick={() => handleLinkClick('Footer', 'Claim Your Free Insight', '/contact')}
                   >
                     Claim Your Free Insight
@@ -292,7 +281,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                   </Link>
                   <Link
                     to="/tools/health-check"
-                    className="inline-flex items-center gap-2 border border-white/20 hover:bg-white/10 text-white px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="inline-flex items-center gap-2 border border-rose-300 text-rose-600 hover:bg-rose-50 px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
                     onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
                   >
                     <Shield className="h-4 w-4" />

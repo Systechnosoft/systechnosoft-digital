@@ -22,6 +22,7 @@ import AIDataAnalyticsInsights from "./pages/AIDataAnalyticsInsights";
 import AIAutomation from "./pages/AIAutomation";
 import AIConsultationStrategy from "./pages/AIConsultationStrategy";
 import MobileAppDevelopment from "./pages/MobileAppDevelopment";
+import WebDevelopment from "./pages/WebDevelopment";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 
@@ -53,6 +54,7 @@ const App = () => (
             <Route path="ai-automation" element={<AIAutomation />} />
             <Route path="services/ai-consultation-strategy" element={<AIConsultationStrategy />} />
             <Route path="services/mobile-app-development" element={<MobileAppDevelopment />} />
+            <Route path="services/web-development" element={<WebDevelopment />} />
             {/* Redirect old Salesforce route */}
             <Route path="services/low-code/salesforce" element={<Navigate to="/services/salesforce" replace />} />
             <Route path="services/low-code/salesforce/*" element={<Navigate to="/services/salesforce" replace />} />

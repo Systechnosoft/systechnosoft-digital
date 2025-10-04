@@ -30,13 +30,11 @@ const servicesData = {
     { name: "Salesforce", href: "/services/salesforce" },
   ],
   "AI & Automation": [
-    { name: "AI Development & Integration", href: "/services/ai#ai-development" },
-    { name: "Machine Learning Models", href: "/services/ai#ml-models" },
-    { name: "Natural Language Processing (NLP)", href: "/services/ai#nlp" },
-    { name: "Computer Vision", href: "/services/ai#computer-vision" },
-    { name: "AI-Powered Automation", href: "/services/ai#ai-automation" },
-    { name: "Data Analytics & Insights", href: "/services/ai#analytics" },
-    { name: "AI Consultation & Strategy", href: "/services/ai#consulting" },
+    { name: "Development & Integration", href: "/services/ai-development-integration" },
+    { name: "Natural Language Processing", href: "/services/ai-natural-language-processing" },
+    { name: "Prompt Engineering", href: "/services/ai-prompt-engineering" },
+    { name: "Data Analytics & Insights", href: "/services/ai-data-analytics-insights" },
+    { name: "Consultation & Strategy", href: "/services/ai-consultation-strategy" },
   ],
   "Other Services": [
     { name: "Web Development", href: "/services/other-services#web-development" },

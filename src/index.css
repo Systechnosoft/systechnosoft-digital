@@ -123,6 +123,10 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
 
   html {
+    scroll-behavior: auto;
+  }
+  
+  html.enable-smooth {
     scroll-behavior: smooth;
   }
 
@@ -265,10 +269,6 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     scroll-margin-top: 88px;
   }
 
-  /* Disable smooth scroll when navigating to a hash target */
-  html:has(:target) {
-    scroll-behavior: auto;
-  }
   
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {

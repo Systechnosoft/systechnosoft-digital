@@ -51,15 +51,24 @@ export default function DataMigration() {
   ];
 
   useEffect(() => {
-    // Handle hash navigation on mount
+    // Disable scroll restoration to prevent unwanted jumps
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+
+    // Handle hash navigation on mount - instant jump, no animation
     if (window.location.hash) {
+      const html = document.documentElement;
+      const prevScrollBehavior = html.style.scrollBehavior;
+      html.style.scrollBehavior = 'auto';
+      
       const id = decodeURIComponent(window.location.hash.slice(1));
       const el = document.getElementById(id);
       if (el) {
-        setTimeout(() => {
-          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 100);
+        el.scrollIntoView({ behavior: 'auto', block: 'start' });
       }
+      
+      setTimeout(() => { html.style.scrollBehavior = prevScrollBehavior || ''; }, 0);
     }
 
     const handleScroll = () => {
@@ -114,7 +123,7 @@ export default function DataMigration() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <HeroBackground>
-          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+          <section id="dm-hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Column */}

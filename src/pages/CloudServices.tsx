@@ -1130,7 +1130,7 @@ export default function CloudServices() {
               <p className="text-[#3C3C3C]">
                 Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
                 <Link 
-                  to="/services/data-migration#hero" 
+                  to="/services/data-migration#dm-hero" 
                   className="ml-3 inline-flex items-center text-[#007AFF] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] rounded sm:ml-0 sm:mt-2 sm:block"
                 >
                   Know more →

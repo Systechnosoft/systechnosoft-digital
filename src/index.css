@@ -260,8 +260,13 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
 
   /* Scroll margin for hero sections to prevent sticky header overlap */
-  #hero {
+  #dm-hero {
     scroll-margin-top: 96px;
+  }
+
+  /* Disable smooth scroll when navigating to a hash target */
+  html:has(:target) {
+    scroll-behavior: auto;
   }
   
   /* Reduced Motion Support */

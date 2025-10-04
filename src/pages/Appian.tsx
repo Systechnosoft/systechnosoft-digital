@@ -292,11 +292,25 @@ export default function Appian() {
       </nav>
 
       {/* Hero Section */}
-      <section id="overview" className="sf-hero py-16 md:py-24" data-hero data-motion="running" aria-labelledby="hero-title">
-        {/* Animated background layer */}
-        <div className="sf-hero__bg" aria-hidden="true"></div>
+      <section id="overview" className="appian-hero relative min-h-screen py-16 md:py-24 overflow-clip isolate" data-hero data-motion="running" aria-labelledby="hero-title">
+        {/* Animated background layers */}
+        <div className="appian-hero-bg-wash" aria-hidden="true"></div>
+        <div className="appian-hero-orbs" aria-hidden="true">
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
+          <div className="orb orb-3"></div>
+          <div className="orb orb-4"></div>
+        </div>
+        <div className="appian-hero-particles" aria-hidden="true">
+          <div className="dot dot-1"></div>
+          <div className="dot dot-2"></div>
+          <div className="dot dot-3"></div>
+          <div className="dot dot-4"></div>
+          <div className="dot dot-5"></div>
+          <div className="dot dot-6"></div>
+        </div>
         
-        <div className="sf-hero__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[2]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[2]">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Copy */}
             <div className="space-y-6">

@@ -18,7 +18,8 @@ import {
   LineChart,
   Lock,
   Rocket,
-  Users
+  Users,
+  Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -269,52 +270,52 @@ export default function Appian() {
       </nav>
 
       {/* Hero Section */}
-      <section id="overview" className="appian-hero relative min-h-screen py-16 md:py-24 overflow-clip isolate" data-hero data-motion="running" aria-labelledby="hero-title">
-        {/* Animated background layers */}
-        <div className="appian-hero-bg-wash" aria-hidden="true"></div>
-        <div className="appian-hero-orbs" aria-hidden="true">
-          <div className="orb orb-1"></div>
-          <div className="orb orb-2"></div>
-          <div className="orb orb-3"></div>
-          <div className="orb orb-4"></div>
+      <section id="overview" className="hero-animated relative min-h-screen flex items-center">
+        {/* Animated Background */}
+        <div className="hero-animated__bg">
+          <div className="hero-animated__bg-glow" />
+          {!shouldReduceMotion && (
+            <motion.div
+              className="hero-animated__bg-rotation"
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+          )}
         </div>
-        <div className="appian-hero-particles" aria-hidden="true">
-          <div className="dot dot-1"></div>
-          <div className="dot dot-2"></div>
-          <div className="dot dot-3"></div>
-          <div className="dot dot-4"></div>
-          <div className="dot dot-5"></div>
-          <div className="dot dot-6"></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[2]">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            variants={staggeredFadeUp}
+            initial="hidden"
+            animate="visible"
+          >
             {/* Left: Copy */}
             <div className="space-y-6">
-              <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl text-[#1C1C1C] leading-tight">
+              <motion.h1 variants={fadeUpVariants} className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight">
                 Appian done right—secure, efficient, production-ready
-              </h1>
+              </motion.h1>
               
-              <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed">
+              <motion.p variants={fadeUpVariants} className="text-lg md:text-xl text-muted-foreground leading-relaxed">
                 Plan, build, and run on Appian with unified <strong>process, data, and AI</strong>—so your teams can ship outcomes faster with governance built in.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="px-3 py-1 text-sm bg-[#F5F5F5] text-[#3C3C3C]">
+              <motion.div variants={fadeUpVariants} className="flex flex-wrap gap-2">
+                <Badge variant="secondary" className="px-3 py-1 text-sm">
                   Low-code speed
                 </Badge>
-                <Badge variant="secondary" className="px-3 py-1 text-sm bg-[#F5F5F5] text-[#3C3C3C]">
+                <Badge variant="secondary" className="px-3 py-1 text-sm">
                   Process + Data in one
                 </Badge>
-                <Badge variant="secondary" className="px-3 py-1 text-sm bg-[#F5F5F5] text-[#3C3C3C]">
+                <Badge variant="secondary" className="px-3 py-1 text-sm">
                   Security & compliance
                 </Badge>
-              </div>
+              </motion.div>
 
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <motion.div variants={fadeUpVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
                   size="lg"
-                  className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-6 text-base font-semibold"
+                  className="px-8 py-6 text-base font-semibold"
                   asChild
                 >
                   <Link to="/contact">
@@ -325,21 +326,23 @@ export default function Appian() {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-6 text-base font-semibold"
+                  className="px-8 py-6 text-base font-semibold"
                   asChild
                 >
                   <Link to="#capabilities">See what we deliver</Link>
                 </Button>
-              </div>
+              </motion.div>
             </div>
 
             {/* Right Content - 3D Flip Carousel */}
-            <HeroFlipCarousel 
-              cards={heroCapabilities}
-              autoRotateDelay={3000}
-              pauseDuration={10000}
-            />
-          </div>
+            <motion.div variants={fadeUpVariants}>
+              <HeroFlipCarousel 
+                cards={heroCapabilities}
+                autoRotateDelay={3000}
+                pauseDuration={10000}
+              />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 

@@ -36,6 +36,48 @@ import Autoplay from "embla-carousel-autoplay";
 export default function Appian() {
   const [activeSection, setActiveSection] = useState("overview");
 
+  // Hero animation controller
+  useEffect(() => {
+    const hero = document.querySelector('[data-hero]');
+    if (!hero) return;
+    
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) hero.setAttribute('data-motion', 'paused');
+    
+    const btn = hero.querySelector('.sf-hero__pause');
+    let paused = hero.getAttribute('data-motion') === 'paused';
+    
+    const update = () => {
+      hero.setAttribute('data-motion', paused ? 'paused' : 'running');
+      btn?.setAttribute('aria-pressed', String(paused));
+      if (btn) btn.textContent = paused ? 'Play' : 'Pause';
+    };
+    
+    const handleClick = () => {
+      paused = !paused;
+      update();
+    };
+    
+    btn?.addEventListener('click', handleClick);
+    update();
+    
+    const io = new IntersectionObserver(([e]) => {
+      if (!e) return;
+      if (!e.isIntersecting) {
+        hero.setAttribute('data-motion', 'paused');
+      } else if (!reduce && !paused) {
+        hero.setAttribute('data-motion', 'running');
+      }
+    }, { threshold: 0.1 });
+    
+    io.observe(hero);
+    
+    return () => {
+      btn?.removeEventListener('click', handleClick);
+      io.disconnect();
+    };
+  }, []);
+
   const sections = [
     { id: "overview", label: "Overview" },
     { id: "capabilities", label: "Capabilities" },
@@ -250,8 +292,11 @@ export default function Appian() {
       </nav>
 
       {/* Hero Section */}
-      <section id="overview" className="py-16 md:py-24 bg-gradient-to-br from-white via-[#FFF5F5] to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="overview" className="sf-hero py-16 md:py-24" data-hero data-motion="running" aria-labelledby="hero-title">
+        {/* Animated background layer */}
+        <div className="sf-hero__bg" aria-hidden="true"></div>
+        
+        <div className="sf-hero__inner max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-[2]">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left: Copy */}
             <div className="space-y-6">
@@ -342,6 +387,9 @@ export default function Appian() {
             </div>
           </div>
         </div>
+        
+        {/* Pause/Play control */}
+        <button className="sf-hero__pause" type="button" aria-pressed="false" aria-label="Pause hero animation">Pause</button>
       </section>
 
       {/* Why Appian + Systechnosoft - Metric Pills */}

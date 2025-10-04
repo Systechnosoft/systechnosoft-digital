@@ -169,8 +169,103 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     @apply relative inline-block after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-accent after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
   
+  /* Shared Hero Animation System */
+  .sf-hero {
+    --hero-red: #E52629;
+    --hero-blue: #007AFF;
+    --hero-ink: #1C1C1C;
+    --hero-text: #3C3C3C;
+    --hero-border: #E6E6E6;
+    --hero-ease: cubic-bezier(.22, 1, .36, 1);
+    --hero-bg-loop: 22s;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background: #fff;
+    min-height: 72vh;
+  }
+
+  /* Background drift + faint grid */
+  .sf-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .sf-hero__bg::before {
+    content: "";
+    position: absolute;
+    inset: -20%;
+    opacity: 0.9;
+    will-change: transform;
+    background:
+      radial-gradient(40% 40% at 20% 30%, color-mix(in srgb, var(--hero-red) 12%, transparent) 0%, transparent 70%),
+      radial-gradient(35% 35% at 80% 70%, color-mix(in srgb, var(--hero-blue) 12%, transparent) 0%, transparent 70%);
+    animation: heroDrift var(--hero-bg-loop) linear infinite;
+  }
+
+  .sf-hero__bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0.35;
+    mix-blend-mode: normal;
+    will-change: transform;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.03) 0 1px, transparent 1px 20px),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.03) 0 1px, transparent 1px 20px);
+    animation: heroGrid 60s linear infinite alternate;
+  }
+
+  @keyframes heroDrift {
+    0% { transform: translate3d(-2%, -2%, 0) rotate(.5deg) scale(1.04); }
+    50% { transform: translate3d(2%, 2%, 0) rotate(-.5deg) scale(1.02); }
+    100% { transform: translate3d(-2%, -2%, 0) rotate(.5deg) scale(1.04); }
+  }
+
+  @keyframes heroGrid {
+    from { transform: translate3d(0, 0, 0); }
+    to { transform: translate3d(-2%, -2%, 0); }
+  }
+
+  /* Pause control */
+  .sf-hero__pause {
+    position: absolute;
+    z-index: 2;
+    top: 14px;
+    right: 14px;
+    font: 500 12px/1.2 Inter, system-ui;
+    color: var(--hero-ink);
+    background: #fff;
+    border: 1px solid var(--hero-border);
+    padding: 8px 10px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: var(--transition-micro);
+  }
+
+  .sf-hero__pause:hover {
+    background: #f9f9f9;
+  }
+
+  [data-motion="paused"] .sf-hero__bg::before,
+  [data-motion="paused"] .sf-hero__bg::after {
+    animation-play-state: paused;
+  }
+
+  /* No-bleed guarantee */
+  .sf-hero + * {
+    position: relative;
+    z-index: 1;
+  }
+  
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {
+    .sf-hero__bg::before,
+    .sf-hero__bg::after {
+      animation: none !important;
+    }
+    
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;

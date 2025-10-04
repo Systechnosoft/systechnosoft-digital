@@ -37,8 +37,8 @@ const servicesData = {
     { name: "Consultation & Strategy", href: "/services/ai-consultation-strategy" },
   ],
   "Other Services": [
-    { name: "Web Development", href: "/services/other-services#web-development" },
-    { name: "Mobile App Development", href: "/services/other-services#mobile-app-development" },
+    { name: "Web Development", href: "/services/web-development" },
+    { name: "Mobile App Development", href: "/services/mobile-app-development" },
   ],
 };
 

@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
-import { motion, useReducedMotion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { HeroFlipCarousel } from "@/components/HeroFlipCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -371,10 +372,6 @@ const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
   const [activeSection, setActiveSection] = useState("overview");
-  const [currentCardIndex, setCurrentCardIndex] = useState(0);
-  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
-  const heroRef = useRef<HTMLElement>(null);
-  const heroInView = useInView(heroRef);
 
   // Navigation items (removed ROI, FAQ, Contact)
   const navItems = [
@@ -409,23 +406,6 @@ const Salesforce = () => {
       observers.forEach(observer => observer?.disconnect());
     };
   }, []);
-
-  // Carousel auto-rotation effect
-  useEffect(() => {
-    if (shouldReduceMotion || isCarouselPaused) return;
-
-    const interval = setInterval(() => {
-      setCurrentCardIndex((prev) => (prev + 1) % 6);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [shouldReduceMotion, isCarouselPaused]);
-
-  // Handle carousel pause
-  const handleCarouselPause = () => {
-    setIsCarouselPaused(true);
-    setTimeout(() => setIsCarouselPaused(false), 10000);
-  };
 
   // Animation variants
   const fadeUpVariants = {
@@ -561,27 +541,22 @@ const Salesforce = () => {
       >
         {/* Hero Section */}
         <section 
-          ref={heroRef}
           id="overview"
-          className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-background via-background to-muted/20"
+          className="hero-animated flex items-center justify-center"
         >
           {/* Animated background */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+          <div className="hero-animated__bg">
+            <div className="hero-animated__bg-glow" />
             {!shouldReduceMotion && (
               <motion.div
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
-                  backgroundSize: "400px 400px"
-                }}
+                className="hero-animated__bg-rotation"
                 animate={{ rotate: 360 }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               />
             )}
           </div>
 
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="container mx-auto px-4 hero-animated__content">
             <div className="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto">
               {/* Left Content */}
               <div className="space-y-8">
@@ -647,84 +622,36 @@ const Salesforce = () => {
               </div>
 
               {/* Right Content - 6-Item Flip Carousel */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="sf-hero-carousel relative h-80 flex items-center justify-center"
-                onMouseEnter={handleCarouselPause}
-                onFocus={handleCarouselPause}
-                role="region"
-                aria-label="Salesforce Cloud Services Carousel"
-                aria-live="polite"
-              >
-                <div 
-                  className="relative w-80 h-64"
-                  style={{ perspective: '1000px' }}
-                  onKeyDown={(e) => {
-                    if (e.key === 'ArrowLeft') {
-                      e.preventDefault();
-                      setCurrentCardIndex((prev) => (prev - 1 + 6) % 6);
-                      handleCarouselPause();
-                    } else if (e.key === 'ArrowRight') {
-                      e.preventDefault();
-                      setCurrentCardIndex((prev) => (prev + 1) % 6);
-                      handleCarouselPause();
-                    }
-                  }}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${cloudCards[currentCardIndex].title} card ${currentCardIndex + 1} of 6. Use arrow keys to navigate.`}
-                >
-                  {cloudCards.map((card, index) => {
-                    const isActive = index === currentCardIndex;
-                    
-                    return (
-                      <motion.div
-                        key={card.id}
-                        initial={{ rotateY: 180, opacity: 0 }}
-                        animate={{ 
-                          rotateY: isActive ? 0 : 180,
-                          opacity: isActive ? 1 : 0,
-                          scale: isActive ? 1 : 0.8,
-                        }}
-                        transition={{ 
-                          duration: shouldReduceMotion ? 0.2 : 0.5,
-                          ease: "easeInOut"
-                        }}
-                        className="absolute inset-0"
-                        style={{
-                          transformStyle: 'preserve-3d',
-                          perspective: '1000px',
-                          backfaceVisibility: 'hidden'
-                        }}
-                      >
-                        <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors shadow-lg">
-                          <CardHeader>
-                            <CardTitle className="flex items-center gap-3 text-lg">
-                              <card.icon className="h-6 w-6 text-primary flex-shrink-0" />
-                              <span>{card.title}</span>
-                            </CardTitle>
-                          </CardHeader>
-                          <CardContent>
-                            <p className="text-sm text-muted-foreground mb-3">
-                              {card.description}
-                            </p>
-                            <div className="space-y-1">
-                              {card.features.slice(0, 2).map((feature, featureIndex) => (
-                                <div key={featureIndex} className="flex items-center gap-2 text-xs text-muted-foreground">
-                                  <CheckCircle className="h-3 w-3 text-primary flex-shrink-0" />
-                                  <span>{feature}</span>
-                                </div>
-                              ))}
+              <HeroFlipCarousel 
+                cards={cloudCards}
+                autoRotateDelay={3000}
+                pauseDuration={10000}
+                renderCard={(card) => (
+                  <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors shadow-lg">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-3 text-lg">
+                        <card.icon className="h-6 w-6 text-primary flex-shrink-0" />
+                        <span>{card.title}</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-muted-foreground mb-3">
+                        {card.description}
+                      </p>
+                      {card.features && (
+                        <div className="space-y-1">
+                          {card.features.slice(0, 2).map((feature, featureIndex) => (
+                            <div key={featureIndex} className="flex items-center gap-2 text-xs text-muted-foreground">
+                              <CheckCircle className="h-3 w-3 text-primary flex-shrink-0" />
+                              <span>{feature}</span>
                             </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </motion.div>
+                          ))}
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                )}
+              />
             </div>
           </div>
         </section>

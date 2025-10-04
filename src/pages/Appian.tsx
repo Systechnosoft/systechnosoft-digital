@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion } from "framer-motion";
 import { 
   ArrowRight, 
   Workflow, 
@@ -24,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { CountUpNumber } from "@/components/CountUpNumber";
+import { HeroFlipCarousel } from "@/components/HeroFlipCarousel";
 import {
   Carousel,
   CarouselContent,
@@ -34,49 +36,8 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 
 export default function Appian() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeSection, setActiveSection] = useState("overview");
-
-  // Hero animation controller
-  useEffect(() => {
-    const hero = document.querySelector('[data-hero]');
-    if (!hero) return;
-    
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) hero.setAttribute('data-motion', 'paused');
-    
-    const btn = hero.querySelector('.sf-hero__pause');
-    let paused = hero.getAttribute('data-motion') === 'paused';
-    
-    const update = () => {
-      hero.setAttribute('data-motion', paused ? 'paused' : 'running');
-      btn?.setAttribute('aria-pressed', String(paused));
-      if (btn) btn.textContent = paused ? 'Play' : 'Pause';
-    };
-    
-    const handleClick = () => {
-      paused = !paused;
-      update();
-    };
-    
-    btn?.addEventListener('click', handleClick);
-    update();
-    
-    const io = new IntersectionObserver(([e]) => {
-      if (!e) return;
-      if (!e.isIntersecting) {
-        hero.setAttribute('data-motion', 'paused');
-      } else if (!reduce && !paused) {
-        hero.setAttribute('data-motion', 'running');
-      }
-    }, { threshold: 0.1 });
-    
-    io.observe(hero);
-    
-    return () => {
-      btn?.removeEventListener('click', handleClick);
-      io.disconnect();
-    };
-  }, []);
 
   const sections = [
     { id: "overview", label: "Overview" },
@@ -109,13 +70,29 @@ export default function Appian() {
   }, []);
 
   const heroCapabilities = [
-    { title: "Process Orchestration", desc: "BPMN designer, human & system tasks" },
-    { title: "Data Fabric", desc: "Real-time unified data across systems" },
-    { title: "AI & Automation", desc: "Copilot, RPA, process mining" },
-    { title: "IDP (Document AI)", desc: "Classify & extract structured data" },
-    { title: "Portals & Experiences", desc: "Secure public & internal apps" },
-    { title: "DevOps & Governance", desc: "CI/CD, audit, access controls" },
+    { id: "process", icon: Workflow, title: "Process Orchestration", description: "BPMN designer, human & system tasks" },
+    { id: "data", icon: Database, title: "Data Fabric", description: "Real-time unified data across systems" },
+    { id: "ai", icon: Bot, title: "AI & Automation", description: "Copilot, RPA, process mining" },
+    { id: "idp", icon: FileText, title: "IDP (Document AI)", description: "Classify & extract structured data" },
+    { id: "portals", icon: Globe, title: "Portals & Experiences", description: "Secure public & internal apps" },
+    { id: "devops", icon: Shield, title: "DevOps & Governance", description: "CI/CD, audit, access controls" },
   ];
+
+  // Animation variants
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 20 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const staggeredFadeUp = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08
+      }
+    }
+  };
 
   const platformCapabilities = [
     {
@@ -356,54 +333,14 @@ export default function Appian() {
               </div>
             </div>
 
-            {/* Right: Card Carousel */}
-            <div className="relative">
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                plugins={[
-                  Autoplay({
-                    delay: 3000,
-                    stopOnInteraction: true,
-                    stopOnMouseEnter: true,
-                  }),
-                ]}
-                className="w-full"
-              >
-                <CarouselContent>
-                  {heroCapabilities.map((capability, index) => (
-                    <CarouselItem key={index}>
-                      <Card className="border-2 border-[#E6E6E6] shadow-lg">
-                        <CardHeader>
-                          <div className="flex items-center gap-3 mb-2">
-                            <div className="w-10 h-10 rounded-full bg-[#E52629]/10 flex items-center justify-center">
-                              <CheckCircle2 className="w-5 h-5 text-[#E52629]" />
-                            </div>
-                            <CardTitle className="text-xl font-montserrat font-bold text-[#1C1C1C]">
-                              {capability.title}
-                            </CardTitle>
-                          </div>
-                          <CardDescription className="text-base text-[#3C3C3C]">
-                            {capability.desc}
-                          </CardDescription>
-                        </CardHeader>
-                      </Card>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-                <div className="flex justify-center gap-4 mt-6">
-                  <CarouselPrevious className="static" />
-                  <CarouselNext className="static" />
-                </div>
-              </Carousel>
-            </div>
+            {/* Right Content - 3D Flip Carousel */}
+            <HeroFlipCarousel 
+              cards={heroCapabilities}
+              autoRotateDelay={3000}
+              pauseDuration={10000}
+            />
           </div>
         </div>
-        
-        {/* Pause/Play control */}
-        <button className="sf-hero__pause" type="button" aria-pressed="false" aria-label="Pause hero animation">Pause</button>
       </section>
 
       {/* Why Appian + Systechnosoft - Metric Pills */}

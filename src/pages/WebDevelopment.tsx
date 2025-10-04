@@ -1,6 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { 
   Code2, 
   Palette, 
@@ -41,6 +41,8 @@ const heroCards = [
 ];
 
 const WebDevelopment = () => {
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <>
       <Helmet>
@@ -55,13 +57,23 @@ const WebDevelopment = () => {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section className="relative bg-gradient-to-br from-background via-background to-muted/30 overflow-hidden">
-          <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(0deg,transparent,black)] opacity-30" />
-          
-          <div className="container mx-auto px-4 py-16 md:py-24 relative">
+        <section className="hero-animated flex items-center justify-center">
+          {/* Animated background */}
+          <div className="hero-animated__bg">
+            <div className="hero-animated__bg-glow" />
+            {!shouldReduceMotion && (
+              <motion.div
+                className="hero-animated__bg-rotation"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+              />
+            )}
+          </div>
+
+          <div className="container mx-auto px-4 hero-animated__content">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                 className="space-y-6"

@@ -321,35 +321,35 @@ export default function ManagedITServices() {
                   <Card 
                     id={service.id}
                     ref={(el) => (sectionsRef.current[index] = el)}
-                    className="bg-white border border-[#E6E6E6] rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] min-h-[260px] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
+                    className="bg-white border border-[#E6E6E6] rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     style={{ scrollMarginTop: '120px' }}
                     tabIndex={0}
                   >
-                    <CardHeader className="pb-4 p-0">
-                      <div className="flex items-start gap-4">
-                        <div className="p-3 bg-[#E52629]/10 rounded-lg transition-transform will-change-transform hover:rotate-3">
-                          <Icon className="h-6 w-6 text-[#E52629]" />
+                    <CardHeader className="pb-3 p-0">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2.5 bg-[#E52629]/10 rounded-lg transition-transform will-change-transform hover:rotate-3">
+                          <Icon className="h-5 w-5 text-[#E52629]" />
                         </div>
                         <div className="flex-1">
-                          <CardTitle className="font-montserrat text-xl mb-2">
+                          <CardTitle className="font-montserrat text-lg mb-1.5">
                             {service.title}
                           </CardTitle>
-                          <p className="font-inter text-muted-foreground">
+                          <p className="font-inter text-sm text-muted-foreground leading-snug">
                             {service.description}
                           </p>
                         </div>
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0 p-0">
-                      <ul className="space-y-2 mb-4">
+                      <ul className="space-y-1.5 mb-3">
                         {service.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-center text-sm text-muted-foreground">
-                            <span className="w-1.5 h-1.5 bg-[#E52629] rounded-full mr-3 flex-shrink-0" />
+                            <span className="w-1.5 h-1.5 bg-[#E52629] rounded-full mr-2.5 flex-shrink-0" />
                             {bullet}
                           </li>
                         ))}
                       </ul>
-                      <div className="mt-4 p-3 bg-[#007AFF]/5 rounded-lg">
+                      <div className="mt-3 p-2.5 bg-[#007AFF]/5 rounded-lg">
                         <p className="text-sm font-medium text-[#007AFF]">
                           {service.outcome}
                         </p>

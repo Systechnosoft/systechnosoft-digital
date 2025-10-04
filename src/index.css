@@ -270,16 +270,6 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
 
   
-  /* Mega menu subtle background animation */
-  @keyframes blush {
-    from { 
-      transform: translateY(-2%) translateX(0); 
-    } 
-    to { 
-      transform: translateY(2%) translateX(-2%);
-    }
-  }
-  
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {
     .sf-hero__bg::before,

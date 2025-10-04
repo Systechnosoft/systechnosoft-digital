@@ -208,7 +208,7 @@ export default function ManagedITServices() {
       <div className="min-h-screen bg-background text-foreground">
         {/* Hero Section */}
         <HeroBackground>
-          <section className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Column */}

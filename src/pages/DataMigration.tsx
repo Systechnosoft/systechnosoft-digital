@@ -170,42 +170,88 @@ export default function DataMigration() {
 
                 {/* Right Column - Hero Image */}
                 <div className="flex justify-center lg:justify-end">
-                  <svg viewBox="0 0 1600 900" width="100%" height="auto" role="img" aria-label="Cloud computing network" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[640px] rounded-2xl shadow-[8px_20px_60px_rgba(0,0,0,0.08)] border border-black/[0.06]">
+                  <svg viewBox="0 0 1600 900" width="100%" height="auto" role="img"
+                       aria-label="Secure data migration from on-prem database to cloud"
+                       xmlns="http://www.w3.org/2000/svg"
+                       className="w-full max-w-[640px] rounded-2xl shadow-[8px_20px_60px_rgba(0,0,0,0.08)] border border-black/[0.06]">
                     <defs>
-                      <radialGradient id="bg" cx="50%" cy="45%" r="70%">
-                        <stop offset="0%" stopColor="#0d5eff" stopOpacity="0.18"/>
-                        <stop offset="60%" stopColor="#001a33" stopOpacity="0.9"/>
-                        <stop offset="100%" stopColor="#001326" stopOpacity="1"/>
+                      {/* Soft brandy background + faint grid */}
+                      <radialGradient id="dm_bg" cx="60%" cy="45%" r="75%">
+                        <stop offset="0%"  stopColor="#0d5eff" stopOpacity="0.14"/>
+                        <stop offset="70%" stopColor="#0a1530" stopOpacity="0.92"/>
+                        <stop offset="100%" stopColor="#091226" stopOpacity="1"/>
                       </radialGradient>
-                      <filter id="g1" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="16" result="b"/>
-                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
-                      </filter>
-                      <filter id="g2" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="6" result="b2"/>
-                        <feMerge><feMergeNode in="b2"/><feMergeNode in="SourceGraphic"/></feMerge>
-                      </filter>
-                      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                        <path d="M40 0H0M0 40V0" stroke="#3aa8ff" strokeOpacity=".12" strokeWidth="1"/>
+                      <pattern id="dm_grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M40 0H0M0 40V0" stroke="#7bb6ff" strokeOpacity=".10" strokeWidth="1"/>
                       </pattern>
+
+                      {/* Strokes & accents */}
+                      <linearGradient id="dm_line" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%"  stopColor="#00d4ff"/>
+                        <stop offset="100%" stopColor="#8df3ff"/>
+                      </linearGradient>
+                      <linearGradient id="dm_accent" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%"  stopColor="#FF3B30"/>
+                        <stop offset="100%" stopColor="#E31E24"/>
+                      </linearGradient>
+
+                      {/* Arrow head */}
+                      <marker id="dm_arrow" markerWidth="16" markerHeight="16" refX="10" refY="5" orient="auto">
+                        <path d="M0,0 L10,5 L0,10 Z" fill="url(#dm_accent)"/>
+                      </marker>
                     </defs>
 
-                    <rect width="1600" height="900" fill="url(#bg)"/>
-                    <rect width="1600" height="900" fill="url(#grid)"/>
+                    {/* Backdrop */}
+                    <rect width="1600" height="900" fill="url(#dm_bg)"/>
+                    <rect width="1600" height="900" fill="url(#dm_grid)"/>
 
-                    <g transform="translate(0,20)">
-                      <path id="cloud" d="M1040 520c0-84-68-152-152-152-17 0-33 3-49 8-22-66-86-114-162-114-94 0-170 72-174 164-18-8-38-12-58-12-79 0-144 57-155 132-62 15-108 72-108 139 0 78 63 141 141 141h698c87 0 159-71 159-159 0-70-45-129-110-150z"
-                            fill="none" stroke="#39e6ff" strokeWidth="22" strokeLinejoin="round" filter="url(#g1)" opacity=".9"/>
-                      <use href="#cloud" stroke="#8df3ff" strokeWidth="10" filter="url(#g2)"/>
-                      <use href="#cloud" stroke="#00d4ff" strokeWidth="4"/>
+                    {/* Left: on-prem database (cylinder) */}
+                    <g transform="translate(230,310)">
+                      {/* Barrel */}
+                      <rect x="0" y="60" width="280" height="260" rx="28" fill="#0f2a48" stroke="url(#dm_line)" strokeWidth="4"/>
+                      {/* Top ellipse */}
+                      <ellipse cx="140" cy="60" rx="140" ry="40" fill="#113157" stroke="url(#dm_line)" strokeWidth="4"/>
+                      {/* Subtle bands */}
+                      <ellipse cx="140" cy="180" rx="120" ry="8" fill="#1a3f66" opacity=".55"/>
+                      <ellipse cx="140" cy="250" rx="120" ry="8" fill="#1a3f66" opacity=".38"/>
+                      {/* Lock accent */}
+                      <circle cx="260" cy="70" r="14" fill="url(#dm_accent)" opacity=".9"/>
                     </g>
 
-                    <g fill="#69e1ff" fillOpacity=".6">
-                      <rect x="430" y="650" width="20" height="20" rx="3"/>
-                      <rect x="610" y="600" width="24" height="24" rx="4"/>
-                      <rect x="780" y="680" width="18" height="18" rx="3"/>
-                      <rect x="1180" y="610" width="22" height="22" rx="3"/>
-                      <rect x="980" y="650" width="20" height="20" rx="3"/>
+                    {/* Right: destination cloud (unique outline) */}
+                    <g transform="translate(860,260)">
+                      <path d="M560,340
+                               c0-78-63-141-141-141
+                               c-16,0-31,3-45,8
+                               c-20-62-80-107-150-107
+                               c-87,0-158,66-162,150
+                               c-17-7-35-11-54-11
+                               c-73,0-132,52-143,121
+                               c-57,14-102,66-102,129
+                               c0,72,59,131,131,131h566
+                               c79,0,143-64,143-143
+                               c0-63-41-116-103-137z"
+                            fill="none" stroke="url(#dm_line)" strokeWidth="12" />
+                      {/* Tiny "data bits" in cloud */}
+                      <g fill="#8df3ff" opacity=".8">
+                        <rect x="220" y="280" width="14" height="14" rx="3"/>
+                        <rect x="370" y="240" width="12" height="12" rx="3"/>
+                        <rect x="450" y="320" width="12" height="12" rx="3"/>
+                        <rect x="300" y="360" width="10" height="10" rx="2"/>
+                      </g>
+                    </g>
+
+                    {/* Migration path with squares moving from DB to Cloud (lightweight, subtle) */}
+                    <path id="dm_path"
+                          d="M510,470 C720,470 840,420 980,420"
+                          fill="none" stroke="url(#dm_accent)" strokeWidth="4" strokeLinecap="round"
+                          markerEnd="url(#dm_arrow)"/>
+
+                    {/* Minimal "data packets" along the path (no heavy filters/animations) */}
+                    <g fill="#ffb3b0">
+                      <rect x="620" y="462" width="10" height="10" rx="2"/>
+                      <rect x="720" y="455" width="10" height="10" rx="2"/>
+                      <rect x="820" y="440" width="10" height="10" rx="2"/>
                     </g>
                   </svg>
                 </div>

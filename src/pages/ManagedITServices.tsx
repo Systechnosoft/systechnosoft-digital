@@ -165,10 +165,10 @@ export default function ManagedITServices() {
       id: "collaboration",
       icon: UserPlus,
       title: "Collaboration",
-      description: "Managed Microsoft 365, Azure, Google Workspace, and cloud file services—kept current and secure so your teams can focus on work instead of updates.",
+      description: "Managed Microsoft 365, Azure, Google Workspace, and cloud files—kept current and secure so your teams can focus on work.",
       bullets: [
         "Tenant governance & lifecycle",
-        "Teams/SharePoint/Drive best‑practice setup",
+        "Teams/SharePoint/Drive setup",
         "Security baselines & DLP"
       ],
       outcome: "Enable secure collaboration"
@@ -296,9 +296,9 @@ export default function ManagedITServices() {
 
 
         {/* Service Tiles - Light Background */}
-        <section id="mis-services" className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <section id="mis-services" className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12 md:pb-16">
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-stretch mb-0"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}
@@ -320,7 +320,7 @@ export default function ManagedITServices() {
                   <Card 
                     id={service.id}
                     ref={(el) => (sectionsRef.current[index] = el)}
-                    className="bg-white border border-[#E6E6E6] rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
+                    className="flex flex-col h-full bg-white border border-[#E6E6E6] rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     style={{ scrollMarginTop: '120px' }}
                     tabIndex={0}
                   >
@@ -339,8 +339,8 @@ export default function ManagedITServices() {
                         </div>
                       </div>
                     </CardHeader>
-                    <CardContent className="pt-0 p-0">
-                      <ul className="space-y-1.5 mb-3">
+                    <CardContent className="pt-0 p-0 flex flex-col flex-1">
+                      <ul className="space-y-1.5 mb-3 flex-1">
                         {service.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-center text-sm text-muted-foreground">
                             <span className="w-1.5 h-1.5 bg-[#E52629] rounded-full mr-2.5 flex-shrink-0" />
@@ -348,7 +348,7 @@ export default function ManagedITServices() {
                           </li>
                         ))}
                       </ul>
-                      <div className="mt-3 p-2.5 bg-[#007AFF]/5 rounded-lg">
+                      <div className="mt-auto p-2.5 bg-[#007AFF]/5 rounded-lg">
                         <p className="text-sm font-medium text-[#007AFF]">
                           {service.outcome}
                         </p>
@@ -362,7 +362,7 @@ export default function ManagedITServices() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-12 sm:py-16 lg:py-20 bg-white">
+        <section className="mt-0 py-12 sm:py-16 lg:py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
             <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6 text-[#1C1C1C]">
               Ready to Transform Your IT Operations?

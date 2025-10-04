@@ -212,8 +212,11 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
       {isOpen && createPortal(
         <div
           data-mega-menu-container
-          className="fixed inset-x-0 w-screen z-[70]"
-          style={{ top: '64px' }}
+          className="fixed inset-x-0 w-screen z-[70] animate-in fade-in slide-in-from-top-2 duration-[280ms]"
+          style={{ 
+            top: '64px',
+            animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+          }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onKeyDown={handleKeyDown}
@@ -221,15 +224,33 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         >
           {/* Full-width background layer */}
           <div 
-            className="w-full bg-gradient-to-br from-rose-50 via-white to-rose-50 ring-1 ring-rose-100/80 shadow-xl shadow-rose-100/50 rounded-2xl backdrop-blur-sm"
+            className="relative w-full bg-gradient-to-br from-rose-50 via-white to-rose-50 ring-1 ring-rose-100/80 shadow-xl shadow-rose-100/50 rounded-2xl backdrop-blur-sm will-change-transform motion-reduce:animate-none"
+            style={{
+              background: 'linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.96) 100%), radial-gradient(120% 120% at 70% -10%, rgba(255, 77, 64, 0.06), transparent 50%)'
+            }}
           >
+            {/* Subtle animated gradient wash */}
+            <div 
+              className="absolute inset-0 pointer-events-none rounded-2xl opacity-35 motion-reduce:hidden"
+              style={{
+                background: 'radial-gradient(80% 60% at 85% 0%, rgba(255, 77, 64, 0.05), transparent 60%)',
+                animation: 'blush 18s ease-in-out infinite alternate'
+              }}
+            />
             
             {/* Centered content container */}
             <div className="relative max-w-[1200px] mx-auto px-8 py-8">
               {/* Main Content Grid */}
               <div className="grid grid-cols-4 gap-8">
-                {Object.entries(servicesData).map(([category, items]) => (
-                  <div key={category} className="space-y-4">
+                {Object.entries(servicesData).map(([category, items], colIndex) => (
+                  <div 
+                    key={category} 
+                    className="space-y-4 opacity-0 translate-y-1.5 animate-in fade-in slide-in-from-top-1 duration-[220ms] fill-mode-forwards will-change-transform motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:animate-none"
+                    style={{
+                      animationDelay: `${80 + colIndex * 40}ms`,
+                      animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                  >
                     <h3 className="font-montserrat font-semibold text-slate-900 text-base mb-4 hover:text-rose-600 transition-colors duration-150">
                       {category}
                     </h3>
@@ -238,10 +259,13 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="block rounded-md px-2 py-1 text-[15px] text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
-                           onClick={() => {
-                             handleLinkClick(category, item.name, item.href);
-                           }}
+                          className="group relative inline-flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-[15px] text-slate-700 hover:text-rose-600 hover:bg-rose-50/80 focus-visible:text-rose-600 focus-visible:bg-rose-50/80 transition-colors duration-150 min-h-[44px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-600 focus-visible:ring-offset-2 after:absolute after:left-0 after:right-0 after:bottom-0 after:h-0.5 after:bg-rose-600 after:origin-left after:scale-x-0 hover:after:scale-x-100 focus-visible:after:scale-x-100 after:transition-transform after:duration-[120ms] motion-reduce:after:hidden"
+                          style={{
+                            animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+                          }}
+                          onClick={() => {
+                            handleLinkClick(category, item.name, item.href);
+                          }}
                         >
                           <span className="font-inter">
                             {item.name}
@@ -256,7 +280,11 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
 
             {/* Footer Strip */}
             <div 
-              className="sticky bottom-0 border-t border-rose-100 px-8 py-4 bg-white/80 backdrop-blur rounded-b-2xl"
+              className="sticky bottom-0 border-t border-rose-100 px-8 py-4 bg-white/80 backdrop-blur rounded-b-2xl opacity-0 translate-y-2 animate-in fade-in slide-in-from-bottom-2 duration-[220ms] fill-mode-forwards will-change-transform motion-reduce:opacity-100 motion-reduce:translate-y-0 motion-reduce:animate-none"
+              style={{
+                animationDelay: '120ms',
+                animationTimingFunction: 'cubic-bezier(0.16, 1, 0.3, 1)'
+              }}
             >
               <div className="max-w-[1200px] mx-auto flex items-center justify-between">
                 <div className="flex items-center gap-6 text-sm text-slate-600">

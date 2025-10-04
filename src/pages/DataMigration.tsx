@@ -103,7 +103,7 @@ export default function DataMigration() {
       <div className="min-h-screen">
         {/* Hero Section */}
         <HeroBackground>
-          <section id="dm-hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
                 {/* Left Column */}
@@ -150,13 +150,44 @@ export default function DataMigration() {
 
                 {/* Right Column - Hero Image */}
                 <div className="flex justify-center lg:justify-end">
-                  <img 
-                    src={heroImage} 
-                    alt="Secure, zero-downtime data migration across clouds" 
-                    className="w-full max-w-[640px] rounded-2xl shadow-[8px_20px_60px_rgba(0,0,0,0.08)] border border-black/[0.06]"
-                    loading="eager"
-                    decoding="async"
-                  />
+                  <svg viewBox="0 0 1600 900" width="100%" height="auto" role="img" aria-label="Cloud computing network" xmlns="http://www.w3.org/2000/svg" className="w-full max-w-[640px] rounded-2xl shadow-[8px_20px_60px_rgba(0,0,0,0.08)] border border-black/[0.06]">
+                    <defs>
+                      <radialGradient id="bg" cx="50%" cy="45%" r="70%">
+                        <stop offset="0%" stopColor="#0d5eff" stopOpacity="0.18"/>
+                        <stop offset="60%" stopColor="#001a33" stopOpacity="0.9"/>
+                        <stop offset="100%" stopColor="#001326" stopOpacity="1"/>
+                      </radialGradient>
+                      <filter id="g1" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="16" result="b"/>
+                        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+                      </filter>
+                      <filter id="g2" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="6" result="b2"/>
+                        <feMerge><feMergeNode in="b2"/><feMergeNode in="SourceGraphic"/></feMerge>
+                      </filter>
+                      <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M40 0H0M0 40V0" stroke="#3aa8ff" strokeOpacity=".12" strokeWidth="1"/>
+                      </pattern>
+                    </defs>
+
+                    <rect width="1600" height="900" fill="url(#bg)"/>
+                    <rect width="1600" height="900" fill="url(#grid)"/>
+
+                    <g transform="translate(0,20)">
+                      <path id="cloud" d="M1040 520c0-84-68-152-152-152-17 0-33 3-49 8-22-66-86-114-162-114-94 0-170 72-174 164-18-8-38-12-58-12-79 0-144 57-155 132-62 15-108 72-108 139 0 78 63 141 141 141h698c87 0 159-71 159-159 0-70-45-129-110-150z"
+                            fill="none" stroke="#39e6ff" strokeWidth="22" strokeLinejoin="round" filter="url(#g1)" opacity=".9"/>
+                      <use href="#cloud" stroke="#8df3ff" strokeWidth="10" filter="url(#g2)"/>
+                      <use href="#cloud" stroke="#00d4ff" strokeWidth="4"/>
+                    </g>
+
+                    <g fill="#69e1ff" fillOpacity=".6">
+                      <rect x="430" y="650" width="20" height="20" rx="3"/>
+                      <rect x="610" y="600" width="24" height="24" rx="4"/>
+                      <rect x="780" y="680" width="18" height="18" rx="3"/>
+                      <rect x="1180" y="610" width="22" height="22" rx="3"/>
+                      <rect x="980" y="650" width="20" height="20" rx="3"/>
+                    </g>
+                  </svg>
                 </div>
               </div>
             </div>

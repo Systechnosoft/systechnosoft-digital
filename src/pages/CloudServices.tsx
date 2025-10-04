@@ -899,7 +899,7 @@ export default function CloudServices() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 hover:scale-[1.03] font-semibold transition-all"
+                    className="bg-red-50 text-red-600 border border-red-600 hover:bg-red-600 hover:text-white hover:shadow-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-red-500"
                   >
                     <a href="#services">See what we deliver</a>
                   </Button>
@@ -1130,7 +1130,7 @@ export default function CloudServices() {
               <p className="text-[#3C3C3C]">
                 Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
                 <Link 
-                  to="/services/data-migration" 
+                  to="/services/data-migration#hero" 
                   className="ml-3 inline-flex items-center text-[#007AFF] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] rounded sm:ml-0 sm:mt-2 sm:block"
                 >
                   Know more →
@@ -1355,7 +1355,7 @@ export default function CloudServices() {
               renderSlide={(study) => (
                 <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
                   <CardContent className="p-8 md:py-8">
-                    <div className="text-sm font-semibold text-[#007AFF] mb-2">
+                    <div className="text-sm font-semibold text-gray-800/90 mb-2">
                       {study.company}
                     </div>
                     <div className="text-3xl md:text-4xl font-semibold text-[#E52629] mb-4">
@@ -1370,7 +1370,7 @@ export default function CloudServices() {
             />
 
             <div className="text-center mt-8">
-              <Button asChild variant="outline" size="lg" className="border-[#E6E6E6]">
+              <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold shadow-md hover:shadow-lg transition-all">
                 <Link to="/contact?type=all-case-studies">View all case studies</Link>
               </Button>
             </div>
@@ -1429,7 +1429,7 @@ export default function CloudServices() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="border-[#007AFF] text-[#007AFF] hover:bg-[#007AFF]/5 font-semibold"
+                className="bg-white text-red-600 border border-red-600 hover:bg-red-600 hover:text-white hover:shadow-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-red-500"
               >
                 <Link to="/contact">Talk to an expert</Link>
               </Button>

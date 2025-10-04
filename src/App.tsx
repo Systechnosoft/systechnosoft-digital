@@ -18,6 +18,7 @@ import Appian from "./pages/Appian";
 import AIDevelopmentIntegration from "./pages/AIDevelopmentIntegration";
 import AINaturalLanguageProcessing from "./pages/AINaturalLanguageProcessing";
 import AIPromptEngineering from "./pages/AIPromptEngineering";
+import AIDataAnalyticsInsights from "./pages/AIDataAnalyticsInsights";
 import AIAutomation from "./pages/AIAutomation";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
@@ -46,6 +47,7 @@ const App = () => (
             <Route path="services/ai-development-integration" element={<AIDevelopmentIntegration />} />
             <Route path="services/ai-natural-language-processing" element={<AINaturalLanguageProcessing />} />
             <Route path="services/ai-prompt-engineering" element={<AIPromptEngineering />} />
+            <Route path="services/ai-data-analytics-insights" element={<AIDataAnalyticsInsights />} />
             <Route path="ai-automation" element={<AIAutomation />} />
             {/* Redirect old Salesforce route */}
             <Route path="services/low-code/salesforce" element={<Navigate to="/services/salesforce" replace />} />

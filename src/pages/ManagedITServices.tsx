@@ -169,8 +169,7 @@ export default function ManagedITServices() {
       bullets: [
         "Tenant governance & lifecycle",
         "Teams/SharePoint/Drive best‑practice setup",
-        "Security baselines & DLP",
-        "Automation for updates & app rollout"
+        "Security baselines & DLP"
       ],
       outcome: "Enable secure collaboration"
     }

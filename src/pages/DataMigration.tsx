@@ -897,7 +897,7 @@ export default function DataMigration() {
             <div className="flex flex-wrap justify-center gap-4">
               {[
                 { name: "Cloud Services", href: "/services/cloud#hero" },
-                { name: "Managed IT Services", href: "/services/managed-it#hero" },
+                { name: "Managed IT Services", href: "/services/managed-it" },
                 { name: "Backup & Recovery", href: "/services/backup-recovery#hero" },
                 { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365#hero" }
               ].map((service, index) => (

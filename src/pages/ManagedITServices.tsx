@@ -1,11 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-
-// Disable scroll restoration for instant hero landing
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 

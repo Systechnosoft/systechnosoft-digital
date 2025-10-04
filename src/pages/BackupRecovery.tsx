@@ -1,11 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
-
-// Disable scroll restoration for instant hero landing
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
 import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";

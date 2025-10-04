@@ -299,7 +299,7 @@ export default function ManagedITServices() {
         {/* Service Tiles - Light Background */}
         <section id="mis-services" className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <motion.div 
-            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7 lg:[&>*:nth-last-child(1)]:col-start-1 lg:[&>*:nth-last-child(1)]:md:col-start-auto lg:[&>*:last-child]:col-start-2"
+            className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-7"
             initial="hidden"
             whileInView="show"
             viewport={{ once: true, amount: 0.2 }}

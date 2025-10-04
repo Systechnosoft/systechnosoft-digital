@@ -51,6 +51,17 @@ export default function DataMigration() {
   ];
 
   useEffect(() => {
+    // Handle hash navigation on mount
+    if (window.location.hash) {
+      const id = decodeURIComponent(window.location.hash.slice(1));
+      const el = document.getElementById(id);
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 120; // Account for sticky header
       

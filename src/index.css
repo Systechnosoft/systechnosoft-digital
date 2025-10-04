@@ -258,6 +258,11 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     position: relative;
     z-index: 1;
   }
+
+  /* Scroll margin for hero sections to prevent sticky header overlap */
+  #hero {
+    scroll-margin-top: 96px;
+  }
   
   /* Reduced Motion Support */
   @media (prefers-reduced-motion: reduce) {

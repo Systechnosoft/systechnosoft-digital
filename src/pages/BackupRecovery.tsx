@@ -70,7 +70,7 @@ export default function BackupRecovery() {
                       <Button 
                         variant="outline" 
                         size="lg" 
-                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold"
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#C41E21] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors px-8 py-4 text-lg font-semibold"
                       >
                         <Shield className="mr-2 h-5 w-5" />
                         Request DR Review
@@ -79,9 +79,68 @@ export default function BackupRecovery() {
                   </div>
                 </div>
 
-                {/* Right Column - Rotating Cards */}
+                {/* Right Column - Static Visual */}
                 <div className="flex justify-center lg:justify-end">
-                  <HeroMotionSystem cards={heroCards} ariaLabel="Backup and recovery highlights" />
+                  <div className="relative w-full max-w-md">
+                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" role="img" aria-label="Data backup and recovery visualization showing cloud storage, server protection, and security">
+                      {/* Background gradient */}
+                      <defs>
+                        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" style={{stopColor: '#E52629', stopOpacity: 0.1}} />
+                          <stop offset="100%" style={{stopColor: '#007AFF', stopOpacity: 0.1}} />
+                        </linearGradient>
+                        <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                          <stop offset="0%" style={{stopColor: '#007AFF', stopOpacity: 1}} />
+                          <stop offset="100%" style={{stopColor: '#0051D5', stopOpacity: 1}} />
+                        </linearGradient>
+                      </defs>
+                      
+                      {/* Background circle */}
+                      <circle cx="200" cy="200" r="180" fill="url(#bgGradient)" />
+                      
+                      {/* Cloud shape */}
+                      <g transform="translate(200, 120)">
+                        <ellipse cx="-30" cy="0" rx="40" ry="30" fill="url(#cloudGradient)" />
+                        <ellipse cx="0" cy="-10" rx="50" ry="40" fill="url(#cloudGradient)" />
+                        <ellipse cx="30" cy="0" rx="40" ry="30" fill="url(#cloudGradient)" />
+                        <rect x="-60" y="0" width="120" height="30" fill="url(#cloudGradient)" />
+                      </g>
+                      
+                      {/* Shield icon in cloud */}
+                      <path d="M200,100 L185,105 L185,125 C185,135 192.5,142.5 200,145 C207.5,142.5 215,135 215,125 L215,105 Z" fill="white" opacity="0.9" />
+                      <path d="M200,110 L195,112 L195,125 C195,130 197.5,132.5 200,134 C202.5,132.5 205,130 205,125 L205,112 Z" fill="#E52629" />
+                      
+                      {/* Server rack */}
+                      <g transform="translate(120, 240)">
+                        <rect x="0" y="0" width="60" height="80" rx="4" fill="#3C3C3C" stroke="#E52629" strokeWidth="2" />
+                        <rect x="5" y="5" width="50" height="20" rx="2" fill="#1C1C1C" />
+                        <rect x="5" y="30" width="50" height="20" rx="2" fill="#1C1C1C" />
+                        <rect x="5" y="55" width="50" height="20" rx="2" fill="#1C1C1C" />
+                        <circle cx="15" cy="15" r="2" fill="#00FF00" />
+                        <circle cx="15" cy="40" r="2" fill="#00FF00" />
+                        <circle cx="15" cy="65" r="2" fill="#00FF00" />
+                      </g>
+                      
+                      {/* Database */}
+                      <g transform="translate(260, 240)">
+                        <ellipse cx="0" cy="0" rx="30" ry="10" fill="#007AFF" />
+                        <rect x="-30" y="0" width="60" height="60" fill="#007AFF" />
+                        <ellipse cx="0" cy="60" rx="30" ry="10" fill="#0051D5" />
+                        <ellipse cx="0" cy="0" rx="30" ry="10" fill="#4A9FFF" />
+                      </g>
+                      
+                      {/* Connecting lines with arrows */}
+                      <line x1="150" y1="200" x2="180" y2="160" stroke="#E52629" strokeWidth="2" strokeDasharray="4 2" opacity="0.6" />
+                      <line x1="280" y1="200" x2="220" y2="160" stroke="#007AFF" strokeWidth="2" strokeDasharray="4 2" opacity="0.6" />
+                      
+                      {/* Lock icon */}
+                      <g transform="translate(200, 320)">
+                        <rect x="-15" y="0" width="30" height="25" rx="3" fill="#E52629" />
+                        <path d="M-8,-10 L-8,-5 L8,-5 L8,-10 C8,-15 4,-18 0,-18 C-4,-18 -8,-15 -8,-10 Z" fill="none" stroke="#E52629" strokeWidth="3" />
+                        <circle cx="0" cy="10" r="4" fill="white" />
+                      </g>
+                    </svg>
+                  </div>
                 </div>
               </div>
             </div>
@@ -359,7 +418,11 @@ export default function BackupRecovery() {
                     </li>
                   </ul>
                   <Link to="/contact?topic=backup-recovery" className="block">
-                    <Button className="w-full" variant="outline">
+                    <Button 
+                      className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors" 
+                      variant="outline"
+                      size="lg"
+                    >
                       Talk to an Expert
                     </Button>
                   </Link>
@@ -426,7 +489,11 @@ export default function BackupRecovery() {
                     </li>
                   </ul>
                   <Link to="/contact?topic=backup-recovery" className="block">
-                    <Button className="w-full" variant="outline">
+                    <Button 
+                      className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors" 
+                      variant="outline"
+                      size="lg"
+                    >
                       Talk to an Expert
                     </Button>
                   </Link>
@@ -511,31 +578,26 @@ export default function BackupRecovery() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-16 bg-gray-900 text-white">
+        <section className="py-20 bg-primary">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="font-montserrat text-3xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary-foreground mb-6">
               Ready to secure your critical data?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-primary-foreground/90 mb-8">
               Get a free backup assessment and discover your recovery readiness.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact">
-                <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white px-8 py-4 text-lg">
+            <div className="flex justify-center">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
+                asChild
+              >
+                <Link to="/contact">
                   Claim Your Free Insight
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
-              <Link to="/contact?topic=backup-recovery">
-                <Button 
-                  variant="outline" 
-                  size="lg" 
-                  className="border-white/30 text-white hover:bg-white/10 hover:text-white px-8 py-4 text-lg"
-                >
-                  <Users className="mr-2 h-5 w-5" />
-                  Get a Quotation
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </section>

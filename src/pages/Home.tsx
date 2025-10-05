@@ -6,6 +6,7 @@ import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
+import { motion } from "framer-motion";
 
 const pillars = [
   {
@@ -158,36 +159,57 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {pillars.map((pillar, index) => (
-              <Card key={index} className="card-enterprise group cursor-pointer flex flex-col h-full">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/20 transition-colors">
-                    <pillar.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <CardTitle className="text-xl font-montserrat font-bold">
-                    {pillar.title}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="text-center flex flex-col flex-grow">
-                  <CardDescription className="text-base mb-6 flex-grow">
-                    {pillar.description}
-                  </CardDescription>
-                  <Button
-                    variant="outline"
-                    className="w-full text-foreground hover:bg-primary/5 hover:text-primary border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all"
-                    asChild
-                  >
-                    <Link 
-                      to={pillar.href}
-                      aria-label={`${pillar.cta} ${pillar.title} services`}
-                    >
-                      {pillar.cta}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+            {pillars.map((pillar, index) => {
+              const colors = [
+                { bg: 'hover:bg-[#007AFF]/5', border: 'hover:border-[#007AFF]/30', icon: 'group-hover:text-[#007AFF]', glow: 'group-hover:shadow-[0_0_20px_rgba(0,122,255,0.2)]' },
+                { bg: 'hover:bg-[#8B5CF6]/5', border: 'hover:border-[#8B5CF6]/30', icon: 'group-hover:text-[#8B5CF6]', glow: 'group-hover:shadow-[0_0_20px_rgba(139,92,246,0.2)]' },
+                { bg: 'hover:bg-[#E52629]/5', border: 'hover:border-[#E52629]/30', icon: 'group-hover:text-[#E52629]', glow: 'group-hover:shadow-[0_0_20px_rgba(229,38,41,0.2)]' }
+              ];
+              const color = colors[index];
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+                >
+                  <Card className={`card-enterprise group cursor-pointer flex flex-col h-full transition-all duration-300 hover:-translate-y-1 ${color.border} ${color.glow}`}>
+                    <CardHeader className="text-center pb-4">
+                      <motion.div 
+                        className={`w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${color.bg}`}
+                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <pillar.icon className={`h-8 w-8 text-primary transition-all duration-300 ${color.icon}`} />
+                      </motion.div>
+                      <CardTitle className="text-xl font-montserrat font-bold">
+                        {pillar.title}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="text-center flex flex-col flex-grow">
+                      <CardDescription className="text-base mb-6 flex-grow">
+                        {pillar.description}
+                      </CardDescription>
+                      <Button
+                        variant="outline"
+                        className="w-full text-foreground hover:bg-primary/5 hover:text-primary border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all duration-300 group-hover:scale-105"
+                        asChild
+                      >
+                        <Link 
+                          to={pillar.href}
+                          aria-label={`${pillar.cta} ${pillar.title} services`}
+                        >
+                          {pillar.cta}
+                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                        </Link>
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -280,33 +302,45 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {caseStudies.map((study, index) => (
-              <Card key={index} className="card-enterprise group cursor-pointer">
-                <CardHeader>
-                  <div className="text-center mb-4">
-                    <div className="text-4xl font-montserrat font-bold text-primary mb-2">
-                      {study.metric}
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
+              >
+                <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
+                  <CardHeader>
+                    <div className="text-center mb-4">
+                      <motion.div 
+                        className="text-4xl font-montserrat font-bold text-primary mb-2"
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <CountUpNumber end={parseInt(study.metric)} duration={1500} suffix="%" startSeed={0} />
+                      </motion.div>
+                      <CardTitle className="text-lg font-montserrat font-bold">
+                        {study.title}
+                      </CardTitle>
                     </div>
-                    <CardTitle className="text-lg font-montserrat font-bold">
-                      {study.title}
-                    </CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent className="text-center">
-                  <CardDescription className="text-base mb-6">
-                    {study.description}
-                  </CardDescription>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="p-0 h-auto text-accent link-animated mx-auto"
-                    asChild
-                  >
-                    <Link to={study.href}>
-                      Read More
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <CardDescription className="text-base mb-6">
+                      {study.description}
+                    </CardDescription>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="p-0 h-auto text-accent link-animated mx-auto group-hover:underline transition-all"
+                      asChild
+                    >
+                      <Link to={study.href}>
+                        Read More
+                      </Link>
+                    </Button>
+                  </CardContent>
+                </Card>
+              </motion.div>
             ))}
           </div>
         </div>

@@ -120,7 +120,7 @@ export default function IndustryCarousel() {
       onPointerUp={() => setHasPointerDown(false)}
     >
       <div 
-        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 md:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col justify-between transition-transform hover:translate-y-[-2px]"
+        className="h-full min-h-[380px] max-h-[380px] lg:min-h-[380px] lg:max-h-[380px] md:min-h-auto bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 md:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] flex flex-col transition-transform hover:translate-y-[-2px]"
       >
         <div className="text-center pb-4">
           <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-4">
@@ -134,18 +134,18 @@ export default function IndustryCarousel() {
           </h3>
         </div>
         
-        <div className="space-y-4 flex-1">
-          <div>
+        <div className="grid gap-4 flex-1 content-start pb-2">
+          <div className="min-h-[60px]">
             <h4 className="text-sm font-medium text-[#E52629] mb-1">Problems</h4>
             <p className="text-sm text-[#3C3C3C]">{currentCard.problems}</p>
           </div>
           
-          <div>
+          <div className="min-h-[80px]">
             <h4 className="text-sm font-medium text-[#E52629] mb-1">Solutions</h4>
             <p className="text-sm text-[#3C3C3C]">{currentCard.solutions}</p>
           </div>
           
-          <div>
+          <div className="min-h-[60px]">
             <h4 className="text-sm font-medium text-[#E52629] mb-1">Outcomes</h4>
             <p className="text-sm text-[#3C3C3C]">{currentCard.outcomes}</p>
           </div>

@@ -349,45 +349,136 @@ export default function Home() {
           <div 
             className="grid items-center justify-center gap-x-4 gap-y-0"
             style={{ 
-              gridTemplateColumns: 'auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr)' 
+              gridTemplateColumns: 'auto 1fr auto 1fr auto 1fr auto' 
             }}
           >
-            {phaseTooltips.map((item, index) => (
-              <React.Fragment key={index}>
-                {/* Milestone */}
-                <div 
-                  className="flex flex-col items-center cursor-pointer justify-self-center"
-                  onMouseEnter={() => setActivePhase(index)}
-                  onMouseLeave={() => setActivePhase(null)}
-                  onFocus={() => setActivePhase(index)}
-                  onBlur={() => setActivePhase(null)}
-                  tabIndex={0}
-                  role="button"
-                  aria-label={`${item.phase}: ${item.tooltip}`}
+            {/* Discover */}
+            <div 
+              className="flex flex-col items-center cursor-pointer justify-self-center"
+              onMouseEnter={() => setActivePhase(0)}
+              onMouseLeave={() => setActivePhase(null)}
+              onFocus={() => setActivePhase(0)}
+              onBlur={() => setActivePhase(null)}
+              tabIndex={0}
+              role="button"
+              aria-label={`${phaseTooltips[0].phase}: ${phaseTooltips[0].tooltip}`}
+            >
+              <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
+                1
+              </div>
+              <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{phaseTooltips[0].phase}</div>
+            </div>
+
+            {/* Lane A - Discover message (LTR) */}
+            <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
+              {activePhase === 0 && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
                 >
-                  <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
-                    {index + 1}
-                  </div>
-                  <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{item.phase}</div>
-                </div>
-                
-                {/* Message slot (after every milestone, including last one) */}
-                <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
-                  {activePhase === index && (
-                    <motion.div
-                      initial={{ opacity: 0, x: -20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
-                    >
-                      <strong className="font-semibold text-[#E52629]">{item.phase}:</strong>{" "}
-                      {item.tooltip}
-                    </motion.div>
-                  )}
-                </div>
-              </React.Fragment>
-            ))}
+                  <strong className="font-semibold text-[#E52629]">{phaseTooltips[0].phase}:</strong>{" "}
+                  {phaseTooltips[0].tooltip}
+                </motion.div>
+              )}
+            </div>
+
+            {/* Pilot */}
+            <div 
+              className="flex flex-col items-center cursor-pointer justify-self-center"
+              onMouseEnter={() => setActivePhase(1)}
+              onMouseLeave={() => setActivePhase(null)}
+              onFocus={() => setActivePhase(1)}
+              onBlur={() => setActivePhase(null)}
+              tabIndex={0}
+              role="button"
+              aria-label={`${phaseTooltips[1].phase}: ${phaseTooltips[1].tooltip}`}
+            >
+              <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
+                2
+              </div>
+              <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{phaseTooltips[1].phase}</div>
+            </div>
+
+            {/* Lane B - Pilot (LTR) or Scale (RTL) message */}
+            <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
+              {activePhase === 1 && (
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
+                >
+                  <strong className="font-semibold text-[#E52629]">{phaseTooltips[1].phase}:</strong>{" "}
+                  {phaseTooltips[1].tooltip}
+                </motion.div>
+              )}
+              {activePhase === 2 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
+                >
+                  <strong className="font-semibold text-[#E52629]">{phaseTooltips[2].phase}:</strong>{" "}
+                  {phaseTooltips[2].tooltip}
+                </motion.div>
+              )}
+            </div>
+
+            {/* Scale */}
+            <div 
+              className="flex flex-col items-center cursor-pointer justify-self-center"
+              onMouseEnter={() => setActivePhase(2)}
+              onMouseLeave={() => setActivePhase(null)}
+              onFocus={() => setActivePhase(2)}
+              onBlur={() => setActivePhase(null)}
+              tabIndex={0}
+              role="button"
+              aria-label={`${phaseTooltips[2].phase}: ${phaseTooltips[2].tooltip}`}
+            >
+              <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
+                3
+              </div>
+              <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{phaseTooltips[2].phase}</div>
+            </div>
+
+            {/* Lane C - CoE Advisory message (RTL) */}
+            <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
+              {activePhase === 3 && (
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: "easeOut" }}
+                  className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
+                >
+                  <strong className="font-semibold text-[#E52629]">{phaseTooltips[3].phase}:</strong>{" "}
+                  {phaseTooltips[3].tooltip}
+                </motion.div>
+              )}
+            </div>
+
+            {/* CoE Advisory */}
+            <div 
+              className="flex flex-col items-center cursor-pointer justify-self-center"
+              onMouseEnter={() => setActivePhase(3)}
+              onMouseLeave={() => setActivePhase(null)}
+              onFocus={() => setActivePhase(3)}
+              onBlur={() => setActivePhase(null)}
+              tabIndex={0}
+              role="button"
+              aria-label={`${phaseTooltips[3].phase}: ${phaseTooltips[3].tooltip}`}
+            >
+              <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
+                4
+              </div>
+              <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{phaseTooltips[3].phase}</div>
+            </div>
           </div>
         </div>
         <div className="mt-4 h-px bg-[#E6E6E6]"></div>

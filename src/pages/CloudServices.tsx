@@ -1150,7 +1150,7 @@ export default function CloudServices() {
                   icon: DollarSign
                 }
               ].map((item, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300">
+                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
                   <CardContent className="p-6">
                     <item.icon className="w-10 h-10 text-[#E52629] mb-4" />
                     <h3 className="text-xl font-bold font-montserrat text-[#1C1C1C] mb-2">
@@ -1179,7 +1179,7 @@ export default function CloudServices() {
                 { name: "Azure", icon: "⚡" },
                 { name: "Google Cloud", icon: "🚀" }
               ].map((platform, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] text-center">
+                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 text-center">
                   <CardHeader>
                     <div className="text-5xl mb-4">{platform.icon}</div>
                     <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">
@@ -1239,7 +1239,7 @@ export default function CloudServices() {
                   description: "Mail, files, and collaboration moved with governance intact. Change management included so adoption sticks."
                 }
               ].map((track, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-all duration-300">
+                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
                   <CardContent className="p-6">
                     <h3 className="text-xl font-bold font-montserrat text-[#1C1C1C] mb-3">
                       {track.title}
@@ -1303,7 +1303,7 @@ export default function CloudServices() {
                   bullets: ["Operate with SLAs", "Tune and harden"],
                 },
               ].map((phase, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] relative">
+                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 relative">
                   <div className="absolute -top-4 -left-4 bg-[#E52629] text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl">
                     {phase.step}
                   </div>
@@ -1355,7 +1355,7 @@ export default function CloudServices() {
                   title: "Security built‑in (IAM, encryption, least privilege)"
                 }
               ].map((item, idx) => (
-                <Card key={idx} className="bg-white border-[#E6E6E6] text-center hover:shadow-lg transition-all duration-300">
+                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 text-center hover:shadow-lg">
                   <CardContent className="p-8">
                     <item.icon className="w-12 h-12 text-[#E52629] mx-auto mb-4" />
                     <h3 className="text-lg font-bold font-montserrat text-[#1C1C1C]">
@@ -1424,7 +1424,7 @@ export default function CloudServices() {
               label="Case studies"
               autoAdvanceMs={3000}
               renderSlide={(study) => (
-                <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
+                <Card className="bg-[#F5F5F5] border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                   <CardContent className="p-8 md:py-8">
                     <div className="text-sm font-semibold text-gray-800/90 mb-2">
                       {study.company}

@@ -304,7 +304,7 @@ export default function DataMigration() {
             
             {/* Three Feature Cards */}
             <div className="grid md:grid-cols-3 gap-6 mb-12">
-              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+               <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center gap-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
@@ -322,7 +322,7 @@ export default function DataMigration() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+               <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center gap-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
@@ -340,7 +340,7 @@ export default function DataMigration() {
                 </CardContent>
               </Card>
 
-              <Card className="bg-white border-gray-200 shadow-md hover:shadow-lg transition-shadow">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                 <CardContent className="p-6">
                   <div className="flex flex-col items-center text-center gap-4">
                     <div className="flex-shrink-0 w-12 h-12 bg-[#E52629]/10 rounded-full flex items-center justify-center">
@@ -418,7 +418,7 @@ export default function DataMigration() {
                   items: ["Virtual machines", "Containers", "Networking", "Storage systems"]
                 }
               ].map((workload, index) => (
-                <Card key={index} className="bg-white border-[#E6E6E6] hover:shadow-lg transition-shadow">
+                <Card key={index} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
                   <CardHeader>
                     <div className="flex items-center gap-3 mb-2">
                       <div className="text-[#E52629]">{workload.icon}</div>

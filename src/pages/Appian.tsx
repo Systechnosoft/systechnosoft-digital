@@ -398,7 +398,7 @@ export default function Appian() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             {platformCapabilities.map((capability, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center mb-4">
                     <capability.icon className="w-6 h-6 text-[#E52629]" />

@@ -320,7 +320,7 @@ export default function ManagedITServices() {
                   <Card 
                     id={service.id}
                     ref={(el) => (sectionsRef.current[index] = el)}
-                    className="flex flex-col h-full bg-white border border-[#E6E6E6] rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
+                    className="flex flex-col h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 rounded-2xl p-5 shadow-[0_1px_2px_rgba(0,0,0,0.04)] will-change-transform hover:-translate-y-1 hover:shadow-md focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     style={{ scrollMarginTop: '120px' }}
                     tabIndex={0}
                   >

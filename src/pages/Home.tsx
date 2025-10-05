@@ -253,7 +253,7 @@ export default function Home() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
                 >
-                  <Card className={`card-enterprise group cursor-pointer flex flex-col h-full transition-all duration-300 hover:-translate-y-1 ${color.border} ${color.glow}`}>
+                  <Card className={`card-enterprise group cursor-pointer flex flex-col h-full transition-all duration-300 hover:-translate-y-1 border-2 border-gray-200 hover:border-[#E52629] transition-colors ${color.glow}`}>
                     <CardHeader className="text-center pb-4">
                       <motion.div 
                         className={`w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 transition-all duration-300 ${color.bg}`}

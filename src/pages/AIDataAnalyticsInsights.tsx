@@ -299,7 +299,7 @@ export default function AIDataAnalyticsInsights() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="p-6 h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-[#E6E6E6] bg-white group">
+                <Card className="p-6 h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1 bg-white group">
                   <benefit.icon className="w-10 h-10 text-[#E52629] mb-4 group-hover:scale-110 transition-transform" />
                   <h3 className="text-xl font-semibold text-[#1C1C1C] font-montserrat mb-2">
                     {benefit.title}

@@ -337,7 +337,7 @@ export default function AINaturalLanguageProcessing() {
           >
             {benefits.map((benefit, index) => (
               <motion.div key={index} variants={scaleIn}>
-                <Card className="h-full hover:shadow-lg transition-shadow duration-300 hover:-translate-y-1">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1">
                   <CardHeader>
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <benefit.icon className="h-6 w-6 text-primary" />

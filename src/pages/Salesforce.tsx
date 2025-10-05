@@ -627,7 +627,7 @@ const Salesforce = () => {
                 autoRotateDelay={3000}
                 pauseDuration={10000}
                 renderCard={(card) => (
-                  <Card className="w-full h-full bg-card/90 backdrop-blur border-primary/20 hover:border-primary/40 transition-colors shadow-lg">
+                  <Card className="w-full h-full bg-card/90 backdrop-blur border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-lg">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-3 text-lg">
                         <card.icon className="h-6 w-6 text-primary flex-shrink-0" />
@@ -762,7 +762,7 @@ const Salesforce = () => {
                     whileHover={{ y: -8, scale: 1.02 }}
                     className="group cursor-pointer"
                   >
-                    <Card className="h-full border-2 border-transparent group-hover:border-primary/20 transition-all duration-300">
+                    <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                       <CardHeader>
                         <CardTitle className="flex items-center gap-3">
                           <cloud.icon className="h-8 w-8 text-primary group-hover:scale-110 transition-transform" />

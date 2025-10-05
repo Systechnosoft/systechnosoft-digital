@@ -304,28 +304,28 @@ export default function MicrosoftDynamics365() {
 
             {/* Mini Diagram */}
             <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              <Card className="text-center">
+               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                 <CardContent className="p-6">
                   <Database className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Dataverse</h3>
                   <p className="text-sm text-gray-600">Unified data platform</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                 <CardContent className="p-6">
                   <Settings className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Dynamics 365 Apps</h3>
                   <p className="text-sm text-gray-600">Sales, Service, Finance, SCM</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                 <CardContent className="p-6">
                   <Cloud className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Azure Services</h3>
                   <p className="text-sm text-gray-600">AI, Analytics, Integration</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                 <CardContent className="p-6">
                   <Zap className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Power Platform</h3>
@@ -375,7 +375,7 @@ export default function MicrosoftDynamics365() {
                 </div>
               </div>
               
-              <Card className="bg-[#F5F5F5] border-[#E6E6E6]">
+              <Card className="bg-[#F5F5F5] border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
                 <CardHeader>
                   <CardTitle className="text-[#1C1C1C]">Deliverables</CardTitle>
                 </CardHeader>

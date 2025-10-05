@@ -256,7 +256,7 @@ export default function BackupRecovery() {
               What We Cover
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Cloud className="h-8 w-8 text-red-600" />
@@ -270,7 +270,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Server className="h-8 w-8 text-red-600" />
@@ -284,7 +284,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Database className="h-8 w-8 text-red-600" />
@@ -298,7 +298,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <FileCheck className="h-8 w-8 text-red-600" />
@@ -312,7 +312,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Archive className="h-8 w-8 text-red-600" />
@@ -326,7 +326,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group hover:shadow-lg transition-all duration-300 border-l-4 border-l-transparent hover:border-l-red-600">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Eye className="h-8 w-8 text-red-600" />

@@ -787,7 +787,7 @@ export default function AIAutomation() {
                 items={useCases}
                 label="AI automation use cases"
                 renderSlide={(useCase) => (
-                   <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8">
+                   <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm p-8">
                      <h3 className="text-2xl font-bold mb-6 text-[#E52629]">{useCase.title}</h3>
                      <div className="space-y-4">
                        <div>
@@ -835,7 +835,7 @@ export default function AIAutomation() {
                     ease: [0.22, 1, 0.36, 1] // ease-out-expo
                   }}
                 >
-                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-6 h-full hover:scale-[1.03] hover:translate-y-[-6px] hover:shadow-lg transition-all duration-300 group">
+                  <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm p-6 h-full hover:scale-[1.03] hover:translate-y-[-6px] hover:shadow-lg group">
                     <CardHeader>
                       <div className="w-12 h-12 rounded-lg bg-[#E52629]/10 flex items-center justify-center mb-4 group-hover:bg-[#E52629]/20 transition-colors">
                         <capability.icon className="h-6 w-6 text-[#E52629]" />
@@ -912,7 +912,7 @@ export default function AIAutomation() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.15 }}
                 >
-                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8 h-full">
+                  <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm p-8 h-full">
                     <div className="text-4xl font-bold text-[#E52629]/20 mb-4 font-montserrat">
                       {phase.step}
                     </div>
@@ -944,7 +944,7 @@ export default function AIAutomation() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.08 }}
                 >
-                  <Card className="bg-white border border-[#E6E6E6] shadow-sm hover:shadow-md transition-shadow p-6">
+                  <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm hover:shadow-md p-6">
                     <h3 className="font-bold mb-2 text-[#1C1C1C]">{accelerator.name}</h3>
                     <p className="text-sm text-[#3C3C3C] mb-4">{accelerator.description}</p>
                     <Button 
@@ -976,7 +976,7 @@ export default function AIAutomation() {
                 items={caseStudies}
                 label="Client success stories"
                 renderSlide={(study) => (
-                  <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8 text-center">
+                  <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm p-8 text-center">
                     <div className="text-3xl font-bold text-[#E52629] mb-4 font-montserrat">
                       {study.metric}
                     </div>
@@ -1033,7 +1033,7 @@ export default function AIAutomation() {
                 </p>
               </div>
 
-              <Card className="bg-white border border-[#E6E6E6] shadow-sm p-8">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-sm p-8">
                 <form className="space-y-6">
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">

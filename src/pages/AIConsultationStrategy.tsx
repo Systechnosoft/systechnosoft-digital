@@ -252,7 +252,7 @@ export default function AIConsultationStrategy() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-[#E6E6E6] bg-white">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1 bg-white">
                   <CardContent className="p-6">
                     <div className="mb-4">{benefit.icon}</div>
                     <h3 className="text-xl font-semibold text-[#1C1C1C] mb-2 font-montserrat">{benefit.title}</h3>

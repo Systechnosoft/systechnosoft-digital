@@ -391,7 +391,7 @@ export default function Home() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
               >
-                <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg border-[3px] border-transparent hover:border-[#C41E1E] flex flex-col h-full">
+                <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:scale-[1.02] border-2 border-gray-200 hover:border-[#E52629] flex flex-col h-full">
                   <CardHeader className="flex-none">
                     <div className="text-center mb-4">
                       <motion.div 

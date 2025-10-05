@@ -126,8 +126,8 @@ export default function AIConsultationStrategy() {
         <meta property="og:url" content="https://www.systechnosoft.com/services/ai-consultation-strategy" />
       </Helmet>
 
-      <HeroBackground>
-        <section className="container mx-auto px-4 py-16 md:py-20">
+      <HeroBackground fullHeight={true}>
+        <section className="container mx-auto px-4 py-20 md:py-24 lg:py-32">
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}

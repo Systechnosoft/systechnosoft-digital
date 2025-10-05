@@ -126,14 +126,15 @@ export function HeroMotionSystem({ cards, className = "", ariaLabel = "Service h
 interface HeroBackgroundProps {
   children: React.ReactNode;
   className?: string;
+  fullHeight?: boolean;
 }
 
-export function HeroBackground({ children, className = "" }: HeroBackgroundProps) {
+export function HeroBackground({ children, className = "", fullHeight = false }: HeroBackgroundProps) {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   return (
     <div 
-      className={`relative isolate overflow-clip [@supports(not(overflow:clip))]:overflow-hidden bg-white ${className}`}
+      className={`relative isolate overflow-clip [@supports(not(overflow:clip))]:overflow-hidden bg-white ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
       style={{ contain: 'layout paint' }}
     >
       {/* Animated background - matching Salesforce */}

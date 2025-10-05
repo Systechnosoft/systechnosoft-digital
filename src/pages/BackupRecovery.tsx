@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
@@ -5,6 +6,7 @@ import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck,
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 const heroCards = [
   { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
@@ -16,6 +18,49 @@ const heroCards = [
 ];
 
 export default function BackupRecovery() {
+  const [activeSection, setActiveSection] = useState("br-overview");
+  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+
+  const subNavItems = [
+    { id: "br-overview", label: "Overview" },
+    { id: "br-coverage", label: "Choose your coverage" },
+    { id: "br-platforms", label: "Platforms & Tools" },
+    { id: "br-cta", label: "Ready to secure your critical data?" },
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
+    );
+
+    sectionsRef.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 120;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementPosition - offset;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -60,20 +105,22 @@ export default function BackupRecovery() {
                   
                   {/* CTAs */}
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Link to="/contact">
-                      <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
-                        Claim Your Free Insight
+                    <Link to="/contact?topic=dr-readiness">
+                      <Button 
+                        size="lg" 
+                        className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Request DR review
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
-                    <Link to="/contact?topic=dr-readiness">
+                    <Link to="/contact">
                       <Button 
                         variant="outline" 
                         size="lg" 
-                        className="border-[#E52629] text-[#E52629] hover:bg-[#C41E21] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors px-8 py-4 text-lg font-semibold"
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                       >
-                        <Shield className="mr-2 h-5 w-5" />
-                        Request DR Review
+                        Claim Your Free Insight
                       </Button>
                     </Link>
                   </div>
@@ -147,8 +194,29 @@ export default function BackupRecovery() {
           </section>
         </HeroBackground>
 
+        {/* Sticky Navigation */}
+        <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
+              {subNavItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={cn(
+                    "whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+                    activeSection === item.id ? "bg-[#E52629] text-white" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  )}
+                  aria-current={activeSection === item.id ? "true" : undefined}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
+
         {/* Outcome Highlights */}
-        <section className="py-16 bg-gray-50">
+        <section id="br-overview" ref={(el) => (sectionsRef.current[0] = el)} className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
               Outcomes you can measure
@@ -387,7 +455,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Service Tiers */}
-        <section className="py-16 bg-gray-50">
+        <section id="br-coverage" ref={(el) => (sectionsRef.current[1] = el)} className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
               Choose your coverage
@@ -504,7 +572,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Compliance & Security */}
-        <section className="py-16 bg-white">
+        <section id="br-platforms" ref={(el) => (sectionsRef.current[2] = el)} className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat text-3xl font-bold mb-4 text-gray-900">
@@ -578,7 +646,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Final CTA */}
-        <section className="py-20 bg-primary">
+        <section id="br-cta" ref={(el) => (sectionsRef.current[3] = el)} className="py-20 bg-primary">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary-foreground mb-6">
               Ready to secure your critical data?

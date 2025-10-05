@@ -151,8 +151,11 @@ export default function DataMigration() {
                   {/* CTAs */}
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                     <Link to="/contact?src=data-migration-hero">
-                      <Button size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold">
-                        Claim Your Free Insight
+                      <Button 
+                        size="lg" 
+                        className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        Request Assessment
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </Link>
@@ -160,9 +163,9 @@ export default function DataMigration() {
                       <Button 
                         variant="outline" 
                         size="lg" 
-                        className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-[#E31B23] focus-visible:ring-offset-2"
+                        className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:border-[#E52629] hover:text-white px-8 py-4 text-lg font-semibold transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                       >
-                        Request Assessment
+                        Claim Your Free Insight
                       </Button>
                     </Link>
                   </div>

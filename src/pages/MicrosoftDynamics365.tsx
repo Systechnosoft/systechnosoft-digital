@@ -228,17 +228,17 @@ export default function MicrosoftDynamics365() {
                     <Button 
                       asChild 
                       size="lg" 
-                      className="bg-[#E52629] text-white hover:bg-[#C91F22] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors" 
+                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed" 
                       onClick={() => {
                         if (typeof window !== 'undefined' && (window as any).gtag) {
                           (window as any).gtag('event', 'svc_d365_hero_cta', {
-                            cta: 'claim_free_insight'
+                            cta: 'talk_to_expert'
                           });
                         }
                       }}
                     >
                       <Link to="/contact?src=d365-hero">
-                        Claim Your Free Insight 
+                        Talk to an Expert
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
@@ -246,9 +246,9 @@ export default function MicrosoftDynamics365() {
                       asChild 
                       variant="outline" 
                       size="lg" 
-                      className="border-[#E52629] bg-[#E52629]/5 text-[#E52629] hover:bg-[#E52629] hover:text-white hover:border-[#E52629] focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors"
+                      className="border-[#E52629] bg-[#E52629]/5 text-[#E52629] hover:bg-[#E52629] hover:text-white hover:border-[#E52629] focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
                     >
-                      <Link to="/contact?type=expert-talk">Talk to an Expert</Link>
+                      <Link to="/contact?type=expert-talk">Claim Your Free Insight</Link>
                     </Button>
                   </div>
                 </div>

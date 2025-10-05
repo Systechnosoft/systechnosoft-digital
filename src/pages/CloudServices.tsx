@@ -44,6 +44,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import { CloudServicesCarousel } from "@/components/CloudServicesCarousel";
+import { cn } from "@/lib/utils";
 
 // Service cards data for hero rotating carousel
 const cloudServiceCards = [
@@ -748,6 +749,8 @@ function AnimatedCounter({
 }
 
 export default function CloudServices() {
+  const [activeSection, setActiveSection] = useState("cloud-overview");
+  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -755,6 +758,47 @@ export default function CloudServices() {
     message: "",
     consent: false,
   });
+
+  const subNavItems = [
+    { id: "cloud-overview", label: "Overview" },
+    { id: "cloud-services", label: "Services" },
+    { id: "cloud-platforms", label: "Platform Support" },
+    { id: "cloud-results", label: "Proven Results" },
+    { id: "contact-teaser", label: "Ready to simplify cloud?" },
+  ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
+    );
+
+    sectionsRef.current.forEach((section) => {
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 120;
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementPosition - offset;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -887,11 +931,11 @@ export default function CloudServices() {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-[#E52629] hover:bg-[#D02022] hover:scale-[1.03] text-white font-semibold group transition-all shadow-md hover:shadow-lg"
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Link to="/contact?type=cloud-assessment">
-                      Get a Cloud Assessment
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      See what we deliver
+                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
 
@@ -899,9 +943,9 @@ export default function CloudServices() {
                     asChild
                     variant="outline"
                     size="lg"
-                    className="bg-red-50 text-red-600 border border-red-600 hover:bg-red-600 hover:text-white hover:shadow-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-red-500"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                   >
-                    <a href="#services">See what we deliver</a>
+                    <a href="#cloud-overview">Claim Your Free Insight</a>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -937,8 +981,29 @@ export default function CloudServices() {
           </div>
         </section>
 
+        {/* Sticky Navigation */}
+        <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav className="flex overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
+              {subNavItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={cn(
+                    "whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+                    activeSection === item.id ? "bg-[#E52629] text-white" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                  )}
+                  aria-current={activeSection === item.id ? "true" : undefined}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          </div>
+        </div>
+
         {/* Overview Section */}
-        <section id="cloud-overview" className="cloud-overview mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center">
+        <section id="cloud-overview" ref={(el) => (sectionsRef.current[0] = el)} className="cloud-overview mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center">
           <h2 className="text-3xl lg:text-[40px] font-semibold text-[#1C1C1C]">Overview</h2>
           <p className="mt-6 text-lg lg:text-xl text-[#3C3C3C] leading-relaxed">
             Cloud should make life simpler, not harder. We keep your environments reliable, secure, and cost‑smart—while you keep building. With Systechnosoft, you get always‑on support from certified engineers, clear runbooks, and calm operations.
@@ -1039,7 +1104,7 @@ export default function CloudServices() {
         </section>
 
         {/* Services Pillars Carousel */}
-        <section id="services" className="cloud-services py-20 bg-white" aria-labelledby="services-title">
+        <section id="cloud-services" ref={(el) => (sectionsRef.current[1] = el)} className="cloud-services py-20 bg-white" aria-labelledby="services-title">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <h2 id="services-title" className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1101,7 +1166,7 @@ export default function CloudServices() {
         </section>
 
         {/* Platforms Section */}
-        <section id="platforms" className="py-20 bg-[#F5F5F5]">
+        <section id="cloud-platforms" ref={(el) => (sectionsRef.current[2] = el)} className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1344,7 +1409,7 @@ export default function CloudServices() {
         </section>
 
         {/* Case Studies Carousel */}
-        <section id="case-studies" className="py-20 bg-white">
+        <section id="cloud-results" ref={(el) => (sectionsRef.current[3] = el)} className="py-20 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1413,7 +1478,7 @@ export default function CloudServices() {
         </section>
 
         {/* Contact Teaser */}
-        <section id="contact" className="py-20 bg-white">
+        <section id="contact-teaser" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-white">
           <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">

@@ -1129,12 +1129,17 @@ export default function CloudServices() {
             <div className="text-center">
               <p className="text-[#3C3C3C]">
                 Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
-                <Link 
-                  to="/services/data-migration#dm-hero" 
-                  className="ml-3 inline-flex items-center text-[#007AFF] hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] rounded sm:ml-0 sm:mt-2 sm:block"
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg"
+                  className="ml-3 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors sm:ml-0 sm:mt-2"
                 >
-                  Know more →
-                </Link>
+                  <Link to="/services/data-migration">
+                    Know More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
               </p>
             </div>
           </div>

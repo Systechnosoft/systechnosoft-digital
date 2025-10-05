@@ -349,7 +349,7 @@ export default function Home() {
           <div 
             className="grid items-center justify-center gap-x-4 gap-y-0"
             style={{ 
-              gridTemplateColumns: 'auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto' 
+              gridTemplateColumns: 'auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr)' 
             }}
           >
             {phaseTooltips.map((item, index) => (
@@ -371,23 +371,21 @@ export default function Home() {
                   <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{item.phase}</div>
                 </div>
                 
-                {/* Message slot (only between milestones, not after last one) */}
-                {index < phaseTooltips.length - 1 && (
-                  <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
-                    {activePhase === index && (
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25, ease: "easeOut" }}
-                        className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
-                      >
-                        <strong className="font-semibold text-[#E52629]">{item.phase}:</strong>{" "}
-                        {item.tooltip}
-                      </motion.div>
-                    )}
-                  </div>
-                )}
+                {/* Message slot (after every milestone, including last one) */}
+                <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
+                  {activePhase === index && (
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
+                    >
+                      <strong className="font-semibold text-[#E52629]">{item.phase}:</strong>{" "}
+                      {item.tooltip}
+                    </motion.div>
+                  )}
+                </div>
               </React.Fragment>
             ))}
           </div>

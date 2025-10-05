@@ -1,12 +1,14 @@
-import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users } from "lucide-react";
+import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users, Building2, Zap, Plane } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 const pillars = [
   {
@@ -55,24 +57,98 @@ const caseStudies = [
   {
     title: "Global Bank (AU)",
     metric: "40%",
-    description: (
-      <>
-        Faster trading workflows<br />stronger compliance
-      </>
-    ),
+    description: "Faster trading workflows; stronger compliance",
     href: "/case-studies"
   },
   {
     title: "Oil & Gas (USA)",
     metric: "30%",
-    description: "Operational efficiency via workforce automation",
+    description: "Workforce ops efficiency via automation",
     href: "/case-studies"
   },
   {
     title: "Financial Services (UK)",
     metric: "50%",
-    description: "Faster intercompany processing",
+    description: "Faster intercompany processing; fewer exceptions",
     href: "/case-studies"
+  }
+];
+
+const industryOutcomes = [
+  {
+    metric: "40%",
+    description: "faster trading lifecycle",
+    region: "Banking · AU",
+    industry: "BFSI",
+    bgColor: "bg-[#FFE7E8]",
+    textColor: "text-[#E52629]"
+  },
+  {
+    metric: "30%",
+    description: "efficiency in workforce ops",
+    region: "Oil & Gas · US",
+    industry: "Oil & Gas",
+    bgColor: "bg-[#EAF3FF]",
+    textColor: "text-[#007AFF]"
+  },
+  {
+    metric: "50%",
+    description: "faster intercompany processing",
+    region: "UK · Financial Services",
+    industry: "BFSI",
+    bgColor: "bg-[#F0FFF4]",
+    textColor: "text-[#10B981]"
+  },
+  {
+    metric: "25%",
+    description: "quicker content orchestration",
+    region: "Aviation",
+    industry: "Aviation",
+    bgColor: "bg-[#F7F7F7]",
+    textColor: "text-[#1C1C1C]"
+  }
+];
+
+const industryDetails = {
+  "BFSI": {
+    icon: Building2,
+    title: "BFSI",
+    problems: "Legacy F2B workflows; fragmented risk/compliance; manual approvals.",
+    solutions: "Appian records & workflows; exception/audit; IAM/SSO; HA/DR infra.",
+    outcomes: "40% faster trading lifecycle; stronger compliance; portfolio visibility."
+  },
+  "Oil & Gas": {
+    icon: Zap,
+    title: "Oil & Gas",
+    problems: "Field compliance; manual scheduling; siloed data.",
+    solutions: "Mobile checklists; workforce tracking; telemetry dashboards.",
+    outcomes: "30% efficiency gain; better safety & compliance."
+  },
+  "Aviation": {
+    icon: Plane,
+    title: "Aviation",
+    problems: "Multi‑airport updates; regulatory complexity; multilingual ops.",
+    solutions: "Role‑based CMS; audit/versioning; localization; SLA workflows.",
+    outcomes: "25% faster content orchestration; consistent compliance."
+  }
+};
+
+const phaseTooltips = [
+  {
+    phase: "Discover",
+    tooltip: "Map goals, risks, and success metrics; solution outline."
+  },
+  {
+    phase: "Pilot",
+    tooltip: "Validate in a limited scope; measure outcomes; refine."
+  },
+  {
+    phase: "Scale",
+    tooltip: "Harden, automate, and expand across teams."
+  },
+  {
+    phase: "CoE Advisory",
+    tooltip: "Governance, best practices, and enablement."
   }
 ];
 
@@ -91,6 +167,8 @@ const outcomes = [
 
 
 export default function Home() {
+  const [selectedIndustry, setSelectedIndustry] = useState<keyof typeof industryDetails>("BFSI");
+  
   return (
     <div className="overflow-hidden">
       {/* Hero Section */}
@@ -252,24 +330,28 @@ export default function Home() {
         </div>
 
         {/* Process Stepper */}
-        <div className="mt-10 grid grid-cols-4 gap-6 items-start justify-items-center">
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">1</div>
-            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Discover</div>
+        <TooltipProvider delayDuration={200}>
+          <div className="mt-10 grid grid-cols-4 gap-6 items-start justify-items-center">
+            {phaseTooltips.map((item, index) => (
+              <Tooltip key={index}>
+                <TooltipTrigger asChild>
+                  <div className="flex flex-col items-center cursor-help">
+                    <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110">
+                      {index + 1}
+                    </div>
+                    <div className="mt-2 text-sm font-medium text-[#1C1C1C]">{item.phase}</div>
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent 
+                  className="max-w-[240px] text-sm animate-in fade-in-0 zoom-in-95 duration-200"
+                  sideOffset={8}
+                >
+                  <p>{item.tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            ))}
           </div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">2</div>
-            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Pilot</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">3</div>
-            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">Scale</div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold">4</div>
-            <div className="mt-2 text-sm font-medium text-[#1C1C1C]">CoE Advisory</div>
-          </div>
-        </div>
+        </TooltipProvider>
         <div className="mt-3 h-px bg-[#E6E6E6]"></div>
 
         {/* CTA */}
@@ -309,8 +391,8 @@ export default function Home() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: index * 0.15, ease: "easeOut" }}
               >
-                <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg">
-                  <CardHeader>
+                <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg border-[3px] border-transparent hover:border-[#C41E1E] flex flex-col h-full">
+                  <CardHeader className="flex-none">
                     <div className="text-center mb-4">
                       <motion.div 
                         className="text-4xl font-montserrat font-bold text-primary mb-2"
@@ -319,23 +401,24 @@ export default function Home() {
                       >
                         <CountUpNumber end={parseInt(study.metric)} duration={1500} suffix="%" startSeed={0} />
                       </motion.div>
-                      <CardTitle className="text-lg font-montserrat font-bold">
+                      <CardTitle className="text-lg font-montserrat font-bold min-h-[3.5rem] flex items-center justify-center">
                         {study.title}
                       </CardTitle>
                     </div>
                   </CardHeader>
-                  <CardContent className="text-center">
-                    <CardDescription className="text-base mb-6">
+                  <CardContent className="text-center flex flex-col flex-1">
+                    <CardDescription className="text-base mb-6 flex-1 min-h-[3rem] flex items-center justify-center">
                       {study.description}
                     </CardDescription>
                     <Button
-                      variant="ghost"
-                      size="sm"
-                      className="p-0 h-auto text-accent link-animated mx-auto group-hover:underline transition-all"
+                      variant="outline"
+                      size="lg"
+                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors mt-auto"
                       asChild
                     >
                       <Link to={study.href}>
-                        Read More
+                        Know more
+                        <ArrowRight className="ml-2 h-4 w-4" />
                       </Link>
                     </Button>
                   </CardContent>
@@ -354,7 +437,7 @@ export default function Home() {
       >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 lg:gap-8 items-start">
-            {/* Left Column - Content */}
+            {/* Left Column - Outcome Chips */}
             <div className="lg:max-w-[640px]">
               <div className="text-left">
                 <h2 
@@ -367,41 +450,76 @@ export default function Home() {
                   We pair domain knowledge with secure architectures to ship measurable outcomes fast.
                 </p>
 
-                {/* KPI Pills */}
+                {/* Interactive Outcome Chips */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-                  <div className="bg-[#FFE7E8] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <div>
-                      <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
-                      <span className="text-[#1C1C1C] text-sm ml-2">faster trading workflows (Banking, AU)</span>
-                    </div>
-                  </div>
-                  <div className="bg-[#EAF3FF] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <div>
-                      <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
-                      <span className="text-[#1C1C1C] text-sm ml-2">efficiency in workforce ops (Oil & Gas, US)</span>
-                    </div>
-                  </div>
-                  <div className="bg-[#F0FFF4] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <div>
-                      <span className="text-2xl font-montserrat font-bold text-[#10B981]">50%</span>
-                      <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
-                    </div>
-                  </div>
-                  <div className="bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
-                    <div>
-                      <span className="text-sm font-medium text-[#1C1C1C]">Content ops:</span>
-                      <span className="text-[#3C3C3C] text-sm ml-1">faster turnaround (Aviation)</span>
-                    </div>
-                  </div>
+                  {industryOutcomes.map((outcome, index) => (
+                    <motion.div
+                      key={index}
+                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md ${selectedIndustry === outcome.industry ? 'ring-2 ring-[#E52629] ring-offset-2' : ''}`}
+                      onMouseEnter={() => setSelectedIndustry(outcome.industry as keyof typeof industryDetails)}
+                      onFocus={() => setSelectedIndustry(outcome.industry as keyof typeof industryDetails)}
+                      tabIndex={0}
+                      role="button"
+                      aria-label={`${outcome.metric} ${outcome.description} in ${outcome.region}`}
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <div>
+                        <span className={`text-2xl font-montserrat font-bold ${outcome.textColor}`}>
+                          {outcome.metric}
+                        </span>
+                        <span className="text-[#1C1C1C] text-sm ml-2 block sm:inline">
+                          {outcome.description}
+                        </span>
+                        <div className="text-xs text-[#3C3C3C] mt-1">
+                          ({outcome.region})
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
                 </div>
-
               </div>
             </div>
 
-            {/* Right Column - Industry Carousel */}
-            <div className="lg:max-w-[560px] self-start">
-              <IndustryCarousel />
-            </div>
+            {/* Right Column - Industry Detail Card */}
+            <motion.div 
+              className="lg:max-w-[560px] self-start"
+              key={selectedIndustry}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="h-full min-h-[380px] bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
+                <div className="text-center pb-4">
+                  <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-4">
+                    {(() => {
+                      const IconComponent = industryDetails[selectedIndustry].icon;
+                      return <IconComponent className="h-8 w-8 text-[#E52629]" aria-hidden="true" />;
+                    })()}
+                  </div>
+                  <h3 className="text-xl font-montserrat font-bold text-[#1C1C1C]">
+                    {industryDetails[selectedIndustry].title}
+                  </h3>
+                </div>
+                
+                <div className="grid gap-4 content-start">
+                  <div className="min-h-[60px]">
+                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Problems</h4>
+                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].problems}</p>
+                  </div>
+                  
+                  <div className="min-h-[80px]">
+                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Solutions</h4>
+                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].solutions}</p>
+                  </div>
+                  
+                  <div className="min-h-[60px]">
+                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Outcomes</h4>
+                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].outcomes}</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

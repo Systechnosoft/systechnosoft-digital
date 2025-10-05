@@ -764,7 +764,6 @@ export default function CloudServices() {
     { id: "cloud-services", label: "Services" },
     { id: "cloud-platforms", label: "Platform Support" },
     { id: "cloud-results", label: "Proven Results" },
-    { id: "contact-teaser", label: "Ready to simplify cloud?" },
   ];
 
   useEffect(() => {
@@ -984,7 +983,7 @@ export default function CloudServices() {
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="flex overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
+            <nav className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
               {subNavItems.map((item) => (
                 <button
                   key={item.id}

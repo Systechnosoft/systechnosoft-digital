@@ -269,7 +269,7 @@ export default function DataMigration() {
           className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm"
         >
           <div className="max-w-6xl mx-auto px-4">
-            <div className="flex overflow-x-auto py-4 space-x-8 scrollbar-hide">
+            <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
               {navItems.map((item) => (
                 <button
                   key={item.id}

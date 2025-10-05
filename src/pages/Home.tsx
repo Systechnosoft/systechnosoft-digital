@@ -2,13 +2,12 @@ import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users, 
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
 import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const pillars = [
   {
@@ -92,14 +91,6 @@ const industryOutcomes = [
     textColor: "text-[#007AFF]"
   },
   {
-    metric: "50%",
-    description: "faster intercompany processing",
-    region: "UK · Financial Services",
-    industry: "BFSI",
-    bgColor: "bg-[#F0FFF4]",
-    textColor: "text-[#10B981]"
-  },
-  {
     metric: "25%",
     description: "quicker content orchestration",
     region: "Aviation",
@@ -168,6 +159,29 @@ const outcomes = [
 
 export default function Home() {
   const [selectedIndustry, setSelectedIndustry] = useState<keyof typeof industryDetails>("BFSI");
+  const [activePhase, setActivePhase] = useState<number | null>(null);
+  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
+  const carouselTimerRef = useRef<NodeJS.Timeout | null>(null);
+  
+  // Carousel autoplay resume timer
+  useEffect(() => {
+    if (isCarouselPaused) {
+      // Clear any existing timer
+      if (carouselTimerRef.current) {
+        clearTimeout(carouselTimerRef.current);
+      }
+      // Set 10-second timer to resume autoplay
+      carouselTimerRef.current = setTimeout(() => {
+        setIsCarouselPaused(false);
+      }, 10000);
+    }
+    
+    return () => {
+      if (carouselTimerRef.current) {
+        clearTimeout(carouselTimerRef.current);
+      }
+    };
+  }, [isCarouselPaused]);
   
   return (
     <div className="overflow-hidden">
@@ -272,7 +286,8 @@ export default function Home() {
                       </CardDescription>
                       <Button
                         variant="outline"
-                        className="w-full text-foreground hover:bg-primary/5 hover:text-primary border-primary/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#007AFF] focus-visible:ring-offset-2 transition-all duration-300 group-hover:scale-105"
+                        size="lg"
+                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200 ease-out motion-reduce:transition-none"
                         asChild
                       >
                         <Link 
@@ -280,7 +295,7 @@ export default function Home() {
                           aria-label={`${pillar.cta} ${pillar.title} services`}
                         >
                           {pillar.cta}
-                          <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                          <ArrowRight className="ml-2 h-4 w-4" />
                         </Link>
                       </Button>
                     </CardContent>
@@ -330,28 +345,44 @@ export default function Home() {
         </div>
 
         {/* Process Stepper */}
-        <TooltipProvider delayDuration={200}>
-          <div className="mt-10 grid grid-cols-4 gap-6 items-start justify-items-center">
+        <div className="mt-10 relative">
+          <div className="grid grid-cols-4 gap-6 items-start justify-items-center">
             {phaseTooltips.map((item, index) => (
-              <Tooltip key={index}>
-                <TooltipTrigger asChild>
-                  <div className="flex flex-col items-center cursor-help">
-                    <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110">
-                      {index + 1}
-                    </div>
-                    <div className="mt-2 text-sm font-medium text-[#1C1C1C]">{item.phase}</div>
-                  </div>
-                </TooltipTrigger>
-                <TooltipContent 
-                  className="max-w-[240px] text-sm animate-in fade-in-0 zoom-in-95 duration-200"
-                  sideOffset={8}
-                >
-                  <p>{item.tooltip}</p>
-                </TooltipContent>
-              </Tooltip>
+              <div 
+                key={index}
+                className="flex flex-col items-center cursor-pointer"
+                onMouseEnter={() => setActivePhase(index)}
+                onMouseLeave={() => setActivePhase(null)}
+                onFocus={() => setActivePhase(index)}
+                onBlur={() => setActivePhase(null)}
+                tabIndex={0}
+                role="button"
+                aria-label={`${item.phase}: ${item.tooltip}`}
+              >
+                <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2">
+                  {index + 1}
+                </div>
+                <div className="mt-2 text-sm font-medium text-[#1C1C1C]">{item.phase}</div>
+              </div>
             ))}
           </div>
-        </TooltipProvider>
+          
+          {/* Fixed-height lane for inline notes */}
+          <div className="mt-6 min-h-[80px] relative" aria-live="polite">
+            {activePhase !== null && (
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
+                className="absolute inset-x-0 bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-6 py-4 text-sm text-[#1C1C1C] shadow-sm motion-reduce:transition-none motion-reduce:animate-none"
+              >
+                <strong className="font-semibold text-[#E52629]">{phaseTooltips[activePhase].phase}:</strong>{" "}
+                {phaseTooltips[activePhase].tooltip}
+              </motion.div>
+            )}
+          </div>
+        </div>
         <div className="mt-3 h-px bg-[#E6E6E6]"></div>
 
         {/* CTA */}
@@ -451,13 +482,19 @@ export default function Home() {
                 </p>
 
                 {/* Interactive Outcome Chips */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5">
-                  {industryOutcomes.map((outcome, index) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:gap-4">
+                  {industryOutcomes.slice(0, 2).map((outcome, index) => (
                     <motion.div
                       key={index}
-                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md ${selectedIndustry === outcome.industry ? 'ring-2 ring-[#E52629] ring-offset-2' : ''}`}
-                      onMouseEnter={() => setSelectedIndustry(outcome.industry as keyof typeof industryDetails)}
-                      onFocus={() => setSelectedIndustry(outcome.industry as keyof typeof industryDetails)}
+                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 ${selectedIndustry === outcome.industry ? 'ring-2 ring-[#E52629] ring-offset-2' : ''}`}
+                      onMouseEnter={() => {
+                        setSelectedIndustry(outcome.industry as keyof typeof industryDetails);
+                        setIsCarouselPaused(true);
+                      }}
+                      onFocus={() => {
+                        setSelectedIndustry(outcome.industry as keyof typeof industryDetails);
+                        setIsCarouselPaused(true);
+                      }}
                       tabIndex={0}
                       role="button"
                       aria-label={`${outcome.metric} ${outcome.description} in ${outcome.region}`}
@@ -477,6 +514,35 @@ export default function Home() {
                       </div>
                     </motion.div>
                   ))}
+                  {/* Full-width Aviation chip */}
+                  <motion.div
+                    className="sm:col-span-2 bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2"
+                    onMouseEnter={() => {
+                      setSelectedIndustry("Aviation");
+                      setIsCarouselPaused(true);
+                    }}
+                    onFocus={() => {
+                      setSelectedIndustry("Aviation");
+                      setIsCarouselPaused(true);
+                    }}
+                    tabIndex={0}
+                    role="button"
+                    aria-label="25% quicker content orchestration in Aviation"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <div>
+                      <span className="text-2xl font-montserrat font-bold text-[#1C1C1C]">
+                        25%
+                      </span>
+                      <span className="text-[#1C1C1C] text-sm ml-2 block sm:inline">
+                        quicker content orchestration
+                      </span>
+                      <div className="text-xs text-[#3C3C3C] mt-1">
+                        (Aviation)
+                      </div>
+                    </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
@@ -488,6 +554,8 @@ export default function Home() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3 }}
+              onMouseEnter={() => setIsCarouselPaused(true)}
+              onMouseLeave={() => setIsCarouselPaused(false)}
             >
               <div className="h-full min-h-[380px] bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
                 <div className="text-center pb-4">

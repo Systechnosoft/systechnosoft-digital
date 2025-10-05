@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { motion, useReducedMotion } from "framer-motion";
 import { 
   ArrowRight, 
   ChevronRight,
@@ -67,18 +67,41 @@ const subNavItems = [
   { id: "copilot", label: "Copilot & Power Platform" }
 ];
 
-const heroCards = [
-  { icon: "💼", title: "Sales Cloud", benefit: "Lead routing, AI scoring, CPQ integration" },
-  { icon: "🎧", title: "Service Cloud", benefit: "Omnichannel support, case management" },
-  { icon: "💰", title: "Finance & Operations", benefit: "GL, AP/AR, budgeting, reporting" },
-  { icon: "📦", title: "Supply Chain", benefit: "Inventory, procurement, warehouse mgmt" },
-  { icon: "👥", title: "HR & Talent", benefit: "Recruitment, onboarding, payroll" },
-  { icon: "🤖", title: "AI & Copilot", benefit: "Intelligent automation & insights" }
-];
+// Lightweight SVG visual for hero section
+const D365Visual = () => (
+  <svg 
+    viewBox="0 0 400 400" 
+    className="w-full max-w-md h-auto"
+    aria-label="Microsoft Dynamics 365 platform illustration"
+  >
+    <defs>
+      <linearGradient id="d365-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#E52629" stopOpacity="0.1" />
+        <stop offset="100%" stopColor="#007AFF" stopOpacity="0.1" />
+      </linearGradient>
+    </defs>
+    {/* Central hub */}
+    <circle cx="200" cy="200" r="60" fill="url(#d365-gradient)" stroke="#E52629" strokeWidth="2" />
+    <text x="200" y="205" textAnchor="middle" fontSize="16" fontWeight="bold" fill="#1C1C1C">D365</text>
+    {/* Module nodes */}
+    {[0, 60, 120, 180, 240, 300].map((angle, i) => {
+      const rad = (angle * Math.PI) / 180;
+      const x = 200 + 120 * Math.cos(rad);
+      const y = 200 + 120 * Math.sin(rad);
+      return (
+        <g key={i}>
+          <line x1="200" y1="200" x2={x} y2={y} stroke="#E52629" strokeWidth="1" opacity="0.3" />
+          <circle cx={x} cy={y} r="30" fill="white" stroke="#007AFF" strokeWidth="2" />
+        </g>
+      );
+    })}
+  </svg>
+);
 
 export default function MicrosoftDynamics365() {
   const [activeSection, setActiveSection] = useState("overview");
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+  const shouldReduceMotion = useReducedMotion();
 
   // Scroll spy effect
   useEffect(() => {
@@ -164,12 +187,30 @@ export default function MicrosoftDynamics365() {
       <main className="min-h-screen">
 
         {/* Hero Section */}
-        <HeroBackground>
-          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
+        <section className="hero-animated relative min-h-[80vh] lg:min-h-screen flex items-center py-24 overflow-hidden">
+          {/* Animated Background */}
+          <div className="hero-animated__bg">
+            <div className="hero-animated__bg-glow" />
+            {!shouldReduceMotion && (
+              <motion.div
+                className="hero-animated__bg-rotation"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+              />
+            )}
+          </div>
+
+          {/* Content */}
+          <motion.div 
+            className="hero-animated__content relative z-10 w-full"
+            initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Column */}
-                <div className="text-center lg:text-left">
+                {/* Left Column - Copy & Badges */}
+                <div className="text-center lg:text-left order-2 lg:order-1">
                   <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
                     Microsoft Dynamics 365
                   </h1>
@@ -184,33 +225,42 @@ export default function MicrosoftDynamics365() {
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90 px-8 py-4 text-lg font-semibold" 
-                            onClick={() => {
-                              if (typeof window !== 'undefined' && (window as any).gtag) {
-                                (window as any).gtag('event', 'svc_d365_hero_cta', {
-                                  cta: 'claim_free_insight'
-                                });
-                              }
-                            }}>
+                    <Button 
+                      asChild 
+                      size="lg" 
+                      className="bg-[#E52629] text-white hover:bg-[#C91F22] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors" 
+                      onClick={() => {
+                        if (typeof window !== 'undefined' && (window as any).gtag) {
+                          (window as any).gtag('event', 'svc_d365_hero_cta', {
+                            cta: 'claim_free_insight'
+                          });
+                        }
+                      }}
+                    >
                       <Link to="/contact?src=d365-hero">
                         Claim Your Free Insight 
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button asChild variant="outline" size="lg" className="border-[#E52629] text-[#E52629] hover:bg-[#E52629]/5 px-8 py-4 text-lg font-semibold">
+                    <Button 
+                      asChild 
+                      variant="outline" 
+                      size="lg" 
+                      className="border-[#E52629] bg-[#E52629]/5 text-[#E52629] hover:bg-[#E52629] hover:text-white hover:border-[#E52629] focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors"
+                    >
                       <Link to="/contact?type=expert-talk">Talk to an Expert</Link>
                     </Button>
                   </div>
                 </div>
 
-                {/* Right Column - Rotating Cards */}
-                <div className="flex justify-center lg:justify-end">
-                  <HeroMotionSystem cards={heroCards} ariaLabel="Dynamics 365 highlights" />
+                {/* Right Column - Lightweight Visual */}
+                <div className="flex justify-center lg:justify-end order-1 lg:order-2">
+                  <D365Visual />
                 </div>
               </div>
             </div>
-          </section>
-        </HeroBackground>
+          </motion.div>
+        </section>
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
@@ -457,52 +507,51 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Integration Section */}
-        <section id="integration" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
-          <CircuitPattern />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+        <section id="integration" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
               Connect Dynamics with Your Stack
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Zap className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3">Power Platform</h3>
-                  <ul className="text-sm space-y-1 text-white/80">
+                  <Zap className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Power Platform</h3>
+                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
                     <li>Power Automate</li>
                     <li>Power Apps</li>
                     <li>Power BI</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Users className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3">Microsoft 365</h3>
-                  <ul className="text-sm space-y-1 text-white/80">
+                  <Users className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Microsoft 365</h3>
+                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
                     <li>Teams</li>
                     <li>SharePoint</li>
                     <li>Outlook</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Cloud className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3">Azure Services</h3>
-                  <ul className="text-sm space-y-1 text-white/80">
+                  <Cloud className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Azure Services</h3>
+                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
                     <li>Functions</li>
                     <li>Service Bus</li>
                     <li>Logic Apps</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Database className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3">Legacy Systems</h3>
-                  <ul className="text-sm space-y-1 text-white/80">
+                  <Database className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Legacy Systems</h3>
+                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
                     <li>REST/SOAP APIs</li>
                     <li>JDBC</li>
                     <li>Flat files</li>
@@ -511,74 +560,89 @@ export default function MicrosoftDynamics365() {
               </Card>
             </div>
             
-            <div className="bg-white/10 border border-white/20 rounded-lg p-6 max-w-4xl mx-auto">
-              <div className="flex items-start space-x-4">
-                <Database className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold text-lg mb-2">Dataverse as Integration Layer</h3>
-                  <p className="text-white/90">We prefer Dataverse as the governed integration layer, ensuring data consistency, security, and compliance across all connected systems.</p>
+            <Card className="bg-gradient-to-br from-[#E52629]/5 to-[#007AFF]/5 border-[#E52629]/20 rounded-2xl shadow-sm max-w-4xl mx-auto">
+              <CardContent className="p-6">
+                <div className="flex items-start space-x-4">
+                  <Database className="h-6 w-6 text-[#E52629]/70 mt-1 flex-shrink-0" />
+                  <div>
+                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Dataverse as Integration Layer</h3>
+                    <p className="text-[#3C3C3C]">We prefer Dataverse as the governed integration layer, ensuring data consistency, security, and compliance across all connected systems.</p>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
         {/* Migration Section */}
         <section id="migration" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
               Data Migration Without Disruption
             </h2>
             
             <div className="grid lg:grid-cols-4 gap-6 mb-12">
-              <Card className="text-center">
+              <Card className="text-center bg-white rounded-2xl shadow-sm">
                 <CardContent className="p-6">
-                  <Eye className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Source Profiling</h3>
-                  <p className="text-sm text-gray-600">Mapping & deduplication strategies</p>
+                  <Eye className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Source Profiling</h3>
+                  <p className="text-sm text-[#3C3C3C]">Mapping & deduplication strategies</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center bg-white rounded-2xl shadow-sm">
                 <CardContent className="p-6">
-                  <RefreshCw className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">ETL Orchestration</h3>
-                  <p className="text-sm text-gray-600">Dataflows and transformation pipelines</p>
+                  <RefreshCw className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">ETL Orchestration</h3>
+                  <p className="text-sm text-[#3C3C3C]">Dataflows and transformation pipelines</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center bg-white rounded-2xl shadow-sm">
                 <CardContent className="p-6">
-                  <FileCheck className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Reconciliation</h3>
-                  <p className="text-sm text-gray-600">Audit logs & sign‑off processes</p>
+                  <FileCheck className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Reconciliation</h3>
+                  <p className="text-sm text-[#3C3C3C]">Audit logs & sign‑off processes</p>
                 </CardContent>
               </Card>
-              <Card className="text-center">
+              <Card className="text-center bg-white rounded-2xl shadow-sm">
                 <CardContent className="p-6">
-                  <Clock className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Cutover Planning</h3>
-                  <p className="text-sm text-gray-600">Rollback checkpoints & contingencies</p>
+                  <Clock className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Cutover Planning</h3>
+                  <p className="text-sm text-[#3C3C3C]">Rollback checkpoints & contingencies</p>
                 </CardContent>
               </Card>
             </div>
             
-            <Card className="max-w-4xl mx-auto">
+            <Card className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm">
               <CardHeader>
-                <CardTitle className="text-center">Migration Success Framework</CardTitle>
+                <CardTitle className="text-center text-[#1C1C1C]">Migration Success Framework</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="grid md:grid-cols-3 gap-6 text-center">
+                <div className="grid md:grid-cols-3 gap-6 text-center mb-6">
                   <div>
                     <div className="text-2xl font-bold text-[#E52629] mb-2">99.9%</div>
-                    <div className="text-sm text-gray-600">Data integrity validation</div>
+                    <div className="text-sm text-[#3C3C3C]">Data integrity validation</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-[#E52629] mb-2">Zero</div>
-                    <div className="text-sm text-gray-600">Business downtime target</div>
+                    <div className="text-sm text-[#3C3C3C]">Business downtime target</div>
                   </div>
                   <div>
                     <div className="text-2xl font-bold text-[#E52629] mb-2">Full</div>
-                    <div className="text-sm text-gray-600">Rollback capability</div>
+                    <div className="text-sm text-[#3C3C3C]">Rollback capability</div>
                   </div>
+                </div>
+                <div className="text-center pt-4 border-t border-gray-200">
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="lg"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
+                  >
+                    <Link to="/services/data-migration">
+                      Know More
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
@@ -663,22 +727,21 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Copilot & Power Platform Section */}
-        <section id="copilot" ref={(el) => (sectionsRef.current[7] = el)} className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
-          <CircuitPattern />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+        <section id="copilot" ref={(el) => (sectionsRef.current[7] = el)} className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
               Copilot, Power BI & Low‑Code Extensibility
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Bot className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3">Copilot Integration</h3>
-                  <p className="text-white/80 mb-4">
+                  <Bot className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Copilot Integration</h3>
+                  <p className="text-[#3C3C3C] mb-4">
                     Setup for guided selling and assisted service where available
                   </p>
-                  <ul className="text-sm space-y-2 text-white/70">
+                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
                     <li>• Natural language queries</li>
                     <li>• Automated insights</li>
                     <li>• Conversation summaries</li>
@@ -686,14 +749,14 @@ export default function MicrosoftDynamics365() {
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <BarChart3 className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3">Power BI Dashboards</h3>
-                  <p className="text-white/80 mb-4">
+                  <BarChart3 className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Power BI Dashboards</h3>
+                  <p className="text-[#3C3C3C] mb-4">
                     Real‑time insights over Dataverse for executive visibility
                   </p>
-                  <ul className="text-sm space-y-2 text-white/70">
+                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
                     <li>• Sales performance</li>
                     <li>• Customer insights</li>
                     <li>• Financial reporting</li>
@@ -701,14 +764,14 @@ export default function MicrosoftDynamics365() {
                 </CardContent>
               </Card>
               
-              <Card className="bg-white/10 border-white/20 text-white">
+              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
                 <CardContent className="p-6 text-center">
-                  <Zap className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3">Power Apps Extensions</h3>
-                  <p className="text-white/80 mb-4">
+                  <Zap className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
+                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Power Apps Extensions</h3>
+                  <p className="text-[#3C3C3C] mb-4">
                     Per‑team solutions with governed Center of Excellence
                   </p>
-                  <ul className="text-sm space-y-2 text-white/70">
+                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
                     <li>• Custom apps</li>
                     <li>• Mobile solutions</li>
                     <li>• Workflow automation</li>
@@ -720,26 +783,24 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-20 bg-gradient-to-br from-gray-900 to-gray-800 text-white relative">
-          <CircuitPattern />
-          <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-6">
+        <section className="py-20 bg-primary">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary-foreground mb-6">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xl text-white/90 mb-8">
+            <p className="text-xl text-primary-foreground/90 mb-8">
               Let's discuss how Microsoft Dynamics 365 can accelerate your sales, service, and operations.
             </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90">
+            <div className="flex justify-center">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
+                asChild
+              >
                 <Link to="/contact?src=d365-cta">
-                  Claim Your Free Insight
+                  Claim your free insights —
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10">
-                <Link to="/contact?type=quotation">
-                  Get a Quotation
                 </Link>
               </Button>
             </div>

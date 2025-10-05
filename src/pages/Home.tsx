@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users, Building2, Zap, Plane } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -7,7 +8,6 @@ import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { motion } from "framer-motion";
-import { useState, useEffect, useRef } from "react";
 
 const pillars = [
   {
@@ -344,49 +344,58 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Process Stepper */}
-        <div className="mt-10 relative">
-          <div className="grid grid-cols-4 gap-6 items-start justify-items-center">
+        {/* Process Stepper with inline messages */}
+        <div className="mt-8 relative">
+          <div 
+            className="grid items-center justify-center gap-x-4 gap-y-0"
+            style={{ 
+              gridTemplateColumns: 'auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto' 
+            }}
+          >
             {phaseTooltips.map((item, index) => (
-              <div 
-                key={index}
-                className="flex flex-col items-center cursor-pointer"
-                onMouseEnter={() => setActivePhase(index)}
-                onMouseLeave={() => setActivePhase(null)}
-                onFocus={() => setActivePhase(index)}
-                onBlur={() => setActivePhase(null)}
-                tabIndex={0}
-                role="button"
-                aria-label={`${item.phase}: ${item.tooltip}`}
-              >
-                <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2">
-                  {index + 1}
+              <React.Fragment key={index}>
+                {/* Milestone */}
+                <div 
+                  className="flex flex-col items-center cursor-pointer justify-self-center"
+                  onMouseEnter={() => setActivePhase(index)}
+                  onMouseLeave={() => setActivePhase(null)}
+                  onFocus={() => setActivePhase(index)}
+                  onBlur={() => setActivePhase(null)}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${item.phase}: ${item.tooltip}`}
+                >
+                  <div className="w-8 h-8 grid place-items-center rounded-full bg-[#E52629] text-white text-xs font-semibold transition-transform hover:scale-110 focus:scale-110 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 motion-reduce:transition-none">
+                    {index + 1}
+                  </div>
+                  <div className="mt-2 text-sm font-medium text-[#1C1C1C] whitespace-nowrap">{item.phase}</div>
                 </div>
-                <div className="mt-2 text-sm font-medium text-[#1C1C1C]">{item.phase}</div>
-              </div>
+                
+                {/* Message slot (only between milestones, not after last one) */}
+                {index < phaseTooltips.length - 1 && (
+                  <div className="flex items-center justify-center min-h-[60px]" aria-live="polite">
+                    {activePhase === index && (
+                      <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeOut" }}
+                        className="bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-3 py-2 text-xs text-[#1C1C1C] shadow-sm max-w-[200px] motion-reduce:transition-none"
+                      >
+                        <strong className="font-semibold text-[#E52629]">{item.phase}:</strong>{" "}
+                        {item.tooltip}
+                      </motion.div>
+                    )}
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
-          
-          {/* Fixed-height lane for inline notes */}
-          <div className="mt-6 min-h-[80px] relative" aria-live="polite">
-            {activePhase !== null && (
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.25, ease: "easeOut" }}
-                className="absolute inset-x-0 bg-[#F7F7F7] border border-[#E6E6E6] rounded-lg px-6 py-4 text-sm text-[#1C1C1C] shadow-sm motion-reduce:transition-none motion-reduce:animate-none"
-              >
-                <strong className="font-semibold text-[#E52629]">{phaseTooltips[activePhase].phase}:</strong>{" "}
-                {phaseTooltips[activePhase].tooltip}
-              </motion.div>
-            )}
-          </div>
         </div>
-        <div className="mt-3 h-px bg-[#E6E6E6]"></div>
+        <div className="mt-4 h-px bg-[#E6E6E6]"></div>
 
         {/* CTA */}
-        <div className="mt-10 flex justify-center">
+        <div className="mt-6 flex justify-center">
           <Button
             size="lg"
             className="bg-[#E52629] text-white hover:bg-[#E52629]/90 text-lg px-8 py-4 focus-visible:outline-2 focus-visible:outline-[#E52629]"
@@ -551,39 +560,39 @@ export default function Home() {
             <motion.div 
               className="lg:max-w-[560px] self-start"
               key={selectedIndustry}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.25 }}
               onMouseEnter={() => setIsCarouselPaused(true)}
               onMouseLeave={() => setIsCarouselPaused(false)}
             >
-              <div className="h-full min-h-[380px] bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)]">
-                <div className="text-center pb-4">
-                  <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="h-auto bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] motion-reduce:transition-none">
+                <div className="text-center pb-3">
+                  <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-3">
                     {(() => {
                       const IconComponent = industryDetails[selectedIndustry].icon;
                       return <IconComponent className="h-8 w-8 text-[#E52629]" aria-hidden="true" />;
                     })()}
                   </div>
-                  <h3 className="text-xl font-montserrat font-bold text-[#1C1C1C]">
+                  <h3 className="text-xl font-montserrat font-bold text-[#1C1C1C] mb-0">
                     {industryDetails[selectedIndustry].title}
                   </h3>
                 </div>
                 
-                <div className="grid gap-4 content-start">
-                  <div className="min-h-[60px]">
-                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Problems</h4>
-                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].problems}</p>
+                <div className="space-y-3">
+                  <div>
+                    <h4 className="text-sm font-medium text-[#E52629] mb-2">Problems</h4>
+                    <p className="text-sm text-[#3C3C3C] mb-0">{industryDetails[selectedIndustry].problems}</p>
                   </div>
                   
-                  <div className="min-h-[80px]">
-                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Solutions</h4>
-                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].solutions}</p>
+                  <div>
+                    <h4 className="text-sm font-medium text-[#E52629] mb-2">Solutions</h4>
+                    <p className="text-sm text-[#3C3C3C] mb-0">{industryDetails[selectedIndustry].solutions}</p>
                   </div>
                   
-                  <div className="min-h-[60px]">
-                    <h4 className="text-sm font-medium text-[#E52629] mb-1">Outcomes</h4>
-                    <p className="text-sm text-[#3C3C3C]">{industryDetails[selectedIndustry].outcomes}</p>
+                  <div>
+                    <h4 className="text-sm font-medium text-[#E52629] mb-2">Outcomes</h4>
+                    <p className="text-sm text-[#3C3C3C] mb-0">{industryDetails[selectedIndustry].outcomes}</p>
                   </div>
                 </div>
               </div>

@@ -584,7 +584,7 @@ export default function Home() {
                   {industryOutcomes.slice(0, 2).map((outcome, index) => (
                     <motion.div
                       key={index}
-                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2 ${selectedIndustry === outcome.industry ? 'ring-2 ring-[#E52629] ring-offset-2' : ''}`}
+                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2`}
                       onMouseEnter={() => {
                         setSelectedIndustry(outcome.industry as keyof typeof industryDetails);
                         setIsCarouselPaused(true);
@@ -655,7 +655,7 @@ export default function Home() {
               onMouseEnter={() => setIsCarouselPaused(true)}
               onMouseLeave={() => setIsCarouselPaused(false)}
             >
-              <div className="h-auto bg-white border border-[#E6E6E6] rounded-2xl p-5 sm:p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] motion-reduce:transition-none">
+              <div className="h-auto bg-white/70 backdrop-blur-[2px] border-2 border-[#E52629] rounded-2xl p-5 sm:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.04)] motion-reduce:transition-none">
                 <div className="text-center pb-3">
                   <div className="w-16 h-16 bg-[#F7F7F7] border border-[#E6E6E6] rounded-full flex items-center justify-center mx-auto mb-3">
                     {(() => {

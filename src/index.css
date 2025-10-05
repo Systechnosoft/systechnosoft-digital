@@ -125,10 +125,6 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   html {
     scroll-behavior: auto;
   }
-  
-  html.enable-smooth {
-    scroll-behavior: smooth;
-  }
 
   body {
     @apply bg-background text-foreground font-inter antialiased;

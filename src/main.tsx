@@ -7,9 +7,7 @@ if ('scrollRestoration' in history) {
   history.scrollRestoration = 'manual';
 }
 
-// Enable smooth scrolling after page load for in-page navigation
-window.addEventListener('load', () => {
-  document.documentElement.classList.add('enable-smooth');
-});
+// Immediate scroll reset on page initialization
+window.scrollTo(0, 0);
 
 createRoot(document.getElementById("root")!).render(<App />);

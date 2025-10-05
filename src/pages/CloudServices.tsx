@@ -1127,20 +1127,22 @@ export default function CloudServices() {
             </div>
             
             <div className="text-center">
-              <p className="text-[#3C3C3C]">
+              <p className="text-[#3C3C3C] mb-6">
                 Also: <span className="font-semibold">Microsoft 365</span>, <span className="font-semibold">SharePoint</span>, <span className="font-semibold">Google Workspace</span>, and <span className="font-semibold">Hybrid/On‑prem</span> (VMware/Kubernetes)
+              </p>
+              <div className="flex justify-center">
                 <Button 
                   asChild 
                   variant="outline" 
                   size="lg"
-                  className="ml-3 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors sm:ml-0 sm:mt-2"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
                 >
                   <Link to="/services/data-migration">
                     Know More
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </p>
+              </div>
             </div>
           </div>
         </section>

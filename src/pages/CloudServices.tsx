@@ -946,17 +946,7 @@ export default function CloudServices() {
                     aria-label="See what we deliver"
                     onClick={(e) => {
                       e.preventDefault();
-                      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                      
-                      // Activate Services chip
-                      const servicesChip = document.querySelector('[data-subnav="cloud-services"]') as HTMLButtonElement;
-                      if (servicesChip) servicesChip.click();
-                      
-                      // Scroll to What We Deliver section
-                      const section = document.getElementById('cloud-services');
-                      if (section) {
-                        section.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
-                      }
+                      scrollToSection('cloud-services');
                     }}
                     title="See what we deliver"
                   >

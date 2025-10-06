@@ -447,15 +447,25 @@ export default function DataMigration() {
           ref={(el) => (sectionsRef.current[2] = el)}
           className="py-20 bg-[#F5F5F5]"
         >
-          <div className="max-w-6xl mx-auto px-4">
+          <div className="max-w-6xl mx-auto px-4" id="services-data-migration">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
               Migration Methods & Phases
             </h2>
             
             <Tabs defaultValue="phases" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8">
-                <TabsTrigger value="phases">Migration Phases</TabsTrigger>
-                <TabsTrigger value="methods">Migration Methods</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border-2 border-gray-200 p-1">
+                <TabsTrigger 
+                  value="phases" 
+                  className="cursor-pointer data-[state=active]:bg-[hsl(var(--primary)/0.08)] data-[state=active]:border-2 data-[state=active]:border-[hsl(var(--primary))] data-[state=inactive]:border data-[state=inactive]:border-gray-300 hover:border-[hsl(var(--primary))] hover:shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-2"
+                >
+                  Migration Phases
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="methods"
+                  className="cursor-pointer data-[state=active]:bg-[hsl(var(--primary)/0.08)] data-[state=active]:border-2 data-[state=active]:border-[hsl(var(--primary))] data-[state=inactive]:border data-[state=inactive]:border-gray-300 hover:border-[hsl(var(--primary))] hover:shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-2"
+                >
+                  Migration Methods
+                </TabsTrigger>
               </TabsList>
               
               <TabsContent value="phases" className="space-y-8">
@@ -503,7 +513,7 @@ export default function DataMigration() {
                       benefits: ["Minimal disruption", "Risk mitigation", "Business continuity"]
                     }
                   ].map((method, index) => (
-                    <Card key={index} className="hover:shadow-lg transition-shadow">
+                    <Card key={index} className="border-2 border-gray-200 loc-card-hover-primary">
                       <CardHeader>
                         <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
                           {method.title}
@@ -542,11 +552,14 @@ export default function DataMigration() {
             </h2>
             
             <div className="grid lg:grid-cols-2 gap-12">
-              <div>
-                <h3 className="font-montserrat font-semibold text-2xl mb-6 text-[#1C1C1C]">
-                  Cutover Planning
-                </h3>
-                <div className="space-y-4">
+              <Card className="bg-white border-2 border-gray-200 loc-card-hover-primary">
+                <CardHeader className="border-t-4 border-[hsl(var(--primary)/0.4)] pt-6">
+                  <CardTitle className="font-montserrat text-2xl text-[#1C1C1C] flex items-center gap-3">
+                    <Clock className="h-6 w-6 text-[#E52629]" />
+                    Cutover Planning
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   {[
                     "Pre-cutover validation and rollback procedures",
                     "Detailed runbooks with time estimates",
@@ -559,14 +572,17 @@ export default function DataMigration() {
                       <span className="font-inter text-gray-700">{item}</span>
                     </div>
                   ))}
-                </div>
-              </div>
+                </CardContent>
+              </Card>
               
-              <div>
-                <h3 className="font-montserrat font-semibold text-2xl mb-6 text-[#1C1C1C]">
-                  Validation & Testing
-                </h3>
-                <div className="space-y-4">
+              <Card className="bg-white border-2 border-gray-200 loc-card-hover-primary">
+                <CardHeader className="border-t-4 border-[#10B981]/40 pt-6">
+                  <CardTitle className="font-montserrat text-2xl text-[#1C1C1C] flex items-center gap-3">
+                    <CheckCircle className="h-6 w-6 text-green-500" />
+                    Validation & Testing
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
                   {[
                     "Data integrity verification (99.9% accuracy)",
                     "Application functionality testing",
@@ -579,8 +595,8 @@ export default function DataMigration() {
                       <span className="font-inter text-gray-700">{item}</span>
                     </div>
                   ))}
-                </div>
-              </div>
+                </CardContent>
+              </Card>
             </div>
 
             {/* Success Metrics */}
@@ -648,7 +664,7 @@ export default function DataMigration() {
                   items: ["Real-time logs", "Anomaly detection", "Audit trails", "Incident response"]
                 }
               ].map((feature, index) => (
-                <Card key={index} className="text-center hover:shadow-lg transition-shadow bg-white border-gray-200">
+                <Card key={index} className="text-center bg-white border-2 border-gray-200 loc-card-hover-primary">
                   <CardHeader>
                     <div className="mx-auto w-12 h-12 bg-[#E52629]/10 text-[#E52629] rounded-full flex items-center justify-center mb-3">
                       {feature.icon}
@@ -718,7 +734,7 @@ export default function DataMigration() {
                   tools: ["Azure Sentinel", "CloudTrail", "Security Center", "Compliance Manager"]
                 }
               ].map((category, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
+                <Card key={index} className="border-2 border-gray-200 loc-card-hover-primary">
                   <CardHeader>
                     <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
                       {category.category}
@@ -777,7 +793,7 @@ export default function DataMigration() {
                   icon: <Target className="h-8 w-8" />
                 }
               ].map((study, index) => (
-                <Card key={index} className="bg-white border-gray-200 text-center hover:shadow-lg transition-shadow">
+                <Card key={index} className="bg-white border-2 border-gray-200 text-center loc-card-hover-primary">
                   <CardHeader>
                     <div className="mx-auto w-16 h-16 bg-[#FDE8E8] text-[#E52629] rounded-full flex items-center justify-center mb-4">
                       {study.icon}
@@ -799,16 +815,17 @@ export default function DataMigration() {
             </div>
 
             <div className="text-center">
-              <Link to="/case-studies">
-                <Button 
-                  variant="outline" 
-                  size="lg"
-                  className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-3 transition-colors focus-visible:ring-2 focus-visible:ring-[#E31B23] focus-visible:ring-offset-2"
-                >
+              <Button 
+                asChild
+                variant="outline" 
+                size="lg"
+                className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200"
+              >
+                <Link to="/case-studies">
                   View detailed case studies
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>

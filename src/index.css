@@ -338,3 +338,52 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     }
   }
 }
+
+@layer utilities {
+  /* Scoped hover styles for cloud & data-migration pages */
+  #services-cloud .loc-card-hover-primary,
+  #services-data-migration .loc-card-hover-primary {
+    transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
+    background-clip: padding-box;
+  }
+  
+  #services-cloud .loc-card-hover-primary:hover,
+  #services-cloud .loc-card-hover-primary:focus-visible,
+  #services-data-migration .loc-card-hover-primary:hover,
+  #services-data-migration .loc-card-hover-primary:focus-visible {
+    border-color: hsl(var(--primary)) !important;
+    box-shadow: 0 10px 24px rgba(229, 38, 41, 0.12);
+    transform: translateY(-2px);
+  }
+  
+  /* Scoped soft-break utility for cloud page What You Can Expect section */
+  #services-cloud .loc-softbreak {
+    display: inline;
+  }
+  
+  @media (min-width: 768px) {
+    #services-cloud .loc-softbreak::before {
+      content: '\A';
+      white-space: pre;
+    }
+  }
+  
+  /* Scoped eyebrow styling for Proven Results labels */
+  #services-cloud .loc-eyebrow {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    font-size: 1rem;
+    color: hsl(var(--primary));
+    text-transform: uppercase;
+  }
+
+  /* Accessibility utilities */
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

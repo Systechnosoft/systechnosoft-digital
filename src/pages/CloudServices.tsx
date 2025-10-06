@@ -129,12 +129,36 @@ const kpis = [
 
 // Accelerators data
 const accelerators = [
-  { name: "Landing Zone Blueprint", description: "Multi-account/subscription structure with governance" },
-  { name: "CIS Benchmark Kit", description: "Pre-configured security baselines for AWS/Azure/GCP" },
-  { name: "Cost Auto-Scheduler", description: "Turn off non-prod resources nights & weekends" },
-  { name: "DR Drill Playbook", description: "Automated failover testing & runbook templates" },
-  { name: "Terraform Module Pack", description: "Reusable IaC modules for common services" },
-  { name: "Monitoring Starter", description: "Pre-built dashboards & alerting rules" },
+  { 
+    name: "Landing Zone Blueprint", 
+    description: "Multi-account/subscription structure with governance",
+    bullets: ["Guardrails (SCP/Policies), account vending", "SSO/IAM federation"]
+  },
+  { 
+    name: "CIS Benchmark Kit", 
+    description: "Pre-configured security baselines for AWS/Azure/GCP",
+    bullets: ["IaC for CIS controls; drift reports", "One-click remediation"]
+  },
+  { 
+    name: "Cost Auto-Scheduler", 
+    description: "Turn off non-prod resources nights & weekends",
+    bullets: ["Off-hours & weekend stop/start", "Calendar overrides & safeguards"]
+  },
+  { 
+    name: "DR Drill Playbook", 
+    description: "Automated failover testing & runbook templates",
+    bullets: ["Automated failovers; evidence capture", "Exportable runbooks"]
+  },
+  { 
+    name: "Terraform Module Pack", 
+    description: "Reusable IaC modules for common services",
+    bullets: ["Reusable modules with examples", "CI-ready patterns"]
+  },
+  { 
+    name: "Monitoring Starter", 
+    description: "Pre-built dashboards & alerting rules",
+    bullets: ["Dashboards + alert rules", "Golden signals & runbooks"]
+  },
 ];
 
 // FAQ data
@@ -1187,13 +1211,43 @@ export default function CloudServices() {
 
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               {[
-                { name: "AWS", icon: "☁️" },
-                { name: "Azure", icon: "⚡" },
-                { name: "Google Cloud", icon: "🚀" }
+                { 
+                  name: "AWS", 
+                  icon: (
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AWS Platform" role="img">
+                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
+                      <circle cx="32" cy="32" r="16" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                      <path d="M22 22L26 26M42 22L38 26M22 42L26 38M42 42L38 38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M32 40C32 40 28 44 32 48C36 44 32 40 32 40Z" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: "Azure", 
+                  icon: (
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Azure Platform" role="img">
+                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
+                      <circle cx="32" cy="32" r="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                      <path d="M32 28L36 32L32 36L28 32L32 28Z" fill="hsl(var(--primary))"/>
+                      <path d="M20 32L24 36M44 32L40 36" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )
+                },
+                { 
+                  name: "Google Cloud", 
+                  icon: (
+                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Google Cloud Platform" role="img">
+                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
+                      <circle cx="32" cy="32" r="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+                      <path d="M32 22L38 28L32 34L26 28L32 22Z" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M20 38L24 42L28 38M36 38L40 42L44 38" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  )
+                }
               ].map((platform, idx) => (
-                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 text-center">
+                <Card key={idx} className="bg-white border-2 border-gray-200 loc-card-hover-primary text-center">
                   <CardHeader>
-                    <div className="text-5xl mb-4">{platform.icon}</div>
+                    <div className="mx-auto mb-4 text-gray-600">{platform.icon}</div>
                     <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">
                       {platform.name}
                     </CardTitle>
@@ -1344,7 +1398,7 @@ export default function CloudServices() {
         </section>
 
         {/* What You Can Expect Section */}
-        <section className="py-20 bg-[#F5F5F5]">
+        <section id="services-cloud" className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1364,10 +1418,15 @@ export default function CloudServices() {
                 },
                 {
                   icon: ShieldCheck,
-                  title: "Security built‑in (IAM, encryption, least privilege)"
+                  title: (
+                    <>
+                      Security&nbsp;built&#8209;in
+                      <wbr /> <span className="loc-softbreak">(IAM, encryption, least privilege)</span>
+                    </>
+                  )
                 }
               ].map((item, idx) => (
-                <Card key={idx} className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 text-center hover:shadow-lg">
+                <Card key={idx} className="bg-white border-2 border-gray-200 loc-card-hover-primary text-center">
                   <CardContent className="p-8">
                     <item.icon className="w-12 h-12 text-[#E52629] mx-auto mb-4" />
                     <h3 className="text-lg font-bold font-montserrat text-[#1C1C1C]">
@@ -1402,16 +1461,23 @@ export default function CloudServices() {
               {accelerators.map((acc, idx) => (
                 <Card 
                   key={idx} 
-                  className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg"
+                  className="bg-white border-2 border-gray-200 loc-card-hover-primary flex flex-col min-h-[220px]"
                 >
-                  <CardHeader className="p-6 md:p-7">
+                  <CardHeader className="p-6 md:p-7 flex-shrink-0">
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center">
                       <Boxes className="h-5 w-5 mr-2 text-[#E52629]" />
                       {acc.name}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-6 md:p-7 pt-0">
-                    <p className="text-sm text-[#3C3C3C]">{acc.description}</p>
+                  <CardContent className="p-6 md:p-7 pt-0 flex-grow">
+                    <p className="text-sm text-[#3C3C3C] mb-4">{acc.description}</p>
+                    <div className="border-t border-gray-200/40 pt-3 space-y-1.5">
+                      {acc.bullets.map((bullet, bIdx) => (
+                        <p key={bIdx} className="text-xs text-[#6B7280] leading-tight italic">
+                          • {bullet}
+                        </p>
+                      ))}
+                    </div>
                   </CardContent>
                 </Card>
               ))}
@@ -1436,9 +1502,9 @@ export default function CloudServices() {
               label="Case studies"
               autoAdvanceMs={3000}
               renderSlide={(study) => (
-                <Card className="bg-[#F5F5F5] border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
+                <Card className="bg-[#F5F5F5] border-2 border-gray-200 loc-card-hover-primary">
                   <CardContent className="p-8 md:py-8">
-                    <div className="text-sm font-semibold text-gray-800/90 mb-2">
+                    <div className="loc-eyebrow text-sm mb-2">
                       {study.company}
                     </div>
                     <div className="text-3xl md:text-4xl font-semibold text-[#E52629] mb-4">

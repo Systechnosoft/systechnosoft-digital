@@ -325,7 +325,7 @@ export default function ManagedITServices() {
                     tabIndex={0}
                   >
                     <CardHeader className="pb-0 p-0">
-                      <div className="flex items-start gap-3 mb-2">
+                      <div className="flex items-start gap-3">
                         <div className="p-2.5 bg-[#E52629]/10 rounded-lg transition-transform will-change-transform hover:rotate-3">
                           <Icon className="h-5 w-5 text-[#E52629]" />
                         </div>
@@ -340,7 +340,7 @@ export default function ManagedITServices() {
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0 p-0 flex flex-col flex-1">
-                      <ul className="space-y-1.5 mb-3 flex-1 mt-1">
+                      <ul className="space-y-1.5 mb-3 flex-1 ml-[52px]">
                         {service.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-center text-sm text-muted-foreground">
                             <span className="w-1.5 h-1.5 bg-[#E52629] rounded-full mr-2.5 flex-shrink-0" />

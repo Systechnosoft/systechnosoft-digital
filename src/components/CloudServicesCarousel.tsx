@@ -216,7 +216,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
       <div
         ref={viewportRef}
         className="carousel__viewport overflow-hidden"
-        style={{ contain: "paint" }}
+        style={{ contain: "layout" }}
         tabIndex={0}
         onKeyDown={handleKeyDown}
         onMouseEnter={handlePause}
@@ -243,7 +243,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
             return (
               <li
                 key={`slide-${idx}`}
-                className="slide flex-shrink-0 px-3"
+                className="slide flex-shrink-0 px-3 py-2"
                 style={{
                   flexBasis: `${100 / slidesPerView}%`,
                 }}

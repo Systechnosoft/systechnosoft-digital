@@ -453,7 +453,7 @@ export default function DataMigration() {
             </h2>
             
             <Tabs defaultValue="phases" className="w-full">
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
+              <TabsList className="flex flex-wrap justify-center gap-4 mb-8 bg-transparent h-auto p-0 border-0">
                 <TabsTrigger 
                   value="phases" 
                   className="px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 cursor-pointer
@@ -474,7 +474,7 @@ export default function DataMigration() {
                 >
                   Migration Methods
                 </TabsTrigger>
-              </div>
+              </TabsList>
               
               <TabsContent value="phases" className="space-y-8">
                 <div className="grid md:grid-cols-5 gap-6">

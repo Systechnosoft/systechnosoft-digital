@@ -342,6 +342,8 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
 @layer utilities {
   /* Scoped hover styles for cloud & data-migration pages */
   #services-cloud .loc-card-hover-primary,
+  #cloud-platforms .loc-card-hover-primary,
+  #accelerators .loc-card-hover-primary,
   #services-data-migration .loc-card-hover-primary {
     transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
     background-clip: padding-box;
@@ -349,6 +351,10 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   
   #services-cloud .loc-card-hover-primary:hover,
   #services-cloud .loc-card-hover-primary:focus-visible,
+  #cloud-platforms .loc-card-hover-primary:hover,
+  #cloud-platforms .loc-card-hover-primary:focus-visible,
+  #accelerators .loc-card-hover-primary:hover,
+  #accelerators .loc-card-hover-primary:focus-visible,
   #services-data-migration .loc-card-hover-primary:hover,
   #services-data-migration .loc-card-hover-primary:focus-visible {
     border-color: hsl(var(--primary)) !important;

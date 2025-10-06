@@ -1469,13 +1469,13 @@ export default function CloudServices() {
                   key={idx} 
                   className="bg-white border-2 border-gray-200 loc-card-hover-primary flex flex-col min-h-[220px]"
                 >
-                  <CardHeader className="p-6 md:p-7 pb-3 flex-shrink-0">
+                  <CardHeader className="p-6 md:p-7 pb-2 flex-shrink-0">
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center mb-2">
                       <Boxes className="h-5 w-5 mr-2 text-[#E52629]" />
                       {acc.name}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="p-6 md:p-7 pt-0 flex-grow">
+                  <CardContent className="p-6 md:p-7 pt-2 flex-grow">
                     <p className="text-sm text-[#3C3C3C] mb-3">{acc.description}</p>
                     <div className="border-t border-gray-200/40 pt-3 space-y-1.5">
                       {acc.bullets.map((bullet, bIdx) => (
@@ -1510,7 +1510,7 @@ export default function CloudServices() {
               renderSlide={(study) => (
                 <Card className="bg-[#F5F5F5] border-2 border-gray-200 loc-card-hover-primary">
                   <CardContent className="p-8 md:py-8">
-                    <div className="loc-eyebrow text-sm mb-2">
+                    <div className="loc-eyebrow mb-2">
                       {study.company}
                     </div>
                     <div className="text-3xl md:text-4xl font-semibold text-[#E52629] mb-4">

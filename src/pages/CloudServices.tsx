@@ -931,24 +931,36 @@ export default function CloudServices() {
                     asChild
                     size="lg"
                     className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                    aria-label="See what we deliver"
+                    aria-label="Claim your free insight"
                   >
-                    <Link to="/contact?type=cloud-assessment" title="See what we deliver">
-                      {"revilew ew tahw eeS".split("").reverse().join("")}
+                    <Link to="/contact?type=mra" title="Claim your free insight">
+                      Claim your free insight
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
 
                   <Button
-                    asChild
                     variant="outline"
                     size="lg"
                     className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                    aria-label="Claim Your Free Insight"
+                    aria-label="See what we deliver"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                      
+                      // Activate Services chip
+                      const servicesChip = document.querySelector('[data-subnav="cloud-services"]') as HTMLButtonElement;
+                      if (servicesChip) servicesChip.click();
+                      
+                      // Scroll to What We Deliver section
+                      const section = document.getElementById('cloud-services');
+                      if (section) {
+                        section.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+                      }
+                    }}
+                    title="See what we deliver"
                   >
-                    <a href="#cloud-overview" title="Claim Your Free Insight">
-                      {"thgisnI eerF ruoY mialC".split("").reverse().join("")}
-                    </a>
+                    See what we deliver →
                   </Button>
                 </motion.div>
               </motion.div>
@@ -994,6 +1006,7 @@ export default function CloudServices() {
               {subNavItems.map((item) => (
                 <button
                   key={item.id}
+                  data-subnav={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={cn(
                     "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
@@ -1001,6 +1014,7 @@ export default function CloudServices() {
                       ? "bg-[#E52629] text-white shadow-md"
                       : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
                   )}
+                  aria-current={activeSection === item.id ? "true" : undefined}
                 >
                   {item.label}
                 </button>
@@ -1484,34 +1498,30 @@ export default function CloudServices() {
           </div>
         </section>
 
-        {/* Contact Teaser */}
-        <section id="contact-teaser" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-white">
-          <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-                Ready to simplify cloud?
-              </h2>
-              <p className="text-lg text-[#3C3C3C]">
-                Let's discuss your cloud requirements and create a tailored plan.
-              </p>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button 
-                asChild
-                size="lg"
-                className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold"
+        {/* CTA Band - Red (matches Data Migration) */}
+        <section className="py-20 bg-[#E52629] text-white">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+              Ready to simplify cloud?
+            </h2>
+            <p className="font-inter text-xl text-white/95 mb-10">
+              Let's discuss your cloud requirements and create a tailored plan.
+            </p>
+            
+            <div className="flex justify-center">
+              <a 
+                href="https://calendly.com/systechnosoft-info/30min" 
+                target="_blank" 
+                rel="noopener noreferrer"
               >
-                <Link to="/contact?type=cloud-assessment">Get a Cloud Assessment</Link>
-              </Button>
-              <Button 
-                asChild
-                size="lg"
-                variant="outline"
-                className="bg-white text-red-600 border border-red-600 hover:bg-red-600 hover:text-white hover:shadow-md transition-all duration-200 focus-visible:ring-2 focus-visible:ring-red-500"
-              >
-                <Link to="/contact">Talk to an expert</Link>
-              </Button>
+                <Button 
+                  size="lg" 
+                  className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+                >
+                  Book a consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </a>
             </div>
           </div>
         </section>

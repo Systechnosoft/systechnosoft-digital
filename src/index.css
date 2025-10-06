@@ -344,7 +344,11 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   #services-cloud .loc-card-hover-primary,
   #cloud-platforms .loc-card-hover-primary,
   #accelerators .loc-card-hover-primary,
-  #services-data-migration .loc-card-hover-primary {
+  #services-data-migration .loc-card-hover-primary,
+  #dm-cutover-cards .loc-card-hover-primary,
+  #dm-security-cards .loc-card-hover-primary,
+  #dm-tooling-cards .loc-card-hover-primary,
+  #dm-insights-cards .loc-card-hover-primary {
     transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
     background-clip: padding-box;
   }
@@ -356,7 +360,15 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   #accelerators .loc-card-hover-primary:hover,
   #accelerators .loc-card-hover-primary:focus-visible,
   #services-data-migration .loc-card-hover-primary:hover,
-  #services-data-migration .loc-card-hover-primary:focus-visible {
+  #services-data-migration .loc-card-hover-primary:focus-visible,
+  #dm-cutover-cards .loc-card-hover-primary:hover,
+  #dm-cutover-cards .loc-card-hover-primary:focus-visible,
+  #dm-security-cards .loc-card-hover-primary:hover,
+  #dm-security-cards .loc-card-hover-primary:focus-visible,
+  #dm-tooling-cards .loc-card-hover-primary:hover,
+  #dm-tooling-cards .loc-card-hover-primary:focus-visible,
+  #dm-insights-cards .loc-card-hover-primary:hover,
+  #dm-insights-cards .loc-card-hover-primary:focus-visible {
     border-color: hsl(var(--primary)) !important;
     box-shadow: 0 10px 24px rgba(229, 38, 41, 0.12);
     transform: translateY(-2px);

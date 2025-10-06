@@ -453,20 +453,28 @@ export default function DataMigration() {
             </h2>
             
             <Tabs defaultValue="phases" className="w-full">
-              <TabsList className="grid w-full grid-cols-2 mb-8 bg-white border-2 border-gray-200 p-1">
+              <div className="flex flex-wrap justify-center gap-4 mb-8">
                 <TabsTrigger 
                   value="phases" 
-                  className="cursor-pointer data-[state=active]:bg-[hsl(var(--primary)/0.08)] data-[state=active]:border-2 data-[state=active]:border-[hsl(var(--primary))] data-[state=inactive]:border data-[state=inactive]:border-gray-300 hover:border-[hsl(var(--primary))] hover:shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-2"
+                  className="px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 cursor-pointer
+                    data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#E52629]/25 data-[state=active]:border-0
+                    data-[state=inactive]:bg-white data-[state=inactive]:text-[#E52629] data-[state=inactive]:border-2 data-[state=inactive]:border-[#E52629]
+                    hover:data-[state=inactive]:bg-[#FDE8E8] hover:data-[state=inactive]:border-[#E52629]
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
                   Migration Phases
                 </TabsTrigger>
                 <TabsTrigger 
                   value="methods"
-                  className="cursor-pointer data-[state=active]:bg-[hsl(var(--primary)/0.08)] data-[state=active]:border-2 data-[state=active]:border-[hsl(var(--primary))] data-[state=inactive]:border data-[state=inactive]:border-gray-300 hover:border-[hsl(var(--primary))] hover:shadow-sm transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[hsl(var(--primary))] focus-visible:ring-offset-2"
+                  className="px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 cursor-pointer
+                    data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#E52629]/25 data-[state=active]:border-0
+                    data-[state=inactive]:bg-white data-[state=inactive]:text-[#E52629] data-[state=inactive]:border-2 data-[state=inactive]:border-[#E52629]
+                    hover:data-[state=inactive]:bg-[#FDE8E8] hover:data-[state=inactive]:border-[#E52629]
+                    focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
                   Migration Methods
                 </TabsTrigger>
-              </TabsList>
+              </div>
               
               <TabsContent value="phases" className="space-y-8">
                 <div className="grid md:grid-cols-5 gap-6">
@@ -551,7 +559,7 @@ export default function DataMigration() {
               Cutover & Validation
             </h2>
             
-            <div className="grid lg:grid-cols-2 gap-12">
+            <div id="dm-cutover-cards" className="grid lg:grid-cols-2 gap-12">
               <Card className="bg-white border-2 border-gray-200 loc-card-hover-primary">
                 <CardHeader className="border-t-4 border-[hsl(var(--primary)/0.4)] pt-6">
                   <CardTitle className="font-montserrat text-2xl text-[#1C1C1C] flex items-center gap-3">
@@ -641,7 +649,7 @@ export default function DataMigration() {
               Security & Compliance
             </h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="dm-security-cards" className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 {
                   icon: <Lock className="h-8 w-8" />,
@@ -707,7 +715,7 @@ export default function DataMigration() {
               Tools & Integrations
             </h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="dm-tooling-cards" className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 {
                   category: "Cloud Platforms",
@@ -772,7 +780,7 @@ export default function DataMigration() {
               Insights
             </h2>
             
-            <div className="grid md:grid-cols-3 gap-8 mb-12">
+            <div id="dm-insights-cards" className="grid md:grid-cols-3 gap-8 mb-12">
               {[
                 {
                   metric: "40%",

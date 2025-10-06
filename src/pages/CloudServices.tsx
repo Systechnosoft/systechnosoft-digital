@@ -1214,41 +1214,47 @@ export default function CloudServices() {
                 { 
                   name: "AWS", 
                   icon: (
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="AWS Platform" role="img">
-                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
-                      <circle cx="32" cy="32" r="16" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                      <path d="M22 22L26 26M42 22L38 26M22 42L26 38M42 42L38 38" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M32 40C32 40 28 44 32 48C36 44 32 40 32 40Z" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <div className="relative w-14 h-14 md:w-16 md:h-16" aria-label="Managed cloud platform with services">
+                      <Cloud className="absolute inset-0 w-full h-full text-gray-600" strokeWidth={2} />
+                      <Settings className="absolute bottom-0 right-0 w-6 h-6 md:w-7 md:h-7 text-[#E52629]" strokeWidth={2} />
+                    </div>
                   )
                 },
                 { 
                   name: "Azure", 
                   icon: (
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Azure Platform" role="img">
-                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
-                      <circle cx="32" cy="32" r="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                      <path d="M32 28L36 32L32 36L28 32L32 28Z" fill="hsl(var(--primary))"/>
-                      <path d="M20 32L24 36M44 32L40 36" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center" aria-label="Compute and automation platform">
+                      <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-lg border-2 border-gray-600 flex items-center justify-center">
+                        <Zap className="w-6 h-6 md:w-7 md:h-7 text-[#E52629]" strokeWidth={2} fill="#E52629" />
+                        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 56 56" fill="none">
+                          <path d="M4 28 L12 28 M44 28 L52 28" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" className="text-gray-400" />
+                        </svg>
+                      </div>
+                    </div>
                   )
                 },
                 { 
                   name: "Google Cloud", 
                   icon: (
-                    <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Google Cloud Platform" role="img">
-                      <path d="M32 12C30.8954 12 30 12.8954 30 14V24C30 25.1046 30.8954 26 32 26C33.1046 26 34 25.1046 34 24V14C34 12.8954 33.1046 12 32 12Z" fill="currentColor"/>
-                      <circle cx="32" cy="32" r="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-                      <path d="M32 22L38 28L32 34L26 28L32 22Z" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M20 38L24 42L28 38M36 38L40 42L44 38" stroke="hsl(var(--primary))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <div className="relative w-14 h-14 md:w-16 md:h-16" aria-label="Data and network connectivity platform">
+                      <Cloud className="absolute inset-0 w-full h-full text-gray-600" strokeWidth={2} />
+                      <svg className="absolute inset-0 w-full h-full" viewBox="0 0 64 64" fill="none">
+                        <circle cx="24" cy="32" r="2" fill="#E52629" />
+                        <circle cx="32" cy="26" r="2" fill="#E52629" />
+                        <circle cx="40" cy="32" r="2" fill="#E52629" />
+                        <circle cx="32" cy="38" r="2" fill="#E52629" />
+                        <path d="M24 32 L32 26 M32 26 L40 32 M32 26 L32 38 M24 32 L32 38 M40 32 L32 38" stroke="#E52629" strokeWidth="1.5" strokeLinecap="round" />
+                      </svg>
+                    </div>
                   )
                 }
               ].map((platform, idx) => (
-                <Card key={idx} className="bg-white border-2 border-gray-200 loc-card-hover-primary text-center">
-                  <CardHeader>
-                    <div className="mx-auto mb-4 text-gray-600">{platform.icon}</div>
-                    <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">
+                <Card key={idx} className="bg-white border-2 border-gray-200 loc-card-hover-primary text-center min-h-[200px] flex flex-col justify-center">
+                  <CardHeader className="pb-6">
+                    <div className="mx-auto mb-4 flex justify-center items-center">
+                      {platform.icon}
+                    </div>
+                    <CardTitle className="text-3xl md:text-4xl font-semibold font-montserrat text-[#1C1C1C]">
                       {platform.name}
                     </CardTitle>
                   </CardHeader>
@@ -1463,14 +1469,14 @@ export default function CloudServices() {
                   key={idx} 
                   className="bg-white border-2 border-gray-200 loc-card-hover-primary flex flex-col min-h-[220px]"
                 >
-                  <CardHeader className="p-6 md:p-7 flex-shrink-0">
-                    <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center">
+                  <CardHeader className="p-6 md:p-7 pb-3 flex-shrink-0">
+                    <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center mb-2">
                       <Boxes className="h-5 w-5 mr-2 text-[#E52629]" />
                       {acc.name}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-6 md:p-7 pt-0 flex-grow">
-                    <p className="text-sm text-[#3C3C3C] mb-4">{acc.description}</p>
+                    <p className="text-sm text-[#3C3C3C] mb-3">{acc.description}</p>
                     <div className="border-t border-gray-200/40 pt-3 space-y-1.5">
                       {acc.bullets.map((bullet, bIdx) => (
                         <p key={bIdx} className="text-xs text-[#6B7280] leading-tight italic">
@@ -1519,8 +1525,16 @@ export default function CloudServices() {
             />
 
             <div className="text-center mt-8">
-              <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#D02022] text-white font-semibold shadow-md hover:shadow-lg transition-all">
-                <Link to="/contact?type=all-case-studies">View all case studies</Link>
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg"
+                className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
+              >
+                <Link to="/contact?type=all-case-studies">
+                  View detailed case studies
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
               </Button>
             </div>
           </div>

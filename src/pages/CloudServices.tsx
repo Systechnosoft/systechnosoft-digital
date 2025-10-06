@@ -1469,8 +1469,8 @@ export default function CloudServices() {
                   key={idx} 
                   className="bg-white border-2 border-gray-200 loc-card-hover-primary flex flex-col min-h-[220px]"
                 >
-                  <CardHeader className="p-6 md:p-7 pb-2 flex-shrink-0">
-                    <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center mb-2">
+                  <CardHeader className="p-6 md:p-7 pb-2 space-y-0 flex-shrink-0">
+                    <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center">
                       <Boxes className="h-5 w-5 mr-2 text-[#E52629]" />
                       {acc.name}
                     </CardTitle>

@@ -375,7 +375,8 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
   
   /* Scoped eyebrow styling for Proven Results labels */
-  #services-cloud .loc-eyebrow {
+  #services-cloud .loc-eyebrow,
+  #cloud-results .loc-eyebrow {
     font-weight: 700;
     letter-spacing: 0.02em;
     font-size: 1.125rem;
@@ -385,7 +386,8 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
   
   @media (min-width: 768px) {
-    #services-cloud .loc-eyebrow {
+    #services-cloud .loc-eyebrow,
+    #cloud-results .loc-eyebrow {
       font-size: 1.25rem;
     }
   }

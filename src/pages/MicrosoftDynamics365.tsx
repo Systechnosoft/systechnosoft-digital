@@ -304,28 +304,28 @@ export default function MicrosoftDynamics365() {
 
             {/* Mini Diagram */}
             <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
+               <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
                   <Database className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Dataverse</h3>
                   <p className="text-sm text-gray-600">Unified data platform</p>
                 </CardContent>
               </Card>
-               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
+               <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
                   <Settings className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Dynamics 365 Apps</h3>
                   <p className="text-sm text-gray-600">Sales, Service, Finance, SCM</p>
                 </CardContent>
               </Card>
-               <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
+               <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
                   <Cloud className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Azure Services</h3>
                   <p className="text-sm text-gray-600">AI, Analytics, Integration</p>
                 </CardContent>
               </Card>
-              <Card className="text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
+              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
                   <Zap className="h-8 w-8 text-[#E52629] mx-auto mb-3" />
                   <h3 className="font-semibold">Power Platform</h3>
@@ -339,61 +339,66 @@ export default function MicrosoftDynamics365() {
         {/* Consulting Section */}
         <section id="consulting" ref={(el) => (sectionsRef.current[1] = el)} className="py-20 bg-white border-t border-[#E6E6E6]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Advisory & Roadmapping
             </h2>
             
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="space-y-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200 last:border-0 group">
                   <Eye className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Current‑state assessment & process mapping</h3>
-                    <p className="text-[#3C3C3C]">Comprehensive analysis of existing systems and workflows</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Current‑state assessment & process mapping</h3>
+                    <p className="text-[17px] text-slate-600">Comprehensive analysis of existing systems and workflows</p>
                   </div>
+                  <ChevronRight className="h-5 w-5 text-[#E52629] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200 last:border-0 group">
                   <Target className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Solution blueprinting</h3>
-                    <p className="text-[#3C3C3C]">Sales, Service, Finance, and Supply Chain architecture design</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Solution blueprinting</h3>
+                    <p className="text-[17px] text-slate-600">Sales, Service, Finance, and Supply Chain architecture design</p>
                   </div>
+                  <ChevronRight className="h-5 w-5 text-[#E52629] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200 last:border-0 group">
                   <Shield className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Security & compliance planning</h3>
-                    <p className="text-[#3C3C3C]">DLP, governance, and regulatory alignment strategies</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Security & compliance planning</h3>
+                    <p className="text-[17px] text-slate-600">DLP, governance, and regulatory alignment strategies</p>
                   </div>
+                  <ChevronRight className="h-5 w-5 text-[#E52629] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4 last:border-0 group">
                   <Workflow className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Rollout roadmap & change management</h3>
-                    <p className="text-[#3C3C3C]">Phased implementation with user adoption strategies</p>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Rollout roadmap & change management</h3>
+                    <p className="text-[17px] text-slate-600">Phased implementation with user adoption strategies</p>
                   </div>
+                  <ChevronRight className="h-5 w-5 text-[#E52629] opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0 mt-1" />
                 </div>
               </div>
               
-              <Card className="bg-[#F5F5F5] border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300">
-                <CardHeader>
-                  <CardTitle className="text-[#1C1C1C]">Deliverables</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
+              <div className="bg-gradient-to-br from-indigo-50 to-rose-50 rounded-xl p-8 border border-indigo-200">
+                <div className="flex items-start gap-3 mb-4">
+                  <CheckCircle className="h-6 w-6 text-[#E52629] flex-shrink-0 mt-1" />
+                  <h3 className="font-semibold text-[22px] text-[#1C1C1C]">Deliverables</h3>
+                </div>
+                <div className="space-y-3">
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-[#1C1C1C]">Discovery report with recommendations</span>
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-600">Discovery report with recommendations</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-[#1C1C1C]">Solution architecture deck</span>
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-600">Solution architecture deck</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <span className="text-[#1C1C1C]">Phased rollout plan with timelines</span>
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-600">Phased rollout plan with timelines</span>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -401,44 +406,57 @@ export default function MicrosoftDynamics365() {
         {/* Implementation Section */}
         <section id="implementation" ref={(el) => (sectionsRef.current[2] = el)} className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center">
               Rapid, Secure Implementations
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card>
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Database className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Dataverse Setup</h3>
-                  <p className="text-sm text-gray-600">Environment strategy and data modeling</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Database className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2">Dataverse Setup</h3>
+                  <p className="text-[17px] text-slate-600">Environment strategy and data modeling</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Settings className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Core App Configuration</h3>
-                  <p className="text-sm text-gray-600">Sales, Service, Marketing, Finance, SCM</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Settings className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2">Core App Configuration</h3>
+                  <p className="text-[17px] text-slate-600">Sales, Service, Marketing, Finance, SCM</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Lock className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">Role-based Access</h3>
-                  <p className="text-sm text-gray-600">Entra ID integration & conditional access</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Lock className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2">Role-based Access</h3>
+                  <p className="text-[17px] text-slate-600">Entra ID integration & conditional access</p>
                 </CardContent>
               </Card>
-              <Card>
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <GitBranch className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2">CI/CD Pipelines</h3>
-                  <p className="text-sm text-gray-600">Automated deployment and testing</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <GitBranch className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2">CI/CD Pipelines</h3>
+                  <p className="text-[17px] text-slate-600">Automated deployment and testing</p>
                 </CardContent>
               </Card>
             </div>
             
-            <div className="bg-[#007AFF]/10 border-l-4 border-[#007AFF] p-6 rounded-r-lg max-w-4xl mx-auto">
-              <h3 className="font-semibold text-lg mb-2">Measurable Milestones</h3>
-              <p className="text-gray-700">We target measurable milestones: user readiness, data readiness, go‑live readiness—with clear success criteria at each phase.</p>
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-blue-500 p-8 rounded-xl max-w-5xl mx-auto">
+              <div className="flex items-start gap-3">
+                <CheckCircle className="h-6 w-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <h3 className="font-semibold text-[22px] mb-2">Measurable Milestones</h3>
+                  <p className="text-[17px] text-slate-700">We target measurable milestones: user readiness, data readiness, go‑live readiness—with clear success criteria at each phase.</p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -446,59 +464,78 @@ export default function MicrosoftDynamics365() {
         {/* Customization Section */}
         <section id="customization" ref={(el) => (sectionsRef.current[3] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center">
               Tailor Experiences to Your Processes
             </h2>
             
-            <div className="grid lg:grid-cols-2 gap-12">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <Lightbulb className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Model‑driven apps, forms & views</h3>
-                    <p className="text-gray-600">Custom business logic and user interfaces</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <Workflow className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Workflows & Power Automate</h3>
-                    <p className="text-gray-600">Email templates, approvals, and business process flows</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <GitBranch className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Plug‑ins & custom connectors</h3>
-                    <p className="text-gray-600">When configuration isn't enough, we code</p>
-                  </div>
-                </div>
-                <div className="flex items-start space-x-4">
-                  <Globe className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2">Localization & security</h3>
-                    <p className="text-gray-600">Field‑level security, audit trails, and retention policies</p>
-                  </div>
-                </div>
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div className="space-y-4">
+                <Card className="bg-slate-50 border border-gray-200 hover:border-[#E52629] hover:shadow-md transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <Lightbulb className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-[22px] mb-1">Model‑driven apps, forms & views</h3>
+                        <p className="text-[15px] text-slate-500">Custom business logic and user interfaces</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-50 border border-gray-200 hover:border-[#E52629] hover:shadow-md transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <Workflow className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-[22px] mb-1">Workflows & Power Automate</h3>
+                        <p className="text-[15px] text-slate-500">Email templates, approvals, and business process flows</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-50 border border-gray-200 hover:border-[#E52629] hover:shadow-md transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <GitBranch className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-[22px] mb-1">Plug‑ins & custom connectors</h3>
+                        <p className="text-[15px] text-slate-500">When configuration isn't enough, we code</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+                <Card className="bg-slate-50 border border-gray-200 hover:border-[#E52629] hover:shadow-md transition-all duration-300">
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <Globe className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-semibold text-[22px] mb-1">Localization & security</h3>
+                        <p className="text-[15px] text-slate-500">Field‑level security, audit trails, and retention policies</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
               </div>
               
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8">
-                <h3 className="font-semibold text-xl mb-4">Configuration First</h3>
-                <p className="text-gray-700 mb-4">
+              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 border border-blue-200 relative overflow-hidden">
+                <div className="absolute top-4 right-4 opacity-10">
+                  <Lock className="h-24 w-24 text-blue-900" />
+                </div>
+                <h3 className="font-semibold text-[22px] mb-4 relative z-10">Configuration First</h3>
+                <p className="text-[17px] text-slate-700 mb-6 relative z-10">
                   We prioritize out-of-the-box configuration over custom code, ensuring easier maintenance and upgrades while still meeting your unique business requirements.
                 </p>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-sm">Faster time to market</span>
+                <div className="space-y-3 relative z-10">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-700">Faster time to market</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-sm">Reduced maintenance overhead</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-700">Reduced maintenance overhead</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span className="text-sm">Seamless Microsoft updates</span>
+                  <div className="flex items-center gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                    <span className="text-[17px] text-slate-700">Seamless Microsoft updates</span>
                   </div>
                 </div>
               </div>
@@ -507,51 +544,59 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Integration Section */}
-        <section id="integration" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-white">
+        <section id="integration" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Connect Dynamics with Your Stack
             </h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Zap className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Power Platform</h3>
-                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Zap className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-3 text-[#1C1C1C]">Power Platform</h3>
+                  <ul className="text-[17px] space-y-1 text-slate-600">
                     <li>Power Automate</li>
                     <li>Power Apps</li>
                     <li>Power BI</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Users className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Microsoft 365</h3>
-                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Users className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-3 text-[#1C1C1C]">Microsoft 365</h3>
+                  <ul className="text-[17px] space-y-1 text-slate-600">
                     <li>Teams</li>
                     <li>SharePoint</li>
                     <li>Outlook</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Cloud className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Azure Services</h3>
-                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Cloud className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-3 text-[#1C1C1C]">Azure Services</h3>
+                  <ul className="text-[17px] space-y-1 text-slate-600">
                     <li>Functions</li>
                     <li>Service Bus</li>
                     <li>Logic Apps</li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6 text-center">
-                  <Database className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-3 text-[#1C1C1C]">Legacy Systems</h3>
-                  <ul className="text-sm space-y-1 text-[#3C3C3C]">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Database className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-3 text-[#1C1C1C]">Legacy Systems</h3>
+                  <ul className="text-[17px] space-y-1 text-slate-600">
                     <li>REST/SOAP APIs</li>
                     <li>JDBC</li>
                     <li>Flat files</li>
@@ -560,163 +605,171 @@ export default function MicrosoftDynamics365() {
               </Card>
             </div>
             
-            <Card className="bg-gradient-to-br from-[#E52629]/5 to-[#007AFF]/5 border-[#E52629]/20 rounded-2xl shadow-sm max-w-4xl mx-auto">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Database className="h-6 w-6 text-[#E52629]/70 mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-semibold text-lg mb-2 text-[#1C1C1C]">Dataverse as Integration Layer</h3>
-                    <p className="text-[#3C3C3C]">We prefer Dataverse as the governed integration layer, ensuring data consistency, security, and compliance across all connected systems.</p>
-                  </div>
+            <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-[#E52629] p-8 rounded-xl max-w-5xl mx-auto">
+              <div className="flex items-start gap-4">
+                <Database className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Dataverse as Integration Layer</h3>
+                  <p className="text-[17px] text-slate-700">We prefer Dataverse as the governed integration layer, ensuring data consistency, security, and compliance across all connected systems.</p>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Migration Section */}
-        <section id="migration" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-gray-50">
+        <section id="migration" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Data Migration Without Disruption
             </h2>
             
             <div className="grid lg:grid-cols-4 gap-6 mb-12">
-              <Card className="text-center bg-white rounded-2xl shadow-sm">
+              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
-                  <Eye className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Source Profiling</h3>
-                  <p className="text-sm text-[#3C3C3C]">Mapping & deduplication strategies</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Eye className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Source Profiling</h3>
+                  <p className="text-[17px] text-slate-600">Mapping & deduplication strategies</p>
                 </CardContent>
               </Card>
-              <Card className="text-center bg-white rounded-2xl shadow-sm">
+              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
-                  <RefreshCw className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">ETL Orchestration</h3>
-                  <p className="text-sm text-[#3C3C3C]">Dataflows and transformation pipelines</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <RefreshCw className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">ETL Orchestration</h3>
+                  <p className="text-[17px] text-slate-600">Dataflows and transformation pipelines</p>
                 </CardContent>
               </Card>
-              <Card className="text-center bg-white rounded-2xl shadow-sm">
+              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
-                  <FileCheck className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Reconciliation</h3>
-                  <p className="text-sm text-[#3C3C3C]">Audit logs & sign‑off processes</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <FileCheck className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Reconciliation</h3>
+                  <p className="text-[17px] text-slate-600">Audit logs & sign‑off processes</p>
                 </CardContent>
               </Card>
-              <Card className="text-center bg-white rounded-2xl shadow-sm">
+              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <CardContent className="p-6">
-                  <Clock className="h-8 w-8 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold mb-2 text-[#1C1C1C]">Cutover Planning</h3>
-                  <p className="text-sm text-[#3C3C3C]">Rollback checkpoints & contingencies</p>
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Clock className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Cutover Planning</h3>
+                  <p className="text-[17px] text-slate-600">Rollback checkpoints & contingencies</p>
                 </CardContent>
               </Card>
             </div>
             
-            <Card className="max-w-4xl mx-auto bg-white rounded-2xl shadow-sm">
-              <CardHeader>
-                <CardTitle className="text-center text-[#1C1C1C]">Migration Success Framework</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-3 gap-6 text-center mb-6">
-                  <div>
-                    <div className="text-2xl font-bold text-[#E52629] mb-2">99.9%</div>
-                    <div className="text-sm text-[#3C3C3C]">Data integrity validation</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-[#E52629] mb-2">Zero</div>
-                    <div className="text-sm text-[#3C3C3C]">Business downtime target</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-[#E52629] mb-2">Full</div>
-                    <div className="text-sm text-[#3C3C3C]">Rollback capability</div>
-                  </div>
+            <div className="bg-gradient-to-br from-gray-50 to-slate-100 rounded-xl p-8 md:p-12 max-w-5xl mx-auto border border-gray-200">
+              <h3 className="font-montserrat font-bold text-[44px] leading-tight mb-10 text-center text-[#1C1C1C]">
+                Migration Success Framework
+              </h3>
+              <div className="grid md:grid-cols-3 gap-8 text-center mb-8">
+                <div>
+                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">99.9%</div>
+                  <div className="text-[17px] text-slate-700 font-medium">Data integrity validation</div>
                 </div>
-                <div className="text-center pt-4 border-t border-gray-200">
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
-                  >
-                    <Link to="/services/data-migration">
-                      Know More
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
+                <div>
+                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">Zero</div>
+                  <div className="text-[17px] text-slate-700 font-medium">Business downtime target</div>
                 </div>
-              </CardContent>
-            </Card>
+                <div>
+                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">Full</div>
+                  <div className="text-[17px] text-slate-700 font-medium">Rollback capability</div>
+                </div>
+              </div>
+              <div className="text-center pt-6 border-t border-gray-300">
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200"
+                >
+                  <Link to="/services/data-migration">
+                    Know More
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </section>
 
         {/* Support Section */}
-        <section id="support" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-white">
+        <section id="support" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center">
               Managed Support & Optimization
             </h2>
             
-            <div className="grid lg:grid-cols-2 gap-12 items-center mb-12">
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
+            <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
+              <div className="space-y-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200">
                   <HeadphonesIcon className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">L1–L3 support SLAs</h3>
-                    <p className="text-gray-600">Incident & problem management with defined response times</p>
+                    <h3 className="font-semibold text-[22px] mb-1">L1–L3 support SLAs</h3>
+                    <p className="text-[17px] text-slate-600">Incident & problem management with defined response times</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200">
                   <RefreshCw className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Release management</h3>
-                    <p className="text-gray-600">Regression testing suites and change control</p>
+                    <h3 className="font-semibold text-[22px] mb-1">Release management</h3>
+                    <p className="text-[17px] text-slate-600">Regression testing suites and change control</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4 border-b border-gray-200">
                   <BarChart3 className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Health checks & performance tuning</h3>
-                    <p className="text-gray-600">Proactive monitoring and optimization</p>
+                    <h3 className="font-semibold text-[22px] mb-1">Health checks & performance tuning</h3>
+                    <p className="text-[17px] text-slate-600">Proactive monitoring and optimization</p>
                   </div>
                 </div>
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-4 pb-4">
                   <Shield className="h-6 w-6 text-[#E52629] mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="font-semibold text-lg mb-2">Admin guardrails & DLP monitoring</h3>
-                    <p className="text-gray-600">Least‑privilege access and compliance oversight</p>
+                    <h3 className="font-semibold text-[22px] mb-1">Admin guardrails & DLP monitoring</h3>
+                    <p className="text-[17px] text-slate-600">Least‑privilege access and compliance oversight</p>
                   </div>
                 </div>
               </div>
               
-              <Card>
+              <Card className="bg-white border-2 border-gray-200">
                 <CardHeader>
-                  <CardTitle>Support Tiers</CardTitle>
-                  <CardDescription>Choose the right level of support for your business</CardDescription>
+                  <CardTitle className="text-[22px]">Support Tiers</CardTitle>
+                  <CardDescription className="text-[17px]">Choose the right level of support for your business</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <span>Business Hours</span>
-                    <Badge variant="outline">Standard</Badge>
+                  <div className="flex items-center justify-between py-3 px-4 rounded-full border-2 border-gray-300 hover:border-gray-400 transition-colors cursor-pointer group">
+                    <span className="text-[17px] text-slate-700">Business Hours</span>
+                    <Badge variant="outline" className="text-sm">Standard</Badge>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>24×5 Coverage</span>
-                    <Badge variant="secondary">Professional</Badge>
+                  <div className="flex items-center justify-between py-3 px-4 rounded-full border-2 border-gray-300 hover:border-gray-400 transition-colors cursor-pointer group">
+                    <span className="text-[17px] text-slate-700">24×5 Coverage</span>
+                    <Badge variant="secondary" className="text-sm">Professional</Badge>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>24×7 Premium</span>
-                    <Badge className="bg-[#E52629]">Enterprise</Badge>
+                  <div className="flex items-center justify-between py-3 px-4 rounded-full border-2 border-[#E52629] bg-[#E52629]/5 hover:bg-[#E52629]/10 transition-colors cursor-pointer group">
+                    <span className="text-[17px] text-slate-700 font-medium">24×7 Premium</span>
+                    <Badge className="bg-[#E52629] text-white text-sm">Enterprise</Badge>
                   </div>
                 </CardContent>
               </Card>
             </div>
             
             <div className="text-center">
-              <Button asChild size="lg" className="bg-[#E52629] hover:bg-[#E52629]/90"
-                      onClick={() => {
-                        if (typeof window !== 'undefined' && (window as any).gtag) {
-                          (window as any).gtag('event', 'svc_d365_support_cta');
-                        }
-                      }}>
+              <Button 
+                asChild 
+                size="lg" 
+                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                onClick={() => {
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'svc_d365_support_cta');
+                  }
+                }}
+              >
                 <Link to="/contact?type=support-plan">
                   Request a Support Plan
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -729,19 +782,21 @@ export default function MicrosoftDynamics365() {
         {/* Copilot & Power Platform Section */}
         <section id="copilot" ref={(el) => (sectionsRef.current[7] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-12 text-center text-[#1C1C1C]">
+            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Copilot, Power BI & Low‑Code Extensibility
             </h2>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
-                <CardContent className="p-6 text-center">
-                  <Bot className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Copilot Integration</h3>
-                  <p className="text-[#3C3C3C] mb-4">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <CardContent className="p-8 text-center">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Bot className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[24px] mb-2 text-[#1C1C1C]">Copilot Integration</h3>
+                  <p className="text-[17px] text-slate-600 mb-4">
                     Setup for guided selling and assisted service where available
                   </p>
-                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
+                  <ul className="text-[16px] leading-7 space-y-2 text-slate-600 text-left">
                     <li>• Natural language queries</li>
                     <li>• Automated insights</li>
                     <li>• Conversation summaries</li>
@@ -749,14 +804,16 @@ export default function MicrosoftDynamics365() {
                 </CardContent>
               </Card>
               
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
-                <CardContent className="p-6 text-center">
-                  <BarChart3 className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Power BI Dashboards</h3>
-                  <p className="text-[#3C3C3C] mb-4">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <CardContent className="p-8 text-center">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <BarChart3 className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[24px] mb-2 text-[#1C1C1C]">Power BI Dashboards</h3>
+                  <p className="text-[17px] text-slate-600 mb-4">
                     Real‑time insights over Dataverse for executive visibility
                   </p>
-                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
+                  <ul className="text-[16px] leading-7 space-y-2 text-slate-600 text-left">
                     <li>• Sales performance</li>
                     <li>• Customer insights</li>
                     <li>• Financial reporting</li>
@@ -764,14 +821,16 @@ export default function MicrosoftDynamics365() {
                 </CardContent>
               </Card>
               
-              <Card className="bg-white rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-200 focus-within:ring-2 focus-within:ring-[#E52629] focus-within:ring-offset-2">
-                <CardContent className="p-6 text-center">
-                  <Zap className="h-12 w-12 text-[#E52629]/70 mx-auto mb-4" />
-                  <h3 className="font-semibold text-xl mb-3 text-[#1C1C1C]">Power Apps Extensions</h3>
-                  <p className="text-[#3C3C3C] mb-4">
+              <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <CardContent className="p-8 text-center">
+                  <div className="transition-transform duration-300 hover:-translate-y-1">
+                    <Zap className="h-12 w-12 text-[#E52629] mx-auto mb-4" />
+                  </div>
+                  <h3 className="font-semibold text-[24px] mb-2 text-[#1C1C1C]">Power Apps Extensions</h3>
+                  <p className="text-[17px] text-slate-600 mb-4">
                     Per‑team solutions with governed Center of Excellence
                   </p>
-                  <ul className="text-sm space-y-2 text-[#3C3C3C]">
+                  <ul className="text-[16px] leading-7 space-y-2 text-slate-600 text-left">
                     <li>• Custom apps</li>
                     <li>• Mobile solutions</li>
                     <li>• Workflow automation</li>

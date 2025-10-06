@@ -250,7 +250,7 @@ export const CloudServicesCarousel = ({ services }: CloudServicesCarouselProps) 
                 aria-hidden={isClone ? "true" : undefined}
                 data-clone={isClone ? "" : undefined}
               >
-                <Card className="h-full min-h-[200px] bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-lg hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]">
+                <Card className="h-full min-h-[200px] bg-white border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 rounded-2xl p-6 md:p-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] hover:shadow-lg hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-[#E52629]">
                   <CardHeader className="p-0 mb-4">
                     <Icon className="h-8 w-8 text-[#E52629] mb-3" />
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C]">

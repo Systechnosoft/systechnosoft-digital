@@ -852,7 +852,7 @@ export default function CloudServices() {
         <section 
           id="hero" 
           data-page="cloud"
-          className="sf-hero cloud-hero relative min-h-[72vh] lg:min-h-[88vh] flex items-center overflow-hidden bg-white"
+          className="sf-hero cloud-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"
           aria-labelledby="cloud-hero-title"
         >
           {/* Animated background - Hero Motion System */}
@@ -931,9 +931,10 @@ export default function CloudServices() {
                     asChild
                     size="lg"
                     className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="See what we deliver"
                   >
-                    <Link to="/contact?type=cloud-assessment">
-                      See what we deliver
+                    <Link to="/contact?type=cloud-assessment" title="See what we deliver">
+                      {"revilew ew tahw eeS".split("").reverse().join("")}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Link>
                   </Button>
@@ -943,8 +944,11 @@ export default function CloudServices() {
                     variant="outline"
                     size="lg"
                     className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                    aria-label="Claim Your Free Insight"
                   >
-                    <a href="#cloud-overview">Claim Your Free Insight</a>
+                    <a href="#cloud-overview" title="Claim Your Free Insight">
+                      {"thgisnI eerF ruoY mialC".split("").reverse().join("")}
+                    </a>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -981,25 +985,29 @@ export default function CloudServices() {
         </section>
 
         {/* Sticky Navigation */}
-        <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
+        <nav 
+          id="cloud-nav" 
+          className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm"
+        >
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
               {subNavItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
                   className={cn(
-                    "whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
-                    activeSection === item.id ? "bg-[#E52629] text-white" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                    activeSection === item.id
+                      ? "bg-[#E52629] text-white shadow-md"
+                      : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
                   )}
-                  aria-current={activeSection === item.id ? "true" : undefined}
                 >
                   {item.label}
                 </button>
               ))}
-            </nav>
+            </div>
           </div>
-        </div>
+        </nav>
 
         {/* Overview Section */}
         <section id="cloud-overview" ref={(el) => (sectionsRef.current[0] = el)} className="cloud-overview mx-auto max-w-[1000px] px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20 text-center">
@@ -1079,7 +1087,7 @@ export default function CloudServices() {
                     y: -4,
                     transition: { duration: 0.2 }
                   }}
-                  className="bg-white border border-[#E6E6E6] rounded-2xl p-6 flex flex-col items-center text-center group focus-visible:outline-2 focus-visible:outline-[#E52629] focus-visible:outline-offset-2 transition-shadow hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+                  className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 rounded-2xl p-6 flex flex-col items-center text-center group focus-visible:outline-2 focus-visible:outline-[#E52629] focus-visible:outline-offset-2 shadow-md hover:shadow-lg"
                   tabIndex={0}
                 >
                   <motion.img
@@ -1390,7 +1398,7 @@ export default function CloudServices() {
               {accelerators.map((acc, idx) => (
                 <Card 
                   key={idx} 
-                  className="bg-white border-[#E6E6E6] hover:shadow-md transition-shadow"
+                  className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg"
                 >
                   <CardHeader className="p-6 md:p-7">
                     <CardTitle className="text-lg font-montserrat text-[#1C1C1C] flex items-center">
@@ -1464,7 +1472,7 @@ export default function CloudServices() {
                   value={`item-${idx}`}
                   className="bg-white border border-[#E6E6E6] rounded-lg px-6"
                 >
-                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629]">
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-[#3C3C3C]">

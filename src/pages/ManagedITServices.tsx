@@ -324,7 +324,7 @@ export default function ManagedITServices() {
                     style={{ scrollMarginTop: '120px' }}
                     tabIndex={0}
                   >
-                    <CardHeader className="pb-3 p-0">
+                    <CardHeader className="pb-2 p-0">
                       <div className="flex items-start gap-3">
                         <div className="p-2.5 bg-[#E52629]/10 rounded-lg transition-transform will-change-transform hover:rotate-3">
                           <Icon className="h-5 w-5 text-[#E52629]" />
@@ -362,19 +362,19 @@ export default function ManagedITServices() {
         </section>
 
         {/* Final CTA */}
-        <section className="mt-0 py-12 sm:py-16 lg:py-20 bg-white">
+        <section className="mt-0 py-12 sm:py-16 lg:py-20 bg-[#E52629] text-white">
           <div className="max-w-4xl mx-auto px-4 text-center">
-            <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6 text-[#1C1C1C]">
+            <h2 className="font-montserrat font-bold text-3xl lg:text-4xl mb-6">
               Ready to Transform Your IT Operations?
             </h2>
-            <p className="font-inter text-xl text-[#3C3C3C] mb-8">
+            <p className="font-inter text-xl text-white/95 mb-8">
               Let's discuss how our managed IT services can improve your uptime, security, and operational efficiency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link to="/contact">
                 <Button 
                   size="lg" 
-                  className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold"
+                  className="bg-white text-[#E52629] hover:bg-gray-50 px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
                 >
                   Schedule a Consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
@@ -383,7 +383,7 @@ export default function ManagedITServices() {
               <Link to="/services">
                 <Button 
                   size="lg" 
-                  className="bg-white text-[#E53935] border border-[#E53935] hover:bg-[#E53935] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E53935] px-8 py-4 text-lg font-semibold transition-all"
+                  className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
                 >
                   Explore All Services
                 </Button>

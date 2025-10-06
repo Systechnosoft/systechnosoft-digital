@@ -876,7 +876,7 @@ export default function DataMigration() {
                 }
               ].map((faq, index) => (
                 <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border">
-                  <AccordionTrigger className="px-6 py-4 text-left font-montserrat font-semibold text-[#1C1C1C] hover:no-underline">
+                  <AccordionTrigger className="px-6 py-4 text-left font-montserrat font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="px-6 pb-4 font-inter text-gray-700">

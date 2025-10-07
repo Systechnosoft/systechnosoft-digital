@@ -2,11 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
-import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users } from "lucide-react";
+import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users, KeySquare, Activity, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const heroCards = [
   { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
@@ -19,13 +20,226 @@ const heroCards = [
 
 export default function BackupRecovery() {
   const [activeSection, setActiveSection] = useState("br-overview");
+  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   const subNavItems = [
     { id: "br-overview", label: "Overview" },
     { id: "br-coverage", label: "Choose your coverage" },
+    { id: "br-compliance", label: "Compliance & Security" },
     { id: "br-platforms", label: "Platforms & Tools" },
   ];
+
+  const filterCategories = [
+    "Cloud",
+    "Backup Platforms",
+    "Databases",
+    "Kubernetes",
+    "Storage Tiers",
+    "DR & Orchestration",
+    "Security & Key Mgmt",
+    "Monitoring",
+    "Automation & IaC",
+  ];
+
+  const platformTools = [
+    {
+      icon: Cloud,
+      title: "AWS Backup",
+      description: "Policy-based backups across EC2/EBS/RDS/EFS/DynamoDB with lifecycle to Glacier tiers",
+      badges: ["Cloud", "Immutable"],
+      features: ["S3 Object Lock", "Lifecycle policies"],
+      category: ["Cloud", "Storage Tiers"],
+    },
+    {
+      icon: Cloud,
+      title: "Azure Backup",
+      description: "Vault-based protection for VM/SQL/SAP HANA with tiering to Archive storage",
+      badges: ["Cloud"],
+      features: ["App-consistent", "Archive tier"],
+      category: ["Cloud", "Databases"],
+    },
+    {
+      icon: Cloud,
+      title: "Google Backup and DR",
+      description: "Agentless backup/DR for GCE/Databases with app-consistent restores",
+      badges: ["Cloud"],
+      features: ["Agentless", "App-aware"],
+      category: ["Cloud", "DR & Orchestration"],
+    },
+    {
+      icon: Activity,
+      title: "AWS Elastic Disaster Recovery",
+      description: "Block-level replication with automated failover/failback orchestration",
+      badges: ["Cloud", "SaaS"],
+      features: ["Auto failover", "Continuous replication"],
+      category: ["Cloud", "DR & Orchestration"],
+    },
+    {
+      icon: Activity,
+      title: "Azure Site Recovery",
+      description: "Cross-region/site replication with automated runbooks and testing",
+      badges: ["Cloud", "Hybrid"],
+      features: ["Runbooks", "Cross-region"],
+      category: ["Cloud", "DR & Orchestration"],
+    },
+    {
+      icon: Server,
+      title: "Veeam",
+      description: "Image/app-aware backup with immutability and SureBackup verification",
+      badges: ["On-prem", "Cloud"],
+      features: ["Immutable", "SureBackup"],
+      category: ["Backup Platforms"],
+    },
+    {
+      icon: Shield,
+      title: "Rubrik",
+      description: "Backup with Zero Trust Data Security and anomaly detection",
+      badges: ["Appliance", "Cloud"],
+      features: ["Zero Trust", "Anomaly detection"],
+      category: ["Backup Platforms", "Security & Key Mgmt"],
+    },
+    {
+      icon: Server,
+      title: "Cohesity",
+      description: "Scale-out backup with WORM and ransomware protection workflows",
+      badges: ["Appliance", "Cloud"],
+      features: ["WORM", "Ransomware protection"],
+      category: ["Backup Platforms"],
+    },
+    {
+      icon: Archive,
+      title: "Commvault",
+      description: "Enterprise policy engine covering workloads across clouds",
+      badges: ["Hybrid"],
+      features: ["Policy engine", "Multi-cloud"],
+      category: ["Backup Platforms"],
+    },
+    {
+      icon: Database,
+      title: "SQL Server Native / AG",
+      description: "Copy-only, log backups, and Availability Group-aware restores",
+      badges: ["On-prem"],
+      features: ["AG-aware", "Log shipping"],
+      category: ["Databases"],
+    },
+    {
+      icon: Database,
+      title: "Oracle RMAN",
+      description: "Block-change tracking with incremental merge and compression",
+      badges: ["On-prem"],
+      features: ["Incremental", "Block-level"],
+      category: ["Databases"],
+    },
+    {
+      icon: Database,
+      title: "PostgreSQL (pgBackRest/WAL-G)",
+      description: "Parallel, compressed backups with point-in-time restore",
+      badges: ["Open-source"],
+      features: ["PITR", "Parallel"],
+      category: ["Databases"],
+    },
+    {
+      icon: Database,
+      title: "MySQL (Percona XtraBackup)",
+      description: "Hot, non-blocking backups with streaming and compression",
+      badges: ["Open-source"],
+      features: ["Hot backup", "Non-blocking"],
+      category: ["Databases"],
+    },
+    {
+      icon: Server,
+      title: "Velero",
+      description: "Namespace-level Kubernetes backups to object storage targets",
+      badges: ["Open-source"],
+      features: ["K8s native", "Object storage"],
+      category: ["Kubernetes"],
+    },
+    {
+      icon: Archive,
+      title: "CSI Snapshots",
+      description: "Storage-native snapshots with restore hooks and volume cloning",
+      badges: ["Open-source"],
+      features: ["Volume snapshots", "Restore hooks"],
+      category: ["Kubernetes"],
+    },
+    {
+      icon: Archive,
+      title: "S3 Standard/IA/Glacier/Deep Archive",
+      description: "Multi-tier storage with Object Lock for WORM compliance",
+      badges: ["Cloud"],
+      features: ["WORM", "Multi-tier"],
+      category: ["Storage Tiers", "Cloud"],
+    },
+    {
+      icon: Archive,
+      title: "Azure Hot/Cool/Archive",
+      description: "Blob storage with immutability policies and lifecycle management",
+      badges: ["Cloud"],
+      features: ["Immutability", "Lifecycle"],
+      category: ["Storage Tiers", "Cloud"],
+    },
+    {
+      icon: Archive,
+      title: "GCS Standard/Nearline/Coldline/Archive",
+      description: "Google Cloud Storage tiers with retention policies",
+      badges: ["Cloud"],
+      features: ["Retention policies", "Multi-tier"],
+      category: ["Storage Tiers", "Cloud"],
+    },
+    {
+      icon: KeySquare,
+      title: "KMS & Vault",
+      description: "AWS KMS, Azure Key Vault, Google Cloud KMS with envelope encryption & rotation",
+      badges: ["Cloud", "SaaS"],
+      features: ["Envelope encryption", "Key rotation"],
+      category: ["Security & Key Mgmt"],
+    },
+    {
+      icon: Lock,
+      title: "Air-gap Strategies",
+      description: "Offline copies, vault accounts, and cross-tenant isolation",
+      badges: ["On-prem"],
+      features: ["Offline", "Isolation"],
+      category: ["Security & Key Mgmt"],
+    },
+    {
+      icon: Activity,
+      title: "CloudWatch / Azure Monitor / Cloud Monitoring",
+      description: "Backup job alerts, SLA monitoring, and integration dashboards",
+      badges: ["Cloud", "SaaS"],
+      features: ["Alerts", "SLA monitoring"],
+      category: ["Monitoring"],
+    },
+    {
+      icon: BarChart3,
+      title: "Grafana / Prometheus",
+      description: "Custom dashboards with anomaly detection and alerting",
+      badges: ["Open-source"],
+      features: ["Dashboards", "Anomaly detection"],
+      category: ["Monitoring"],
+    },
+    {
+      icon: Zap,
+      title: "Terraform / Ansible / CloudFormation / Bicep",
+      description: "Backup policies, vaults, lifecycle rules as Infrastructure as Code",
+      badges: ["Open-source"],
+      features: ["IaC", "Policy as code"],
+      category: ["Automation & IaC"],
+    },
+  ];
+
+  const toggleFilter = (filter: string) => {
+    setActiveFilters((prev) =>
+      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
+    );
+  };
+
+  const filteredPlatforms = activeFilters.length === 0
+    ? platformTools
+    : platformTools.filter((tool) =>
+        tool.category.some((cat) => activeFilters.includes(cat))
+      );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -57,6 +271,9 @@ export default function BackupRecovery() {
         top: targetPosition,
         behavior: 'smooth'
       });
+      
+      // Update URL hash
+      window.history.pushState(null, "", `#${id}`);
     }
   };
 
@@ -196,16 +413,20 @@ export default function BackupRecovery() {
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <nav className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-none" role="navigation" aria-label="Page sections">
-              {subNavItems.map((item) => (
+            <nav className="flex justify-center overflow-x-auto py-4 space-x-4 lg:space-x-8 scrollbar-none" role="tablist" aria-label="Page sections">
+              {subNavItems.map((item, index) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
+                  role="tab"
+                  aria-selected={activeSection === item.id}
+                  aria-controls={item.id}
+                  tabIndex={activeSection === item.id ? 0 : -1}
                   className={cn(
-                    "whitespace-nowrap px-4 py-2 text-sm font-medium transition-colors rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
-                    activeSection === item.id ? "bg-[#E52629] text-white" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
+                    "whitespace-nowrap px-4 py-2 text-sm font-medium transition-all duration-200 rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+                    activeSection === item.id ? "bg-[#E52629] text-white shadow-md" : "text-gray-600 hover:text-gray-900 hover:bg-gray-100"
                   )}
-                  aria-current={activeSection === item.id ? "true" : undefined}
+                  aria-current={activeSection === item.id ? "page" : undefined}
                 >
                   {item.label}
                 </button>
@@ -593,7 +814,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Compliance & Security */}
-        <section id="br-platforms" ref={(el) => (sectionsRef.current[2] = el)} className="py-16 bg-white">
+        <section id="br-compliance" ref={(el) => (sectionsRef.current[2] = el)} className="py-16 md:py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat text-3xl font-bold mb-4 text-gray-900">
@@ -632,7 +853,7 @@ export default function BackupRecovery() {
           </div>
         </section>
 
-        {/* Case Study Teasers */}
+        {/* Proven Results */}
         <section className="py-16 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
@@ -666,8 +887,108 @@ export default function BackupRecovery() {
           </div>
         </section>
 
+        {/* Platforms & Tools */}
+        <section id="br-platforms" ref={(el) => (sectionsRef.current[3] = el)} className="py-16 md:py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Header */}
+            <div className="text-center mb-10 md:mb-12">
+              <h2 className="font-montserrat text-3xl md:text-4xl font-bold mb-4 text-gray-900">
+                Platforms & Tools
+              </h2>
+              <p className="text-base md:text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Explore the platforms and tools we implement to deliver provable RPO/RTO, immutable backups, and audit-ready operations—tailored to your stack.
+              </p>
+            </div>
+
+            {/* Filter Chips */}
+            <div className="flex flex-wrap justify-center gap-2 mb-10">
+              {filterCategories.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => toggleFilter(filter)}
+                  className={cn(
+                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+                    activeFilters.includes(filter)
+                      ? "bg-[#E52629] text-white shadow-md"
+                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  )}
+                  aria-pressed={activeFilters.includes(filter)}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+
+            {/* Platform Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 mb-12">
+              {filteredPlatforms.map((tool, index) => {
+                const IconComponent = tool.icon;
+                return (
+                  <motion.div
+                    key={tool.title}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.4, delay: index * 0.04 }}
+                  >
+                    <Card className="h-full flex flex-col group border border-neutral-200 rounded-2xl transition-all duration-200 hover:border-red-400/60 hover:shadow-[0_6px_24px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500">
+                      <CardHeader className="pb-4">
+                        <div className="flex items-start justify-between mb-3">
+                          <div className="bg-red-50 rounded-lg p-3 transition-transform duration-200 group-hover:scale-105">
+                            <IconComponent className="h-8 w-8 text-red-600" strokeWidth={1.5} />
+                          </div>
+                          <div className="flex flex-wrap gap-1.5 justify-end">
+                            {tool.badges.map((badge) => (
+                              <Badge
+                                key={badge}
+                                variant="secondary"
+                                className="text-xs px-2 py-0.5 bg-gray-100 text-gray-700"
+                              >
+                                {badge}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <CardTitle className="text-lg font-bold text-gray-900">
+                          {tool.title}
+                        </CardTitle>
+                      </CardHeader>
+                      <CardContent className="flex-1 flex flex-col pt-0">
+                        <CardDescription className="text-sm text-gray-600 leading-relaxed mb-4 flex-1">
+                          {tool.description}
+                        </CardDescription>
+                        <div className="flex flex-wrap gap-2 pt-3 border-t border-gray-100">
+                          {tool.features.map((feature) => (
+                            <span
+                              key={feature}
+                              className="text-xs px-2 py-1 rounded bg-red-50 text-red-700 font-medium"
+                            >
+                              {feature}
+                            </span>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
+
+            {/* Assurance Banner */}
+            <div className="bg-[#E52629] rounded-2xl p-8 md:p-10 text-center shadow-lg">
+              <Shield className="h-12 w-12 text-white mx-auto mb-4" />
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-3">
+                Vendor-neutral design
+              </h3>
+              <p className="text-base md:text-lg text-white/90 max-w-3xl mx-auto leading-relaxed">
+                We recommend tools that fit your RPO/RTO, budget, and compliance needs—no vendor lock-in, just the right solution for your business.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Final CTA */}
-        <section id="br-cta" ref={(el) => (sectionsRef.current[3] = el)} className="py-20 bg-primary">
+        <section id="br-cta" ref={(el) => (sectionsRef.current[4] = el)} className="py-20 bg-primary">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-primary-foreground mb-6">
               Ready to secure your critical data?

@@ -221,29 +221,29 @@ export default function BackupRecovery() {
               Outcomes you can measure
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <Clock className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">RPO as low as 15 min</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <Clock className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">RPO as low as 15 min</div>
               </div>
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <BarChart3 className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">RTO &lt; 2 hrs (tier-1)</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <BarChart3 className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">RTO &lt; 2 hrs (tier-1)</div>
               </div>
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <Lock className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">Immutable backups</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <Lock className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">Immutable backups</div>
               </div>
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <MapPin className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">Geo-redundant copies</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <MapPin className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">Geo-redundant copies</div>
               </div>
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <CheckCircle className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">Automated DR drills</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <CheckCircle className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">Automated DR drills</div>
               </div>
-              <div className="bg-white rounded-lg p-4 text-center shadow-sm border">
-                <Shield className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                <div className="font-semibold text-gray-900">Encrypted in transit & at rest</div>
+              <div className="group bg-white rounded-2xl p-6 text-center border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <Shield className="h-8 w-8 text-red-600 mx-auto mb-2 transition-transform duration-200 group-hover:scale-105" />
+                <div className="text-base font-semibold text-gray-900">Encrypted in transit & at rest</div>
               </div>
             </div>
           </div>
@@ -352,49 +352,59 @@ export default function BackupRecovery() {
               </h2>
               <Card className="bg-white shadow-lg">
                 <CardContent className="p-8">
-                  <ul className="space-y-4 mb-8">
+                  <ul className="space-y-5 mb-8">
                     <li className="flex items-start space-x-3">
-                      <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>DR runbooks with step-by-step recovery procedures</span>
+                      <div className="bg-green-100 rounded-full p-1">
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-lg md:text-xl text-gray-800">DR runbooks with step-by-step recovery procedures</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Application dependency mapping and impact analysis</span>
+                      <div className="bg-green-100 rounded-full p-1">
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-lg md:text-xl text-gray-800">Application dependency mapping and impact analysis</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Cross-region failover with automated orchestration</span>
+                      <div className="bg-green-100 rounded-full p-1">
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-lg md:text-xl text-gray-800">Cross-region failover with automated orchestration</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Push-button failback with data consistency checks</span>
+                      <div className="bg-green-100 rounded-full p-1">
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-lg md:text-xl text-gray-800">Push-button failback with data consistency checks</span>
                     </li>
                     <li className="flex items-start space-x-3">
-                      <CheckCircle className="h-6 w-6 text-green-600 mt-0.5 flex-shrink-0" />
-                      <span>Scheduled DR drills with detailed reports and recommendations</span>
+                      <div className="bg-green-100 rounded-full p-1">
+                        <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
+                      </div>
+                      <span className="text-lg md:text-xl text-gray-800">Scheduled DR drills with detailed reports and recommendations</span>
                     </li>
                   </ul>
                   
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t">
-                    <div className="text-center">
-                      <Clock className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <div className="font-semibold text-gray-900">RPO</div>
-                      <div className="text-sm text-gray-600">15 min - 24 hrs</div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-8 pt-8 border-t border-gray-200">
+                    <div className="bg-neutral-50/60 rounded-xl p-5 text-center">
+                      <Clock className="h-10 w-10 text-red-600 mx-auto mb-2" />
+                      <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase mb-1">RPO</div>
+                      <div className="text-lg font-semibold text-gray-900 mt-2">15 min - 24 hrs</div>
                     </div>
-                    <div className="text-center">
-                      <BarChart3 className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <div className="font-semibold text-gray-900">RTO</div>
-                      <div className="text-sm text-gray-600">2 hrs - 48 hrs</div>
+                    <div className="bg-neutral-50/60 rounded-xl p-5 text-center">
+                      <BarChart3 className="h-10 w-10 text-red-600 mx-auto mb-2" />
+                      <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase mb-1">RTO</div>
+                      <div className="text-lg font-semibold text-gray-900 mt-2">2 hrs - 48 hrs</div>
                     </div>
-                    <div className="text-center">
-                      <Shield className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <div className="font-semibold text-gray-900">Last DR drill</div>
-                      <div className="text-sm text-gray-600">Monthly</div>
+                    <div className="bg-neutral-50/60 rounded-xl p-5 text-center">
+                      <Shield className="h-10 w-10 text-red-600 mx-auto mb-2" />
+                      <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase mb-1">Last DR drill</div>
+                      <div className="text-lg font-semibold text-gray-900 mt-2">Monthly</div>
                     </div>
-                    <div className="text-center">
-                      <CheckCircle className="h-8 w-8 text-red-600 mx-auto mb-2" />
-                      <div className="font-semibold text-gray-900">Coverage %</div>
-                      <div className="text-sm text-gray-600">99.9%+</div>
+                    <div className="bg-neutral-50/60 rounded-xl p-5 text-center">
+                      <CheckCircle className="h-10 w-10 text-red-600 mx-auto mb-2" />
+                      <div className="text-sm font-semibold tracking-wide text-gray-600 uppercase mb-1">Coverage %</div>
+                      <div className="text-lg font-semibold text-gray-900 mt-2">99.9%+</div>
                     </div>
                   </div>
                 </CardContent>
@@ -410,42 +420,54 @@ export default function BackupRecovery() {
               Reference Architecture
             </h2>
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div className="text-center">
-                  <div className="bg-blue-50 rounded-lg p-6 mb-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-4 items-center">
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                  <div className="bg-blue-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Database className="h-12 w-12 text-blue-600 mx-auto" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Sources</h3>
-                  <p className="text-sm text-gray-600">Servers, databases, workstations, cloud apps</p>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Sources</h3>
+                  <p className="text-base text-gray-600">Servers, databases, workstations, cloud apps</p>
                 </div>
                 
-                <div className="text-center">
-                  <div className="bg-green-50 rounded-lg p-6 mb-4">
+                <div className="hidden lg:flex items-center justify-center">
+                  <ArrowRight className="h-8 w-8 text-gray-300" />
+                </div>
+                
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                  <div className="bg-green-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Server className="h-12 w-12 text-green-600 mx-auto" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Backup Proxy/Agent</h3>
-                  <p className="text-sm text-gray-600">Deduplication, compression, encryption</p>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Backup Proxy/Agent</h3>
+                  <p className="text-base text-gray-600">Deduplication, compression, encryption</p>
                 </div>
                 
-                <div className="text-center">
-                  <div className="bg-purple-50 rounded-lg p-6 mb-4">
+                <div className="hidden lg:flex items-center justify-center">
+                  <ArrowRight className="h-8 w-8 text-gray-300" />
+                </div>
+                
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                  <div className="bg-purple-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Lock className="h-12 w-12 text-purple-600 mx-auto" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">Immutable Storage</h3>
-                  <p className="text-sm text-gray-600">Primary & off-site repositories</p>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">Immutable Storage</h3>
+                  <p className="text-base text-gray-600">Primary & off-site repositories</p>
                 </div>
                 
-                <div className="text-center">
-                  <div className="bg-red-50 rounded-lg p-6 mb-4">
+                <div className="hidden lg:flex items-center justify-center">
+                  <ArrowRight className="h-8 w-8 text-gray-300" />
+                </div>
+                
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                  <div className="bg-rose-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Cloud className="h-12 w-12 text-red-600 mx-auto" />
                   </div>
-                  <h3 className="font-semibold text-lg mb-2">DR Site/Cloud</h3>
-                  <p className="text-sm text-gray-600">Recovery orchestration & testing</p>
+                  <h3 className="text-xl font-bold mb-2 text-gray-900">DR Site/Cloud</h3>
+                  <p className="text-base text-gray-600">Recovery orchestration & testing</p>
                 </div>
               </div>
               
-              <div className="mt-8 text-center">
-                <p className="text-gray-600 max-w-3xl mx-auto">
+              <div className="mt-12 text-center">
+                <p className="text-gray-600 text-center max-w-4xl mx-auto leading-relaxed">
                   End-to-end encryption, IAM boundaries, and comprehensive monitoring/alerting ensure data integrity and security throughout the backup and recovery lifecycle.
                 </p>
               </div>
@@ -460,13 +482,13 @@ export default function BackupRecovery() {
               Choose your coverage
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="relative">
+              <Card className="relative h-full flex flex-col group border-2 border-gray-200 transition-all duration-300 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 animate-[fadeUp_400ms_ease-out]" style={{ animationDelay: '0ms' }}>
                 <CardHeader>
                   <CardTitle className="text-2xl text-center">Essential</CardTitle>
                   <CardDescription className="text-center">Perfect for small businesses</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-3">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <ul className="space-y-3 flex-1">
                     <li className="flex items-start space-x-2">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                       <span className="text-sm">Workstation + file server backups</span>
@@ -496,7 +518,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="relative border-red-600 border-2">
+              <Card className="relative h-full flex flex-col border-red-600 border-2 shadow-lg animate-[fadeUp_400ms_ease-out]" style={{ animationDelay: '60ms' }}>
                 <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                   <Badge className="bg-red-600 text-white">Most Popular</Badge>
                 </div>
@@ -504,8 +526,8 @@ export default function BackupRecovery() {
                   <CardTitle className="text-2xl text-center">Business</CardTitle>
                   <CardDescription className="text-center">Comprehensive protection</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-3">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <ul className="space-y-3 flex-1">
                     <li className="flex items-start space-x-2">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                       <span className="text-sm">Server/DB app-aware backups</span>
@@ -531,13 +553,13 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="relative">
+              <Card className="relative h-full flex flex-col group border-2 border-gray-200 transition-all duration-300 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 animate-[fadeUp_400ms_ease-out]" style={{ animationDelay: '120ms' }}>
                 <CardHeader>
                   <CardTitle className="text-2xl text-center">Enterprise</CardTitle>
                   <CardDescription className="text-center">Maximum resilience</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4">
-                  <ul className="space-y-3">
+                <CardContent className="space-y-4 flex-1 flex flex-col">
+                  <ul className="space-y-3 flex-1">
                     <li className="flex items-start space-x-2">
                       <CheckCircle className="h-5 w-5 text-green-600 mt-0.5 flex-shrink-0" />
                       <span className="text-sm">Multi-region geo-replication</span>
@@ -577,33 +599,33 @@ export default function BackupRecovery() {
               <h2 className="font-montserrat text-3xl font-bold mb-4 text-gray-900">
                 Compliance & Security
               </h2>
-              <div className="flex flex-wrap justify-center gap-6">
-                <div className="flex items-center space-x-2">
+              <div className="flex flex-wrap justify-center gap-3 mb-6">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <Shield className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">DPDP-aware processing</span>
+                  <span className="text-base font-medium text-gray-700">DPDP-aware processing</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <CheckCircle className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">ISO-aligned controls</span>
+                  <span className="text-base font-medium text-gray-700">ISO-aligned controls</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <Lock className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">Data minimization</span>
+                  <span className="text-base font-medium text-gray-700">Data minimization</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <Eye className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">Consent & retention</span>
+                  <span className="text-base font-medium text-gray-700">Consent & retention</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <Database className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">Encrypted transport/storage</span>
+                  <span className="text-base font-medium text-gray-700">Encrypted transport/storage</span>
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white px-5 py-3 shadow-sm hover:border-red-300 hover:shadow-md transition-all duration-200">
                   <FileCheck className="h-6 w-6 text-red-600" />
-                  <span className="text-gray-700">Access logging</span>
+                  <span className="text-base font-medium text-gray-700">Access logging</span>
                 </div>
               </div>
-              <p className="text-sm text-gray-600 mt-4 max-w-3xl mx-auto">
+              <p className="text-base text-gray-600 mt-6 max-w-4xl mx-auto text-center leading-relaxed">
                 We design for DPDP 2023 awareness; get legal counsel for your context. Our solutions implement industry best practices for data protection and regulatory compliance.
               </p>
             </div>
@@ -617,27 +639,27 @@ export default function BackupRecovery() {
               Proven Results
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold text-red-600 mb-2">40%</div>
-                  <div className="font-semibold text-gray-900 mb-2">faster recovery</div>
-                  <div className="text-sm text-gray-600">Trading firm, AU</div>
+              <Card className="group text-center bg-white border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <CardContent className="p-8">
+                  <div className="text-5xl font-bold text-[#E52629] mb-3">40%</div>
+                  <div className="text-lg font-semibold text-gray-900 mb-2">faster recovery</div>
+                  <div className="text-base text-gray-600">Trading firm, AU</div>
                 </CardContent>
               </Card>
               
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold text-red-600 mb-2">60%</div>
-                  <div className="font-semibold text-gray-900 mb-2">storage savings</div>
-                  <div className="text-sm text-gray-600">Oil & Gas, US</div>
+              <Card className="group text-center bg-white border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <CardContent className="p-8">
+                  <div className="text-5xl font-bold text-[#E52629] mb-3">60%</div>
+                  <div className="text-lg font-semibold text-gray-900 mb-2">storage savings</div>
+                  <div className="text-base text-gray-600">Oil & Gas, US</div>
                 </CardContent>
               </Card>
               
-              <Card className="text-center hover:shadow-lg transition-shadow">
-                <CardContent className="p-6">
-                  <div className="text-4xl font-bold text-red-600 mb-2">24/7</div>
-                  <div className="font-semibold text-gray-900 mb-2">monitoring uptime</div>
-                  <div className="text-sm text-gray-600">Financial Services, UK</div>
+              <Card className="group text-center bg-white border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <CardContent className="p-8">
+                  <div className="text-5xl font-bold text-[#E52629] mb-3">24/7</div>
+                  <div className="text-lg font-semibold text-gray-900 mb-2">monitoring uptime</div>
+                  <div className="text-base text-gray-600">Financial Services, UK</div>
                 </CardContent>
               </Card>
             </div>
@@ -661,7 +683,7 @@ export default function BackupRecovery() {
                 asChild
               >
                 <Link to="/contact">
-                  Claim Your Free Insight
+                  Book a consultation
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>

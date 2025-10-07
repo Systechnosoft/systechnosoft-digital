@@ -25,6 +25,7 @@ import MobileAppDevelopment from "./pages/MobileAppDevelopment";
 import WebDevelopment from "./pages/WebDevelopment";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import Industries from "./pages/Industries";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,7 @@ const App = () => (
             {/* Redirect old Salesforce route */}
             <Route path="services/low-code/salesforce" element={<Navigate to="/services/salesforce" replace />} />
             <Route path="services/low-code/salesforce/*" element={<Navigate to="/services/salesforce" replace />} />
+            <Route path="industries" element={<Industries />} />
             <Route path="contact" element={<Contact />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

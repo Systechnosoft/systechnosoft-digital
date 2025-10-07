@@ -256,7 +256,7 @@ export default function BackupRecovery() {
               What We Cover
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Cloud className="h-8 w-8 text-red-600" />
@@ -270,7 +270,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Server className="h-8 w-8 text-red-600" />
@@ -284,7 +284,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Database className="h-8 w-8 text-red-600" />
@@ -298,7 +298,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <FileCheck className="h-8 w-8 text-red-600" />
@@ -312,7 +312,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Archive className="h-8 w-8 text-red-600" />
@@ -326,7 +326,7 @@ export default function BackupRecovery() {
                 </CardContent>
               </Card>
 
-              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg border-l-4 border-l-transparent hover:border-l-red-600 transition-all">
+              <Card className="group border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 hover:shadow-lg shadow-[inset_4px_0_0_0_transparent] hover:shadow-[inset_4px_0_0_0_#E52629,0_8px_30px_rgba(0,0,0,0.08)]">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
                     <Eye className="h-8 w-8 text-red-600" />
@@ -353,31 +353,31 @@ export default function BackupRecovery() {
               <Card className="bg-white shadow-lg">
                 <CardContent className="p-8">
                   <ul className="space-y-5 mb-8">
-                    <li className="flex items-start space-x-3">
+                    <li className="flex items-center space-x-3">
                       <div className="bg-green-100 rounded-full p-1">
                         <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                       </div>
                       <span className="text-lg md:text-xl text-gray-800">DR runbooks with step-by-step recovery procedures</span>
                     </li>
-                    <li className="flex items-start space-x-3">
+                    <li className="flex items-center space-x-3">
                       <div className="bg-green-100 rounded-full p-1">
                         <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                       </div>
                       <span className="text-lg md:text-xl text-gray-800">Application dependency mapping and impact analysis</span>
                     </li>
-                    <li className="flex items-start space-x-3">
+                    <li className="flex items-center space-x-3">
                       <div className="bg-green-100 rounded-full p-1">
                         <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                       </div>
                       <span className="text-lg md:text-xl text-gray-800">Cross-region failover with automated orchestration</span>
                     </li>
-                    <li className="flex items-start space-x-3">
+                    <li className="flex items-center space-x-3">
                       <div className="bg-green-100 rounded-full p-1">
                         <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                       </div>
                       <span className="text-lg md:text-xl text-gray-800">Push-button failback with data consistency checks</span>
                     </li>
-                    <li className="flex items-start space-x-3">
+                    <li className="flex items-center space-x-3">
                       <div className="bg-green-100 rounded-full p-1">
                         <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0" />
                       </div>
@@ -420,49 +420,49 @@ export default function BackupRecovery() {
               Reference Architecture
             </h2>
             <div className="max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-4 items-center">
-                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-4 items-stretch">
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
                   <div className="bg-blue-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Database className="h-12 w-12 text-blue-600 mx-auto" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-gray-900">Sources</h3>
-                  <p className="text-base text-gray-600">Servers, databases, workstations, cloud apps</p>
+                  <p className="text-base text-gray-600 flex-1">Application servers, databases, file systems & cloud workloads</p>
                 </div>
                 
                 <div className="hidden lg:flex items-center justify-center">
                   <ArrowRight className="h-8 w-8 text-gray-300" />
                 </div>
                 
-                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
                   <div className="bg-green-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Server className="h-12 w-12 text-green-600 mx-auto" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-gray-900">Backup Proxy/Agent</h3>
-                  <p className="text-base text-gray-600">Deduplication, compression, encryption</p>
+                  <p className="text-base text-gray-600 flex-1">Deduplication, compression & end-to-end encryption</p>
                 </div>
                 
                 <div className="hidden lg:flex items-center justify-center">
                   <ArrowRight className="h-8 w-8 text-gray-300" />
                 </div>
                 
-                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
                   <div className="bg-purple-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Lock className="h-12 w-12 text-purple-600 mx-auto" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-gray-900">Immutable Storage</h3>
-                  <p className="text-base text-gray-600">Primary & off-site repositories</p>
+                  <p className="text-base text-gray-600 flex-1">WORM-compliant repositories with versioning & retention</p>
                 </div>
                 
                 <div className="hidden lg:flex items-center justify-center">
                   <ArrowRight className="h-8 w-8 text-gray-300" />
                 </div>
                 
-                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100">
+                <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
                   <div className="bg-rose-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
                     <Cloud className="h-12 w-12 text-red-600 mx-auto" />
                   </div>
                   <h3 className="text-xl font-bold mb-2 text-gray-900">DR Site/Cloud</h3>
-                  <p className="text-base text-gray-600">Recovery orchestration & testing</p>
+                  <p className="text-base text-gray-600 flex-1">Orchestrated recovery with automated testing & validation</p>
                 </div>
               </div>
               

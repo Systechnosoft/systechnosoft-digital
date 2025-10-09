@@ -707,27 +707,27 @@ export default function DataMigration() {
               {[
                 {
                   category: "Cloud Platforms",
-                  tools: ["Azure Migrate", "AWS Migration Hub", "Google Cloud Migrate", "VMware Cloud"]
+                  tools: ["Azure", "AWS", "GCP"]
                 },
                 {
                   category: "Data & Database",
-                  tools: ["Azure Data Factory", "AWS DMS", "ShareGate", "Quest Migration"]
+                  tools: ["DynamoDB", "MSSQL", "MySQL", "Azure Cosmos DB"]
                 },
                 {
                   category: "Identity & Directory",
-                  tools: ["Azure AD Connect", "ADMT", "Google Directory Sync", "Okta"]
+                  tools: ["Entra ID", "Active Directory", "SSO", "Okta"]
                 },
                 {
                   category: "Monitoring & Validation",
-                  tools: ["Azure Monitor", "CloudWatch", "Grafana", "Custom dashboards"]
+                  tools: ["Azure Monitor", "CloudWatch", "Grafana", "Datadog"]
                 },
                 {
                   category: "Automation & IaC",
-                  tools: ["Terraform", "Azure ARM", "PowerShell DSC", "Ansible"]
+                  tools: ["Terraform", "Azure ARM", "PowerShell", "Ansible"]
                 },
                 {
                   category: "Security & Compliance",
-                  tools: ["Azure Sentinel", "CloudTrail", "Security Center", "Compliance Manager"]
+                  tools: ["Azure Sentinel", "Cloud Trail", "SIEM", "SOAR"]
                 }
               ].map((category, index) => (
                 <Card key={index} className="border-2 border-gray-200 loc-card-hover-primary">
@@ -751,7 +751,7 @@ export default function DataMigration() {
 
             <div className="mt-12 text-center">
               <p className="font-inter text-gray-600 italic">
-                We leverage industry-leading tools and maintain vendor neutrality to recommend the best solution for your specific requirements.
+                "We leverage industry-leading tools and maintain vendor neutrality to recommend the best solution for your specific requirements."
               </p>
             </div>
           </div>

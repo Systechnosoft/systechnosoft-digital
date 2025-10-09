@@ -293,122 +293,113 @@ export default function BackupRecovery() {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <HeroBackground>
-          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Column */}
-                <div className="text-center lg:text-left">
-                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
-                    Data Backup & Recovery Services
-                  </h1>
-                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
-                    Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
-                  </p>
-                  
-                  {/* Badge Pills */}
-                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12">
-                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                      99.9%+ restore success (tests)
-                    </Badge>
-                    <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
-                      Zero-trust aligned
-                    </Badge>
-                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                      24×7 monitoring
-                    </Badge>
-                  </div>
-                  
-                  {/* CTAs */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Link to="/contact?topic=dr-readiness">
-                      <Button 
-                        size="lg" 
-                        className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        Request DR review
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </Link>
-                    <Link to="/contact">
-                      <Button 
-                        variant="outline" 
-                        size="lg" 
-                        className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                      >
-                        Claim Your Free Insight
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+        <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24 overflow-hidden">
+          {/* Animated Background */}
+          <motion.div
+            className="absolute inset-0 -z-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
+            <div className="absolute top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
+            <div className="absolute bottom-20 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+          </motion.div>
 
-                {/* Right Column - Static Visual */}
-                <div className="flex justify-center lg:justify-end">
-                  <div className="relative w-full max-w-md">
-                    <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" className="w-full h-auto" role="img" aria-label="Data backup and recovery visualization showing cloud storage, server protection, and security">
-                      {/* Background gradient */}
-                      <defs>
-                        <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" style={{stopColor: '#E52629', stopOpacity: 0.1}} />
-                          <stop offset="100%" style={{stopColor: '#007AFF', stopOpacity: 0.1}} />
-                        </linearGradient>
-                        <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                          <stop offset="0%" style={{stopColor: '#007AFF', stopOpacity: 1}} />
-                          <stop offset="100%" style={{stopColor: '#0051D5', stopOpacity: 1}} />
-                        </linearGradient>
-                      </defs>
-                      
-                      {/* Background circle */}
-                      <circle cx="200" cy="200" r="180" fill="url(#bgGradient)" />
-                      
-                      {/* Cloud shape */}
-                      <g transform="translate(200, 120)">
-                        <ellipse cx="-30" cy="0" rx="40" ry="30" fill="url(#cloudGradient)" />
-                        <ellipse cx="0" cy="-10" rx="50" ry="40" fill="url(#cloudGradient)" />
-                        <ellipse cx="30" cy="0" rx="40" ry="30" fill="url(#cloudGradient)" />
-                        <rect x="-60" y="0" width="120" height="30" fill="url(#cloudGradient)" />
-                      </g>
-                      
-                      {/* Shield icon in cloud */}
-                      <path d="M200,100 L185,105 L185,125 C185,135 192.5,142.5 200,145 C207.5,142.5 215,135 215,125 L215,105 Z" fill="white" opacity="0.9" />
-                      <path d="M200,110 L195,112 L195,125 C195,130 197.5,132.5 200,134 C202.5,132.5 205,130 205,125 L205,112 Z" fill="#E52629" />
-                      
-                      {/* Server rack */}
-                      <g transform="translate(120, 240)">
-                        <rect x="0" y="0" width="60" height="80" rx="4" fill="#3C3C3C" stroke="#E52629" strokeWidth="2" />
-                        <rect x="5" y="5" width="50" height="20" rx="2" fill="#1C1C1C" />
-                        <rect x="5" y="30" width="50" height="20" rx="2" fill="#1C1C1C" />
-                        <rect x="5" y="55" width="50" height="20" rx="2" fill="#1C1C1C" />
-                        <circle cx="15" cy="15" r="2" fill="#00FF00" />
-                        <circle cx="15" cy="40" r="2" fill="#00FF00" />
-                        <circle cx="15" cy="65" r="2" fill="#00FF00" />
-                      </g>
-                      
-                      {/* Database */}
-                      <g transform="translate(260, 240)">
-                        <ellipse cx="0" cy="0" rx="30" ry="10" fill="#007AFF" />
-                        <rect x="-30" y="0" width="60" height="60" fill="#007AFF" />
-                        <ellipse cx="0" cy="60" rx="30" ry="10" fill="#0051D5" />
-                        <ellipse cx="0" cy="0" rx="30" ry="10" fill="#4A9FFF" />
-                      </g>
-                      
-                      {/* Connecting lines with arrows */}
-                      <line x1="150" y1="200" x2="180" y2="160" stroke="#E52629" strokeWidth="2" strokeDasharray="4 2" opacity="0.6" />
-                      <line x1="280" y1="200" x2="220" y2="160" stroke="#007AFF" strokeWidth="2" strokeDasharray="4 2" opacity="0.6" />
-                      
-                      {/* Lock icon */}
-                      <g transform="translate(200, 320)">
-                        <rect x="-15" y="0" width="30" height="25" rx="3" fill="#E52629" />
-                        <path d="M-8,-10 L-8,-5 L8,-5 L8,-10 C8,-15 4,-18 0,-18 C-4,-18 -8,-15 -8,-10 Z" fill="none" stroke="#E52629" strokeWidth="3" />
-                        <circle cx="0" cy="10" r="4" fill="white" />
-                      </g>
-                    </svg>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Left Column */}
+              <motion.div 
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+                  Data Backup & Recovery Services
+                </h1>
+                <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
+                  Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
+                </p>
+                
+                {/* Badge Pills */}
+                <motion.div 
+                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                >
+                  <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                    99.9%+ restore success (tests)
+                  </Badge>
+                  <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
+                    Zero-trust aligned
+                  </Badge>
+                  <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
+                    24×7 monitoring
+                  </Badge>
+                </motion.div>
+                
+                {/* CTAs */}
+                <motion.div 
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
+                >
+                  <Link to="/contact?topic=dr-readiness">
+                    <Button 
+                      size="lg" 
+                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      Request DR review
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                    >
+                      Claim Your Free Insight
+                    </Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
+
+              {/* Right Column - Hero Image */}
+              <motion.div 
+                className="flex justify-center lg:justify-end order-1 lg:order-2"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+              >
+                <motion.figure
+                  className="relative w-full max-w-2xl group"
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Brand glow effect */}
+                  <div className="absolute -inset-4 bg-gradient-to-r from-[#E52629]/20 via-[#007AFF]/20 to-[#E52629]/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  {/* Image container */}
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                    <img
+                      src="/images/backup-recovery/hero.png"
+                      alt="Vault-like secure backup enclosure with cyber lock—data backup & recovery"
+                      width={1184}
+                      height={672}
+                      loading="eager"
+                      fetchPriority="high"
+                      className="w-full h-auto object-cover"
+                    />
                   </div>
-                </div>
-              </div>
+                </motion.figure>
+              </motion.div>
             </div>
-          </section>
-        </HeroBackground>
+          </div>
+        </section>
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">

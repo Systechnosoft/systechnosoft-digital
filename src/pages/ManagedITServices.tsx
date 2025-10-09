@@ -213,86 +213,158 @@ export default function ManagedITServices() {
 
       <div className="min-h-screen bg-background text-foreground">
         {/* Hero Section */}
-        <HeroBackground>
-          <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Column */}
-                <div className="text-center lg:text-left">
-                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+        <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden">
+          {/* Animated Background */}
+          <motion.div 
+            className="absolute inset-0 z-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
+            <motion.div 
+              className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
+              animate={prefersReducedMotion ? {} : {
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            />
+            <motion.div 
+              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
+              animate={prefersReducedMotion ? {} : {
+                scale: [1.2, 1, 1.2],
+                opacity: [0.3, 0.5, 0.3],
+              }}
+              transition={{
+                duration: 8,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 1
+              }}
+            />
+          </motion.div>
+
+          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              {/* Left Column - Content */}
+              <motion.div 
+                className="text-center lg:text-left"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
                     Managed IT Services
                   </h1>
-                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
-                    Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
-                  </p>
-                  
-                  {/* Hero Chips */}
-                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12">
-                    <span className="px-4 py-2 bg-[#E52629]/10 border border-[#E52629]/20 rounded-full text-sm font-medium text-[#E52629]">
-                      24×7 monitoring
-                    </span>
-                    <span className="px-4 py-2 bg-[#007AFF]/10 border border-[#007AFF]/20 rounded-full text-sm font-medium text-[#007AFF]">
-                      SLA-backed
-                    </span>
-                    <span className="px-4 py-2 bg-[#E52629]/10 border border-[#E52629]/20 rounded-full text-sm font-medium text-[#E52629]">
-                      Zero‑trust aligned
-                    </span>
-                  </div>
-                  
-                  {/* CTAs */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Link to="/contact">
-                      <Button 
-                        size="lg" 
-                        className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold"
-                        onClick={() => {
-                          // GA event tracking
-                          if (typeof window !== 'undefined' && (window as any).gtag) {
-                            (window as any).gtag('event', 'cta_it_health_check', {
-                              page_location: window.location.href,
-                              page_title: document.title
-                            });
-                          }
-                        }}
-                      >
-                        <Shield className="mr-2 h-5 w-5" />
-                        IT Network Health Check
-                      </Button>
-                    </Link>
-                    <Link to="/contact">
-                      <Button 
-                        size="lg" 
-                        className="bg-white text-[#E53935] border border-[#E53935] hover:bg-[#E53935] hover:text-white hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E53935] active:translate-y-[1px] px-8 py-4 text-lg font-semibold transition-all"
-                        onClick={() => {
-                          // GA event tracking  
-                          if (typeof window !== 'undefined' && (window as any).gtag) {
-                            (window as any).gtag('event', 'cta_free_insight', {
-                              page_location: window.location.href,
-                              page_title: document.title
-                            });
-                          }
-                        }}
-                      >
-                        Claim Your Free Insight
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
+                </motion.div>
+                
+                <motion.p 
+                  className="font-inter text-xl lg:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto lg:mx-0"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                >
+                  Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
+                </motion.p>
+                
+                {/* Hero Chips */}
+                <motion.div 
+                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                >
+                  <span className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
+                    24×7 monitoring
+                  </span>
+                  <span className="px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-sm font-medium text-accent-foreground">
+                    SLA-backed
+                  </span>
+                  <span className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
+                    Zero‑trust aligned
+                  </span>
+                </motion.div>
+                
+                {/* CTAs */}
+                <motion.div 
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                >
+                  <Link to="/contact">
+                    <Button 
+                      size="lg" 
+                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+                      onClick={() => {
+                        if (typeof window !== 'undefined' && (window as any).gtag) {
+                          (window as any).gtag('event', 'cta_it_health_check', {
+                            page_location: window.location.href,
+                            page_title: document.title
+                          });
+                        }
+                      }}
+                    >
+                      <Shield className="mr-2 h-5 w-5" />
+                      IT Network Health Check
+                    </Button>
+                  </Link>
+                  <Link to="/contact">
+                    <Button 
+                      size="lg" 
+                      variant="outline"
+                      className="border-2 px-8 py-4 text-lg font-semibold hover:shadow-lg transition-all"
+                      onClick={() => {
+                        if (typeof window !== 'undefined' && (window as any).gtag) {
+                          (window as any).gtag('event', 'cta_free_insight', {
+                            page_location: window.location.href,
+                            page_title: document.title
+                          });
+                        }
+                      }}
+                    >
+                      Claim Your Free Insight
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                </motion.div>
+              </motion.div>
 
-                {/* Right Column - Hero Visual */}
-                <div className="flex justify-center lg:justify-end">
+              {/* Right Column - Hero Visual */}
+              <motion.figure 
+                className="relative flex justify-center lg:justify-end group"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.7 }}
+                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
+              >
+                <div className="relative">
+                  {/* Brand glow effect */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-accent/20 rounded-2xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
+                  
                   <img 
-                    src="/images/managed-it-ops.svg" 
-                    alt="Managed IT operations: monitoring, security and automation"
-                    className="w-full max-w-2xl h-auto"
+                    src="/images/managed-it/hero.png"
+                    alt="Managed IT services hub connecting policies, tickets, monitoring, and automation"
+                    width={1184}
+                    height={672}
+                    className="relative w-full max-w-2xl h-auto rounded-2xl shadow-2xl transition-transform duration-500"
                     loading="eager"
                   />
                 </div>
-              </div>
+              </motion.figure>
             </div>
-          </section>
-        </HeroBackground>
+          </div>
+        </section>
 
 
         {/* Service Tiles - Light Background */}

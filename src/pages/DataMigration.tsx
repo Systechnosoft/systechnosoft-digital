@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground } from "@/components/HeroMotionSystem";
+import { motion } from "framer-motion";
 import { CountUpNumber } from "@/components/CountUpNumber";
-import heroImage from "@/assets/hero-data-migration.png";
 import { 
   ArrowRight, 
   Database, 
@@ -121,77 +120,136 @@ export default function DataMigration() {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <HeroBackground>
-          <section id="dm-hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
-                {/* Left Column */}
-                <div className="text-center lg:text-left">
-                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
+        {/* Hero Section - Matching Cloud Services Hero Animation System */}
+        <section 
+          id="dm-hero" 
+          className="sf-hero data-migration-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"
+          aria-labelledby="dm-hero-title"
+        >
+          {/* Animated background - Hero Motion System */}
+          <div className="sf-hero__bg absolute inset-0 opacity-10" aria-hidden="true">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+              {/* Left Column - Copy */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="data-migration-hero__left space-y-6 max-w-[44rem]"
+              >
+                <div className="space-y-6">
+                  <h1 
+                    id="dm-hero-title"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight"
+                  >
                     Data Migration
                   </h1>
-                  <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 leading-relaxed max-w-3xl">
+                  
+                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                     Move identities, files, messages, apps, and databases—securely and with minimal downtime—across on‑prem, Azure, AWS, Google Cloud, Microsoft 365, and Google Workspace.
                   </p>
-                  
-                  {/* Badges */}
-                  <div className="flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
-                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                      99.9% integrity checks
-                    </Badge>
-                    <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
-                      Zero-trust aligned
-                    </Badge>
-                    <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                      Cutover with rollback
-                    </Badge>
-                  </div>
-                  
-                  {/* CTAs */}
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <Link to="/contact?src=data-migration-hero">
-                      <Button 
-                        size="lg" 
-                        className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                      >
-                        Request Assessment
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </Link>
-                    <Link to="/contact?type=mra">
-                      <Button 
-                        variant="outline" 
-                        size="lg" 
-                        className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:border-[#E52629] hover:text-white px-8 py-4 text-lg font-semibold transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                      >
-                        Claim Your Free Insight
-                      </Button>
-                    </Link>
-                  </div>
                 </div>
 
-                {/* Right Column - Hero Image */}
-                <div className="flex justify-center lg:justify-end">
-                  <div className="relative isolate group">
-                    <img
-                      src="/images/data-migration/hero.png"
-                      width={1184} 
-                      height={672}
-                      alt="Secure, low‑risk data migration to cloud — pipeline into trusted cloud"
-                      className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
-                      loading="eager" 
-                      decoding="async"
-                      sizes="(min-width: 1024px) 48vw, 92vw"
-                    />
-                    {/* Subtle brand glow */}
-                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-[#E52629]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-[350ms] pointer-events-none" aria-hidden="true"></div>
-                  </div>
-                </div>
-              </div>
+                {/* Benefit Chips */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="sf-hero__chips flex flex-wrap gap-3"
+                  aria-label="Key benefits"
+                >
+                  {["99.9% integrity checks", "Zero-trust aligned", "Cutover with rollback"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </motion.div>
+
+                {/* CTAs */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-3"
+                >
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                    aria-label="Request Assessment"
+                  >
+                    <Link to="/contact?src=data-migration-hero" title="Request Assessment">
+                      Request Assessment
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Link>
+                  </Button>
+
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="lg"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                    aria-label="Claim Your Free Insight"
+                  >
+                    <Link to="/contact?type=mra" title="Claim Your Free Insight">
+                      Claim Your Free Insight
+                    </Link>
+                  </Button>
+                </motion.div>
+              </motion.div>
+
+              {/* Right Column - Hero Image */}
+              <motion.figure 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="data-migration-hero__art relative isolate group"
+              >
+                <img
+                  src="/images/data-migration/hero.png"
+                  width={1184} 
+                  height={672}
+                  alt="Secure, low‑risk data migration to cloud — pipeline into trusted cloud"
+                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                  loading="eager" 
+                  decoding="async"
+                  sizes="(min-width: 1024px) 48vw, 92vw"
+                />
+                {/* Subtle brand glow */}
+                <span 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                  style={{
+                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                  }}
+                />
+              </motion.figure>
             </div>
-          </section>
-        </HeroBackground>
+          </div>
+        </section>
 
         {/* Sticky Navigation */}
         <nav 

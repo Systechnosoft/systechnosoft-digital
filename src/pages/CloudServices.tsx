@@ -952,18 +952,6 @@ export default function CloudServices() {
                   className="flex flex-col sm:flex-row gap-3"
                 >
                   <Button
-                    asChild
-                    size="lg"
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                    aria-label="Claim your free insight"
-                  >
-                    <Link to="/contact?type=mra" title="Claim your free insight">
-                      Claim your free insight
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-
-                  <Button
                     variant="outline"
                     size="lg"
                     className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
@@ -974,7 +962,19 @@ export default function CloudServices() {
                     }}
                     title="See what we deliver"
                   >
-                    See what we deliver →
+                    See what we deliver
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="lg"
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed border border-[#E52629]"
+                    aria-label="Claim your free insight"
+                  >
+                    <Link to="/contact?type=mra" title="Claim your free insight">
+                      Claim your free insight
+                    </Link>
                   </Button>
                 </motion.div>
               </motion.div>

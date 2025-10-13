@@ -883,7 +883,7 @@ export default function MicrosoftDynamics365() {
               asChild
               variant="outline"
               size="lg"
-              className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+              className="border-2 border-transparent text-white hover:border-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
             >
               <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
                 Book a Consultation →

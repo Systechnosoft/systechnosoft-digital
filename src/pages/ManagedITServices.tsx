@@ -15,6 +15,7 @@ import {
   UserPlus
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
 
@@ -284,15 +285,15 @@ export default function ManagedITServices() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.5 }}
                 >
-                  <span className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
+                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                     24×7 monitoring
-                  </span>
-                  <span className="px-4 py-2 bg-accent/10 border border-accent/20 rounded-full text-sm font-medium text-accent-foreground">
+                  </Badge>
+                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                     SLA-backed
-                  </span>
-                  <span className="px-4 py-2 bg-primary/10 border border-primary/20 rounded-full text-sm font-medium text-primary">
+                  </Badge>
+                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                     Zero‑trust aligned
-                  </span>
+                  </Badge>
                 </motion.div>
                 
                 {/* CTAs */}
@@ -319,24 +320,25 @@ export default function ManagedITServices() {
                       IT Network Health Check
                     </Button>
                   </Link>
-                  <Link to="/contact">
-                    <Button 
-                      size="lg" 
-                      variant="outline"
-                      className="border-2 px-8 py-4 text-lg font-semibold hover:shadow-lg transition-all"
-                      onClick={() => {
-                        if (typeof window !== 'undefined' && (window as any).gtag) {
-                          (window as any).gtag('event', 'cta_free_insight', {
-                            page_location: window.location.href,
-                            page_title: document.title
-                          });
-                        }
-                      }}
-                    >
+                  <Button 
+                    asChild
+                    size="lg" 
+                    variant="outline"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                    onClick={() => {
+                      if (typeof window !== 'undefined' && (window as any).gtag) {
+                        (window as any).gtag('event', 'cta_free_insight', {
+                          page_location: window.location.href,
+                          page_title: document.title
+                        });
+                      }
+                    }}
+                  >
+                    <Link to="/contact">
                       Claim Your Free Insight
                       <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
+                    </Link>
+                  </Button>
                 </motion.div>
               </motion.div>
 

@@ -444,20 +444,20 @@ export default function DataMigration() {
               <TabsList className="flex flex-wrap justify-center gap-4 mb-8 bg-transparent h-auto p-0 border-0">
                 <TabsTrigger 
                   value="phases" 
-                  className="px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 cursor-pointer
+                  className="px-8 py-3 rounded-full font-semibold text-base transition-colors duration-200 cursor-pointer
                     data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#E52629]/25 data-[state=active]:border-0
                     data-[state=inactive]:bg-white data-[state=inactive]:text-[#E52629] data-[state=inactive]:border-2 data-[state=inactive]:border-[#E52629]
-                    hover:data-[state=inactive]:bg-[#FDE8E8] hover:data-[state=inactive]:border-[#E52629]
+                    hover:data-[state=inactive]:bg-[#E52629] hover:data-[state=inactive]:text-white hover:data-[state=inactive]:border-[#E52629]
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
                   Migration Phases
                 </TabsTrigger>
                 <TabsTrigger 
                   value="methods"
-                  className="px-8 py-3 rounded-full font-semibold text-base transition-all duration-300 cursor-pointer
+                  className="px-8 py-3 rounded-full font-semibold text-base transition-colors duration-200 cursor-pointer
                     data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:shadow-[#E52629]/25 data-[state=active]:border-0
                     data-[state=inactive]:bg-white data-[state=inactive]:text-[#E52629] data-[state=inactive]:border-2 data-[state=inactive]:border-[#E52629]
-                    hover:data-[state=inactive]:bg-[#FDE8E8] hover:data-[state=inactive]:border-[#E52629]
+                    hover:data-[state=inactive]:bg-[#E52629] hover:data-[state=inactive]:text-white hover:data-[state=inactive]:border-[#E52629]
                     focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
                   Migration Methods

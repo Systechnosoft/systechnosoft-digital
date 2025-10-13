@@ -219,9 +219,9 @@ export default function MicrosoftDynamics365() {
                   </p>
                   
                   <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12">
-                    <Badge className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">99.9% uptime architectures</Badge>
-                    <Badge className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">Zero‑trust aligned</Badge>
-                    <Badge className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">Azure-native integrations</Badge>
+                    <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">99.9% uptime architectures</Badge>
+                    <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">Zero‑trust aligned</Badge>
+                    <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">Azure-native integrations</Badge>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -246,7 +246,7 @@ export default function MicrosoftDynamics365() {
                       asChild 
                       variant="outline" 
                       size="lg" 
-                      className="border-[#E52629] bg-[#E52629]/5 text-[#E52629] hover:bg-[#E52629] hover:text-white hover:border-[#E52629] focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
+                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
                     >
                       <Link to="/contact?type=expert-talk">Claim Your Free Insight</Link>
                     </Button>

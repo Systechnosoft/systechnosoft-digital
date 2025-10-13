@@ -881,9 +881,8 @@ export default function MicrosoftDynamics365() {
             <div className="flex justify-center">
             <Button
               asChild
-              variant="outline"
               size="lg"
-              className="border-2 border-transparent text-white hover:border-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
+              className="bg-transparent border-2 border-white text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
             >
               <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
                 Book a Consultation →

@@ -242,14 +242,16 @@ export default function MicrosoftDynamics365() {
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Link>
                     </Button>
-                    <Button 
-                      asChild 
-                      variant="outline" 
-                      size="lg" 
-                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
-                    >
-                      <Link to="/contact?type=expert-talk">Claim Your Free Insight</Link>
-                    </Button>
+                <Button 
+                  asChild 
+                  variant="outline" 
+                  size="lg" 
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
+                >
+                  <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
+                    Book a Consultation →
+                  </a>
+                </Button>
                   </div>
                 </div>
 
@@ -787,8 +789,9 @@ export default function MicrosoftDynamics365() {
             <div className="text-center">
               <Button 
                 asChild 
+                variant="outline"
                 size="lg" 
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors px-8 py-4 text-lg font-semibold"
                 onClick={() => {
                   if (typeof window !== 'undefined' && (window as any).gtag) {
                     (window as any).gtag('event', 'svc_d365_support_cta');
@@ -876,17 +879,17 @@ export default function MicrosoftDynamics365() {
               Let's discuss how Microsoft Dynamics 365 can accelerate your sales, service, and operations.
             </p>
             <div className="flex justify-center">
-              <Button
-                size="lg"
-                variant="secondary"
-                className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
-                asChild
-              >
-                <Link to="/contact?src=d365-cta">
-                  Claim your free insights —
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+            >
+              <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
+                Book a Consultation →
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </a>
+            </Button>
             </div>
           </div>
         </section>

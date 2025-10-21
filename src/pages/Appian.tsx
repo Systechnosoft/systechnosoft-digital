@@ -571,10 +571,10 @@ export default function Appian() {
             {/* Card 2 */}
             <Card className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
               <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-[#E8F4FF] text-[#007AFF] rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-[#FDE8E8] text-[#E52629] rounded-full flex items-center justify-center mb-4">
                   <Zap className="h-8 w-8" />
                 </div>
-                <div className="text-4xl font-montserrat font-bold text-[#007AFF] mb-2">
+                <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
                   30%
                 </div>
                 <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
@@ -591,10 +591,10 @@ export default function Appian() {
             {/* Card 3 */}
             <Card className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
               <CardHeader>
-                <div className="mx-auto w-16 h-16 bg-[#F0FFF4] text-[#10B981] rounded-full flex items-center justify-center mb-4">
+                <div className="mx-auto w-16 h-16 bg-[#FDE8E8] text-[#E52629] rounded-full flex items-center justify-center mb-4">
                   <Target className="h-8 w-8" />
                 </div>
-                <div className="text-4xl font-montserrat font-bold text-[#10B981] mb-2">
+                <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
                   50%
                 </div>
                 <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">

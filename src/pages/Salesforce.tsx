@@ -370,6 +370,126 @@ const BotSwarmAnimation: React.FC = () => {
   );
 };
 
+// Governance Cards Component with Interactive JSON Swapping
+const GovernanceCards: React.FC<{ onCardChange: (id: 'pii' | 'rbac' | 'audit') => void }> = ({ onCardChange }) => {
+  const [activeCard, setActiveCard] = useState<'pii' | 'rbac' | 'audit'>('rbac');
+
+  const handleCardClick = (id: 'pii' | 'rbac' | 'audit') => {
+    setActiveCard(id);
+    onCardChange(id);
+  };
+
+  const cards = [
+    { 
+      id: 'pii' as const, 
+      icon: Shield, 
+      label: "PII Guardrails"
+    },
+    { 
+      id: 'rbac' as const, 
+      icon: Users, 
+      label: "RBAC Controls"
+    },
+    { 
+      id: 'audit' as const, 
+      icon: BarChart3, 
+      label: "Audit Trails"
+    }
+  ];
+
+  return (
+    <>
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {cards.map((card) => (
+          <button
+            key={card.id}
+            onClick={() => handleCardClick(card.id)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                handleCardClick(card.id);
+              }
+            }}
+            aria-pressed={activeCard === card.id}
+            aria-controls="governance-code-palette"
+            className={cn(
+              "text-center p-5 rounded-lg bg-white border-2 transition-all duration-300 shadow-md hover:shadow-lg cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+              activeCard === card.id 
+                ? "border-[#E52629] shadow-lg" 
+                : "border-gray-200 hover:border-[#E52629]"
+            )}
+          >
+            <card.icon 
+              className={cn(
+                "h-8 w-8 mx-auto mb-2 transition-colors",
+                activeCard === card.id ? "text-[#E52629]" : "text-[#E52629]/70"
+              )} 
+            />
+            <p className="text-sm font-medium text-[#1C1C1C]">{card.label}</p>
+          </button>
+        ))}
+      </div>
+      
+      {/* Hidden state for screen readers */}
+      <div className="sr-only" aria-live="polite" role="status">
+        {activeCard && `${cards.find(c => c.id === activeCard)?.label} selected`}
+      </div>
+    </>
+  );
+};
+
+// Governance Panel Wrapper - manages state for both components
+const GovernancePanel: React.FC = () => {
+  const [activeCard, setActiveCard] = useState<'pii' | 'rbac' | 'audit'>('rbac');
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 30 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className="lg:sticky lg:top-24 lg:self-start space-y-6"
+    >
+      <GovernanceCards onCardChange={setActiveCard} />
+      <CodePalette activeCard={activeCard} />
+    </motion.div>
+  );
+};
+
+// Code Palette Component
+const CodePalette: React.FC<{ activeCard: 'pii' | 'rbac' | 'audit' }> = ({ activeCard }) => {
+  const jsonExamples = {
+    pii: `{
+  "prompt": "Analyze customer data",
+  "policy": "mask_pii_fields",
+  "action": "redact_sensitive_info"
+}`,
+    rbac: `{
+  "prompt": "Show me top leads for Q4",
+  "policy": "filter_by_territory_access",
+  "action": "query_with_rbac_filter"
+}`,
+    audit: `{
+  "prompt": "Export Q3 pipeline report",
+  "policy": "log_data_access",
+  "action": "track_query_metadata"
+}`
+  };
+
+  return (
+    <div 
+      id="governance-code-palette"
+      className="bg-white rounded-lg p-6 border-l-4 border-[#E52629] shadow-sm"
+      role="region"
+      aria-label="Code example for governance policy"
+    >
+      <h4 className="font-semibold text-[#1C1C1C] mb-3">Prompt → Policy → Action</h4>
+      <pre className="text-sm text-[#3C3C3C] font-mono overflow-x-auto">
+        {jsonExamples[activeCard]}
+      </pre>
+    </div>
+  );
+};
+
 const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
@@ -797,7 +917,8 @@ const Salesforce = () => {
         {/* Einstein 1 & AI Section - Rebuilt with Clear Narrative */}
         <section id="ai-data" className="py-20 bg-[#F5F5F5]">
           <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center max-w-7xl mx-auto">
+            <div className="grid lg:grid-cols-[60fr_40fr] gap-12 max-w-7xl mx-auto">
+              {/* Left Column - Content */}
               <motion.div
                 initial="hidden"
                 whileInView="visible"
@@ -856,55 +977,10 @@ const Salesforce = () => {
                     </div>
                   </div>
                 </div>
-
-                {/* Governance Features Grid */}
-                <div className="grid grid-cols-3 gap-4 pt-4">
-                  {[
-                    { icon: Shield, label: "PII Guardrails" },
-                    { icon: Users, label: "RBAC Controls" },
-                    { icon: BarChart3, label: "Audit Trails" }
-                  ].map((item, index) => (
-                    <motion.div
-                      key={index}
-                      whileHover={{ y: -4 }}
-                      className="text-center p-5 rounded-lg bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300"
-                    >
-                      <item.icon className="h-8 w-8 text-[#E52629] mx-auto mb-2" />
-                      <p className="text-sm font-medium text-[#1C1C1C]">{item.label}</p>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Code Example */}
-                <div className="bg-white rounded-lg p-6 border-l-4 border-[#E52629] shadow-sm">
-                  <h4 className="font-semibold text-[#1C1C1C] mb-3">Prompt → Policy → Action</h4>
-                  <pre className="text-sm text-[#3C3C3C] font-mono overflow-x-auto">
-{`{
-  "prompt": "Show me top leads for Q4",
-  "policy": "filter_by_territory_access",
-  "action": "query_with_rbac_filter"
-}`}
-                  </pre>
-                </div>
               </motion.div>
 
-              {/* Einstein Visual */}
-              <motion.div
-                initial={{ opacity: 0, x: 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="relative aspect-square max-w-md mx-auto">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#E52629]/5 to-[#007AFF]/5 rounded-full" />
-                  <img 
-                    src="/src/assets/einstein-1.webp" 
-                    alt="Einstein AI mascot representing Salesforce AI governance" 
-                    className="relative z-10 w-full h-full object-contain p-8"
-                    loading="lazy"
-                  />
-                </div>
-              </motion.div>
+              {/* Right Column - Interactive Panel */}
+              <GovernancePanel />
             </div>
           </div>
         </section>

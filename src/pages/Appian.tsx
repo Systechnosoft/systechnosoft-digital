@@ -19,12 +19,14 @@ import {
   Lock,
   Rocket,
   Users,
-  Sparkles
+  Sparkles,
+  TrendingUp
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { cn } from "@/lib/utils";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { HeroFlipCarousel } from "@/components/HeroFlipCarousel";
 import {
@@ -152,18 +154,17 @@ export default function Appian() {
   ];
 
   const integrations = [
-    "Data Fabric",
-    "Process Mining",
-    "IDP",
-    "RPA",
+    "Data Fabric", 
+    "Process Mining", 
+    "IDP", 
+    "RPA", 
     "Kafka",
-    "MuleSoft",
-    "Salesforce",
-    "SAP",
+    "MuleSoft", 
+    "Salesforce", 
+    "SAP", 
     "Microsoft 365",
-    "DocuSign",
-    "ServiceNow",
-    "Tableau",
+    "DocuSign", 
+    "ServiceNow"
   ];
 
   const caseStudies = [
@@ -248,26 +249,6 @@ export default function Appian() {
         <link rel="canonical" href="https://systechnosoft.com/services/appian" />
       </Helmet>
 
-      {/* Sticky Section Navigation */}
-      <nav className="sticky top-[64px] z-40 bg-white/90 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto py-3 scrollbar-hide">
-            {sections.map(({ id, label }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
-                  activeSection === id
-                    ? "bg-[#E52629] text-white"
-                    : "text-[#3C3C3C] hover:bg-[#F5F5F5]"
-                }`}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </nav>
 
       {/* Hero Section */}
       <section id="overview" className="hero-animated relative min-h-screen flex items-center">
@@ -301,13 +282,13 @@ export default function Appian() {
               </motion.p>
 
               <motion.div variants={fadeUpVariants} className="flex flex-wrap gap-2">
-                <Badge variant="secondary" className="px-3 py-1 text-sm">
+                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                   Low-code speed
                 </Badge>
-                <Badge variant="secondary" className="px-3 py-1 text-sm">
+                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                   Process + Data in one
                 </Badge>
-                <Badge variant="secondary" className="px-3 py-1 text-sm">
+                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
                   Security & compliance
                 </Badge>
               </motion.div>
@@ -315,21 +296,22 @@ export default function Appian() {
               <motion.div variants={fadeUpVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
                 <Button
                   size="lg"
-                  className="px-8 py-6 text-base font-semibold"
-                  asChild
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const el = document.getElementById('why-appian');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
                 >
-                  <Link to="/contact">
-                    Get an Appian Assessment
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
+                  See what we deliver →
                 </Button>
                 <Button
+                  asChild
                   variant="outline"
                   size="lg"
-                  className="px-8 py-6 text-base font-semibold"
-                  asChild
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                 >
-                  <Link to="#capabilities">See what we deliver</Link>
+                  <Link to="/contact?type=consultation">Claim your free insight</Link>
                 </Button>
               </motion.div>
             </div>
@@ -346,8 +328,30 @@ export default function Appian() {
         </div>
       </section>
 
+      {/* Sticky subsection navigation - moved below hero */}
+      <nav className="sticky top-[64px] z-40 bg-white shadow-sm border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+          <div className="flex gap-1 justify-center overflow-x-auto scrollbar-hide">
+            {sections.map((section) => (
+              <Link
+                key={section.id}
+                to={`#${section.id}`}
+                className={cn(
+                  "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-md transition-colors",
+                  activeSection === section.id
+                    ? "bg-[#E52629] text-white"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-50"
+                )}
+              >
+                {section.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       {/* Why Appian + Systechnosoft - Metric Pills */}
-      <section className="py-16 bg-white">
+      <section id="why-appian" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Why Appian + Systechnosoft
@@ -423,33 +427,65 @@ export default function Appian() {
       {/* Our Delivery Approach */}
       <section id="approach" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
+          <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-4">
             Our Delivery Approach
           </h2>
+          <p className="font-inter text-lg text-center text-gray-600 max-w-3xl mx-auto mb-12">
+            Four-pillar model covering Appian's full stack
+          </p>
 
-          <div className="grid md:grid-cols-4 gap-8">
-            {deliverySteps.map((step, index) => (
-              <div key={index} className="relative">
-                <div className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-[#E52629] text-white flex items-center justify-center text-2xl font-bold mb-4">
-                    {step.number}
-                  </div>
-                  <h3 className="font-montserrat font-bold text-xl text-[#1C1C1C] mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-[#3C3C3C]">
-                    {step.description}
-                  </p>
-                </div>
-                {index < deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-[calc(50%+2rem)] w-[calc(100%-4rem)] h-0.5 bg-[#E6E6E6]" />
-                )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] gap-6 lg:gap-4 items-stretch">
+            {/* Card 1: Process Modeling */}
+            <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
+              <div className="bg-blue-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
+                <Workflow className="h-12 w-12 text-blue-600 mx-auto" />
               </div>
-            ))}
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Process Modeling</h3>
+              <p className="text-base text-gray-600 flex-1">Drag‑and‑drop BPMN, human/system tasks, SLA timers</p>
+            </div>
+            
+            <div className="hidden lg:flex items-center justify-center">
+              <ArrowRight className="h-8 w-8 text-gray-300" />
+            </div>
+            
+            {/* Card 2: Data Fabric */}
+            <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
+              <div className="bg-green-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
+                <Database className="h-12 w-12 text-green-600 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Data Fabric</h3>
+              <p className="text-base text-gray-600 flex-1">Virtualize/union data for unified, real‑time views</p>
+            </div>
+            
+            <div className="hidden lg:flex items-center justify-center">
+              <ArrowRight className="h-8 w-8 text-gray-300" />
+            </div>
+            
+            {/* Card 3: Automation & Integrations */}
+            <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
+              <div className="bg-purple-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
+                <Bot className="h-12 w-12 text-purple-600 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">Automation & Integrations</h3>
+              <p className="text-base text-gray-600 flex-1">RPA, REST/SOAP/JDBC, event streams</p>
+            </div>
+            
+            <div className="hidden lg:flex items-center justify-center">
+              <ArrowRight className="h-8 w-8 text-gray-300" />
+            </div>
+            
+            {/* Card 4: DevOps & Governance */}
+            <div className="group text-center bg-white rounded-2xl p-6 border-2 border-gray-200 transition-all duration-200 hover:border-[#E52629] hover:shadow-[0_8px_30px_rgba(0,0,0,0.08)] hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-red-100 h-full flex flex-col min-h-[240px]">
+              <div className="bg-red-50 rounded-lg p-6 mb-4 transition-transform duration-200 group-hover:scale-105">
+                <Shield className="h-12 w-12 text-red-600 mx-auto" />
+              </div>
+              <h3 className="text-xl font-bold mb-2 text-gray-900">DevOps & Governance</h3>
+              <p className="text-base text-gray-600 flex-1">Packages, environments, promotion, guardrails</p>
+            </div>
           </div>
 
-          <p className="text-center text-sm text-[#3C3C3C] mt-12">
-            Agile sprints, design reviews, and security gates each cycle.
+          <p className="font-inter text-center text-gray-600 mt-12 max-w-2xl mx-auto">
+            We follow agile sprints, incorporating user feedback early and often.
           </p>
         </div>
       </section>
@@ -462,7 +498,7 @@ export default function Appian() {
           </h2>
 
           <div className="overflow-x-auto pb-4">
-            <div className="flex gap-3 min-w-max justify-center flex-wrap">
+            <div className="flex gap-3 justify-center flex-wrap">
               {integrations.map((integration, index) => (
                 <Badge
                   key={index}
@@ -477,60 +513,84 @@ export default function Appian() {
         </div>
       </section>
 
-      {/* Insights - Case Study Carousel */}
+      {/* Insights */}
       <section id="insights" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Insights
           </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {/* Card 1 */}
+            <Card className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
+              <CardHeader>
+                <div className="mx-auto w-16 h-16 bg-[#FDE8E8] text-[#E52629] rounded-full flex items-center justify-center mb-4">
+                  <TrendingUp className="h-8 w-8" />
+                </div>
+                <div className="text-4xl font-montserrat font-bold text-[#E52629] mb-2">
+                  40%
+                </div>
+                <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
+                  faster workflows
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="font-inter text-gray-600 text-sm">
+                  Banking sector, Australia
+                </p>
+              </CardContent>
+            </Card>
 
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            plugins={[
-              Autoplay({
-                delay: 3000,
-                stopOnInteraction: true,
-                stopOnMouseEnter: true,
-              }),
-            ]}
-            className="w-full max-w-5xl mx-auto"
-          >
-            <CarouselContent>
-              {caseStudies.map((study, index) => (
-                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                  <Card className="h-full">
-                    <CardHeader>
-                      <div className={`w-16 h-16 rounded-full ${study.color} text-white flex items-center justify-center text-2xl font-bold mb-4`}>
-                        {study.metric}
-                      </div>
-                      <CardTitle className="text-xl font-montserrat font-bold text-[#1C1C1C]">
-                        {study.title}
-                      </CardTitle>
-                      <CardDescription className="text-[#3C3C3C]">
-                        {study.description}
-                      </CardDescription>
-                    </CardHeader>
-                  </Card>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <div className="flex justify-center gap-4 mt-8">
-              <CarouselPrevious className="static" />
-              <CarouselNext className="static" />
-            </div>
-          </Carousel>
+            {/* Card 2 */}
+            <Card className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
+              <CardHeader>
+                <div className="mx-auto w-16 h-16 bg-[#E8F4FF] text-[#007AFF] rounded-full flex items-center justify-center mb-4">
+                  <Zap className="h-8 w-8" />
+                </div>
+                <div className="text-4xl font-montserrat font-bold text-[#007AFF] mb-2">
+                  30%
+                </div>
+                <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
+                  ops efficiency improvement
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="font-inter text-gray-600 text-sm">
+                  Oil & Gas, United States
+                </p>
+              </CardContent>
+            </Card>
 
-          <div className="text-center mt-8">
-            <Button
-              variant="outline"
-              className="bg-white border-2 border-[#E52629] text-[#E52629] hover:bg-[#FFE5E6] hover:border-[#E31B23] hover:text-[#B1141A] px-8 py-3"
+            {/* Card 3 */}
+            <Card className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg">
+              <CardHeader>
+                <div className="mx-auto w-16 h-16 bg-[#F0FFF4] text-[#10B981] rounded-full flex items-center justify-center mb-4">
+                  <Target className="h-8 w-8" />
+                </div>
+                <div className="text-4xl font-montserrat font-bold text-[#10B981] mb-2">
+                  50%
+                </div>
+                <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">
+                  faster intercompany processing
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="font-inter text-gray-600 text-sm">
+                  Financial Services, UK
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className="text-center">
+            <Button 
               asChild
+              variant="outline" 
+              size="lg"
+              className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
             >
               <Link to="/case-studies?tag=appian">
-                View case studies
+                View detailed case studies
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
@@ -547,7 +607,7 @@ export default function Appian() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {whyChooseUs.map((item, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
+              <Card key={index} className="bg-white border-2 border-gray-200 text-center hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                 <CardHeader>
                   <div className="w-12 h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center mx-auto mb-4">
                     <item.icon className="w-6 h-6 text-[#E52629]" />
@@ -574,11 +634,11 @@ export default function Appian() {
 
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border border-[#E6E6E6] rounded-lg px-6">
-                <AccordionTrigger className="text-left font-montserrat font-semibold text-[#1C1C1C] hover:text-[#E52629]">
+              <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border">
+                <AccordionTrigger className="px-6 py-4 text-left font-montserrat font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-[#3C3C3C]">
+                <AccordionContent className="px-6 pb-4 font-inter text-gray-700">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>

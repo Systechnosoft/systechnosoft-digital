@@ -52,6 +52,20 @@ export default function Appian() {
     { id: "faq", label: "FAQ" },
   ];
 
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      const offset = 120; // Account for sticky header + nav
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementPosition - offset;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -281,16 +295,28 @@ export default function Appian() {
                 Plan, build, and run on Appian with unified <strong>process, data, and AI</strong>—so your teams can ship outcomes faster with governance built in.
               </motion.p>
 
-              <motion.div variants={fadeUpVariants} className="flex flex-wrap gap-2">
-                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                  Low-code speed
-                </Badge>
-                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                  Process + Data in one
-                </Badge>
-                <Badge className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                  Security & compliance
-                </Badge>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["Low-code speed", "Process + Data in one", "Security & compliance"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
               </motion.div>
 
               <motion.div variants={fadeUpVariants} className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -329,29 +355,30 @@ export default function Appian() {
       </section>
 
       {/* Sticky subsection navigation - moved below hero */}
-      <nav className="sticky top-[64px] z-40 bg-white shadow-sm border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-          <div className="flex gap-1 justify-center overflow-x-auto scrollbar-hide">
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {sections.map((section) => (
-              <Link
+              <button
                 key={section.id}
-                to={`#${section.id}`}
+                onClick={() => scrollToSection(section.id)}
                 className={cn(
-                  "px-4 py-2 text-sm font-medium whitespace-nowrap rounded-md transition-colors",
+                  "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
                   activeSection === section.id
-                    ? "bg-[#E52629] text-white"
-                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-50"
+                    ? "bg-[#E52629] text-white shadow-md"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
                 )}
+                aria-current={activeSection === section.id ? "true" : undefined}
               >
                 {section.label}
-              </Link>
+              </button>
             ))}
           </div>
         </div>
       </nav>
 
       {/* Why Appian + Systechnosoft - Metric Pills */}
-      <section id="why-appian" className="py-16 bg-white scroll-mt-20">
+      <section id="overview" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Why Appian + Systechnosoft
@@ -394,7 +421,7 @@ export default function Appian() {
       </section>
 
       {/* Platform Capabilities */}
-      <section id="capabilities" className="py-16 bg-[#F5F5F5]">
+      <section id="capabilities" className="py-16 bg-[#F5F5F5] scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Platform Capabilities
@@ -425,7 +452,7 @@ export default function Appian() {
       </section>
 
       {/* Our Delivery Approach */}
-      <section id="approach" className="py-16 bg-white">
+      <section id="approach" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-4">
             Our Delivery Approach
@@ -491,7 +518,7 @@ export default function Appian() {
       </section>
 
       {/* Accelerators & Integrations */}
-      <section id="integrations" className="py-16 bg-[#F5F5F5]">
+      <section id="integrations" className="py-16 bg-[#F5F5F5] scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Accelerators & Integrations
@@ -514,7 +541,7 @@ export default function Appian() {
       </section>
 
       {/* Insights */}
-      <section id="insights" className="py-16 bg-white">
+      <section id="insights" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Insights
@@ -599,7 +626,7 @@ export default function Appian() {
       </section>
 
       {/* Why Choose Systechnosoft */}
-      <section id="why-us" className="py-16 bg-[#F5F5F5]">
+      <section id="why-us" className="py-16 bg-[#F5F5F5] scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Why Choose Systechnosoft
@@ -626,7 +653,7 @@ export default function Appian() {
       </section>
 
       {/* FAQs */}
-      <section id="faq" className="py-16 bg-white">
+      <section id="faq" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Frequently Asked Questions

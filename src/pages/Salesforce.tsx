@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { HeroFlipCarousel } from "@/components/HeroFlipCarousel";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -582,40 +583,61 @@ const Salesforce = () => {
                     From Sales/Service to Experience, Marketing, Commerce, and Data Cloud—with AI you can govern.
                   </motion.p>
 
+                  {/* Benefit Chips */}
                   <motion.div 
-                    variants={fadeUpVariants}
-                    className="flex flex-wrap gap-3"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, duration: 0.4 }}
+                    className="sf-hero__chips flex flex-wrap gap-3"
+                    aria-label="Key benefits"
                   >
-                    <Badge variant="secondary" className="text-sm px-4 py-2">
-                      99.9% uptime patterns
-                    </Badge>
-                    <Badge variant="secondary" className="text-sm px-4 py-2">
-                      Zero-trust aligned
-                    </Badge>
-                    <Badge variant="secondary" className="text-sm px-4 py-2">
-                      24×7 support
-                    </Badge>
+                    {["99.9% uptime patterns", "Zero-trust aligned", "24×7 support"].map((badge, idx) => (
+                      <motion.div
+                        key={badge}
+                        initial={{ opacity: 0, y: 5 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                      >
+                        <Badge 
+                          variant="secondary" 
+                          className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                        >
+                          {badge}
+                        </Badge>
+                      </motion.div>
+                    ))}
                   </motion.div>
 
+                  {/* CTAs */}
                   <motion.div 
-                    variants={fadeUpVariants}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
                     className="flex flex-col sm:flex-row gap-4"
                   >
-                    <Button 
-                      size="lg" 
-                      className="group"
-                      onClick={() => scrollToId("contact")}
-                    >
-                      Book a Discovery
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    </Button>
-                    <Button 
-                      variant="outline" 
+                    <Button
                       size="lg"
-                      onClick={() => scrollToId("clouds")}
+                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                      aria-label="See what we deliver"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToId("clouds");
+                      }}
+                      title="See what we deliver"
                     >
-                      <PlayCircle className="mr-2 h-4 w-4" />
-                      See Clouds
+                      See what we deliver →
+                    </Button>
+
+                    <Button
+                      asChild
+                      variant="outline"
+                      size="lg"
+                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                      aria-label="Claim your free insight"
+                    >
+                      <Link to="/contact?type=mra" title="Claim your free insight">
+                        Claim your free insight
+                      </Link>
                     </Button>
                   </motion.div>
                 </motion.div>

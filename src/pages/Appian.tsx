@@ -40,10 +40,10 @@ import Autoplay from "embla-carousel-autoplay";
 
 export default function Appian() {
   const shouldReduceMotion = useReducedMotion();
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("why-appian");
 
   const sections = [
-    { id: "overview", label: "Overview" },
+    { id: "why-appian", label: "Overview" },
     { id: "capabilities", label: "Capabilities" },
     { id: "approach", label: "Approach" },
     { id: "integrations", label: "Integrations" },
@@ -378,7 +378,7 @@ export default function Appian() {
       </nav>
 
       {/* Why Appian + Systechnosoft - Metric Pills */}
-      <section id="overview" className="py-16 bg-white scroll-mt-20">
+      <section id="why-appian" className="py-16 bg-white scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-center text-[#1C1C1C] mb-12">
             Why Appian + Systechnosoft

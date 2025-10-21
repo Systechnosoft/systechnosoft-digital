@@ -28,6 +28,7 @@ import {
   ChevronRight
 } from "lucide-react";
 import { scrollToId } from "@/lib/scrollUtils";
+import { cn } from "@/lib/utils";
 
 // Einstein AI Bot Swarm Animation - Wave-based with Six Diagonal Emitters
 const BotSwarmAnimation: React.FC = () => {
@@ -678,51 +679,30 @@ const Salesforce = () => {
           </div>
         </section>
 
-        {/* Local Section Navigation - Below Hero */}
-        <nav 
-          id="sf-localnav"
-          className="sf-localnav py-6 bg-background border-b border-muted/20"
-          role="navigation"
-          aria-label="Salesforce page sections"
-        >
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center">
-              <div 
-                className="flex items-center space-x-8 overflow-x-auto md:overflow-visible"
-                style={{
-                  msOverflowStyle: 'none',
-                  scrollbarWidth: 'none'
-                }}
-              >
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => scrollToId(item.id)}
-                    className={`text-sm font-medium whitespace-nowrap transition-colors relative py-2 px-4 rounded-full ${
-                      activeSection === item.id
-                        ? "text-primary bg-primary/5"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-                    }`}
-                    aria-current={activeSection === item.id ? "true" : "false"}
-                  >
-                    {item.label}
-                    {activeSection === item.id && (
-                      <motion.div
-                        className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-8 h-0.5 bg-primary rounded-full"
-                        layoutId="activeNavUnderline"
-                        initial={false}
-                        transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
+        {/* Sticky Subsection Navigation - Copied from CloudServices */}
+        <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToId(item.id)}
+                  className={cn(
+                    "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                    activeSection === item.id
+                      ? "bg-[#E52629] text-white shadow-md"
+                      : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
+                  )}
+                >
+                  {item.label}
+                </button>
+              ))}
             </div>
           </div>
         </nav>
 
-        {/* Why Salesforce × Systechnosoft */}
-        <section id="outcomes" className="py-20 bg-muted/30" style={{ marginTop: 0 }}>
+        {/* Outcomes You Can Measure - Modern & Futuristic Design */}
+        <section id="outcomes" className="py-20 bg-white" style={{ marginTop: 0 }}>
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
@@ -731,27 +711,31 @@ const Salesforce = () => {
               variants={staggeredFadeUp}
               className="text-center space-y-12"
             >
-              <motion.h2 variants={fadeUpVariants} className="text-3xl font-bold font-montserrat">
+              <motion.h2 variants={fadeUpVariants} className="text-4xl font-bold font-montserrat text-[#1C1C1C]">
                 Outcomes you can measure
               </motion.h2>
               
               <motion.div 
                 variants={staggeredFadeUp}
-                className="grid md:grid-cols-4 gap-6"
+                className="grid md:grid-cols-4 gap-6 max-w-6xl mx-auto"
               >
                 {[
-                  { value: "40%", label: "faster workflows" },
-                  { value: "30%", label: "Ops efficiency" },
-                  { value: "50%", label: "faster intercompany" },
-                  { value: "99.9%", label: "uptime SLA" }
+                  { value: "40%", label: "faster workflows", subtext: "Accelerated deal velocity" },
+                  { value: "30%", label: "Ops efficiency", subtext: "Streamlined processes" },
+                  { value: "50%", label: "faster intercompany", subtext: "Improved lead quality" },
+                  { value: "99.9%", label: "uptime SLA", subtext: "Enterprise reliability" }
                 ].map((stat, index) => (
                   <motion.div
                     key={index}
                     variants={scaleIn}
-                    className="text-center p-6 rounded-lg bg-card border"
                   >
-                    <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    <Card className="text-center p-8 bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg h-full">
+                      <CardContent className="p-0 space-y-3">
+                        <div className="text-5xl font-bold text-[#E52629]">{stat.value}</div>
+                        <div className="text-base font-semibold text-[#1C1C1C]">{stat.label}</div>
+                        <div className="text-sm text-[#3C3C3C]">{stat.subtext}</div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
                 ))}
               </motion.div>
@@ -810,25 +794,71 @@ const Salesforce = () => {
           </div>
         </section>
 
-        {/* AI & Data Section */}
-        <section id="ai-data" className="py-20 bg-muted/30">
+        {/* Einstein 1 & AI Section - Rebuilt with Clear Narrative */}
+        <section id="ai-data" className="py-20 bg-[#F5F5F5]">
           <div className="container mx-auto px-4">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="grid lg:grid-cols-[1.2fr_1fr] gap-16 items-center max-w-7xl mx-auto">
               <motion.div
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
                 variants={fadeUpVariants}
-                className="space-y-6"
+                className="space-y-8"
               >
-                <h2 className="text-3xl font-bold font-montserrat">
-                  Einstein 1 & AI that you can govern
-                </h2>
-                <p className="text-lg text-muted-foreground">
-                  Deploy Salesforce AI with enterprise-grade governance, data protection, and audit trails.
-                </p>
-                
-                <div className="grid grid-cols-3 gap-4">
+                <div className="space-y-4">
+                  <h2 className="text-4xl font-bold font-montserrat text-[#1C1C1C]">
+                    Einstein 1 & AI that you can govern
+                  </h2>
+                  <p className="text-lg text-[#3C3C3C] leading-relaxed">
+                    Deploy Salesforce AI with enterprise-grade governance, data protection, and audit trails.
+                  </p>
+                </div>
+
+                {/* Narrative Story Points */}
+                <div className="space-y-6">
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Cloud className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#1C1C1C] mb-1">Unified Platform</h3>
+                      <p className="text-sm text-[#3C3C3C]">One license for Sales, Service, Data Cloud, Einstein AI, Slack, Tableau, and industry clouds</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Database className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#1C1C1C] mb-1">Data Cloud Foundation</h3>
+                      <p className="text-sm text-[#3C3C3C]">Unified data layer for 360° customer profiles and context-aware AI activation</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Bot className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#1C1C1C] mb-1">Einstein 1 Studio</h3>
+                      <p className="text-sm text-[#3C3C3C]">Low-code tools (Copilot, Prompt, Model Builder) to embed AI into workflows</p>
+                    </div>
+                  </div>
+
+                  <div className="flex gap-4 items-start">
+                    <div className="flex-shrink-0 w-10 h-10 bg-[#E52629]/10 rounded-full flex items-center justify-center">
+                      <Shield className="h-5 w-5 text-[#E52629]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#1C1C1C] mb-1">Trust & Governance</h3>
+                      <p className="text-sm text-[#3C3C3C]">PII guardrails, RBAC, and audit trails for enterprise compliance</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Governance Features Grid */}
+                <div className="grid grid-cols-3 gap-4 pt-4">
                   {[
                     { icon: Shield, label: "PII Guardrails" },
                     { icon: Users, label: "RBAC Controls" },
@@ -836,18 +866,19 @@ const Salesforce = () => {
                   ].map((item, index) => (
                     <motion.div
                       key={index}
-                      whileHover={{ rotateY: shouldReduceMotion ? 0 : 12 }}
-                      className="text-center p-4 rounded-lg bg-card border"
+                      whileHover={{ y: -4 }}
+                      className="text-center p-5 rounded-lg bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300"
                     >
-                      <item.icon className="h-8 w-8 text-primary mx-auto mb-2" />
-                      <p className="text-sm font-medium">{item.label}</p>
+                      <item.icon className="h-8 w-8 text-[#E52629] mx-auto mb-2" />
+                      <p className="text-sm font-medium text-[#1C1C1C]">{item.label}</p>
                     </motion.div>
                   ))}
                 </div>
 
-                <div className="bg-card rounded-lg p-6 border-l-4 border-primary">
-                  <h4 className="font-semibold mb-2">Prompt → Policy → Action</h4>
-                  <pre className="text-sm text-muted-foreground font-mono">
+                {/* Code Example */}
+                <div className="bg-white rounded-lg p-6 border-l-4 border-[#E52629] shadow-sm">
+                  <h4 className="font-semibold text-[#1C1C1C] mb-3">Prompt → Policy → Action</h4>
+                  <pre className="text-sm text-[#3C3C3C] font-mono overflow-x-auto">
 {`{
   "prompt": "Show me top leads for Q4",
   "policy": "filter_by_territory_access",
@@ -857,20 +888,29 @@ const Salesforce = () => {
                 </div>
               </motion.div>
 
+              {/* Einstein Visual */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 className="relative"
               >
-                <BotSwarmAnimation />
+                <div className="relative aspect-square max-w-md mx-auto">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#E52629]/5 to-[#007AFF]/5 rounded-full" />
+                  <img 
+                    src="/src/assets/einstein-1.webp" 
+                    alt="Einstein AI mascot representing Salesforce AI governance" 
+                    className="relative z-10 w-full h-full object-contain p-8"
+                    loading="lazy"
+                  />
+                </div>
               </motion.div>
             </div>
           </div>
         </section>
 
-        {/* Implementation Approach */}
-        <section id="approach" className="py-20">
+        {/* Implementation Approach - Modern & Futuristic */}
+        <section id="approach" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
@@ -879,11 +919,11 @@ const Salesforce = () => {
               variants={staggeredFadeUp}
               className="space-y-12"
             >
-              <motion.h2 variants={fadeUpVariants} className="text-3xl font-bold font-montserrat text-center">
+              <motion.h2 variants={fadeUpVariants} className="text-4xl font-bold font-montserrat text-center text-[#1C1C1C]">
                 Our Implementation Approach
               </motion.h2>
               
-              <div className="grid md:grid-cols-4 gap-8">
+              <div className="grid md:grid-cols-4 gap-8 max-w-7xl mx-auto">
                 {[
                   {
                     step: "01",
@@ -915,86 +955,96 @@ const Salesforce = () => {
                     variants={scaleIn}
                     className="text-center space-y-4"
                   >
-                    <div className="w-16 h-16 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold text-xl mx-auto">
-                      {phase.step}
-                    </div>
-                    <h3 className="text-xl font-semibold">{phase.title}</h3>
-                    <p className="text-muted-foreground">{phase.description}</p>
-                    <ul className="text-sm space-y-1">
-                      {phase.deliverables.map((item, idx) => (
-                        <li key={idx} className="flex items-center gap-2">
-                          <CheckCircle className="h-3 w-3 text-primary flex-shrink-0" />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
+                    <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                      <CardContent className="p-6 pt-8 relative">
+                        <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-16 bg-[#E52629] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg">
+                          {phase.step}
+                        </div>
+                        <div className="space-y-4 mt-4">
+                          <h3 className="text-xl font-semibold font-montserrat text-[#1C1C1C]">{phase.title}</h3>
+                          <p className="text-[#3C3C3C] text-sm">{phase.description}</p>
+                          <ul className="text-sm space-y-2 text-left">
+                            {phase.deliverables.map((item, idx) => (
+                              <li key={idx} className="flex items-start gap-2">
+                                <CheckCircle className="h-4 w-4 text-[#E52629] flex-shrink-0 mt-0.5" />
+                                <span className="text-[#3C3C3C]">{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
                 ))}
               </div>
               
-              <motion.div variants={fadeUpVariants} className="text-center">
-                <Button size="lg" onClick={() => scrollToId("contact")}>
-                  See a 6-week pilot plan
+              <motion.div variants={fadeUpVariants} className="text-center pt-4">
+                <Button 
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white bg-white border-2 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                  asChild
+                >
+                  <Link to="/contact">
+                    See a 6-week pilot plan
+                  </Link>
                 </Button>
               </motion.div>
             </motion.div>
           </div>
         </section>
 
-        {/* Accelerators */}
-        <section id="accelerators" className="py-20 bg-muted/30">
+        {/* Accelerators & Integrations - Modern Grid Layout */}
+        <section id="accelerators" className="py-20 bg-[#F5F5F5]">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={fadeUpVariants}
-              className="space-y-12"
+              className="space-y-12 max-w-7xl mx-auto"
             >
-              <h2 className="text-3xl font-bold font-montserrat text-center">
+              <h2 className="text-4xl font-bold font-montserrat text-center text-[#1C1C1C]">
                 Accelerators & Integrations
               </h2>
               
-              <div className="relative overflow-hidden">
-                <motion.div 
-                  className="flex gap-4"
-                  animate={{ x: shouldReduceMotion ? 0 : [0, -1000] }}
-                  transition={shouldReduceMotion ? {} : {
-                    duration: 30,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                >
-                  {[...Array(2)].map((_, setIndex) => (
-                    <div key={setIndex} className="flex gap-4">
-                      {[
-                        "AppExchange Packages", "200+ Connectors", "SAP Integration", 
-                        "Microsoft 365", "Slack Integration", "DocuSign", "Tableau", "MuleSoft", "Heroku",
-                        "Einstein Analytics", "Pardot", "CPQ", "Field Service", "Community Cloud"
-                      ].map((item, index) => (
-                        <Badge key={`${setIndex}-${index}`} variant="outline" className="whitespace-nowrap px-4 py-2">
-                          {item}
-                        </Badge>
-                      ))}
-                    </div>
-                  ))}
-                </motion.div>
+              {/* Multi-row chip grid */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {[
+                  "AppExchange Packages", "SAP Integration", "Microsoft 365", "Slack Integration",
+                  "DocuSign", "Tableau", "MuleSoft", "Heroku", "Einstein Analytics", "Pardot",
+                  "CPQ", "Field Service", "Community Cloud"
+                ].map((item, index) => (
+                  <motion.div
+                    key={item}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.05, duration: 0.3 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="px-5 py-2.5 text-sm bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors duration-300 cursor-default"
+                    >
+                      {item}
+                    </Badge>
+                  </motion.div>
+                ))}
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* Case Studies */}
-        <section id="case-studies" className="py-20">
+        {/* Success Stories - Modern & Futuristic */}
+        <section id="case-studies" className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <motion.div
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
               variants={staggeredFadeUp}
-              className="space-y-12"
+              className="space-y-12 max-w-7xl mx-auto"
             >
-              <motion.h2 variants={fadeUpVariants} className="text-3xl font-bold font-montserrat text-center">
+              <motion.h2 variants={fadeUpVariants} className="text-4xl font-bold font-montserrat text-center text-[#1C1C1C]">
                 Success Stories
               </motion.h2>
               
@@ -1008,16 +1058,16 @@ const Salesforce = () => {
                     variants={scaleIn}
                     className="group"
                   >
-                    <Card className="h-full group-hover:shadow-lg transition-shadow">
+                    <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                       <CardHeader>
                         <div className="flex items-center gap-2 mb-2">
-                          <Star className="h-5 w-5 text-primary" />
-                          <span className="text-sm font-medium text-primary">{study.outcome}</span>
+                          <Star className="h-5 w-5 text-[#E52629]" />
+                          <span className="text-sm font-medium text-[#E52629]">{study.outcome}</span>
                         </div>
-                        <CardTitle className="text-lg">{study.title}</CardTitle>
+                        <CardTitle className="text-xl font-montserrat text-[#1C1C1C]">{study.title}</CardTitle>
                       </CardHeader>
                       <CardContent>
-                        <p className="text-muted-foreground">{study.description}</p>
+                        <p className="text-[#3C3C3C]">{study.description}</p>
                       </CardContent>
                     </Card>
                   </motion.div>
@@ -1028,77 +1078,59 @@ const Salesforce = () => {
         </section>
 
 
-        {/* FAQ */}
-        <section id="faq" className="py-20">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggeredFadeUp}
-              className="max-w-4xl mx-auto space-y-8"
-            >
-              <motion.h2 variants={fadeUpVariants} className="text-3xl font-bold font-montserrat text-center">
+        {/* FAQ - Copied from CloudServices */}
+        <section id="faq" className="py-20 bg-[#F5F5F5]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
                 Frequently Asked Questions
-              </motion.h2>
-              
-              <motion.div variants={fadeUpVariants}>
-                <Accordion type="single" collapsible>
-                  {faqData.map((faq, index) => (
-                    <AccordionItem key={index} value={`item-${index}`}>
-                      <AccordionTrigger className="text-left">
-                        {faq.question}
-                      </AccordionTrigger>
-                      <AccordionContent className="text-muted-foreground">
-                        {faq.answer}
-                      </AccordionContent>
-                    </AccordionItem>
-                  ))}
-                </Accordion>
-              </motion.div>
-            </motion.div>
+              </h2>
+            </div>
+
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqData.map((faq, idx) => (
+                <AccordionItem 
+                  key={idx} 
+                  value={`item-${idx}`}
+                  className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-[#3C3C3C]">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
         </section>
 
-        {/* Final CTA */}
-        <section id="contact" className="py-20 bg-gradient-to-br from-primary/5 to-accent/5 relative overflow-hidden">
-          {!shouldReduceMotion && (
-            <motion.div
-              className="absolute inset-0 opacity-5"
-              style={{
-                backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, hsl(var(--primary)) 2px, hsl(var(--primary)) 4px)`
-              }}
-              animate={{ x: [0, 20] }}
-              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-            />
-          )}
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={staggeredFadeUp}
-              className="text-center space-y-8"
-            >
-              <motion.h2 variants={fadeUpVariants} className="text-4xl font-bold font-montserrat">
-                Ready to accelerate your Salesforce journey?
-              </motion.h2>
-              
-              <motion.p variants={fadeUpVariants} className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                Get a free consultation and see how we can help you implement Salesforce faster and safer.
-              </motion.p>
-              
-              <motion.div 
-                variants={fadeUpVariants}
-                className="flex justify-center"
+        {/* CTA Band - Copied from CloudServices */}
+        <section className="py-20 bg-[#E52629] text-white">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+              Ready to accelerate your Salesforce journey?
+            </h2>
+            <p className="font-inter text-xl text-white/95 mb-10">
+              Get a free consultation and see how we can help you implement Salesforce faster and safer.
+            </p>
+            
+            <div className="flex justify-center">
+              <a 
+                href="https://calendly.com/systechnosoft-info/30min" 
+                target="_blank" 
+                rel="noopener noreferrer"
               >
-                <Button size="lg" className="group focus-visible:outline-2 focus-visible:outline-[#E52629]" onClick={() => window.location.href = '/contact'}>
-                  Schedule a Consultation
-                  <Rocket className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                <Button 
+                  size="lg" 
+                  className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+                >
+                  Book a consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-              </motion.div>
-            </motion.div>
+              </a>
+            </div>
           </div>
         </section>
       </div>

@@ -140,7 +140,6 @@ const playbookData: Playbook[] = [
 export function PlaybookStepper() {
   const [selectedPlaybook, setSelectedPlaybook] = useState(0);
   const [selectedStep, setSelectedStep] = useState<number | null>(null);
-  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
   useState(() => {
@@ -152,39 +151,14 @@ export function PlaybookStepper() {
 
   const currentPlaybook = playbookData[selectedPlaybook];
 
-  const copyAsChecklist = (playbookIndex: number) => {
-    const playbook = playbookData[playbookIndex];
-    const checklist = `${playbook.title}\n\n${playbook.steps.map((step, i) => 
-      `${i + 1}. [ ] ${step.name}\n   ${step.what}`
-    ).join('\n\n')}`;
-    
-    navigator.clipboard.writeText(checklist);
-    setCopiedIndex(playbookIndex);
-    setTimeout(() => setCopiedIndex(null), 2000);
-  };
-
   // Mobile accordion view
   if (isMobile) {
     return (
       <div className="space-y-6">
         {playbookData.map((playbook, playbookIdx) => (
-          <Card key={playbookIdx} className="bg-white border-2 border-gray-200">
+          <Card key={playbookIdx} className="bg-white border-2 border-[#E52629]/30">
             <CardHeader>
-              <div className="flex items-center justify-between">
-                <CardTitle className="text-xl">{playbook.title}</CardTitle>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => copyAsChecklist(playbookIdx)}
-                  className="flex items-center gap-2"
-                >
-                  {copiedIndex === playbookIdx ? (
-                    <><CheckCircle2 className="h-4 w-4" /> Copied!</>
-                  ) : (
-                    <><Copy className="h-4 w-4" /> Copy as checklist</>
-                  )}
-                </Button>
-              </div>
+              <CardTitle className="text-xl">{playbook.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <Accordion type="single" collapsible>
@@ -239,47 +213,33 @@ export function PlaybookStepper() {
   // Desktop stepper view
   return (
     <div className="space-y-8">
-      {/* Playbook selector */}
+      {/* Playbook selector - Matching Data Migration TabsTrigger styles */}
       <div className="flex gap-4 justify-center">
         {playbookData.map((playbook, idx) => (
-          <Button
+          <button
             key={idx}
-            variant={selectedPlaybook === idx ? "default" : "outline"}
             onClick={() => {
               setSelectedPlaybook(idx);
               setSelectedStep(null);
             }}
+            aria-pressed={selectedPlaybook === idx}
             className={cn(
-              "transition-all",
-              selectedPlaybook === idx && "bg-[#E52629] text-white hover:bg-[#D01F21]"
+              "px-8 py-3 rounded-full font-semibold text-base transition-all duration-200 cursor-pointer",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
+              selectedPlaybook === idx
+                ? "bg-[#E52629] text-white shadow-lg shadow-[#E52629]/25 border-0"
+                : "bg-white text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:border-[#E52629]"
             )}
           >
             {playbook.title}
-          </Button>
+          </button>
         ))}
       </div>
 
-      <Card className="bg-white border-2 border-gray-200">
-        <CardHeader>
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-2xl">{currentPlaybook.title}</CardTitle>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={() => copyAsChecklist(selectedPlaybook)}
-              className="flex items-center gap-2"
-            >
-              {copiedIndex === selectedPlaybook ? (
-                <><CheckCircle2 className="h-4 w-4" /> Copied!</>
-              ) : (
-                <><Copy className="h-4 w-4" /> Copy as checklist</>
-              )}
-            </Button>
-          </div>
-        </CardHeader>
-        <CardContent>
+      <Card className="bg-white border-2 border-[#E52629]/30 min-h-[500px] flex flex-col">
+        <CardContent className="flex-1 flex flex-col justify-center">
           {/* Progress line and steps */}
-          <div className="relative py-8">
+          <div className="relative py-8 transition-all duration-300">
             {/* Progress line */}
             <div className="absolute top-14 left-0 right-0 h-1 bg-gray-200" />
             <div 
@@ -327,7 +287,7 @@ export function PlaybookStepper() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                 className="mt-8"
               >
                 <Card className="bg-gray-50 border-[#E52629]">

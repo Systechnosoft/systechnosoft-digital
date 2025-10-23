@@ -237,23 +237,22 @@ export function PlaybookStepper() {
       </div>
 
       <Card className="bg-white border-2 border-[#E52629]/30 min-h-[500px] flex flex-col">
-        <CardContent className="flex-1 flex flex-col justify-center px-4 sm:px-6 md:px-8 py-10 md:py-12 lg:py-14">
-          {/* Progress line and steps - centered wrapper */}
-          <div className="mx-auto w-full max-w-[1100px]">
-            <div className="relative transition-all duration-300">
-              {/* Progress line */}
-              <div className="absolute top-14 left-0 right-0 h-1 bg-gray-200" />
-              <div 
-                className="absolute top-14 left-0 h-1 bg-[#E52629] transition-all duration-500"
-                style={{ 
-                  width: selectedStep !== null 
-                    ? `${(selectedStep / (currentPlaybook.steps.length - 1)) * 100}%` 
-                    : '0%'
-                }}
-              />
+        <CardContent className="flex-1 flex flex-col justify-center">
+          {/* Progress line and steps */}
+          <div className="relative py-8 transition-all duration-300">
+            {/* Progress line */}
+            <div className="absolute top-14 left-0 right-0 h-1 bg-gray-200" />
+            <div 
+              className="absolute top-14 left-0 h-1 bg-[#E52629] transition-all duration-500"
+              style={{ 
+                width: selectedStep !== null 
+                  ? `${(selectedStep / (currentPlaybook.steps.length - 1)) * 100}%` 
+                  : '0%'
+              }}
+            />
 
-              {/* Steps */}
-              <div className="relative grid grid-cols-7 gap-2">
+            {/* Steps */}
+            <div className="relative grid grid-cols-7 gap-2">
               {currentPlaybook.steps.map((step, stepIdx) => (
                 <button
                   key={stepIdx}
@@ -278,21 +277,19 @@ export function PlaybookStepper() {
                   </p>
                 </button>
               ))}
-              </div>
             </div>
           </div>
 
           {/* Details drawer */}
-          <div className="mx-auto w-full max-w-[1100px]">
-            <AnimatePresence mode="wait">
-              {selectedStep !== null && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: "auto" }}
-                  exit={{ opacity: 0, height: 0 }}
-                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                  className="mt-8"
-                >
+          <AnimatePresence mode="wait">
+            {selectedStep !== null && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                className="mt-8"
+              >
                 <Card className="bg-gray-50 border-[#E52629]">
                   <CardHeader>
                     <div className="flex items-center justify-between">
@@ -354,8 +351,7 @@ export function PlaybookStepper() {
                 </Card>
               </motion.div>
             )}
-            </AnimatePresence>
-          </div>
+          </AnimatePresence>
         </CardContent>
       </Card>
     </div>

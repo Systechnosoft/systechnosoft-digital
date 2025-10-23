@@ -236,122 +236,127 @@ export function PlaybookStepper() {
         ))}
       </div>
 
-      <Card className="bg-white border-2 border-[#E52629]/30 min-h-[500px] flex flex-col">
-        <CardContent className="flex-1 flex flex-col justify-center">
-          {/* Progress line and steps */}
-          <div className="relative py-8 transition-all duration-300">
-            {/* Progress line */}
-            <div className="absolute top-14 left-0 right-0 h-1 bg-gray-200" />
-            <div 
-              className="absolute top-14 left-0 h-1 bg-[#E52629] transition-all duration-500"
-              style={{ 
-                width: selectedStep !== null 
-                  ? `${(selectedStep / (currentPlaybook.steps.length - 1)) * 100}%` 
-                  : '0%'
-              }}
-            />
+      <Card className="bg-white border-2 border-[#E52629]/30 grid place-items-center py-4 md:py-6 lg:py-7 rounded-2xl max-h-[420px]">
+        <CardContent className="w-full flex justify-center items-center text-center p-0">
+          <div className="w-full max-w-[980px] mx-auto px-4 sm:px-6 md:px-8 box-border">
+            {/* Progress line and steps */}
+            <div className="relative py-4 transition-all duration-300">
+              {/* Progress line */}
+              <div className="absolute top-14 left-0 right-0 h-1 bg-gray-200" />
+              <div 
+                className="absolute top-14 left-0 h-1 bg-[#E52629] transition-all duration-500"
+                style={{ 
+                  width: selectedStep !== null 
+                    ? `${(selectedStep / (currentPlaybook.steps.length - 1)) * 100}%` 
+                    : '0%'
+                }}
+              />
 
-            {/* Steps */}
-            <div className="relative grid grid-cols-7 gap-2">
-              {currentPlaybook.steps.map((step, stepIdx) => (
-                <button
-                  key={stepIdx}
-                  onClick={() => setSelectedStep(stepIdx)}
-                  className="flex flex-col items-center gap-3 group"
-                >
-                  <div 
-                    className={cn(
-                      "h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold z-10 transition-all duration-300",
-                      selectedStep === stepIdx
-                        ? "bg-[#E52629] text-white scale-110 shadow-lg"
-                        : "bg-white border-2 border-gray-300 text-gray-600 group-hover:border-[#E52629] group-hover:text-[#E52629]"
-                    )}
-                  >
-                    {stepIdx + 1}
-                  </div>
-                  <p className={cn(
-                    "text-xs text-center font-medium leading-tight transition-colors",
-                    selectedStep === stepIdx ? "text-[#E52629]" : "text-gray-600 group-hover:text-[#E52629]"
-                  )}>
-                    {step.name}
-                  </p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Details drawer */}
-          <AnimatePresence mode="wait">
-            {selectedStep !== null && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-8"
+              {/* Steps */}
+              <div 
+                className="relative grid gap-2"
+                style={{ gridTemplateColumns: `repeat(${currentPlaybook.steps.length}, minmax(0, 1fr))` }}
               >
-                <Card className="bg-gray-50 border-[#E52629]">
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-xl flex items-center gap-3">
-                        <div className="h-10 w-10 rounded-full bg-[#E52629] text-white flex items-center justify-center text-sm font-bold">
-                          {selectedStep + 1}
+                {currentPlaybook.steps.map((step, stepIdx) => (
+                  <button
+                    key={stepIdx}
+                    onClick={() => setSelectedStep(stepIdx)}
+                    className="flex flex-col items-center gap-3 group"
+                  >
+                    <div 
+                      className={cn(
+                        "h-12 w-12 rounded-full flex items-center justify-center text-sm font-bold z-10 transition-all duration-300",
+                        selectedStep === stepIdx
+                          ? "bg-[#E52629] text-white scale-110 shadow-lg"
+                          : "bg-white border-2 border-gray-300 text-gray-600 group-hover:border-[#E52629] group-hover:text-[#E52629]"
+                      )}
+                    >
+                      {stepIdx + 1}
+                    </div>
+                    <p className={cn(
+                      "text-xs text-center font-medium leading-tight transition-colors",
+                      selectedStep === stepIdx ? "text-[#E52629]" : "text-gray-600 group-hover:text-[#E52629]"
+                    )}>
+                      {step.name}
+                    </p>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Details drawer */}
+            <AnimatePresence mode="wait">
+              {selectedStep !== null && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: "auto" }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                  className="mt-6"
+                >
+                  <Card className="bg-gray-50 border-[#E52629]">
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="text-xl flex items-center gap-3">
+                          <div className="h-10 w-10 rounded-full bg-[#E52629] text-white flex items-center justify-center text-sm font-bold">
+                            {selectedStep + 1}
+                          </div>
+                          {currentPlaybook.steps[selectedStep].name}
+                        </CardTitle>
+                        <Button
+                          size="icon"
+                          variant="ghost"
+                          onClick={() => setSelectedStep(null)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </CardHeader>
+                    <CardContent className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-semibold text-[#1C1C1C] mb-2">What</h5>
+                          <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].what}</p>
                         </div>
-                        {currentPlaybook.steps[selectedStep].name}
-                      </CardTitle>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        onClick={() => setSelectedStep(null)}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-4">
-                      <div>
-                        <h5 className="font-semibold text-[#1C1C1C] mb-2">What</h5>
-                        <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].what}</p>
+                        <div>
+                          <h5 className="font-semibold text-[#1C1C1C] mb-2">Why</h5>
+                          <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].why}</p>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-[#1C1C1C] mb-2">How</h5>
+                          <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].how}</p>
+                        </div>
                       </div>
-                      <div>
-                        <h5 className="font-semibold text-[#1C1C1C] mb-2">Why</h5>
-                        <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].why}</p>
+                      <div className="space-y-4">
+                        <div>
+                          <h5 className="font-semibold text-[#1C1C1C] mb-2">Inputs</h5>
+                          <ul className="space-y-1">
+                            {currentPlaybook.steps[selectedStep].inputs.map((input, i) => (
+                              <li key={i} className="flex items-start gap-2 text-[#3C3C3C]">
+                                <span className="text-[#E52629] mt-1">→</span>
+                                {input}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h5 className="font-semibold text-[#1C1C1C] mb-2">Outputs</h5>
+                          <ul className="space-y-1">
+                            {currentPlaybook.steps[selectedStep].outputs.map((output, i) => (
+                              <li key={i} className="flex items-start gap-2 text-[#3C3C3C]">
+                                <span className="text-[#E52629] mt-1">✓</span>
+                                {output}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       </div>
-                      <div>
-                        <h5 className="font-semibold text-[#1C1C1C] mb-2">How</h5>
-                        <p className="text-[#3C3C3C]">{currentPlaybook.steps[selectedStep].how}</p>
-                      </div>
-                    </div>
-                    <div className="space-y-4">
-                      <div>
-                        <h5 className="font-semibold text-[#1C1C1C] mb-2">Inputs</h5>
-                        <ul className="space-y-1">
-                          {currentPlaybook.steps[selectedStep].inputs.map((input, i) => (
-                            <li key={i} className="flex items-start gap-2 text-[#3C3C3C]">
-                              <span className="text-[#E52629] mt-1">→</span>
-                              {input}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <h5 className="font-semibold text-[#1C1C1C] mb-2">Outputs</h5>
-                        <ul className="space-y-1">
-                          {currentPlaybook.steps[selectedStep].outputs.map((output, i) => (
-                            <li key={i} className="flex items-start gap-2 text-[#3C3C3C]">
-                              <span className="text-[#E52629] mt-1">✓</span>
-                              {output}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            )}
-          </AnimatePresence>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </CardContent>
       </Card>
     </div>

@@ -9,19 +9,19 @@ import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
-const heroCards = [
-  { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
-  { icon: "💾", title: "Data Protection", benefit: "Immutable backups, WORM, S3 Object Lock" },
-  { icon: "🔄", title: "Disaster Recovery", benefit: "Cross-region failover, automated drills" },
-  { icon: "🔐", title: "Security & Compliance", benefit: "Encrypted at rest & in transit" },
-  { icon: "📊", title: "Hybrid Storage", benefit: "On-prem + cloud tiers for durability" },
-  { icon: "⏱️", title: "Fast Recovery", benefit: "RPO 15 min, RTO < 2hrs for tier-1" }
-];
-
 export default function BackupRecovery() {
   const [activeSection, setActiveSection] = useState("br-overview");
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+
+  const heroCards = [
+    { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
+    { icon: "💾", title: "Data Protection", benefit: "Immutable backups, WORM, S3 Object Lock" },
+    { icon: "🔄", title: "Disaster Recovery", benefit: "Cross-region failover, automated drills" },
+    { icon: "🔐", title: "Security & Compliance", benefit: "Encrypted at rest & in transit" },
+    { icon: "📊", title: "Hybrid Storage", benefit: "On-prem + cloud tiers for durability" },
+    { icon: "⏱️", title: "Fast Recovery", benefit: "RPO 15 min, RTO < 2hrs for tier-1" }
+  ];
 
   const subNavItems = [
     { id: "br-overview", label: "Overview" },
@@ -293,20 +293,8 @@ export default function BackupRecovery() {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24 overflow-hidden">
-          {/* Animated Background */}
-          <motion.div
-            className="absolute inset-0 -z-10"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-            <div className="absolute top-20 -right-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-            <div className="absolute bottom-20 -left-20 w-96 h-96 bg-secondary/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-          </motion.div>
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <HeroBackground fullHeight>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column */}
               <motion.div 
@@ -368,38 +356,21 @@ export default function BackupRecovery() {
                 </motion.div>
               </motion.div>
 
-              {/* Right Column - Hero Image */}
+              {/* Right Column - Hero Animation */}
               <motion.div 
                 className="flex justify-center lg:justify-end order-1 lg:order-2"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2 }}
               >
-                <motion.figure
-                  className="relative w-full max-w-2xl group"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  {/* Brand glow effect */}
-                  <div className="absolute -inset-4 bg-gradient-to-r from-[#E52629]/20 via-[#007AFF]/20 to-[#E52629]/20 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  {/* Image container */}
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                    <img
-                      src="/images/backup-recovery/hero.png"
-                      alt="Vault-like secure backup enclosure with cyber lock—data backup & recovery"
-                      width={1184}
-                      height={672}
-                      loading="eager"
-                      fetchPriority="high"
-                      className="w-full h-auto object-cover"
-                    />
-                  </div>
-                </motion.figure>
+                <HeroMotionSystem 
+                  cards={heroCards}
+                  ariaLabel="Backup & Recovery highlights"
+                />
               </motion.div>
             </div>
           </div>
-        </section>
+        </HeroBackground>
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">

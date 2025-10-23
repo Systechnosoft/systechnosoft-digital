@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground } from "@/components/HeroMotionSystem";
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { 
   ArrowRight, 
   Shield, 
@@ -54,6 +54,15 @@ export default function ManagedITServices() {
   }, []);
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const heroCards = [
+    { icon: "🛡️", title: "24×7 Monitoring", benefit: "Proactive alerts before outages" },
+    { icon: "🔧", title: "Remote Management", benefit: "Patch, config, automate endpoints" },
+    { icon: "📞", title: "Helpdesk Support", benefit: "Multi-channel L1-L2 with SLAs" },
+    { icon: "🔒", title: "Zero-Trust Aligned", benefit: "Security policies & NAC" },
+    { icon: "📊", title: "Event Monitoring", benefit: "Centralized logs & correlation" },
+    { icon: "🌐", title: "Network Management", benefit: "QoS, segmentation, backups" }
+  ];
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -214,43 +223,8 @@ export default function ManagedITServices() {
 
       <div className="min-h-screen bg-background text-foreground">
         {/* Hero Section */}
-        <section id="hero" className="relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden">
-          {/* Animated Background */}
-          <motion.div 
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
-            <motion.div 
-              className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl"
-              animate={prefersReducedMotion ? {} : {
-                scale: [1, 1.2, 1],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
-            />
-            <motion.div 
-              className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl"
-              animate={prefersReducedMotion ? {} : {
-                scale: [1.2, 1, 1.2],
-                opacity: [0.3, 0.5, 0.3],
-              }}
-              transition={{
-                duration: 8,
-                repeat: Infinity,
-                ease: "easeInOut",
-                delay: 1
-              }}
-            />
-          </motion.div>
-
-          <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <HeroBackground fullHeight>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               {/* Left Column - Content */}
               <motion.div 
@@ -342,31 +316,21 @@ export default function ManagedITServices() {
                 </motion.div>
               </motion.div>
 
-              {/* Right Column - Hero Visual */}
-              <motion.figure 
-                className="relative flex justify-center lg:justify-end group"
+              {/* Right Column - Hero Animation */}
+              <motion.div
+                className="flex justify-center lg:justify-end"
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.3, duration: 0.7 }}
-                whileHover={prefersReducedMotion ? {} : { scale: 1.02 }}
               >
-                <div className="relative">
-                  {/* Brand glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-tr from-primary/20 via-transparent to-accent/20 rounded-2xl blur-2xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
-                  
-                  <img 
-                    src="/images/managed-it/hero.png"
-                    alt="Managed IT services hub connecting policies, tickets, monitoring, and automation"
-                    width={1184}
-                    height={672}
-                    className="relative w-full max-w-2xl h-auto rounded-2xl shadow-2xl transition-transform duration-500"
-                    loading="eager"
-                  />
-                </div>
-              </motion.figure>
+                <HeroMotionSystem 
+                  cards={heroCards}
+                  ariaLabel="Managed IT Services highlights"
+                />
+              </motion.div>
             </div>
           </div>
-        </section>
+        </HeroBackground>
 
 
         {/* Service Tiles - Light Background */}

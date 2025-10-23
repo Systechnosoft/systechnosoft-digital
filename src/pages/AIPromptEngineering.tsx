@@ -8,6 +8,7 @@ import { FileText, Shield, Zap, TrendingUp, Target, ArrowRight, ChevronDown, Cod
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
 import heroImage from "@/assets/hero-prompt-engineering.png";
+import { PlaybookStepper } from "@/components/PlaybookStepper";
 
 // Animation variants
 const fadeUpVariants = {
@@ -66,28 +67,84 @@ const benefits = [
 ];
 
 const useCases = [
-  "Support bots tuned to brand tone & policy",
-  "Knowledge assistants with RAG and citations",
-  "Draft/reply generation with style & length controls",
-  "Workflow copilots that call tools/APIs safely",
-  "Analytics Q&A with guardrails & disclaimers"
+  {
+    title: "Support bots tuned to brand tone & policy",
+    description: "Deploy conversational AI that maintains your brand voice while adhering to company policies and guidelines."
+  },
+  {
+    title: "Knowledge assistants with RAG and citations",
+    description: "Build retrieval-augmented systems that provide accurate, sourced answers from your knowledge base."
+  },
+  {
+    title: "Draft/reply generation with style & length controls",
+    description: "Generate contextual content with precise formatting, tone, and length requirements."
+  },
+  {
+    title: "Workflow copilots that call tools/APIs safely",
+    description: "Create intelligent assistants that interact with your systems through controlled, validated API calls."
+  },
+  {
+    title: "Analytics Q&A with guardrails & disclaimers",
+    description: "Enable natural language data exploration while maintaining data governance and compliance requirements."
+  },
+  {
+    title: "Prompt A/B testing & variant management with guardrails",
+    description: "Systematically test and optimize prompt variations while maintaining safety boundaries and quality standards."
+  }
 ];
 
 const capabilities = [
-  "Prompt templates with slots/variables & YAML/JSON registries",
-  "Retrieval configuration: chunking, embeddings, vector DB",
-  "Function/tool schemas (JSON Schema), safe sandboxes",
-  "Evals: golden sets, rubric scoring, human-in-the-loop",
-  "Observability: tracing, metrics, prompt/version lineage",
-  "Rollouts: feature flags, canaries, automatic rollback",
-  "Latency & cost budgets; caching & reranking"
+  {
+    title: "Prompt templates with slots/variables & YAML/JSON registries",
+    description: "Structured, version-controlled prompt management"
+  },
+  {
+    title: "Retrieval configuration: chunking, embeddings, vector DB",
+    description: "Optimized RAG pipelines for accurate context retrieval"
+  },
+  {
+    title: "Function/tool schemas (JSON Schema), safe sandboxes",
+    description: "Controlled tool-use with validation and safety boundaries"
+  },
+  {
+    title: "Evals: golden sets, rubric scoring, human-in-the-loop",
+    description: "Comprehensive testing frameworks for quality assurance"
+  },
+  {
+    title: "Observability: tracing, metrics, prompt/version lineage",
+    description: "Full visibility into prompt performance and evolution"
+  },
+  {
+    title: "Rollouts: feature flags, canaries, automatic rollback",
+    description: "Safe deployment strategies with instant rollback capability"
+  },
+  {
+    title: "Latency & cost budgets; caching & reranking",
+    description: "Performance optimization and cost control mechanisms"
+  },
+  {
+    title: "Policy packs & disclaimers automation",
+    description: "Automated compliance and legal safeguards integration"
+  }
 ];
 
 const sdks = [
-  "JS/Python LLM clients & prompt registries",
-  "Embeddings & vector stores",
-  "Tracing/evals/observability SDKs",
-  "Orchestration/runtime adapters (tool-use/agents)"
+  {
+    title: "JS/Python LLM clients & prompt registries",
+    description: "Type-safe prompt management for production applications"
+  },
+  {
+    title: "Embeddings & vector stores",
+    description: "Semantic search and retrieval infrastructure"
+  },
+  {
+    title: "Tracing/evals/observability SDKs",
+    description: "Monitor and evaluate prompt performance in real-time"
+  },
+  {
+    title: "Orchestration/runtime adapters (tool-use/agents)",
+    description: "Framework-agnostic agent and workflow execution"
+  }
 ];
 
 const playbooks = [
@@ -174,13 +231,17 @@ export default function AIPromptEngineering() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="hero-animated relative overflow-hidden">
+      <section className="sf-hero prompt-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24">
         {/* Animated Background */}
-        <div className="hero-animated__bg">
-          <div className="hero-animated__bg-glow" />
+        <div className="sf-hero__bg absolute inset-0 opacity-10" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
           {!shouldReduceMotion && (
             <motion.div
-              className="hero-animated__bg-rotation"
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
@@ -188,134 +249,124 @@ export default function AIPromptEngineering() {
         </div>
 
         {/* Content */}
-        <div className="hero-animated__content relative z-10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              
-              {/* Left Column - Text Content */}
-              <motion.div
-                variants={staggeredFadeUp}
-                initial="hidden"
-                animate="visible"
-                className="space-y-6 lg:space-y-8"
-              >
-                <motion.h1 
-                  variants={fadeUpVariants}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
-                >
+        <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+            {/* Left Column - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="prompt-hero__left space-y-6 max-w-[44rem]"
+            >
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
                   Get reliable outputs from LLMs—on demand
-                </motion.h1>
+                </h1>
 
-                <motion.p 
-                  variants={fadeUpVariants}
-                  className="text-lg sm:text-xl text-muted-foreground max-w-2xl"
-                >
+                <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                   Design, test, and govern prompts, context, and tool‑use so models deliver consistent, safe results in production.
-                </motion.p>
+                </p>
+              </div>
 
-                <motion.div 
-                  variants={fadeUpVariants}
-                  className="flex flex-wrap gap-3"
-                >
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <FileText className="h-4 w-4 mr-2" />
-                    Templates & variables
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Guardrails & safety
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <CheckCircle2 className="h-4 w-4 mr-2" />
-                    Versioned & testable
-                  </Badge>
-                </motion.div>
-
-                <motion.div 
-                  variants={fadeUpVariants}
-                  className="flex flex-wrap gap-4 pt-4"
-                >
-                  <Button 
-                    size="lg" 
-                    asChild
-                    className="text-base"
-                  >
-                    <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                      Book a Consultation
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </a>
-                  </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline"
-                    onClick={() => scrollToId('capabilities')}
-                    className="text-base"
-                  >
-                    See capabilities
-                  </Button>
-                </motion.div>
-              </motion.div>
-
-              {/* Right Column - Hero Visual */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative"
+              {/* USP Pill Chips */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="sf-hero__chips flex flex-wrap gap-3"
+                aria-label="Key benefits"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
-                  <img 
-                    src={heroImage} 
-                    alt="Prompt engineering flow illustration showing template to LLM to evaluation process"
-                    className="w-full h-auto"
-                    loading="eager"
-                  />
-                </div>
+                {["Templates & variables", "Guardrails & safety", "Versioned & testable"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
               </motion.div>
 
-            </div>
+              {/* CTAs */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Button
+                  size="lg"
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
+                  onClick={() => scrollToId('benefits')}
+                >
+                  See what we deliver →
+                </Button>
+
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
+                  <a href="/contact?type=mra">
+                    Claim your free insight
+                  </a>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Hero Visual */}
+            <motion.figure
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="prompt-hero__art relative isolate group"
+            >
+              <img
+                src={heroImage}
+                alt="Prompt engineering flow illustration showing template to LLM to evaluation process"
+                className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]"
+                loading="eager"
+              />
+              <span 
+                aria-hidden="true" 
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                }}
+              />
+            </motion.figure>
           </div>
         </div>
       </section>
 
-      {/* Local Section Nav */}
-      <nav className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsNavOpen(!isNavOpen)}
-            className="lg:hidden w-full py-4 flex items-center justify-between text-sm font-medium"
-            aria-expanded={isNavOpen}
-          >
-            <span>Navigate Sections</span>
-            <ChevronDown className={`h-4 w-4 transition-transform ${isNavOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          {/* Nav Items */}
-          <ul className={`
-            lg:flex lg:items-center lg:gap-8 lg:py-0
-            ${isNavOpen ? 'block pb-4' : 'hidden lg:flex'}
-          `}>
+      {/* Sticky Navigation */}
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {navItems.map(({ id, label }) => (
-              <li key={id}>
-                <button
-                  onClick={() => {
-                    scrollToId(id);
-                    setIsNavOpen(false);
-                  }}
-                  className={`
-                    block py-3 lg:py-4 text-sm font-medium transition-colors
-                    ${activeSection === id 
-                      ? 'text-primary border-b-2 border-primary' 
-                      : 'text-muted-foreground hover:text-foreground'
-                    }
-                  `}
-                >
-                  {label}
-                </button>
-              </li>
+              <button
+                key={id}
+                onClick={() => scrollToId(id)}
+                className={`
+                  flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200
+                  ${activeSection === id
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                  }
+                `}
+                aria-current={activeSection === id ? "true" : undefined}
+              >
+                {label}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       </nav>
 
@@ -403,20 +454,18 @@ export default function AIPromptEngineering() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
             {useCases.map((useCase, index) => (
-              <motion.div
-                key={index}
-                variants={fadeUpVariants}
-                className="flex gap-4 p-6 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors"
-              >
-                <div className="flex-shrink-0 mt-1">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <ArrowRight className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <p className="text-muted-foreground">{useCase}</p>
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-xl">{useCase.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{useCase.description}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </motion.div>
@@ -444,24 +493,20 @@ export default function AIPromptEngineering() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-4xl mx-auto"
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
           >
-            <div className="grid md:grid-cols-2 gap-4">
-              {capabilities.map((capability, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  className="flex gap-3 p-5 rounded-lg bg-card border border-border"
-                >
-                  <div className="flex-shrink-0 mt-0.5">
-                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-foreground font-medium">{capability}</p>
-                </motion.div>
-              ))}
-            </div>
+            {capabilities.map((capability, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{capability.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{capability.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -487,20 +532,23 @@ export default function AIPromptEngineering() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-3xl mx-auto"
+            className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
           >
-            <div className="grid sm:grid-cols-2 gap-6">
-              {sdks.map((sdk, index) => (
-                <motion.div
-                  key={index}
-                  variants={scaleIn}
-                  className="p-6 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-all duration-300 text-center"
-                >
-                  <Code2 className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="font-medium text-foreground">{sdk}</p>
-                </motion.div>
-              ))}
-            </div>
+            {sdks.map((sdk, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <Code2 className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-xl">{sdk.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground">{sdk.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -517,7 +565,7 @@ export default function AIPromptEngineering() {
           >
             <h2 className="text-3xl sm:text-4xl font-bold mb-4">Playbooks</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Step-by-step workflows for common prompt engineering scenarios
+              Interactive step-by-step workflows for prompt engineering
             </p>
           </motion.div>
 
@@ -525,106 +573,67 @@ export default function AIPromptEngineering() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="max-w-5xl mx-auto space-y-8"
+            variants={fadeUpVariants}
+            className="max-w-6xl mx-auto"
           >
-            {playbooks.map((playbook, playbookIndex) => (
-              <motion.div
-                key={playbookIndex}
-                variants={fadeUpVariants}
-                className="bg-card border border-border rounded-lg p-6 sm:p-8"
-              >
-                <h3 className="text-xl font-bold mb-6 text-foreground">{playbook.title}</h3>
-                
-                {/* Timeline */}
-                <div className="relative">
-                  {/* Horizontal line */}
-                  <div className="absolute top-6 left-0 right-0 h-0.5 bg-border hidden sm:block" />
-                  
-                  {/* Steps */}
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-7 gap-4 sm:gap-6 relative">
-                    {playbook.steps.map((step, stepIndex) => (
-                      <div key={stepIndex} className="flex flex-col items-center gap-3">
-                        <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm z-10 flex-shrink-0">
-                          {stepIndex + 1}
-                        </div>
-                        <p className="text-sm text-center text-foreground font-medium leading-tight">
-                          {step}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+            <PlaybookStepper />
           </motion.div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Common questions about prompt engineering
-            </p>
-          </motion.div>
+      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-3xl mx-auto"
-          >
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg px-6 bg-card">
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <AccordionItem 
+                key={idx} 
+                value={`item-${idx}`}
+                className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+              >
+                <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-[#3C3C3C]">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
-      {/* CTA Band */}
-      <section className="py-16 sm:py-20 lg:py-24 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to operationalize prompts?</h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild>
-                <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                  Book a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+      {/* CTA Band - Matching Cloud */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to operationalize prompts?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's discuss your prompt engineering needs and create a tailored plan.
+          </p>
+          
+          <div className="flex justify-center">
+            <a 
+              href="https://calendly.com/systechnosoft-info/30min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button 
+                size="lg" 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              >
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="/contact">
-                  Talk to an expert
-                </a>
-              </Button>
-            </div>
-          </motion.div>
+            </a>
+          </div>
         </div>
       </section>
     </>

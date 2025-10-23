@@ -1,12 +1,14 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown } from "lucide-react";
+import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown, GitBranch } from "lucide-react";
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
+import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-ai-development.png";
 
 // Animation variants
@@ -72,11 +74,36 @@ const useCases = [
 ];
 
 const capabilities = [
-  "API & event-driven integration (REST, webhooks, queues)",
-  "RAG pipeline design (chunking, embeddings, vector DB)",
-  "Tool-use/agent patterns with safe sandboxes",
-  "Evals, monitoring, red-teaming, safety filters",
-  "CI/CD for prompts and configs; feature flags"
+  {
+    icon: Code2,
+    title: "API & event-driven integration",
+    description: "REST, webhooks, queues"
+  },
+  {
+    icon: Activity,
+    title: "RAG pipeline design",
+    description: "Chunking, embeddings, vector DB"
+  },
+  {
+    icon: Shield,
+    title: "Tool-use/agent patterns",
+    description: "Safe sandboxes"
+  },
+  {
+    icon: Zap,
+    title: "Evals, monitoring, red-teaming",
+    description: "Safety filters"
+  },
+  {
+    icon: Sparkles,
+    title: "CI/CD for prompts and configs",
+    description: "Feature flags"
+  },
+  {
+    icon: GitBranch,
+    title: "Model Ops & Governance",
+    description: "Prompt registry, rollout controls, canary releases"
+  }
 ];
 
 const sdks = [
@@ -167,7 +194,7 @@ export default function AIDevelopmentIntegration() {
                 variants={staggeredFadeUp}
                 initial="hidden"
                 animate="visible"
-                className="space-y-6 lg:space-y-8"
+                className="space-y-6 lg:space-y-8 flex flex-col justify-center"
               >
                 <motion.h1 
                   variants={fadeUpVariants}
@@ -186,42 +213,43 @@ export default function AIDevelopmentIntegration() {
                 <motion.div 
                   variants={fadeUpVariants}
                   className="flex flex-wrap gap-3"
+                  aria-label="Key benefits"
                 >
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    SDK‑first approach
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Zap className="h-4 w-4 mr-2" />
-                    Low‑latency integration
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Governance‑ready
-                  </Badge>
+                  {["SDK‑first approach", "Low‑latency integration", "Governance‑ready"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
                 </motion.div>
 
                 <motion.div 
                   variants={fadeUpVariants}
-                  className="flex flex-wrap gap-4 pt-4"
+                  className="flex flex-col sm:flex-row gap-3 pt-4"
                 >
-                  <Button 
-                    size="lg" 
-                    asChild
-                    className="text-base"
+                  <Button
+                    size="lg"
+                    onClick={() => scrollToId('benefits')}
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                      Book a Consultation
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </a>
+                    See what we deliver →
                   </Button>
-                  <Button 
-                    size="lg" 
+                  <Button
+                    asChild
                     variant="outline"
-                    onClick={() => scrollToId('capabilities')}
-                    className="text-base"
+                    size="lg"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                   >
-                    See capabilities
+                    <Link to="/contact?type=mra">Claim your free insight</Link>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -249,43 +277,24 @@ export default function AIDevelopmentIntegration() {
       </section>
 
       {/* Local Section Nav */}
-      <nav className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsNavOpen(!isNavOpen)}
-            className="lg:hidden w-full py-4 flex items-center justify-between text-sm font-medium"
-            aria-expanded={isNavOpen}
-          >
-            <span>Navigate Sections</span>
-            <ChevronDown className={`h-4 w-4 transition-transform ${isNavOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          {/* Nav Items */}
-          <ul className={`
-            lg:flex lg:items-center lg:gap-8 lg:py-0
-            ${isNavOpen ? 'block pb-4' : 'hidden lg:flex'}
-          `}>
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {navItems.map(({ id, label }) => (
-              <li key={id}>
-                <button
-                  onClick={() => {
-                    scrollToId(id);
-                    setIsNavOpen(false);
-                  }}
-                  className={`
-                    block py-3 lg:py-4 text-sm font-medium transition-colors
-                    ${activeSection === id 
-                      ? 'text-primary border-b-2 border-primary' 
-                      : 'text-muted-foreground hover:text-foreground'
-                    }
-                  `}
-                >
-                  {label}
-                </button>
-              </li>
+              <button
+                key={id}
+                onClick={() => scrollToId(id)}
+                className={cn(
+                  "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                  activeSection === id
+                    ? "bg-[#E52629] text-white shadow-md"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
+                )}
+              >
+                {label}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       </nav>
 
@@ -375,17 +384,17 @@ export default function AIDevelopmentIntegration() {
             className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
           >
             {useCases.map((useCase, index) => (
-              <motion.div
-                key={index}
-                variants={fadeUpVariants}
-                className="flex gap-4 p-6 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors"
-              >
-                <div className="flex-shrink-0 mt-1">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <ArrowRight className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <p className="text-muted-foreground">{useCase}</p>
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardContent className="p-6 flex gap-4">
+                    <div className="flex-shrink-0 mt-1">
+                      <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
+                        <ArrowRight className="h-4 w-4 text-primary" />
+                      </div>
+                    </div>
+                    <p className="text-muted-foreground">{useCase}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </motion.div>
@@ -413,24 +422,23 @@ export default function AIDevelopmentIntegration() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-4xl mx-auto"
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
-            <div className="grid md:grid-cols-2 gap-4">
-              {capabilities.map((capability, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  className="flex gap-3 p-5 rounded-lg bg-card border border-border"
-                >
-                  <div className="flex-shrink-0 mt-0.5">
-                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-foreground font-medium">{capability}</p>
-                </motion.div>
-              ))}
-            </div>
+            {capabilities.map((capability, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <capability.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{capability.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{capability.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -456,88 +464,75 @@ export default function AIDevelopmentIntegration() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-3xl mx-auto"
+            className="grid sm:grid-cols-2 gap-6 max-w-3xl mx-auto"
           >
-            <div className="grid sm:grid-cols-2 gap-6">
-              {sdks.map((sdk, index) => (
-                <motion.div
-                  key={index}
-                  variants={scaleIn}
-                  className="p-6 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-all duration-300 text-center"
-                >
-                  <Code2 className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="font-medium text-foreground">{sdk}</p>
-                </motion.div>
-              ))}
-            </div>
+            {sdks.map((sdk, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg text-center">
+                  <CardContent className="p-6">
+                    <Code2 className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                    <p className="font-medium text-foreground">{sdk}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Common questions about our AI development services
-            </p>
-          </motion.div>
+      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-3xl mx-auto"
-          >
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg px-6 bg-card">
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="font-semibold">{faq.question}</span>
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </motion.div>
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, idx) => (
+              <AccordionItem 
+                key={idx} 
+                value={`item-${idx}`}
+                className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+              >
+                <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-[#3C3C3C]">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
       {/* CTA Band */}
-      <section className="py-16 sm:py-20 lg:py-24 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to ship AI features?</h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild>
-                <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                  Book a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to ship AI features?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's discuss your AI requirements and create a tailored plan.
+          </p>
+          
+          <div className="flex justify-center">
+            <a 
+              href="https://calendly.com/systechnosoft-info/30min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button 
+                size="lg" 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              >
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="/contact">
-                  Talk to an expert
-                </a>
-              </Button>
-            </div>
-          </motion.div>
+            </a>
+          </div>
         </div>
       </section>
     </>

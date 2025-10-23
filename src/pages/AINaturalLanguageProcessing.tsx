@@ -1,12 +1,14 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Sparkles, Shield, Zap, TrendingUp, MessageSquare, ArrowRight, ChevronDown, Code2 } from "lucide-react";
+import { Sparkles, Shield, Zap, TrendingUp, MessageSquare, ArrowRight, Code2, Globe } from "lucide-react";
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
+import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-nlp.png";
 
 // Animation variants
@@ -65,27 +67,82 @@ const benefits = [
 ];
 
 const useCases = [
-  "AI assistants for support & internal knowledge",
-  "Summarization of tickets, chats, calls, docs",
-  "Sentiment/intent classification at scale",
-  "Entity/keyword extraction for analytics",
-  "Speech-to-text notes, topical clustering"
+  {
+    icon: MessageSquare,
+    title: "AI assistants for support & internal knowledge",
+    description: "Build conversational interfaces with context-aware responses"
+  },
+  {
+    icon: TrendingUp,
+    title: "Summarization of tickets, chats, calls, docs",
+    description: "Extract key points and action items automatically"
+  },
+  {
+    icon: Shield,
+    title: "Sentiment/intent classification at scale",
+    description: "Understand customer emotions and routing priorities"
+  },
+  {
+    icon: Zap,
+    title: "Entity/keyword extraction for analytics",
+    description: "Identify and categorize important information"
+  },
+  {
+    icon: Sparkles,
+    title: "Speech-to-text notes, topical clustering",
+    description: "Transcribe and organize spoken content"
+  },
+  {
+    icon: Globe,
+    title: "Real-time language translation & localization",
+    description: "Translate content and UI at scale with glossary + review flows"
+  }
 ];
 
 const capabilities = [
-  "Text & speech ingestion (streaming + batch)",
-  "Tokenization, POS/NER, dependency parsing",
-  "Semantic search & RAG (chunking, embeddings, vector DB)",
-  "Guardrails: PII masking, profanity/toxicity, jailbreak filters",
-  "Evaluation & monitoring (latency, accuracy, drift)",
-  "CI/CD for prompts/configs; feature flags & rollback"
+  {
+    title: "Text & speech ingestion (streaming + batch)",
+    description: "Handle real-time and batch processing of text and audio inputs"
+  },
+  {
+    title: "Tokenization, POS/NER, dependency parsing",
+    description: "Break down and analyze linguistic structures"
+  },
+  {
+    title: "Semantic search & RAG (chunking, embeddings, vector DB)",
+    description: "Build intelligent retrieval and context-aware generation"
+  },
+  {
+    title: "Guardrails: PII masking, profanity/toxicity, jailbreak filters",
+    description: "Ensure safe and compliant NLP outputs"
+  },
+  {
+    title: "Evaluation & monitoring (latency, accuracy, drift)",
+    description: "Track performance metrics and model quality"
+  },
+  {
+    title: "CI/CD for prompts/configs; feature flags & rollback",
+    description: "Deploy and manage NLP features with confidence"
+  }
 ];
 
 const sdks = [
-  "Tokenizers & transformers (JS/Python)",
-  "Embeddings & vector stores",
-  "Speech-to-text & text-to-speech adapters",
-  "Tracing/evals/observability SDKs"
+  {
+    title: "Tokenizers & transformers (JS/Python)",
+    description: "Core NLP building blocks for text processing"
+  },
+  {
+    title: "Embeddings & vector stores",
+    description: "Semantic search and similarity matching"
+  },
+  {
+    title: "Speech-to-text & text-to-speech adapters",
+    description: "Audio processing and synthesis integrations"
+  },
+  {
+    title: "Tracing/evals/observability SDKs",
+    description: "Monitor and debug NLP pipelines"
+  }
 ];
 
 const faqs = [
@@ -146,7 +203,7 @@ export default function AINaturalLanguageProcessing() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="hero-animated relative overflow-hidden">
+      <section className="hero-animated relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24">
         {/* Animated Background */}
         <div className="hero-animated__bg">
           <div className="hero-animated__bg-glow" />
@@ -160,9 +217,8 @@ export default function AINaturalLanguageProcessing() {
         </div>
 
         {/* Content */}
-        <div className="hero-animated__content relative z-10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-[1200px] mx-auto">
               
               {/* Left Column - Text Content */}
               <motion.div
@@ -188,42 +244,46 @@ export default function AINaturalLanguageProcessing() {
                 <motion.div 
                   variants={fadeUpVariants}
                   className="flex flex-wrap gap-3"
+                  aria-label="Key benefits"
                 >
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    Tokenization to insights
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Zap className="h-4 w-4 mr-2" />
-                    Low‑latency pipelines
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2">
-                    <Shield className="h-4 w-4 mr-2" />
-                    Privacy‑first NLP
-                  </Badge>
+                  {["Tokenization to insights", "Low‑latency pipelines", "Privacy‑first NLP"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {idx === 0 && <Sparkles className="h-4 w-4 mr-2" />}
+                        {idx === 1 && <Zap className="h-4 w-4 mr-2" />}
+                        {idx === 2 && <Shield className="h-4 w-4 mr-2" />}
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
                 </motion.div>
 
                 <motion.div 
                   variants={fadeUpVariants}
-                  className="flex flex-wrap gap-4 pt-4"
+                  className="flex flex-col sm:flex-row gap-3 pt-4"
                 >
-                  <Button 
-                    size="lg" 
-                    asChild
-                    className="text-base"
+                  <Button
+                    size="lg"
+                    onClick={() => scrollToId('benefits')}
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                      Book a Consultation
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </a>
+                    See what we deliver →
                   </Button>
-                  <Button 
-                    size="lg" 
+                  <Button
+                    asChild
                     variant="outline"
-                    onClick={() => scrollToId('capabilities')}
-                    className="text-base"
+                    size="lg"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                   >
-                    See capabilities
+                    <Link to="/contact?type=mra">Claim your free insight</Link>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -246,48 +306,28 @@ export default function AINaturalLanguageProcessing() {
               </motion.div>
 
             </div>
-          </div>
         </div>
       </section>
 
       {/* Local Section Nav */}
-      <nav className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setIsNavOpen(!isNavOpen)}
-            className="lg:hidden w-full py-4 flex items-center justify-between text-sm font-medium"
-            aria-expanded={isNavOpen}
-          >
-            <span>Navigate Sections</span>
-            <ChevronDown className={`h-4 w-4 transition-transform ${isNavOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          {/* Nav Items */}
-          <ul className={`
-            lg:flex lg:items-center lg:gap-8 lg:py-0
-            ${isNavOpen ? 'block pb-4' : 'hidden lg:flex'}
-          `}>
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {navItems.map(({ id, label }) => (
-              <li key={id}>
-                <button
-                  onClick={() => {
-                    scrollToId(id);
-                    setIsNavOpen(false);
-                  }}
-                  className={`
-                    block py-3 lg:py-4 text-sm font-medium transition-colors
-                    ${activeSection === id 
-                      ? 'text-primary border-b-2 border-primary' 
-                      : 'text-muted-foreground hover:text-foreground'
-                    }
-                  `}
-                >
-                  {label}
-                </button>
-              </li>
+              <button
+                key={id}
+                onClick={() => scrollToId(id)}
+                className={cn(
+                  "flex-shrink-0 font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                  activeSection === id
+                    ? "bg-[#E52629] text-white shadow-md"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
+                )}
+              >
+                {label}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
       </nav>
 
@@ -375,20 +415,21 @@ export default function AINaturalLanguageProcessing() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
             {useCases.map((useCase, index) => (
-              <motion.div
-                key={index}
-                variants={fadeUpVariants}
-                className="flex gap-4 p-6 rounded-lg border border-border bg-card hover:border-primary/40 transition-colors"
-              >
-                <div className="flex-shrink-0 mt-1">
-                  <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center">
-                    <ArrowRight className="h-4 w-4 text-primary" />
-                  </div>
-                </div>
-                <p className="text-muted-foreground">{useCase}</p>
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                      <useCase.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <CardTitle className="text-lg">{useCase.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-sm">{useCase.description}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </motion.div>
@@ -416,24 +457,25 @@ export default function AINaturalLanguageProcessing() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-4xl mx-auto"
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
-            <div className="grid md:grid-cols-2 gap-4">
-              {capabilities.map((capability, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  className="flex gap-3 p-5 rounded-lg bg-card border border-border"
-                >
-                  <div className="flex-shrink-0 mt-0.5">
-                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </div>
-                  <p className="text-foreground font-medium">{capability}</p>
-                </motion.div>
-              ))}
-            </div>
+            {capabilities.map((capability, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
+                      <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <CardTitle className="text-lg">{capability.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-muted-foreground text-sm">{capability.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
@@ -459,26 +501,27 @@ export default function AINaturalLanguageProcessing() {
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="max-w-3xl mx-auto"
+            className="grid sm:grid-cols-2 gap-6 max-w-4xl mx-auto"
           >
-            <div className="grid sm:grid-cols-2 gap-6">
-              {sdks.map((sdk, index) => (
-                <motion.div
-                  key={index}
-                  variants={scaleIn}
-                  className="p-6 rounded-lg border-2 border-border bg-card hover:border-primary/40 transition-all duration-300 text-center"
-                >
-                  <Code2 className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="font-medium text-foreground">{sdk}</p>
-                </motion.div>
-              ))}
-            </div>
+            {sdks.map((sdk, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardContent className="p-6 text-center">
+                    <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <Code2 className="h-6 w-6 text-primary" />
+                    </div>
+                    <h3 className="font-semibold text-foreground mb-2">{sdk.title}</h3>
+                    <p className="text-muted-foreground text-sm">{sdk.description}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="faq" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -502,11 +545,15 @@ export default function AINaturalLanguageProcessing() {
           >
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg px-6 bg-card">
-                  <AccordionTrigger className="text-left hover:no-underline">
-                    <span className="font-semibold">{faq.question}</span>
+                <AccordionItem 
+                  key={index} 
+                  value={`item-${index}`}
+                  className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                    {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
+                  <AccordionContent className="text-[#3C3C3C]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -517,30 +564,30 @@ export default function AINaturalLanguageProcessing() {
       </section>
 
       {/* CTA Band */}
-      <section className="py-16 sm:py-20 lg:py-24 border-t border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Ready to build NLP into your product?</h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild>
-                <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                  Book a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to build NLP into your product?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's discuss your NLP requirements and create a tailored solution.
+          </p>
+          
+          <div className="flex justify-center">
+            <a 
+              href="https://calendly.com/systechnosoft-info/30min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button 
+                size="lg" 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              >
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-              <Button size="lg" variant="outline" asChild>
-                <a href="/contact">
-                  Talk to an expert
-                </a>
-              </Button>
-            </div>
-          </motion.div>
+            </a>
+          </div>
         </div>
       </section>
     </>

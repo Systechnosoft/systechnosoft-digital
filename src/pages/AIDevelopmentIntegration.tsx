@@ -171,7 +171,7 @@ export default function AIDevelopmentIntegration() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="hero-animated relative overflow-hidden">
+      <section className="hero-animated relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24">
         {/* Animated Background */}
         <div className="hero-animated__bg">
           <div className="hero-animated__bg-glow" />
@@ -185,16 +185,15 @@ export default function AIDevelopmentIntegration() {
         </div>
 
         {/* Content */}
-        <div className="hero-animated__content relative z-10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-[1200px] mx-auto">
               
               {/* Left Column - Text Content */}
               <motion.div
                 variants={staggeredFadeUp}
                 initial="hidden"
                 animate="visible"
-                className="space-y-6 lg:space-y-8 flex flex-col justify-center"
+                className="space-y-6 lg:space-y-8"
               >
                 <motion.h1 
                   variants={fadeUpVariants}
@@ -272,7 +271,6 @@ export default function AIDevelopmentIntegration() {
               </motion.div>
 
             </div>
-          </div>
         </div>
       </section>
 

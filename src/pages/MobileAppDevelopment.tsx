@@ -266,7 +266,7 @@ export default function MobileAppDevelopment() {
                 key={id}
                 onClick={() => scrollToId(id)}
                 className={cn(
-                  "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                  "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-colors duration-200",
                   activeSection === id
                     ? "bg-[#E52629] text-white shadow-md"
                     : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
@@ -448,23 +448,24 @@ export default function MobileAppDevelopment() {
             </p>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto"
-          >
+          <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
             {integrations.map((integration, index) => (
-              <Badge 
-                key={index} 
-                variant="outline" 
-                className="text-sm px-4 py-2 hover:bg-[#E52629] hover:text-white hover:border-[#E52629] transition-all duration-200 cursor-default"
+              <motion.div
+                key={integration}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.05, duration: 0.3 }}
               >
-                {integration}
-              </Badge>
+                <Badge 
+                  variant="secondary" 
+                  className="px-5 py-2.5 text-sm bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors duration-300 cursor-default"
+                >
+                  {integration}
+                </Badge>
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 

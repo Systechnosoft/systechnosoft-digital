@@ -271,8 +271,8 @@ export default function AIConsultationStrategy() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
               >
-                <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg min-h-[140px] flex flex-col">
-                  <CardContent className="p-4 flex items-start gap-3 flex-1">
+                <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg min-h-[120px] flex flex-col">
+                  <CardContent className="p-3.5 flex items-start gap-3 flex-1">
                     <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                     <p className="text-[#3C3C3C] font-inter">{capability}</p>
                   </CardContent>

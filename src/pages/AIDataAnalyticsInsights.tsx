@@ -161,7 +161,7 @@ export default function AIDataAnalyticsInsights() {
 
         {/* Content */}
         <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
             <motion.div
               className="ai-analytics-hero__left"
               initial={{ opacity: 0, x: -20 }}
@@ -180,21 +180,23 @@ export default function AIDataAnalyticsInsights() {
                 and make data-backed decisions that propel your business forward.
               </p>
 
-              <motion.div 
-                className="sf-hero__chips flex flex-wrap gap-3 mb-8"
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-              >
-                {["Real-time Analytics", "Predictive Modeling", "Custom Dashboards"].map((usp, i) => (
-                  <span
-                    key={i}
-                    className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
+              <div className="sf-hero__chips flex flex-wrap gap-3 mb-8">
+                {["Real-time Analytics", "Predictive Modeling", "Custom Dashboards"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
                   >
-                    {usp}
-                  </span>
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
                 ))}
-              </motion.div>
+              </div>
 
               <motion.div
                 className="flex flex-col sm:flex-row gap-4"
@@ -202,10 +204,9 @@ export default function AIDataAnalyticsInsights() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
-                <Button 
-                  size="lg" 
-                  className="text-base"
-                  disabled={false}
+                <Button
+                  size="lg"
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="See what we deliver"
                   onClick={(e) => {
                     e.preventDefault();
@@ -213,37 +214,45 @@ export default function AIDataAnalyticsInsights() {
                   }}
                   title="See what we deliver"
                 >
-                  See What We Deliver
+                  See what we deliver →
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
+                <Button
                   asChild
-                  className="text-base"
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                  aria-label="Book a consultation"
                 >
-                  <a href="/contact">Book a Consultation</a>
+                  <a href="/contact" title="Book a consultation">
+                    Book a consultation
+                  </a>
                 </Button>
               </motion.div>
             </motion.div>
 
             <motion.figure
-              className="ai-analytics-hero__art relative"
+              className="ai-analytics-hero__art relative group"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
               <img
-                src="/src/assets/hero-data-analytics.png"
-                alt="AI-powered data analytics dashboard showing real-time insights and predictive trends"
-                className="w-full h-auto rounded-lg"
-                style={{
-                  filter: "drop-shadow(0 0 60px rgba(229, 38, 41, 0.3))",
-                }}
-                width={1184}
+                src={heroDataAnalytics}
+                width={1184} 
                 height={672}
-                loading="eager"
+                alt="AI-powered data analytics dashboard showing real-time insights and predictive trends"
+                className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                loading="eager" 
                 decoding="async"
                 sizes="(min-width: 1024px) 48vw, 92vw"
+              />
+              {/* Subtle brand glow */}
+              <span 
+                aria-hidden="true" 
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                }}
               />
             </motion.figure>
           </div>

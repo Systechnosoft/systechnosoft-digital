@@ -4,27 +4,9 @@ import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, Brain, Shield, TrendingUp, DollarSign, Target, FileCheck, Database, Lock, Workflow } from "lucide-react";
-import { HeroMotionSystem, HeroBackground } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { scrollToId } from "@/lib/scrollUtils";
 import heroImage from "@/assets/hero-consultation-strategy.png";
-
-const heroCards = [
-  {
-    icon: "🎯",
-    title: "Readiness → roadmap",
-    benefit: "Assess gaps, prioritize opportunities, and build an executable plan"
-  },
-  {
-    icon: "🛡️",
-    title: "Governance & risk",
-    benefit: "Security, privacy, and compliance frameworks from day one"
-  },
-  {
-    icon: "🔓",
-    title: "Vendor‑agnostic",
-    benefit: "Multi‑model strategy with no platform lock‑in"
-  }
-];
 
 export default function AIConsultationStrategy() {
   const [activeSection, setActiveSection] = useState("overview");
@@ -126,64 +108,28 @@ export default function AIConsultationStrategy() {
         <meta property="og:url" content="https://www.systechnosoft.com/services/ai-consultation-strategy" />
       </Helmet>
 
-      <HeroBackground fullHeight={true}>
-        <section className="container mx-auto px-4 py-20 md:py-24 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-            >
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1C1C] mb-4 font-montserrat">
-                Plan AI that ships and scales
-              </h1>
-              <p className="text-lg md:text-xl text-[#3C3C3C] mb-6 font-inter">
-                Define vision, governance, and build path—from pilot to production—using proven, SDK‑first patterns.
-              </p>
-
-              <div className="flex flex-wrap gap-3 mb-8">
-                <span className="px-4 py-2 bg-white border border-[#E6E6E6] rounded-full text-sm text-[#1C1C1C] font-medium">
-                  Readiness → roadmap
-                </span>
-                <span className="px-4 py-2 bg-white border border-[#E6E6E6] rounded-full text-sm text-[#1C1C1C] font-medium">
-                  Governance & risk
-                </span>
-                <span className="px-4 py-2 bg-white border border-[#E6E6E6] rounded-full text-sm text-[#1C1C1C] font-medium">
-                  Vendor‑agnostic
-                </span>
-              </div>
-
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  size="lg"
-                  className="bg-primary hover:bg-primary/90 text-white"
-                  onClick={() => window.open("https://calendly.com/systechnosoft-info/30min", "_blank")}
-                >
-                  Book a Consultation
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={() => scrollToId("capabilities")}
-                  className="border-[#E6E6E6] hover:bg-[#F5F5F5]"
-                >
-                  See framework
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex justify-center"
-            >
-              <HeroMotionSystem cards={heroCards} ariaLabel="AI Consultation & Strategy highlights" />
-            </motion.div>
-          </div>
-        </section>
-      </HeroBackground>
+      <ServiceHero
+        id="hero"
+        dataPage="ai-consultation-strategy"
+        title="Plan AI that ships and scales"
+        subtitle="Define vision, governance, and build path—from pilot to production—using proven, SDK‑first patterns."
+        uspChips={["Readiness → roadmap", "Governance & risk", "Vendor‑agnostic"]}
+        primaryButton={{
+          text: "Book a Consultation",
+          onClick: () => window.open("https://calendly.com/systechnosoft-info/30min", "_blank"),
+          ariaLabel: "Book an AI consultation"
+        }}
+        secondaryButton={{
+          text: "See framework",
+          href: "#capabilities",
+          ariaLabel: "View our AI strategy framework"
+        }}
+        image={{
+          src: heroImage,
+          alt: "AI consultation and strategy planning with roadmap visualization and governance frameworks",
+          placeholderPrompt: "Professional 3D illustration of AI strategy planning with connected roadmap nodes, governance shields, and multi-model integration in modern tech style with blue and red accents"
+        }}
+      />
 
       <nav className="sticky top-0 z-40 bg-white border-b border-[#E6E6E6] shadow-sm">
         <div className="container mx-auto px-4">

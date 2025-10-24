@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { 
   ArrowRight, 
   ChevronRight,
@@ -104,14 +104,25 @@ export default function MicrosoftDynamics365() {
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
   const shouldReduceMotion = useReducedMotion();
 
-  const heroCards = [
-    { icon: "🔄", title: "Unified CRM & ERP", benefit: "Single platform for sales, service & finance" },
-    { icon: "☁️", title: "Azure-Native", benefit: "Built-in integrations with Azure services" },
-    { icon: "⚡", title: "Power Platform", benefit: "Low-code extensions & automation" },
-    { icon: "🤖", title: "AI Copilot", benefit: "Embedded intelligence for productivity" },
-    { icon: "🔒", title: "Zero-Trust Ready", benefit: "Secure architecture with compliance" },
-    { icon: "📊", title: "Real-Time Analytics", benefit: "Dataverse-powered insights" }
-  ];
+  // Analytics tracking for hero buttons
+  useEffect(() => {
+    const primaryBtn = document.querySelector('[aria-label="Talk to a Microsoft Dynamics 365 expert"]');
+    const secondaryBtn = document.querySelector('a[href="https://calendly.com/systechnosoft-info/30min"]');
+    
+    const trackPrimary = () => {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'svc_d365_hero_cta', {
+          cta: 'talk_to_expert'
+        });
+      }
+    };
+    
+    primaryBtn?.addEventListener('click', trackPrimary);
+    
+    return () => {
+      primaryBtn?.removeEventListener('click', trackPrimary);
+    };
+  }, []);
 
   // Scroll spy effect
   useEffect(() => {
@@ -197,99 +208,28 @@ export default function MicrosoftDynamics365() {
       <main className="min-h-screen">
 
         {/* Hero Section */}
-        <HeroBackground fullHeight>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column - Copy & Badges */}
-              <motion.div 
-                className="text-center lg:text-left order-2 lg:order-1"
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
-                  Microsoft Dynamics 365
-                </h1>
-                <p className="text-xl text-[#3C3C3C] mb-8 max-w-4xl">
-                  Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale.
-                </p>
-                
-                {/* USP Pill Chips */}
-                <motion.div 
-                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.4 }}
-                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
-                  aria-label="Key benefits"
-                >
-                  {["99.9% uptime architectures", "Zero‑trust aligned", "Azure-native integrations"].map((badge, idx) => (
-                    <motion.div
-                      key={badge}
-                      initial={shouldReduceMotion ? {} : { opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
-                    >
-                      <Badge 
-                        variant="secondary" 
-                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                      >
-                        {badge}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                <motion.div 
-                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                >
-                  <Button 
-                    asChild 
-                    size="lg" 
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" 
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'svc_d365_hero_cta', {
-                          cta: 'talk_to_expert'
-                        });
-                      }
-                    }}
-                  >
-                    <Link to="/contact?src=d365-hero">
-                      Talk to an Expert
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                  <Button 
-                    asChild 
-                    variant="outline" 
-                    size="lg" 
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                  >
-                    <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                      Book a Consultation →
-                    </a>
-                  </Button>
-                </motion.div>
-              </motion.div>
-
-              {/* Right Column - Hero Animation */}
-              <motion.div 
-                className="flex justify-center lg:justify-end order-1 lg:order-2"
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <HeroMotionSystem 
-                  cards={heroCards}
-                  ariaLabel="Microsoft Dynamics 365 highlights"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </HeroBackground>
+        <ServiceHero
+          id="hero"
+          dataPage="microsoft-dynamics-365"
+          title="Microsoft Dynamics 365"
+          subtitle="Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale."
+          uspChips={["99.9% uptime architectures", "Zero‑trust aligned", "Azure-native integrations"]}
+          primaryButton={{
+            text: "Talk to an Expert",
+            href: "/contact?src=d365-hero",
+            ariaLabel: "Talk to a Microsoft Dynamics 365 expert"
+          }}
+          secondaryButton={{
+            text: "Book a Consultation →",
+            href: "https://calendly.com/systechnosoft-info/30min",
+            ariaLabel: "Book a Dynamics 365 consultation"
+          }}
+          image={{
+            src: "/images/hero/d365-hero.png",
+            alt: "Microsoft Dynamics 365 unified platform showing CRM, ERP, and Power Platform integration",
+            placeholderPrompt: "Professional 3D illustration of Microsoft Dynamics 365 platform with interconnected modules for Sales, Service, Finance, and Operations in a modern tech style with blue and red accents"
+          }}
+        />
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">

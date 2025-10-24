@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users, KeySquare, Activity, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -13,15 +13,6 @@ export default function BackupRecovery() {
   const [activeSection, setActiveSection] = useState("br-overview");
   const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
-
-  const heroCards = [
-    { icon: "☁️", title: "Cloud Backups", benefit: "Continuous, encrypted backup to cloud" },
-    { icon: "💾", title: "Data Protection", benefit: "Immutable backups, WORM, S3 Object Lock" },
-    { icon: "🔄", title: "Disaster Recovery", benefit: "Cross-region failover, automated drills" },
-    { icon: "🔐", title: "Security & Compliance", benefit: "Encrypted at rest & in transit" },
-    { icon: "📊", title: "Hybrid Storage", benefit: "On-prem + cloud tiers for durability" },
-    { icon: "⏱️", title: "Fast Recovery", benefit: "RPO 15 min, RTO < 2hrs for tier-1" }
-  ];
 
   const subNavItems = [
     { id: "br-overview", label: "Overview" },
@@ -293,91 +284,28 @@ export default function BackupRecovery() {
 
       <main className="min-h-screen">
         {/* Hero Section */}
-        <HeroBackground fullHeight>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column */}
-              <motion.div 
-                className="text-center lg:text-left"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-              >
-                <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 text-[#1C1C1C]">
-                  Data Backup & Recovery Services
-                </h1>
-                <p className="font-inter text-xl lg:text-2xl text-[#3C3C3C] mb-8 max-w-4xl">
-                  Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
-                </p>
-                
-                {/* USP Pill Chips */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15, duration: 0.4 }}
-                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
-                  aria-label="Key benefits"
-                >
-                  {["99.9%+ restore success", "Hybrid (on‑prem + cloud)", "Tested quarterly"].map((badge, idx) => (
-                    <motion.div
-                      key={badge}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
-                    >
-                      <Badge 
-                        variant="secondary" 
-                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                      >
-                        {badge}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </motion.div>
-                
-                {/* CTAs */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                >
-                  <Link to="/contact?topic=dr-readiness">
-                    <Button 
-                      size="lg" 
-                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
-                    >
-                      Request DR review
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                  <Link to="/contact">
-                    <Button 
-                      variant="outline" 
-                      size="lg"
-                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                    >
-                      Claim Your Free Insight
-                    </Button>
-                  </Link>
-                </motion.div>
-              </motion.div>
-
-              {/* Right Column - Hero Animation */}
-              <motion.div 
-                className="flex justify-center lg:justify-end order-1 lg:order-2"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-              >
-                <HeroMotionSystem 
-                  cards={heroCards}
-                  ariaLabel="Backup & Recovery highlights"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </HeroBackground>
+        <ServiceHero
+          id="hero"
+          dataPage="backup-recovery"
+          title="Data Backup & Recovery Services"
+          subtitle="Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust."
+          uspChips={["99.9%+ restore success", "Hybrid (on‑prem + cloud)", "Tested quarterly"]}
+          primaryButton={{
+            text: "Request DR review",
+            href: "/contact?topic=dr-readiness",
+            ariaLabel: "Request a disaster recovery review"
+          }}
+          secondaryButton={{
+            text: "Claim Your Free Insight",
+            href: "/contact",
+            ariaLabel: "Claim your free backup and recovery insight"
+          }}
+          image={{
+            src: "/images/data-migration/hero.png",
+            alt: "Enterprise backup and disaster recovery infrastructure with cloud and on-premises storage tiers",
+            placeholderPrompt: "Professional 3D illustration of enterprise backup infrastructure with cloud storage, on-premises servers, data replication flows, and disaster recovery orchestration in modern tech style with blue and red accents"
+          }}
+        />
 
         {/* Sticky Navigation */}
         <div className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200">

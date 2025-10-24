@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { 
   ArrowRight, 
   Shield, 
@@ -55,14 +55,37 @@ export default function ManagedITServices() {
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const heroCards = [
-    { icon: "🛡️", title: "24×7 Monitoring", benefit: "Proactive alerts before outages" },
-    { icon: "🔧", title: "Remote Management", benefit: "Patch, config, automate endpoints" },
-    { icon: "📞", title: "Helpdesk Support", benefit: "Multi-channel L1-L2 with SLAs" },
-    { icon: "🔒", title: "Zero-Trust Aligned", benefit: "Security policies & NAC" },
-    { icon: "📊", title: "Event Monitoring", benefit: "Centralized logs & correlation" },
-    { icon: "🌐", title: "Network Management", benefit: "QoS, segmentation, backups" }
-  ];
+  // Analytics tracking for hero buttons
+  useEffect(() => {
+    const primaryBtn = document.querySelector('[aria-label="Request an IT Network Health Check"]');
+    const secondaryBtn = document.querySelector('[aria-label="Claim your free IT insight consultation"]');
+    
+    const trackPrimary = () => {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'cta_it_health_check', {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      }
+    };
+    
+    const trackSecondary = () => {
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'cta_free_insight', {
+          page_location: window.location.href,
+          page_title: document.title
+        });
+      }
+    };
+    
+    primaryBtn?.addEventListener('click', trackPrimary);
+    secondaryBtn?.addEventListener('click', trackSecondary);
+    
+    return () => {
+      primaryBtn?.removeEventListener('click', trackPrimary);
+      secondaryBtn?.removeEventListener('click', trackSecondary);
+    };
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -223,121 +246,28 @@ export default function ManagedITServices() {
 
       <div className="min-h-screen bg-background text-foreground">
         {/* Hero Section */}
-        <HeroBackground fullHeight>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              {/* Left Column - Content */}
-              <motion.div 
-                className="text-center lg:text-left"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  <h1 className="font-montserrat font-bold text-5xl lg:text-6xl mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
-                    Managed IT Services
-                  </h1>
-                </motion.div>
-                
-                <motion.p 
-                  className="font-inter text-xl lg:text-2xl text-muted-foreground mb-8 max-w-4xl mx-auto lg:mx-0"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                >
-                  Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
-                </motion.p>
-                
-              {/* USP Pill Chips */}
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.4 }}
-                className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
-                aria-label="Key benefits"
-              >
-                {["24×7 monitoring", "SLA-backed", "Zero‑trust aligned"].map((badge, idx) => (
-                  <motion.div
-                    key={badge}
-                    initial={{ opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
-                  >
-                    <Badge 
-                      variant="secondary" 
-                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                    >
-                      {badge}
-                    </Badge>
-                  </motion.div>
-                ))}
-              </motion.div>
-                
-              {/* CTAs */}
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              >
-                <Link to="/contact">
-                  <Button 
-                    size="lg" 
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
-                    onClick={() => {
-                      if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'cta_it_health_check', {
-                          page_location: window.location.href,
-                          page_title: document.title
-                        });
-                      }
-                    }}
-                  >
-                    <Shield className="mr-2 h-5 w-5" />
-                    IT Network Health Check
-                  </Button>
-                </Link>
-                <Button 
-                  asChild
-                  size="lg" 
-                  variant="outline"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                  onClick={() => {
-                    if (typeof window !== 'undefined' && (window as any).gtag) {
-                      (window as any).gtag('event', 'cta_free_insight', {
-                        page_location: window.location.href,
-                        page_title: document.title
-                      });
-                    }
-                  }}
-                >
-                  <Link to="/contact">
-                    Claim Your Free Insight
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </motion.div>
-              </motion.div>
-
-              {/* Right Column - Hero Animation */}
-              <motion.div
-                className="flex justify-center lg:justify-end"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.7 }}
-              >
-                <HeroMotionSystem 
-                  cards={heroCards}
-                  ariaLabel="Managed IT Services highlights"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </HeroBackground>
+        <ServiceHero
+          id="hero"
+          dataPage="managed-it-services"
+          title="Managed IT Services"
+          subtitle="Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint."
+          uspChips={["24×7 monitoring", "SLA-backed", "Zero‑trust aligned"]}
+          primaryButton={{
+            text: "IT Network Health Check",
+            href: "/contact",
+            ariaLabel: "Request an IT Network Health Check"
+          }}
+          secondaryButton={{
+            text: "Claim Your Free Insight",
+            href: "/contact",
+            ariaLabel: "Claim your free IT insight consultation"
+          }}
+          image={{
+            src: "/images/managed-it/hero.png",
+            alt: "Managed IT Services dashboard showing 24/7 monitoring, network management, and security controls",
+            placeholderPrompt: "Professional 3D illustration showing IT infrastructure monitoring with servers, network nodes, security shields, and real-time dashboards in a modern tech style with blue and red accents"
+          }}
+        />
 
 
         {/* Service Tiles - Light Background */}

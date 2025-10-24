@@ -252,68 +252,75 @@ export default function ManagedITServices() {
                   Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint.
                 </motion.p>
                 
-                {/* Hero Chips */}
-                <motion.div 
-                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                >
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                    24×7 monitoring
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                    SLA-backed
-                  </Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
-                    Zero‑trust aligned
-                  </Badge>
-                </motion.div>
-                
-                {/* CTAs */}
-                <motion.div 
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
-                >
-                  <Link to="/contact">
-                    <Button 
-                      size="lg" 
-                      className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-                      onClick={() => {
-                        if (typeof window !== 'undefined' && (window as any).gtag) {
-                          (window as any).gtag('event', 'cta_it_health_check', {
-                            page_location: window.location.href,
-                            page_title: document.title
-                          });
-                        }
-                      }}
+              {/* USP Pill Chips */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
+                aria-label="Key benefits"
+              >
+                {["24×7 monitoring", "SLA-backed", "Zero‑trust aligned"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
                     >
-                      <Shield className="mr-2 h-5 w-5" />
-                      IT Network Health Check
-                    </Button>
-                  </Link>
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+                
+              {/* CTAs */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+              >
+                <Link to="/contact">
                   <Button 
-                    asChild
                     size="lg" 
-                    variant="outline"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
                     onClick={() => {
                       if (typeof window !== 'undefined' && (window as any).gtag) {
-                        (window as any).gtag('event', 'cta_free_insight', {
+                        (window as any).gtag('event', 'cta_it_health_check', {
                           page_location: window.location.href,
                           page_title: document.title
                         });
                       }
                     }}
                   >
-                    <Link to="/contact">
-                      Claim Your Free Insight
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
+                    <Shield className="mr-2 h-5 w-5" />
+                    IT Network Health Check
                   </Button>
-                </motion.div>
+                </Link>
+                <Button 
+                  asChild
+                  size="lg" 
+                  variant="outline"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                  onClick={() => {
+                    if (typeof window !== 'undefined' && (window as any).gtag) {
+                      (window as any).gtag('event', 'cta_free_insight', {
+                        page_location: window.location.href,
+                        page_title: document.title
+                      });
+                    }
+                  }}
+                >
+                  <Link to="/contact">
+                    Claim Your Free Insight
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+              </motion.div>
               </motion.div>
 
               {/* Right Column - Hero Animation */}

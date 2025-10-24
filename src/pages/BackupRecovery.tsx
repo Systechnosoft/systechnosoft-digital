@@ -310,35 +310,42 @@ export default function BackupRecovery() {
                   Protect mission-critical data with immutable backups, hybrid storage, and disaster recovery you can test and trust.
                 </p>
                 
-                {/* Badge Pills */}
+                {/* USP Pill Chips */}
                 <motion.div 
-                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-12"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.2 }}
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
+                  aria-label="Key benefits"
                 >
-                  <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                    99.9%+ restore success (tests)
-                  </Badge>
-                  <Badge variant="secondary" className="bg-[#007AFF]/10 text-[#007AFF] border-[#007AFF]/20 px-4 py-2">
-                    Zero-trust aligned
-                  </Badge>
-                  <Badge variant="secondary" className="bg-[#E52629]/10 text-[#E52629] border-[#E52629]/20 px-4 py-2">
-                    24×7 monitoring
-                  </Badge>
+                  {["99.9%+ restore success", "Hybrid (on‑prem + cloud)", "Tested quarterly"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
                 </motion.div>
                 
                 {/* CTAs */}
                 <motion.div 
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                 >
                   <Link to="/contact?topic=dr-readiness">
                     <Button 
                       size="lg" 
-                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
                     >
                       Request DR review
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -347,7 +354,7 @@ export default function BackupRecovery() {
                   <Link to="/contact">
                     <Button 
                       variant="outline" 
-                      size="lg" 
+                      size="lg"
                       className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                     >
                       Claim Your Free Insight

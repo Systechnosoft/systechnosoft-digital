@@ -214,17 +214,41 @@ export default function MicrosoftDynamics365() {
                   Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale.
                 </p>
                 
-                <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-12">
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">99.9% uptime architectures</Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">Zero‑trust aligned</Badge>
-                  <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">Azure-native integrations</Badge>
-                </div>
+                {/* USP Pill Chips */}
+                <motion.div 
+                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="flex flex-wrap justify-center lg:justify-start gap-3 mb-8"
+                  aria-label="Key benefits"
+                >
+                  {["99.9% uptime architectures", "Zero‑trust aligned", "Azure-native integrations"].map((badge, idx) => (
+                    <motion.div
+                      key={badge}
+                      initial={shouldReduceMotion ? {} : { opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                      >
+                        {badge}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </motion.div>
 
-                <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <motion.div 
+                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                >
                   <Button 
                     asChild 
                     size="lg" 
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed" 
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" 
                     onClick={() => {
                       if (typeof window !== 'undefined' && (window as any).gtag) {
                         (window as any).gtag('event', 'svc_d365_hero_cta', {
@@ -242,13 +266,13 @@ export default function MicrosoftDynamics365() {
                     asChild 
                     variant="outline" 
                     size="lg" 
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 px-8 py-4 text-lg font-semibold transition-colors duration-200"
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                   >
                     <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
                       Book a Consultation →
                     </a>
                   </Button>
-                </div>
+                </motion.div>
               </motion.div>
 
               {/* Right Column - Hero Animation */}

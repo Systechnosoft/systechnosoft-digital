@@ -221,10 +221,10 @@ export default function AIDataAnalyticsInsights() {
                   variant="outline"
                   size="lg"
                   className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                  aria-label="Book a consultation"
+                  aria-label="Claim your free insight"
                 >
-                  <a href="/contact" title="Book a consultation">
-                    Book a consultation
+                  <a href="/contact?type=mra" title="Claim your free insight">
+                    Claim your free insight
                   </a>
                 </Button>
               </motion.div>
@@ -364,7 +364,7 @@ export default function AIDataAnalyticsInsights() {
                 viewport={{ once: true, margin: "-100px" }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
               >
-                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-3">
                       <Activity className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-1" />
@@ -403,7 +403,7 @@ export default function AIDataAnalyticsInsights() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.05 }}
                 >
-                  <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1">
+                  <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                     <CardContent className="p-4 flex items-start gap-3">
                       <Check className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
                       <span className="text-[#3C3C3C] font-inter">{capability}</span>
@@ -444,7 +444,7 @@ export default function AIDataAnalyticsInsights() {
                   viewport={{ once: true, margin: "-100px" }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                 >
-                  <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 hover:shadow-lg hover:-translate-y-1 group">
+                  <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg group">
                     <CardContent className="p-6">
                       <Database className="w-8 h-8 text-[#3C3C3C] group-hover:text-[#E52629] transition-colors mb-3" />
                       <p className="text-[#3C3C3C] font-inter font-medium">{sdk}</p>
@@ -505,7 +505,7 @@ export default function AIDataAnalyticsInsights() {
                 size="lg" 
                 className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
               >
-                Book a consultation
+                Book a consultation →
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </a>

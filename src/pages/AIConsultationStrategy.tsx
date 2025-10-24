@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, Brain, Shield, TrendingUp, DollarSign, Target, FileCheck, Database, Lock, Workflow } from "lucide-react";
@@ -57,7 +58,8 @@ export default function AIConsultationStrategy() {
     "Feasibility/ROI scoring for candidate use cases",
     "Data readiness & architecture gaps closure",
     "Safety/guardrails policy for generation & tools",
-    "Multi‑model policy to avoid lock‑in"
+    "Multi‑model policy to avoid lock‑in",
+    "Change management & team upskilling for AI adoption"
   ];
 
   const capabilities = [
@@ -115,14 +117,14 @@ export default function AIConsultationStrategy() {
         subtitle="Define vision, governance, and build path—from pilot to production—using proven, SDK‑first patterns."
         uspChips={["Readiness → roadmap", "Governance & risk", "Vendor‑agnostic"]}
         primaryButton={{
-          text: "Book a Consultation",
-          onClick: () => window.open("https://calendly.com/systechnosoft-info/30min", "_blank"),
-          ariaLabel: "Book an AI consultation"
+          text: "See what we deliver →",
+          onClick: () => scrollToId('benefits'),
+          ariaLabel: "See what we deliver"
         }}
         secondaryButton={{
-          text: "See framework",
-          href: "#capabilities",
-          ariaLabel: "View our AI strategy framework"
+          text: "Claim your free insight",
+          href: "/contact?type=mra",
+          ariaLabel: "Claim your free insight"
         }}
         image={{
           src: heroImage,
@@ -131,9 +133,9 @@ export default function AIConsultationStrategy() {
         }}
       />
 
-      <nav className="sticky top-0 z-40 bg-white border-b border-[#E6E6E6] shadow-sm">
-        <div className="container mx-auto px-4">
-          <div className="flex overflow-x-auto py-4 gap-6 scrollbar-hide">
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {[
               { id: "overview", label: "Overview" },
               { id: "benefits", label: "Benefits" },
@@ -145,11 +147,12 @@ export default function AIConsultationStrategy() {
               <button
                 key={id}
                 onClick={() => scrollToId(id)}
-                className={`whitespace-nowrap text-sm font-medium transition-colors pb-1 border-b-2 ${
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
                   activeSection === id
-                    ? "text-primary border-primary"
-                    : "text-[#3C3C3C] border-transparent hover:text-primary"
+                    ? "bg-[#E52629] text-white shadow-md"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
                 }`}
+                aria-current={activeSection === id ? "true" : undefined}
               >
                 {label}
               </button>
@@ -158,16 +161,17 @@ export default function AIConsultationStrategy() {
         </div>
       </nav>
 
-      <section id="overview" className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-4xl">
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.5 }}
+            className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1C1C] mb-6 font-montserrat">Overview</h2>
-            <p className="text-lg text-[#3C3C3C] font-inter leading-relaxed">
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Overview</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
               Consultation & Strategy focuses on AI adoption planning, governance, and technical blueprinting—without vendor lock‑in. 
               It covers readiness assessment, opportunity selection, feasibility, risk & compliance, data/infra prerequisites, and a 
               build plan that leverages modern AI SDKs (prompts/registries, RAG, evals, observability) to reach production faster and safer.
@@ -232,10 +236,13 @@ export default function AIConsultationStrategy() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-start gap-3 p-4 bg-white border border-[#E6E6E6] rounded-lg hover:shadow-md transition-shadow"
               >
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-[#3C3C3C] font-inter">{useCase}</p>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardContent className="p-4 flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-[#3C3C3C] font-inter">{useCase}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -263,10 +270,13 @@ export default function AIConsultationStrategy() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="flex items-start gap-3 p-4 bg-white border border-[#E6E6E6] rounded-lg"
               >
-                <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                <p className="text-[#3C3C3C] font-inter">{capability}</p>
+                <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardContent className="p-4 flex items-start gap-3">
+                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                    <p className="text-[#3C3C3C] font-inter">{capability}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
@@ -294,79 +304,69 @@ export default function AIConsultationStrategy() {
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: index * 0.1 }}
-                className="flex items-center gap-3 p-4 bg-white border border-[#E6E6E6] rounded-lg hover:border-primary/20 hover:shadow-md transition-all"
               >
-                <Workflow className="w-5 h-5 text-primary flex-shrink-0" />
-                <p className="text-[#3C3C3C] font-inter font-medium">{sdk}</p>
+                <Card className="border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardContent className="p-4 flex items-center gap-3">
+                    <Workflow className="w-5 h-5 text-primary flex-shrink-0" />
+                    <p className="text-[#3C3C3C] font-inter font-medium">{sdk}</p>
+                  </CardContent>
+                </Card>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white">
-        <div className="container mx-auto px-4 max-w-4xl text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1C1C] mb-4 font-montserrat">
-              Ready to shape your AI strategy?
+      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
             </h2>
-            <p className="text-lg text-[#3C3C3C] mb-8 font-inter">
-              Let's design a roadmap that delivers value, manages risk, and scales with your business.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-primary hover:bg-primary/90 text-white"
-                onClick={() => window.open("https://calendly.com/systechnosoft-info/30min", "_blank")}
+          </div>
+
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-white border border-[#E6E6E6] rounded-lg px-6"
               >
-                Book a Consultation
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => window.location.href = "/contact"}
-                className="border-[#E6E6E6] hover:bg-[#F5F5F5]"
-              >
-                Talk to an expert
-              </Button>
-            </div>
-          </motion.div>
+                <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-[#3C3C3C]">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
-      <section id="faq" className="py-16 bg-white">
-        <div className="container mx-auto px-4 max-w-4xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-12"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1C1C1C] mb-4 font-montserrat">FAQ</h2>
-            <p className="text-lg text-[#3C3C3C] font-inter">Common questions about AI strategy</p>
-          </motion.div>
-
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="bg-white border border-[#E6E6E6] rounded-lg p-6 hover:shadow-md transition-shadow"
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to shape your AI strategy?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's design a roadmap that delivers value, manages risk, and scales with your business.
+          </p>
+          
+          <div className="flex justify-center">
+            <a 
+              href="https://calendly.com/systechnosoft-info/30min" 
+              target="_blank" 
+              rel="noopener noreferrer"
+            >
+              <Button 
+                size="lg" 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
               >
-                <h3 className="text-lg font-semibold text-[#1C1C1C] mb-2 font-montserrat">{faq.question}</h3>
-                <p className="text-[#3C3C3C] font-inter">{faq.answer}</p>
-              </motion.div>
-            ))}
+                Book a consultation →
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </a>
           </div>
         </div>
       </section>

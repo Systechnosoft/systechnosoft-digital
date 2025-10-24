@@ -23,7 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HeroBackground } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
@@ -220,78 +220,27 @@ const About = () => {
         </script>
       </Helmet>
 
-      {/* Hero Section */}
-      <HeroBackground fullHeight className="relative overflow-hidden">
-        <div className="container mx-auto px-6 py-20 lg:py-32">
-          <div className="grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-            {/* Left: Copy + Badges */}
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={staggeredFadeUp}
-              className="text-center lg:text-left"
-            >
-              <motion.h1 
-                variants={fadeUpVariants}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 font-montserrat"
-              >
-                About Systechnosoft Technologies
-              </motion.h1>
-              
-              <motion.p 
-                variants={fadeUpVariants}
-                className="text-xl md:text-2xl text-muted-foreground mb-4 font-inter"
-              >
-                We turn bold ideas into scalable impact with low-code precision and AI-powered intelligence.
-              </motion.p>
-
-              <motion.div 
-                variants={fadeUpVariants}
-                className="text-2xl md:text-3xl font-bold text-primary mb-8 font-montserrat"
-              >
-                Maximize Innovation. Minimize Code.
-              </motion.div>
-
-              <motion.div 
-                variants={fadeUpVariants}
-                className="flex flex-wrap gap-2 justify-center lg:justify-start mb-8"
-              >
-                <Badge variant="secondary" className="text-sm">ISO 27001</Badge>
-                <Badge variant="secondary" className="text-sm">SOC 2</Badge>
-                <Badge variant="secondary" className="text-sm">GDPR/DPDP aware</Badge>
-              </motion.div>
-
-              <motion.div 
-                variants={fadeUpVariants}
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-              >
-                <Button size="lg" asChild>
-                  <Link to="/contact">
-                    Talk to an Expert <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                  <Link to="/careers">
-                    Explore Careers <ArrowRight className="ml-2 h-5 w-5" />
-                  </Link>
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Right: Lightweight illustration */}
-            <motion.div
-              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:flex justify-center items-center"
-            >
-              <div className="w-full max-w-md aspect-square rounded-full bg-gradient-to-br from-primary/10 via-primary/5 to-transparent flex items-center justify-center">
-                <Rocket className="w-32 h-32 text-primary" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </HeroBackground>
+      <ServiceHero
+        title="About Systechnosoft Technologies"
+        subtitle="We turn bold ideas into scalable impact with low-code precision and AI-powered intelligence. Maximize Innovation. Minimize Code."
+        uspChips={[
+          "ISO 27001",
+          "SOC 2",
+          "GDPR/DPDP aware"
+        ]}
+        primaryButton={{
+          text: "Talk to an Expert",
+          href: "/contact"
+        }}
+        secondaryButton={{
+          text: "Explore Careers",
+          href: "/careers"
+        }}
+        image={{
+          alt: "About Systechnosoft",
+          placeholderPrompt: "A modern professional team workspace showing innovation and collaboration, with digital transformation symbols and technology elements"
+        }}
+      />
 
       {/* Sticky Sub-section Navigation */}
       <nav 

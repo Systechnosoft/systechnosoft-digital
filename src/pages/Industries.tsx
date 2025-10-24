@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { HeroBackground } from "@/components/HeroMotionSystem";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import ServiceHero from "@/components/ServiceHero";
 import {
   TrendingUp,
   Shield,
@@ -226,48 +226,27 @@ export default function Industries() {
         />
       </Helmet>
 
-      {/* Hero */}
-      <HeroBackground fullHeight>
-        <div className="container mx-auto px-4 py-20 md:py-32">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-4xl mx-auto text-center"
-          >
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-neutral-900 mb-6">
-              Industries we power
-            </h1>
-            <p className="text-xl md:text-2xl text-neutral-600 mb-8">
-              Cloud, data, and AI solutions engineered for regulated, mission-critical environments.
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <Button asChild size="lg">
-                <Link to="/contact">Talk to an Expert</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/case-studies">View case studies</Link>
-              </Button>
-            </div>
-
-            <div className="flex flex-wrap justify-center gap-4 text-sm text-neutral-500">
-              <span className="inline-flex items-center">
-                <Shield className="w-4 h-4 mr-1" aria-hidden="true" />
-                ISO 27001
-              </span>
-              <span className="inline-flex items-center">
-                <Shield className="w-4 h-4 mr-1" aria-hidden="true" />
-                SOC 2
-              </span>
-              <span className="inline-flex items-center">
-                <Shield className="w-4 h-4 mr-1" aria-hidden="true" />
-                GDPR/DPDP aware
-              </span>
-            </div>
-          </motion.div>
-        </div>
-      </HeroBackground>
+      <ServiceHero
+        title="Industries we power"
+        subtitle="Cloud, data, and AI solutions engineered for regulated, mission-critical environments."
+        uspChips={[
+          "ISO 27001",
+          "SOC 2",
+          "GDPR/DPDP aware"
+        ]}
+        primaryButton={{
+          text: "Talk to an Expert",
+          href: "/contact"
+        }}
+        secondaryButton={{
+          text: "View case studies",
+          href: "/case-studies"
+        }}
+        image={{
+          alt: "Industries We Serve",
+          placeholderPrompt: "A professional illustration showing multiple industry sectors (banking, healthcare, aviation, energy) connected by cloud technology and data flows"
+        }}
+      />
 
       {/* Sticky Sub-nav */}
       <div className="sticky top-[73px] z-40 bg-white border-b border-neutral-200 shadow-sm">

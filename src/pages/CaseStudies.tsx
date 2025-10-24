@@ -24,7 +24,7 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
-import { HeroBackground } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/lib/scrollUtils";
@@ -254,110 +254,27 @@ export default function CaseStudies() {
       </Helmet>
 
       <main className="min-h-screen bg-background">
-        {/* Hero Section with HeroBackground */}
-        <HeroBackground>
-          <section className="relative py-24 lg:py-32">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
-                {/* Left - Copy */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="space-y-8"
-                >
-                  <div className="space-y-6">
-                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-foreground leading-tight">
-                      Case Studies
-                    </h1>
-                    
-                    <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-prose">
-                      Real outcomes across BFSI, Healthcare, Aviation, and Oil & Gas—delivered with cloud, data, and AI.
-                    </p>
-                  </div>
-
-                  {/* Meta Badges */}
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="flex flex-wrap gap-3"
-                  >
-                    {["ISO 27001", "SOC 2", "GDPR/DPDP aware"].map((badge, idx) => (
-                      <motion.div
-                        key={badge}
-                        initial={{ opacity: 0, y: 5 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.2 + idx * 0.08, duration: 0.35 }}
-                      >
-                        <Badge 
-                          variant="secondary" 
-                          className="text-sm px-4 py-2"
-                        >
-                          <Shield className="w-3 h-3 mr-1.5" aria-hidden="true" />
-                          {badge}
-                        </Badge>
-                      </motion.div>
-                    ))}
-                  </motion.div>
-
-                  {/* CTAs */}
-                  <motion.div 
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.4 }}
-                    className="flex flex-col sm:flex-row gap-4"
-                  >
-                    <Button
-                      asChild
-                      size="lg"
-                      className="group"
-                    >
-                      <Link to="/contact">
-                        Talk to an Expert
-                        <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                      </Link>
-                    </Button>
-
-                    <Button
-                      asChild
-                      variant="outline"
-                      size="lg"
-                    >
-                      <Link to="/industries">
-                        See industries →
-                      </Link>
-                    </Button>
-                  </motion.div>
-                </motion.div>
-
-                {/* Right - Visual element (simple gradient card) */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="relative"
-                >
-                  <div className="aspect-square rounded-2xl bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border border-border shadow-lg p-12 flex items-center justify-center">
-                    <div className="grid grid-cols-2 gap-6">
-                      {[Building2, Heart, Plane, Factory].map((Icon, idx) => (
-                        <motion.div
-                          key={idx}
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.5 + idx * 0.1, duration: 0.4 }}
-                          className="bg-background/80 backdrop-blur-sm rounded-xl p-6 shadow-sm border border-border flex items-center justify-center"
-                        >
-                          <Icon className="w-12 h-12 text-primary" aria-hidden="true" />
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </section>
-        </HeroBackground>
+        <ServiceHero
+          title="Case Studies"
+          subtitle="Real outcomes across BFSI, Healthcare, Aviation, and Oil & Gas—delivered with cloud, data, and AI."
+          uspChips={[
+            "ISO 27001",
+            "SOC 2",
+            "GDPR/DPDP aware"
+          ]}
+          primaryButton={{
+            text: "Talk to an Expert",
+            href: "/contact"
+          }}
+          secondaryButton={{
+            text: "See industries →",
+            href: "/industries"
+          }}
+          image={{
+            alt: "Case Studies",
+            placeholderPrompt: "A professional showcase of successful technology projects across different industries, with charts, metrics, and industry icons"
+          }}
+        />
 
         {/* Sticky Sub-navigation */}
         <nav 

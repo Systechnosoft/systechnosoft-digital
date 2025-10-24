@@ -1,6 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
 import { 
   Code2, 
   Palette, 
@@ -20,28 +19,9 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HeroMotionSystem } from "@/components/HeroMotionSystem";
-
-const heroCards = [
-  {
-    icon: "🌐",
-    title: "Modern Web Apps",
-    benefit: "React, Next.js, TypeScript for blazing-fast, scalable applications"
-  },
-  {
-    icon: "⚡",
-    title: "Performance First",
-    benefit: "Optimized code, CDN delivery, <50ms load times for superior UX"
-  },
-  {
-    icon: "🔒",
-    title: "Secure & Reliable",
-    benefit: "Enterprise security, 99.9% uptime, automated backups"
-  }
-];
+import ServiceHero from "@/components/ServiceHero";
 
 const WebDevelopment = () => {
-  const shouldReduceMotion = useReducedMotion();
 
   return (
     <>
@@ -56,70 +36,27 @@ const WebDevelopment = () => {
       </Helmet>
 
       <main className="min-h-screen">
-        {/* Hero Section */}
-        <section className="hero-animated flex items-center justify-center">
-          {/* Animated background */}
-          <div className="hero-animated__bg">
-            <div className="hero-animated__bg-glow" />
-            {!shouldReduceMotion && (
-              <motion.div
-                className="hero-animated__bg-rotation"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              />
-            )}
-          </div>
-
-          <div className="container mx-auto px-4 hero-animated__content">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <motion.div
-                initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="space-y-6"
-              >
-                <h1 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight">
-                  Custom Web Development Solutions
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-                  Build powerful, scalable web applications that drive business growth. From responsive websites to complex web platforms, we deliver solutions that perform.
-                </p>
-                
-                <div className="flex flex-wrap gap-4">
-                  <Button size="lg" asChild>
-                    <Link to="/contact">
-                      Start Your Project
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
-                  <Button size="lg" variant="outline" asChild>
-                    <Link to="/services">View All Services</Link>
-                  </Button>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4 pt-8">
-                  <div>
-                    <div className="text-3xl font-bold text-primary">99.9%</div>
-                    <div className="text-sm text-muted-foreground">Uptime</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-primary">500+</div>
-                    <div className="text-sm text-muted-foreground">Projects</div>
-                  </div>
-                  <div>
-                    <div className="text-3xl font-bold text-primary">50ms</div>
-                    <div className="text-sm text-muted-foreground">Load Time</div>
-                  </div>
-                </div>
-              </motion.div>
-
-              <HeroMotionSystem 
-                cards={heroCards}
-                ariaLabel="Web Development Service Highlights"
-              />
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Custom Web Development Solutions"
+          subtitle="Build powerful, scalable web applications that drive business growth. From responsive websites to complex web platforms, we deliver solutions that perform."
+          uspChips={[
+            "Modern Web Apps",
+            "Performance First",
+            "Secure & Reliable"
+          ]}
+          primaryButton={{
+            text: "Start Your Project",
+            href: "/contact"
+          }}
+          secondaryButton={{
+            text: "View All Services",
+            href: "/services"
+          }}
+          image={{
+            alt: "Web Development Services",
+            placeholderPrompt: "A modern web development workspace with code on screens, showing responsive design across devices, in a clean professional tech environment"
+          }}
+        />
 
         {/* Why Choose Us Section */}
         <section className="py-16 md:py-24 bg-muted/30">

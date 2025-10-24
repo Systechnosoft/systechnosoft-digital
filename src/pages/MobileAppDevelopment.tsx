@@ -8,7 +8,7 @@ import {
   Smartphone, Target, Zap, Shield, Layers, Code2, Database, Brain, 
   Settings, TestTube, Eye, Lock, Users, TrendingUp, ArrowRight, CheckCircle2
 } from "lucide-react";
-import { HeroMotionSystem } from "@/components/HeroMotionSystem";
+import ServiceHero from "@/components/ServiceHero";
 
 // Animation variants
 const fadeUpVariants = {
@@ -33,23 +33,6 @@ const scaleIn = {
   }
 };
 
-const heroCards = [
-  {
-    icon: "📱",
-    title: "Native iOS & Android",
-    benefit: "Swift, SwiftUI, Kotlin, Jetpack Compose for platform-first performance"
-  },
-  {
-    icon: "🚀",
-    title: "Cross-Platform Excellence",
-    benefit: "Flutter, React Native, KMP—shared logic with native polish"
-  },
-  {
-    icon: "⚙️",
-    title: "DevOps + Observability",
-    benefit: "CI/CD pipelines, automated testing, real-time monitoring"
-  }
-];
 
 const whyChooseUs = [
   {
@@ -218,103 +201,27 @@ export default function MobileAppDevelopment() {
         <link rel="canonical" href="https://systechnosoft.com/services/mobile-app-development" />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="hero-animated flex items-center justify-center">
-        {/* Animated background */}
-        <div className="hero-animated__bg">
-          <div className="hero-animated__bg-glow" />
-          {!shouldReduceMotion && (
-            <motion.div
-              className="hero-animated__bg-rotation"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            />
-          )}
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 hero-animated__content">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            
-            {/* Left Column - Text Content */}
-            <motion.div
-              variants={staggeredFadeUp}
-              initial="hidden"
-              animate="visible"
-              className="space-y-6 lg:space-y-8"
-            >
-              <motion.h1 
-                variants={fadeUpVariants}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
-              >
-                Mobile apps, engineered for scale—secure, delightful, production‑ready
-              </motion.h1>
-
-              <motion.p 
-                variants={fadeUpVariants}
-                className="text-lg sm:text-xl text-muted-foreground max-w-2xl"
-              >
-                Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence.
-              </motion.p>
-
-              <motion.div 
-                variants={fadeUpVariants}
-                className="flex flex-wrap gap-3"
-              >
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  <Smartphone className="h-4 w-4 mr-2" />
-                  Native iOS & Android
-                </Badge>
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  <Layers className="h-4 w-4 mr-2" />
-                  Flutter / React Native / KMP
-                </Badge>
-                <Badge variant="secondary" className="text-sm px-4 py-2">
-                  <Settings className="h-4 w-4 mr-2" />
-                  DevOps + observability
-                </Badge>
-              </motion.div>
-
-              <motion.div 
-                variants={fadeUpVariants}
-                className="flex flex-wrap gap-4 pt-4"
-              >
-                <Button 
-                  size="lg" 
-                  asChild
-                  className="text-base"
-                >
-                  <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                    Book a Mobile App Discovery
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </a>
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => document.getElementById('capabilities')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="text-base"
-                >
-                  See what we deliver
-                </Button>
-              </motion.div>
-            </motion.div>
-
-            {/* Right Column - Hero Motion System */}
-            <motion.div
-              initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex justify-center lg:justify-end"
-            >
-              <HeroMotionSystem 
-                cards={heroCards}
-                ariaLabel="Mobile app development highlights"
-              />
-            </motion.div>
-
-          </div>
-        </div>
-      </section>
+      <ServiceHero
+        title="Mobile apps, engineered for scale—secure, delightful, production‑ready"
+        subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."
+        uspChips={[
+          "Native iOS & Android",
+          "Flutter / React Native / KMP",
+          "DevOps + observability"
+        ]}
+        primaryButton={{
+          text: "Book a Mobile App Discovery",
+          href: "https://calendly.com/systechnosoft-info/30min"
+        }}
+        secondaryButton={{
+          text: "See what we deliver",
+          href: "#capabilities"
+        }}
+        image={{
+          alt: "Mobile App Development Services",
+          placeholderPrompt: "A modern mobile app development workspace showing iOS and Android devices with elegant app interfaces, CI/CD pipelines, and code on screens"
+        }}
+      />
 
       {/* Why Choose Us */}
       <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">

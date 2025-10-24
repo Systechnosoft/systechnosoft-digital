@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HeroBackground } from "@/components/HeroMotionSystem";
+
 import { motion } from "framer-motion";
 import { scrollToId } from "@/lib/scrollUtils";
 import heroDataAnalytics from "@/assets/hero-data-analytics.png";
@@ -139,124 +139,116 @@ export default function AIDataAnalyticsInsights() {
       </Helmet>
 
       {/* Hero Section */}
-  <HeroBackground className="ai-analytics-hero" fullHeight={true}>
-    <section 
-      id="hero"
-      data-page="ai-analytics"
-      className="sf-hero ai-analytics-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"
-      aria-labelledby="ai-analytics-hero-title"
-    >
-      <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
-              {/* Left Column - Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="ai-analytics-hero__left space-y-6 max-w-[44rem]"
-        >
-                <div className="space-y-6">
-          <h1 
-            id="ai-analytics-hero-title"
-            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1C1C] font-montserrat leading-tight"
-          >
-            Turn raw data into{" "}
-            <span className="text-[#E52629]">real‑time</span>{" "}
-            <span className="text-[#E52629]">decisions</span>
-          </h1>
+      <section 
+        id="hero"
+        data-page="ai-analytics"
+        className="sf-hero ai-analytics-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24 isolate"
+        aria-labelledby="ai-analytics-hero-title"
+      >
+        {/* Animated background */}
+        <div className="sf-hero__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+              backgroundSize: "400px 400px"
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
 
-                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
-                    AI‑powered analytics that predict, detect, and explain—integrated directly into your apps and data plane.
-                  </p>
-                </div>
-
-                {/* USP Pill Chips */}
-          <motion.div 
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.15, duration: 0.4 }}
-            className="sf-hero__chips flex flex-wrap gap-3"
-            aria-label="Key benefits"
-          >
-                  {["Predictive & real‑time", "Explainable models", "SDK‑first integration"].map((badge, idx) => (
-                    <motion.div
-                      key={badge}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
-                    >
-                      <Badge 
-                        variant="secondary" 
-                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                      >
-                        {badge}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                {/* CTAs */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.4 }}
-                  className="flex flex-col sm:flex-row gap-4"
-                >
-            <Button
-              size="lg"
-              className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-              aria-label="See what we deliver"
-              onClick={(e) => {
-                e.preventDefault();
-                scrollToId('benefits');
-              }}
-              title="See what we deliver"
+        {/* Content */}
+        <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            <motion.div
+              className="ai-analytics-hero__left"
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
             >
-              See what we deliver →
-            </Button>
+              <h1 
+                id="ai-analytics-hero-title"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+              >
+                Transform Data into{" "}
+                <span className="text-[#E52629]">Intelligent Insights</span>
+              </h1>
+              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
+                Harness the power of AI-driven analytics to unlock hidden patterns, predict trends, 
+                and make data-backed decisions that propel your business forward.
+              </p>
 
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+              <motion.div 
+                className="sf-hero__chips flex flex-wrap gap-3 mb-8"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                {["Real-time Analytics", "Predictive Modeling", "Custom Dashboards"].map((usp, i) => (
+                  <span
+                    key={i}
+                    className="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium"
                   >
-                    <a href="/contact?type=mra">
-                      Claim your free insight
-                    </a>
-                  </Button>
-                </motion.div>
+                    {usp}
+                  </span>
+                ))}
               </motion.div>
 
-              {/* Right Column - Hero Visual */}
-        <motion.figure
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="ai-analytics-hero__art relative isolate group"
-        >
-          <img
-            src={heroDataAnalytics}
-            width={1184}
-            height={672}
-            alt="AI Data Analytics visualization showing charts, anomaly detection, and predictions"
-            className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]"
-            loading="eager"
-            decoding="async"
-            sizes="(min-width: 1024px) 48vw, 92vw"
-          />
-                <span 
-                  aria-hidden="true" 
-                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
-                  style={{
-                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Button 
+                  size="lg" 
+                  className="text-base"
+                  disabled={false}
+                  aria-label="See what we deliver"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollToId('benefits');
                   }}
-                />
-              </motion.figure>
-            </div>
+                  title="See what we deliver"
+                >
+                  See What We Deliver
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  asChild
+                  className="text-base"
+                >
+                  <a href="/contact">Book a Consultation</a>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            <motion.figure
+              className="ai-analytics-hero__art relative"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <img
+                src="/src/assets/hero-data-analytics.png"
+                alt="AI-powered data analytics dashboard showing real-time insights and predictive trends"
+                className="w-full h-auto rounded-lg"
+                style={{
+                  filter: "drop-shadow(0 0 60px rgba(229, 38, 41, 0.3))",
+                }}
+                width={1184}
+                height={672}
+                loading="eager"
+                decoding="async"
+                sizes="(min-width: 1024px) 48vw, 92vw"
+              />
+            </motion.figure>
           </div>
-        </section>
-      </HeroBackground>
+        </div>
+      </section>
 
       {/* Sticky Navigation */}
       <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">

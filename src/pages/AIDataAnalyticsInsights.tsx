@@ -94,7 +94,7 @@ export default function AIDataAnalyticsInsights() {
     "Models: anomaly detection, forecasting, classification",
     "Online inference with low‑latency caches & fallbacks",
     "Explainability (SHAP‑style), monitoring & drift detection",
-    "CI/CD for pipelines; evals with golden sets",
+    "CI/CD for pipelines; golden‑set evaluations",
   ];
 
   const sdks = [
@@ -205,6 +205,17 @@ export default function AIDataAnalyticsInsights() {
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                  aria-label="Claim your free insight"
+                >
+                  <a href="/contact?type=mra" title="Claim your free insight">
+                    Claim your free insight
+                  </a>
+                </Button>
+                <Button
                   size="lg"
                   className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   aria-label="See what we deliver"
@@ -215,17 +226,6 @@ export default function AIDataAnalyticsInsights() {
                   title="See what we deliver"
                 >
                   See what we deliver →
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                  aria-label="Claim your free insight"
-                >
-                  <a href="/contact?type=mra" title="Claim your free insight">
-                    Claim your free insight
-                  </a>
                 </Button>
               </motion.div>
             </motion.div>

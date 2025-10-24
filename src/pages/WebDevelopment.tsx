@@ -435,23 +435,16 @@ const WebDevelopment = () => {
               Let's discuss your project and create a web solution that drives results
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button 
                 asChild
                 size="lg" 
                 className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
               >
                 <Link to="/contact">
-                  Book a consultation →
+                  Book a consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
-              </Button>
-              <Button 
-                asChild
-                size="lg" 
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-[#E52629] px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
-              >
-                <Link to="/services">Explore Our Services</Link>
               </Button>
             </div>
           </div>

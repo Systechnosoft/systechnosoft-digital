@@ -94,7 +94,7 @@ export default function AIDataAnalyticsInsights() {
     "Models: anomaly detection, forecasting, classification",
     "Online inference with low‑latency caches & fallbacks",
     "Explainability (SHAP‑style), monitoring & drift detection",
-    "CI/CD for pipelines; golden‑set evaluations",
+    "CI/CD for data pipelines; evaluation harness with golden sets",
   ];
 
   const sdks = [

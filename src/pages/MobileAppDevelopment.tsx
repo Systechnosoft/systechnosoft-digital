@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -9,6 +11,8 @@ import {
   Settings, TestTube, Eye, Lock, Users, TrendingUp, ArrowRight, CheckCircle2
 } from "lucide-react";
 import ServiceHero from "@/components/ServiceHero";
+import { scrollToId } from "@/lib/scrollUtils";
+import { cn } from "@/lib/utils";
 
 // Animation variants
 const fadeUpVariants = {
@@ -188,6 +192,25 @@ const faqs = [
 
 export default function MobileAppDevelopment() {
   const shouldReduceMotion = useReducedMotion();
+  const [activeSection, setActiveSection] = useState("overview");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ["overview", "capabilities", "process", "standards", "integrations", "performance", "security", "faq"];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 150 && rect.bottom >= 150;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <>
@@ -205,23 +228,75 @@ export default function MobileAppDevelopment() {
         title="Mobile apps, engineered for scale—secure, delightful, production‑ready"
         subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."
         uspChips={[
-          "Native iOS & Android",
-          "Flutter / React Native / KMP",
-          "DevOps + observability"
+          "Native",
+          "Cross‑platform",
+          "DevOps"
         ]}
         primaryButton={{
-          text: "Book a Mobile App Discovery",
-          href: "https://calendly.com/systechnosoft-info/30min"
+          text: "See what we deliver →",
+          onClick: () => scrollToId('capabilities'),
+          ariaLabel: "See what we deliver"
         }}
         secondaryButton={{
-          text: "See what we deliver",
-          href: "#capabilities"
+          text: "Claim your free insight",
+          href: "/contact?type=mra",
+          ariaLabel: "Claim your free insight"
         }}
         image={{
           alt: "Mobile App Development Services",
           placeholderPrompt: "A modern mobile app development workspace showing iOS and Android devices with elegant app interfaces, CI/CD pipelines, and code on screens"
         }}
       />
+
+      {/* Subsection Navigation */}
+      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
+            {[
+              { id: "overview", label: "Overview" },
+              { id: "capabilities", label: "Capabilities" },
+              { id: "process", label: "Process" },
+              { id: "standards", label: "Standards" },
+              { id: "integrations", label: "Integrations" },
+              { id: "performance", label: "Performance" },
+              { id: "security", label: "Security" },
+              { id: "faq", label: "FAQ" }
+            ].map(({ id, label }) => (
+              <button
+                key={id}
+                onClick={() => scrollToId(id)}
+                className={cn(
+                  "flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200",
+                  activeSection === id
+                    ? "bg-[#E52629] text-white shadow-md"
+                    : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100"
+                )}
+                aria-current={activeSection === id ? "true" : undefined}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Overview */}
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.5 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Overview</h2>
+            <p className="text-lg text-muted-foreground leading-relaxed">
+              We deliver native (Swift/Kotlin) and cross-platform (Flutter/React Native/KMP) mobile apps with enterprise-grade security, CI/CD automation, and observability—so you ship faster, scale confidently, and maintain quality across iOS and Android. From MVP to production, we handle UX design, backend integration, testing, and ongoing operations.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Why Choose Us */}
       <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
@@ -245,7 +320,7 @@ export default function MobileAppDevelopment() {
           >
             {whyChooseUs.map((item, index) => (
               <motion.div key={index} variants={scaleIn}>
-                <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg hover:-translate-y-1">
                   <CardHeader>
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <item.icon className="h-6 w-6 text-primary" />
@@ -287,7 +362,7 @@ export default function MobileAppDevelopment() {
           >
             {capabilities.map((capability, index) => (
               <motion.div key={index} variants={scaleIn}>
-                <Card className="h-full hover:shadow-lg transition-all duration-300">
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                   <CardHeader>
                     <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
                       <capability.icon className="h-6 w-6 text-primary" />
@@ -312,7 +387,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Engineering Standards */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+      <section id="standards" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -331,27 +406,34 @@ export default function MobileAppDevelopment() {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-4xl mx-auto"
+            variants={staggeredFadeUp}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
           >
-            <Accordion type="single" collapsible className="w-full">
-              {engineeringStandards.map((standard, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-lg font-semibold">
-                    {standard.title}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {standard.content}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            {engineeringStandards.map((standard, index) => (
+              <motion.div key={index} variants={scaleIn}>
+                <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                  <CardHeader>
+                    <div className="flex items-start gap-4">
+                      <div className="h-10 w-10 rounded-full bg-[#E52629] text-white flex items-center justify-center flex-shrink-0 font-bold">
+                        {index + 1}
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-lg">{standard.title}</CardTitle>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-sm text-muted-foreground">{standard.content}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </section>
 
       {/* Integrations */}
-      <section className="py-16 sm:py-20 lg:py-24">
+      <section id="integrations" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -374,7 +456,11 @@ export default function MobileAppDevelopment() {
             className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto"
           >
             {integrations.map((integration, index) => (
-              <Badge key={index} variant="outline" className="text-sm px-4 py-2">
+              <Badge 
+                key={index} 
+                variant="outline" 
+                className="text-sm px-4 py-2 hover:bg-[#E52629] hover:text-white hover:border-[#E52629] transition-all duration-200 cursor-default"
+              >
                 {integration}
               </Badge>
             ))}
@@ -383,7 +469,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Delivery Playbook */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+      <section id="process" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -408,7 +494,7 @@ export default function MobileAppDevelopment() {
             <div className="grid md:grid-cols-3 lg:grid-cols-6 gap-4">
               {deliveryPhases.map((item, index) => (
                 <motion.div key={index} variants={fadeUpVariants}>
-                  <Card className="h-full text-center hover:shadow-lg transition-all duration-300">
+                  <Card className="h-full text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                     <CardHeader>
                       <div className="mx-auto h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center mb-2">
                         <span className="text-primary font-bold">{index + 1}</span>
@@ -427,7 +513,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Performance & Reliability */}
-      <section className="py-16 sm:py-20 lg:py-24">
+      <section id="performance" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -448,7 +534,7 @@ export default function MobileAppDevelopment() {
           >
             {performanceMetrics.map((metric, index) => (
               <motion.div key={index} variants={scaleIn}>
-                <Card className="h-full text-center hover:shadow-lg transition-all duration-300">
+                <Card className="h-full text-center border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                   <CardHeader>
                     <CardTitle className="text-3xl font-bold text-primary">{metric.value}</CardTitle>
                   </CardHeader>
@@ -463,65 +549,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Security & Compliance */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <div className="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-6">
-              <Lock className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-3xl sm:text-4xl font-bold mb-6">Security & compliance</h2>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              MASVS checks, secure storage (keychain/keystore), code obfuscation where appropriate, 
-              certificate pinning options, GDPR/CCPA compliance, and SOC 2 alignment for enterprise clients.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Case Study Teaser */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={scaleIn}
-          >
-            <Card className="max-w-4xl mx-auto bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20 hover:shadow-xl transition-all duration-300">
-              <CardHeader>
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <TrendingUp className="h-6 w-6 text-primary" />
-                  </div>
-                  <div className="flex-1">
-                    <CardTitle className="text-2xl mb-2">Case study</CardTitle>
-                    <CardDescription className="text-lg">
-                      "35% improvement in session length after redesign and Compose migration."
-                    </CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <Button variant="outline" asChild>
-                  <a href="/contact">
-                    View more case studies
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+      <section id="security" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -530,59 +558,134 @@ export default function MobileAppDevelopment() {
             variants={fadeUpVariants}
             className="text-center mb-12"
           >
-            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Frequently asked questions</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold mb-4">Security & compliance</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Enterprise-grade protection built into every app
+            </p>
           </motion.div>
 
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-3xl mx-auto"
+            variants={staggeredFadeUp}
+            className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto"
           >
-            <Accordion type="single" collapsible className="w-full">
-              {faqs.map((faq, index) => (
-                <AccordionItem key={index} value={`faq-${index}`}>
-                  <AccordionTrigger className="text-left text-lg font-semibold">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground">
-                    {faq.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
+            <motion.div variants={scaleIn}>
+              <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                <CardHeader>
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <Shield className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl">Security Features</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>OWASP MASVS security checks</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Secure storage (keychain/keystore)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Code obfuscation & hardening</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Certificate pinning options</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            <motion.div variants={scaleIn}>
+              <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                <CardHeader>
+                  <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
+                    <Lock className="h-6 w-6 text-primary" />
+                  </div>
+                  <CardTitle className="text-xl">Compliance</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="space-y-2 text-sm text-muted-foreground">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>GDPR/CCPA privacy compliance</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>SOC 2 alignment for enterprise</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Root/jailbreak detection</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle2 className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
+                      <span>Data encryption at rest & in transit</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
           </motion.div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-16 sm:py-20 lg:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeUpVariants}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-8">
-              Ready to ship a better mobile app?
+      {/* FAQ */}
+      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
             </h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button size="lg" asChild className="text-base">
-                <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-                  Book a Mobile App Discovery
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </a>
-              </Button>
-              <Button size="lg" variant="outline" asChild className="text-base">
-                <a href="/contact">
-                  Talk to an expert
-                </a>
-              </Button>
-            </div>
-          </motion.div>
+          </div>
+
+          <Accordion type="single" collapsible className="space-y-4">
+            {faqs.map((faq, index) => (
+              <AccordionItem 
+                key={index} 
+                value={`item-${index}`}
+                className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+              >
+                <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-[#3C3C3C]">
+                  {faq.answer}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to ship a better mobile app?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's build iOS and Android apps that scale securely with modern architectures, CI/CD, and observability.
+          </p>
+          
+          <div className="flex justify-center">
+            <Button 
+              asChild
+              size="lg" 
+              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+            >
+              <Link to="/contact">
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
         </div>
       </section>
     </>

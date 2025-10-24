@@ -68,7 +68,7 @@ export default function AIConsultationStrategy() {
     "Use‑case selection and phasing (pilot → scale)",
     "Governance: privacy/PII, safety filters, audit trails",
     "Technical blueprint: RAG, evals, observability, CI/CD for prompts/configs",
-    "SLAs/SLOs, latency budgets, rollout & rollback plans"
+    "Operational guardrails: SLAs/SLOs, latency budgets, staged rollouts & rollback playbooks"
   ];
 
   const sdks = [

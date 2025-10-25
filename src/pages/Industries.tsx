@@ -193,36 +193,38 @@ export default function Industries() {
         }}
       />
 
-      {/* Industry Tabs - Matching Data Migration Pattern */}
+      {/* Industry Tabs - Matching Cloud Services Pattern */}
       <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-            <TabsList className="inline-flex h-auto items-center justify-center rounded-full bg-gray-100 p-1.5 mx-auto flex-wrap gap-1">
-              <TabsTrigger 
-                value="bfsi"
-                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                BFSI
-              </TabsTrigger>
-              <TabsTrigger 
-                value="healthcare"
-                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                Healthcare
-              </TabsTrigger>
-              <TabsTrigger 
-                value="aviation"
-                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                Aviation
-              </TabsTrigger>
-              <TabsTrigger 
-                value="oil-gas"
-                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                Oil & Gas
-              </TabsTrigger>
-            </TabsList>
+            <div className="flex justify-center">
+              <TabsList className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
+                <TabsTrigger 
+                  value="bfsi"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                >
+                  BFSI
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="healthcare"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                >
+                  Healthcare
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="aviation"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                >
+                  Aviation
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="oil-gas"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                >
+                  Oil & Gas
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             <TabsContent value="bfsi" className="mt-0">
               <IndustrySection
@@ -234,14 +236,14 @@ export default function Industries() {
           { value: "24×7", label: "uptime with quarterly DR validation" },
         ]}
         deliverables={[
-          { icon: Cloud, text: "Core banking cloud migration & IaC" },
-          { icon: Shield, text: "Real-time fraud detection (stream ML)" },
-          { icon: Network, text: "Open Banking & API gateways" },
-          { icon: Workflow, text: "RPA + doc intelligence for KYC/loan ops" },
-          { icon: Database, text: "Data mesh, lineage, and Lakehouse" },
-          { icon: Lock, text: "Zero-Trust IAM & step-up auth" },
+          { icon: Cloud, text: "Core banking cloud modernization & IaC" },
+          { icon: Network, text: "Open Banking APIs & consent (PSD2-ready gateways)" },
+          { icon: Database, text: "Data mesh & lakehouse governance" },
           { icon: Activity, text: "Payments observability & SRE SLAs" },
-          { icon: Server, text: "DR runbooks with cross-region failover" },
+          { icon: Shield, text: "Real‑time fraud prevention (stream ML)" },
+          { icon: Workflow, text: "KYC/loan doc intelligence (RPA + OCR/LLM)" },
+          { icon: Lock, text: "Zero‑Trust IAM with step‑up auth" },
+          { icon: Server, text: "DR runbooks with cross‑region failover" },
         ]}
         architectureCards={[
           { icon: Zap, label: "Streaming & Events", caption: "Event bus + CDC (Kafka style)" },
@@ -263,14 +265,14 @@ export default function Industries() {
           { value: "99.97%", label: "platform uptime across 18 months" },
         ]}
         deliverables={[
-          { icon: FileCheck, text: "Unified EHR integration (FHIR/HL7)" },
-          { icon: Heart, text: "Telehealth + patient portals" },
+          { icon: FileCheck, text: "FHIR/HL7 integration & unified EHR data fabric" },
           { icon: Activity, text: "Imaging AI workflow orchestration" },
-          { icon: Radio, text: "Device/IoMT monitoring & alerts" },
           { icon: Lock, text: "PHI tokenization & data minimization" },
+          { icon: TrendingUp, text: "CDSS & care‑pathway analytics" },
+          { icon: Heart, text: "Telehealth & patient portals" },
+          { icon: Radio, text: "Device/IoMT monitoring & alerts" },
           { icon: Shield, text: "HIPAA logging & audit trails" },
-          { icon: TrendingUp, text: "CDSS & analytics for care pathways" },
-          { icon: Server, text: "DR drills, backup immutability" },
+          { icon: Server, text: "DR drills & backup immutability" },
         ]}
         architectureCards={[
           { icon: FileCheck, label: "FHIR Core", caption: "Normalized patient data" },
@@ -292,13 +294,13 @@ export default function Industries() {
           { value: "Faster", label: "turnarounds and NPS lift" },
         ]}
         deliverables={[
-          { icon: Plane, text: "Aircraft health monitoring & PdM" },
           { icon: Activity, text: "Ops control center analytics" },
           { icon: Workflow, text: "Crew & gate optimization" },
           { icon: Network, text: "Baggage tracking & disruption comms" },
-          { icon: Shield, text: "Safety analytics & event reporting" },
           { icon: Building2, text: "Digital twins for fleet & hubs" },
-          { icon: Server, text: "Edge processing for bandwidth-poor ops" },
+          { icon: Shield, text: "Safety analytics & event reporting" },
+          { icon: Server, text: "Edge processing for bandwidth‑poor ops" },
+          { icon: Plane, text: "Routing/turn‑time optimization (ops ML)" },
           { icon: Database, text: "DR plans for OCC continuity" },
         ]}
         architectureCards={[
@@ -321,13 +323,13 @@ export default function Industries() {
           { value: "Fewer", label: "HSE incidents with real-time sensing" },
         ]}
         deliverables={[
-          { icon: Activity, text: "Asset reliability & vibration analytics" },
-          { icon: Droplet, text: "Pipeline leak detection & alerts" },
+          { icon: Activity, text: "Predictive reliability (vibration/condition‑based)" },
           { icon: TrendingUp, text: "Production optimization models" },
-          { icon: Server, text: "Edge compute for remote sites" },
           { icon: Network, text: "SCADA/PI integrations & historian sync" },
-          { icon: Shield, text: "IEC-62443 network segmentation" },
-          { icon: FileCheck, text: "Environmental monitoring & reporting" },
+          { icon: FileCheck, text: "Environmental & emissions reporting" },
+          { icon: Droplet, text: "Pipeline leak detection & real‑time alerts" },
+          { icon: Server, text: "Edge compute for remote/ATEX sites" },
+          { icon: Shield, text: "IEC‑62443 network segmentation" },
           { icon: Database, text: "DR/BCP for plants & terminals" },
         ]}
         architectureCards={[
@@ -344,7 +346,7 @@ export default function Industries() {
       </div>
 
       {/* FAQ Section - Matching Cloud Services Pattern */}
-      <section className="py-20 bg-[#F5F5F5]">
+      <section id="faq" className="py-20 bg-[#F5F5F5]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -361,7 +363,7 @@ export default function Industries() {
                 How do you handle regulated data?
               </AccordionTrigger>
               <AccordionContent className="text-[#3C3C3C]">
-                We implement Zero-Trust architecture, data minimization practices, encryption in transit and at rest, and auditable controls. Our solutions are designed to meet industry-specific compliance requirements including HIPAA, PCI-DSS, GDPR, and more.
+                We implement Zero‑Trust architecture, data minimization practices, encryption in transit and at rest, and auditable controls. Our solutions are designed to meet industry‑specific compliance requirements including HIPAA, PCI‑DSS, GDPR, and more.
               </AccordionContent>
             </AccordionItem>
 
@@ -370,10 +372,10 @@ export default function Industries() {
               className="bg-white border border-[#E6E6E6] rounded-lg px-6"
             >
               <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
-                What if we're hybrid/on-prem?
+                What if we're hybrid/on‑prem?
               </AccordionTrigger>
               <AccordionContent className="text-[#3C3C3C]">
-                We support hybrid and on-premises environments through secure connectors, VPN/ExpressRoute configurations, and edge computing solutions. Our architectures are designed to work seamlessly across cloud and on-prem infrastructure.
+                We support hybrid and on‑premises environments through secure connectors, VPN/ExpressRoute configurations, and edge computing solutions. Our architectures are designed to work seamlessly across cloud and on‑prem infrastructure.
               </AccordionContent>
             </AccordionItem>
 
@@ -381,24 +383,38 @@ export default function Industries() {
               value="item-3"
               className="bg-white border border-[#E6E6E6] rounded-lg px-6"
             >
-              <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline">
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                 How fast can we see value?
               </AccordionTrigger>
-              <AccordionContent className="text-neutral-600">
-                Our 4-8 week accelerators deliver immediate value through landing zone setup, CIS baseline implementation, and monitoring starter kits. We focus on quick wins while building a foundation for long-term transformation.
+              <AccordionContent className="text-[#3C3C3C]">
+                Our 4–8 week accelerators deliver immediate value through landing zone setup, CIS baseline implementation, and monitoring starter kits. We focus on quick wins while building a foundation for long‑term transformation.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+        </div>
+      </section>
 
-          <div className="mt-12 text-center">
-            <div className="flex flex-wrap justify-center gap-4">
-              <Button asChild size="lg">
-                <Link to="/contact">Book a consultation</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/case-studies">View case studies</Link>
-              </Button>
-            </div>
+      {/* Final CTA Section - Matching Cloud Services Pattern */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to transform your industry?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's discuss your goals and craft a tailored plan for measurable outcomes.
+          </p>
+          
+          <div className="flex justify-center">
+            <Button 
+              asChild
+              size="lg" 
+              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+            >
+              <Link to="/contact">
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

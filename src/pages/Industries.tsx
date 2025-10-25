@@ -26,6 +26,7 @@ import {
   Radio,
   LineChart,
   ArrowRight,
+  Factory,
 } from "lucide-react";
 import {
   Accordion,
@@ -100,6 +101,7 @@ export default function Industries() {
 
   const IndustrySection = ({
     title,
+    icon: SectionIcon,
     lead,
     outcomes,
     deliverables,
@@ -107,6 +109,7 @@ export default function Industries() {
     complianceItems,
   }: {
     title: string;
+    icon: any;
     lead: string;
     outcomes: Array<{ value: string; label: string }>;
     deliverables: Array<{ icon: any; text: string }>;
@@ -117,9 +120,12 @@ export default function Industries() {
       <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
         {/* Header - Center Aligned */}
         <div className="mb-12 text-center max-w-4xl mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-            {title}
-          </h2>
+          <div className="flex items-center justify-center gap-4 mb-4">
+            <SectionIcon className="w-10 h-10 text-[#E52629]" aria-hidden="true" />
+            <h2 className="text-4xl md:text-5xl font-bold text-neutral-900">
+              {title}
+            </h2>
+          </div>
           <p className="text-xl text-neutral-600">{lead}</p>
         </div>
 
@@ -277,26 +283,30 @@ export default function Industries() {
               <TabsList className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
                 <TabsTrigger 
                   value="bfsi"
-                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
+                  <Building2 className="w-5 h-5" aria-hidden="true" />
                   BFSI
                 </TabsTrigger>
                 <TabsTrigger 
                   value="healthcare"
-                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
+                  <Heart className="w-5 h-5" aria-hidden="true" />
                   Healthcare
                 </TabsTrigger>
                 <TabsTrigger 
                   value="aviation"
-                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
+                  <Plane className="w-5 h-5" aria-hidden="true" />
                   Aviation
                 </TabsTrigger>
                 <TabsTrigger 
                   value="oil-gas"
-                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
+                  <Factory className="w-5 h-5" aria-hidden="true" />
                   Oil & Gas
                 </TabsTrigger>
               </TabsList>
@@ -305,6 +315,7 @@ export default function Industries() {
             <TabsContent value="bfsi" className="mt-0">
               <IndustrySection
                 title="BFSI"
+                icon={Building2}
         lead="Modern banking is always-on and hyper-personal. We deliver cloud, data, and AI capabilities that keep you compliant, resilient, and delightfully fast."
         outcomes={[
           { value: "30%", label: "faster transaction processing" },
@@ -334,6 +345,7 @@ export default function Industries() {
             <TabsContent value="healthcare" className="mt-0">
               <IndustrySection
                 title="Healthcare"
+                icon={Heart}
         lead="Interoperable records, AI-assisted care, and secure connected devices—built for clinicians and patients alike."
         outcomes={[
           { value: "20-30%", label: "operational efficiency lift" },
@@ -363,6 +375,7 @@ export default function Industries() {
             <TabsContent value="aviation" className="mt-0">
               <IndustrySection
                 title="Aviation"
+                icon={Plane}
         lead="Predictive maintenance, real-time ops control, and passenger-first digital experiences—safely at scale."
         outcomes={[
           { value: "30-50%", label: "reduction in unplanned downtime" },
@@ -392,6 +405,7 @@ export default function Industries() {
             <TabsContent value="oil-gas" className="mt-0">
               <IndustrySection
                 title="Oil & Gas"
+                icon={Factory}
         lead="Digital oilfields—instrumented, automated, and safer. From wells to refineries, we turn data into decisions."
         outcomes={[
           { value: "10-40%", label: "maintenance cost reduction" },

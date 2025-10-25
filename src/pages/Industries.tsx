@@ -277,30 +277,26 @@ export default function Industries() {
               <TabsList className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
                 <TabsTrigger 
                   value="bfsi"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
-                  <Building2 className="w-5 h-5" aria-hidden="true" />
                   BFSI
                 </TabsTrigger>
                 <TabsTrigger 
                   value="healthcare"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
-                  <Heart className="w-5 h-5" aria-hidden="true" />
                   Healthcare
                 </TabsTrigger>
                 <TabsTrigger 
                   value="aviation"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
-                  <Plane className="w-5 h-5" aria-hidden="true" />
                   Aviation
                 </TabsTrigger>
                 <TabsTrigger 
                   value="oil-gas"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
+                  className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                 >
-                  <Droplet className="w-5 h-5" aria-hidden="true" />
                   Oil & Gas
                 </TabsTrigger>
               </TabsList>

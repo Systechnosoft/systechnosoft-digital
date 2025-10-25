@@ -282,46 +282,42 @@ export default function Industries() {
             <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
               <button
                 onClick={() => handleTabChange("bfsi")}
-                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
                   activeTab === "bfsi"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
               >
-                <Building2 className="w-5 h-5" aria-hidden="true" />
                 BFSI
               </button>
               <button
                 onClick={() => handleTabChange("healthcare")}
-                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
                   activeTab === "healthcare"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
               >
-                <Heart className="w-5 h-5" aria-hidden="true" />
                 Healthcare
               </button>
               <button
                 onClick={() => handleTabChange("aviation")}
-                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
                   activeTab === "aviation"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
               >
-                <Plane className="w-5 h-5" aria-hidden="true" />
                 Aviation
               </button>
               <button
                 onClick={() => handleTabChange("oil-gas")}
-                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
                   activeTab === "oil-gas"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
               >
-                <Factory className="w-5 h-5" aria-hidden="true" />
                 Oil & Gas
               </button>
             </div>

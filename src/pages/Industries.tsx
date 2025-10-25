@@ -113,52 +113,128 @@ export default function Industries() {
     architectureCards: Array<{ icon: any; label: string; caption: string }>;
     complianceItems: string[];
   }) => (
-    <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
-      {/* Header - Center Aligned */}
-      <div className="mb-12 text-center max-w-4xl mx-auto">
-        <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-          {title}
-        </h2>
-        <p className="text-xl text-neutral-600">{lead}</p>
-      </div>
+    <>
+      <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
+        {/* Header - Center Aligned */}
+        <div className="mb-12 text-center max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+            {title}
+          </h2>
+          <p className="text-xl text-neutral-600">{lead}</p>
+        </div>
 
-      {/* Outcomes - Center Aligned */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
-        {outcomes.map((outcome, idx) => (
-          <OutcomeCard key={idx} value={outcome.value} label={outcome.label} />
-        ))}
-      </div>
-
-      {/* What We Deliver - Center Aligned */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">What we deliver</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
-          {deliverables.map((item, idx) => (
-            <DeliverableItem key={idx} icon={item.icon} text={item.text} />
+        {/* Outcomes - Center Aligned */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
+          {outcomes.map((outcome, idx) => (
+            <OutcomeCard key={idx} value={outcome.value} label={outcome.label} />
           ))}
+        </div>
+
+        {/* What We Deliver - Center Aligned */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">What we deliver</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+            {deliverables.map((item, idx) => (
+              <DeliverableItem key={idx} icon={item.icon} text={item.text} />
+            ))}
+          </div>
+        </div>
+
+        {/* Architecture Strip - Center Aligned with Hover Effects */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Architecture</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+            {architectureCards.map((card, idx) => (
+              <div key={idx} className="bg-white rounded-lg border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg p-4">
+                <card.icon className="w-8 h-8 text-[#E52629] mb-3 mx-auto" aria-hidden="true" />
+                <div className="font-semibold text-sm text-neutral-900 mb-1 text-center">{card.label}</div>
+                <div className="text-xs text-neutral-500 text-center">{card.caption}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Compliance - Center Aligned */}
+        <div className="mb-16">
+          <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Compliance & Standards</h3>
+          <ComplianceChips items={complianceItems} />
         </div>
       </div>
 
-      {/* Architecture Strip - Center Aligned with Hover Effects */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Architecture</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
-          {architectureCards.map((card, idx) => (
-            <div key={idx} className="bg-white rounded-lg border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg p-4">
-              <card.icon className="w-8 h-8 text-[#E52629] mb-3 mx-auto" aria-hidden="true" />
-              <div className="font-semibold text-sm text-neutral-900 mb-1 text-center">{card.label}</div>
-              <div className="text-xs text-neutral-500 text-center">{card.caption}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* FAQ Section - Matching Cloud Services Pattern */}
+      <section id="faq" className="py-20 bg-[#F5F5F5]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
 
-      {/* Compliance - Center Aligned */}
-      <div className="mb-16">
-        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Compliance & Standards</h3>
-        <ComplianceChips items={complianceItems} />
-      </div>
-    </div>
+          <Accordion type="single" collapsible className="space-y-4">
+            <AccordionItem 
+              value="item-1"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                How do you handle regulated data?
+              </AccordionTrigger>
+              <AccordionContent className="text-[#3C3C3C]">
+                We implement Zero‑Trust architecture, data minimization practices, encryption in transit and at rest, and auditable controls. Our solutions are designed to meet industry‑specific compliance requirements including HIPAA, PCI‑DSS, GDPR, and more.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem 
+              value="item-2"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                What if we're hybrid/on‑prem?
+              </AccordionTrigger>
+              <AccordionContent className="text-[#3C3C3C]">
+                We support hybrid and on‑premises environments through secure connectors, VPN/ExpressRoute configurations, and edge computing solutions. Our architectures are designed to work seamlessly across cloud and on‑prem infrastructure.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem 
+              value="item-3"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                How fast can we see value?
+              </AccordionTrigger>
+              <AccordionContent className="text-[#3C3C3C]">
+                Our 4–8 week accelerators deliver immediate value through landing zone setup, CIS baseline implementation, and monitoring starter kits. We focus on quick wins while building a foundation for long‑term transformation.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Final CTA Section - Matching Cloud Services Pattern */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+            Ready to transform your industry?
+          </h2>
+          <p className="font-inter text-xl text-white/95 mb-10">
+            Let's discuss your goals and craft a tailored plan for measurable outcomes.
+          </p>
+          
+          <div className="flex justify-center">
+            <Button 
+              asChild
+              size="lg" 
+              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+            >
+              <Link to="/contact">
+                Book a consultation
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </>
   );
 
   return (
@@ -344,80 +420,6 @@ export default function Industries() {
           </Tabs>
         </div>
       </div>
-
-      {/* FAQ Section - Matching Cloud Services Pattern */}
-      <section id="faq" className="py-20 bg-[#F5F5F5]">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
-              Frequently Asked Questions
-            </h2>
-          </div>
-
-          <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem 
-              value="item-1"
-              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
-            >
-              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
-                How do you handle regulated data?
-              </AccordionTrigger>
-              <AccordionContent className="text-[#3C3C3C]">
-                We implement Zero‑Trust architecture, data minimization practices, encryption in transit and at rest, and auditable controls. Our solutions are designed to meet industry‑specific compliance requirements including HIPAA, PCI‑DSS, GDPR, and more.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem 
-              value="item-2"
-              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
-            >
-              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
-                What if we're hybrid/on‑prem?
-              </AccordionTrigger>
-              <AccordionContent className="text-[#3C3C3C]">
-                We support hybrid and on‑premises environments through secure connectors, VPN/ExpressRoute configurations, and edge computing solutions. Our architectures are designed to work seamlessly across cloud and on‑prem infrastructure.
-              </AccordionContent>
-            </AccordionItem>
-
-            <AccordionItem 
-              value="item-3"
-              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
-            >
-              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
-                How fast can we see value?
-              </AccordionTrigger>
-              <AccordionContent className="text-[#3C3C3C]">
-                Our 4–8 week accelerators deliver immediate value through landing zone setup, CIS baseline implementation, and monitoring starter kits. We focus on quick wins while building a foundation for long‑term transformation.
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
-      </section>
-
-      {/* Final CTA Section - Matching Cloud Services Pattern */}
-      <section className="py-20 bg-[#E52629] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
-            Ready to transform your industry?
-          </h2>
-          <p className="font-inter text-xl text-white/95 mb-10">
-            Let's discuss your goals and craft a tailored plan for measurable outcomes.
-          </p>
-          
-          <div className="flex justify-center">
-            <Button 
-              asChild
-              size="lg" 
-              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
-            >
-              <Link to="/contact">
-                Book a consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

@@ -493,11 +493,11 @@ const CodePalette: React.FC<{ activeCard: 'pii' | 'rbac' | 'audit' }> = ({ activ
 const Salesforce = () => {
   const shouldReduceMotion = useReducedMotion();
   const [roiValues, setRoiValues] = useState({ licenses: [100], automation: [30] });
-  const [activeSection, setActiveSection] = useState("overview");
+  const [activeSection, setActiveSection] = useState("outcomes");
 
   // Navigation items (removed ROI, FAQ, Contact)
   const navItems = [
-    { id: "overview", label: "Overview" },
+    { id: "outcomes", label: "Overview" },
     { id: "clouds", label: "Clouds" },
     { id: "ai-data", label: "AI & Data" },
     { id: "approach", label: "Approach" },

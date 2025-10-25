@@ -1,9 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ServiceHero from "@/components/ServiceHero";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   TrendingUp,
   Shield,
@@ -17,13 +19,13 @@ import {
   Heart,
   Plane,
   Droplet,
-  ChevronDown,
   Building2,
   FileCheck,
   Workflow,
   CircuitBoard,
   Radio,
   LineChart,
+  ArrowRight,
 } from "lucide-react";
 import {
   Accordion,
@@ -33,60 +35,19 @@ import {
 } from "@/components/ui/accordion";
 
 export default function Industries() {
-  const [activeSection, setActiveSection] = useState("bfsi");
-  const sectionsRef = useRef<{ [key: string]: HTMLElement | null }>({});
-  const observerRef = useRef<IntersectionObserver | null>(null);
-
-  const subNavItems = [
-    { id: "bfsi", label: "BFSI" },
-    { id: "healthcare", label: "Healthcare" },
-    { id: "aviation", label: "Aviation" },
-    { id: "oil-gas", label: "Oil & Gas" },
-    { id: "faqs", label: "FAQs" },
-  ];
+  const [activeTab, setActiveTab] = useState("bfsi");
 
   useEffect(() => {
-    observerRef.current = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: "-120px 0px -50% 0px",
-        threshold: [0, 0.3, 0.5],
-      }
-    );
-
-    Object.values(sectionsRef.current).forEach((section) => {
-      if (section && observerRef.current) {
-        observerRef.current.observe(section);
-      }
-    });
-
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
+    // Handle hash-based deep linking
+    const hash = window.location.hash.slice(1);
+    if (hash && ["bfsi", "healthcare", "aviation", "oil-gas"].includes(hash)) {
+      setActiveTab(hash);
+    }
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = sectionsRef.current[id];
-    if (element) {
-      const offset = 120;
-      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-      const targetPosition = elementPosition - offset;
-
-      window.scrollTo({
-        top: targetPosition,
-        behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth",
-      });
-
-      window.history.pushState(null, "", `#${id}`);
-    }
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    window.history.pushState(null, "", `#${value}`);
   };
 
   const OutcomeCard = ({ value, label }: { value: string; label: string }) => (
@@ -94,7 +55,7 @@ export default function Industries() {
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      className="bg-white rounded-xl border border-neutral-200 p-6 text-center hover:border-[#E52629]/60 hover:shadow-lg transition-all duration-200"
+      className="bg-white rounded-xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg p-6 text-center"
     >
       <div className="text-3xl font-bold text-[#E52629] mb-2">{value}</div>
       <div className="text-sm text-neutral-600">{label}</div>
@@ -117,21 +78,27 @@ export default function Industries() {
   );
 
   const ComplianceChips = ({ items }: { items: string[] }) => (
-    <div className="flex flex-wrap gap-2">
-      {items.map((item) => (
-        <span
+    <div className="flex flex-wrap justify-center gap-3">
+      {items.map((item, index) => (
+        <motion.div
           key={item}
-          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-neutral-100 text-neutral-700 border border-neutral-200"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.05, duration: 0.3 }}
         >
-          {item}
-        </span>
+          <Badge 
+            variant="secondary" 
+            className="px-5 py-2.5 text-sm bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors duration-300 cursor-default"
+          >
+            {item}
+          </Badge>
+        </motion.div>
       ))}
     </div>
   );
 
   const IndustrySection = ({
-    id,
-    eyebrow,
     title,
     lead,
     outcomes,
@@ -139,8 +106,6 @@ export default function Industries() {
     architectureCards,
     complianceItems,
   }: {
-    id: string;
-    eyebrow: string;
     title: string;
     lead: string;
     outcomes: Array<{ value: string; label: string }>;
@@ -148,72 +113,52 @@ export default function Industries() {
     architectureCards: Array<{ icon: any; label: string; caption: string }>;
     complianceItems: string[];
   }) => (
-    <section
-      id={id}
-      ref={(el) => (sectionsRef.current[id] = el)}
-      className="py-20 md:py-24"
-    >
-      <div className="container mx-auto px-4 max-w-7xl">
-        {/* Header */}
-        <div className="mb-12">
-          <div className="text-sm font-semibold text-[#E52629] uppercase tracking-wide mb-3">
-            {eyebrow}
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
-            {title}
-          </h2>
-          <p className="text-xl text-neutral-600 max-w-3xl">{lead}</p>
-        </div>
+    <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
+      {/* Header - Center Aligned */}
+      <div className="mb-12 text-center max-w-4xl mx-auto">
+        <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-4">
+          {title}
+        </h2>
+        <p className="text-xl text-neutral-600">{lead}</p>
+      </div>
 
-        {/* Outcomes */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {outcomes.map((outcome, idx) => (
-            <OutcomeCard key={idx} value={outcome.value} label={outcome.label} />
+      {/* Outcomes - Center Aligned */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16 max-w-5xl mx-auto">
+        {outcomes.map((outcome, idx) => (
+          <OutcomeCard key={idx} value={outcome.value} label={outcome.label} />
+        ))}
+      </div>
+
+      {/* What We Deliver - Center Aligned */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">What we deliver</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+          {deliverables.map((item, idx) => (
+            <DeliverableItem key={idx} icon={item.icon} text={item.text} />
           ))}
         </div>
+      </div>
 
-        {/* What We Deliver */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-neutral-900 mb-6">What we deliver</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {deliverables.map((item, idx) => (
-              <DeliverableItem key={idx} icon={item.icon} text={item.text} />
-            ))}
-          </div>
-        </div>
-
-        {/* Architecture Strip */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-neutral-900 mb-6">Architecture</h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {architectureCards.map((card, idx) => (
-              <ArchCard key={idx} icon={card.icon} label={card.label} caption={card.caption} />
-            ))}
-          </div>
-        </div>
-
-        {/* Compliance */}
-        <div className="mb-12">
-          <h3 className="text-2xl font-bold text-neutral-900 mb-6">Compliance & Standards</h3>
-          <ComplianceChips items={complianceItems} />
-        </div>
-
-        {/* CTA Bar */}
-        <div className="bg-neutral-50 rounded-2xl border border-neutral-200 p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-          <p className="text-lg text-neutral-700">
-            See how we've done it in the real world.
-          </p>
-          <div className="flex flex-wrap gap-4">
-            <Button asChild variant="outline">
-              <Link to="/case-studies">View case studies</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/contact">Talk to an Expert</Link>
-            </Button>
-          </div>
+      {/* Architecture Strip - Center Aligned with Hover Effects */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Architecture</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-6xl mx-auto">
+          {architectureCards.map((card, idx) => (
+            <div key={idx} className="bg-white rounded-lg border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg p-4">
+              <card.icon className="w-8 h-8 text-[#E52629] mb-3 mx-auto" aria-hidden="true" />
+              <div className="font-semibold text-sm text-neutral-900 mb-1 text-center">{card.label}</div>
+              <div className="text-xs text-neutral-500 text-center">{card.caption}</div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+
+      {/* Compliance - Center Aligned */}
+      <div className="mb-16">
+        <h3 className="text-2xl font-bold text-neutral-900 mb-8 text-center">Compliance & Standards</h3>
+        <ComplianceChips items={complianceItems} />
+      </div>
+    </div>
   );
 
   return (
@@ -235,12 +180,12 @@ export default function Industries() {
           "GDPR/DPDP aware"
         ]}
         primaryButton={{
-          text: "Talk to an Expert",
-          href: "/contact"
+          text: "View case studies →",
+          href: "/case-studies"
         }}
         secondaryButton={{
-          text: "View case studies",
-          href: "/case-studies"
+          text: "Claim your free insight",
+          href: "/contact"
         }}
         image={{
           alt: "Industries We Serve",
@@ -248,44 +193,40 @@ export default function Industries() {
         }}
       />
 
-      {/* Sticky Sub-nav */}
-      <div className="sticky top-[73px] z-40 bg-white border-b border-neutral-200 shadow-sm">
+      {/* Industry Tabs - Matching Data Migration Pattern */}
+      <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <nav
-            role="tablist"
-            aria-label="Industry sections"
-            className="flex overflow-x-auto scrollbar-hide"
-          >
-            {subNavItems.map((item) => (
-              <button
-                key={item.id}
-                role="tab"
-                aria-selected={activeSection === item.id}
-                aria-controls={item.id}
-                tabIndex={activeSection === item.id ? 0 : -1}
-                onClick={() => scrollToSection(item.id)}
-                className={`
-                  flex-shrink-0 px-6 py-4 text-sm font-medium transition-all duration-200
-                  border-b-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2
-                  ${
-                    activeSection === item.id
-                      ? "border-[#E52629] text-[#E52629]"
-                      : "border-transparent text-neutral-600 hover:text-neutral-900 hover:border-neutral-300"
-                  }
-                `}
+          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+            <TabsList className="inline-flex h-auto items-center justify-center rounded-full bg-gray-100 p-1.5 mx-auto flex-wrap gap-1">
+              <TabsTrigger 
+                value="bfsi"
+                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
               >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </div>
+                BFSI
+              </TabsTrigger>
+              <TabsTrigger 
+                value="healthcare"
+                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              >
+                Healthcare
+              </TabsTrigger>
+              <TabsTrigger 
+                value="aviation"
+                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              >
+                Aviation
+              </TabsTrigger>
+              <TabsTrigger 
+                value="oil-gas"
+                className="rounded-full px-6 py-2.5 text-sm font-medium transition-all data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              >
+                Oil & Gas
+              </TabsTrigger>
+            </TabsList>
 
-      {/* BFSI Section */}
-      <IndustrySection
-        id="bfsi"
-        eyebrow="Industry"
-        title="BFSI"
+            <TabsContent value="bfsi" className="mt-0">
+              <IndustrySection
+                title="BFSI"
         lead="Modern banking is always-on and hyper-personal. We deliver cloud, data, and AI capabilities that keep you compliant, resilient, and delightfully fast."
         outcomes={[
           { value: "30%", label: "faster transaction processing" },
@@ -308,16 +249,13 @@ export default function Industries() {
           { icon: CircuitBoard, label: "Model Serving", caption: "Real-time scoring endpoints" },
           { icon: Shield, label: "Controls", caption: "Policy, keys, secrets, audit" },
         ]}
-        complianceItems={["PCI-DSS", "SOC 2", "GDPR/DPDP", "ISO 27001", "SOX"]}
-      />
+                complianceItems={["PCI-DSS", "SOC 2", "GDPR/DPDP", "ISO 27001", "SOX"]}
+              />
+            </TabsContent>
 
-      <div className="border-t border-neutral-200" />
-
-      {/* Healthcare Section */}
-      <IndustrySection
-        id="healthcare"
-        eyebrow="Industry"
-        title="Healthcare"
+            <TabsContent value="healthcare" className="mt-0">
+              <IndustrySection
+                title="Healthcare"
         lead="Interoperable records, AI-assisted care, and secure connected devices—built for clinicians and patients alike."
         outcomes={[
           { value: "20-30%", label: "operational efficiency lift" },
@@ -340,16 +278,13 @@ export default function Industries() {
           { icon: Radio, label: "IoMT Hub", caption: "Secure device ingress" },
           { icon: Lock, label: "Privacy", caption: "De-identification + consent" },
         ]}
-        complianceItems={["HIPAA", "HITRUST", "ISO 27001", "GDPR/DPDP"]}
-      />
+                complianceItems={["HIPAA", "HITRUST", "ISO 27001", "GDPR/DPDP"]}
+              />
+            </TabsContent>
 
-      <div className="border-t border-neutral-200" />
-
-      {/* Aviation Section */}
-      <IndustrySection
-        id="aviation"
-        eyebrow="Industry"
-        title="Aviation"
+            <TabsContent value="aviation" className="mt-0">
+              <IndustrySection
+                title="Aviation"
         lead="Predictive maintenance, real-time ops control, and passenger-first digital experiences—safely at scale."
         outcomes={[
           { value: "30-50%", label: "reduction in unplanned downtime" },
@@ -372,16 +307,13 @@ export default function Industries() {
           { icon: TrendingUp, label: "Optimization", caption: "Routing & crew ML" },
           { icon: Shield, label: "Safety Layer", caption: "Hazard models + audits" },
         ]}
-        complianceItems={["ISO 27001", "SOC 2", "DO-178C (guidance)", "EASA/IATA data practices"]}
-      />
+                complianceItems={["ISO 27001", "SOC 2", "DO-178C (guidance)", "EASA/IATA data practices"]}
+              />
+            </TabsContent>
 
-      <div className="border-t border-neutral-200" />
-
-      {/* Oil & Gas Section */}
-      <IndustrySection
-        id="oil-gas"
-        eyebrow="Industry"
-        title="Oil & Gas"
+            <TabsContent value="oil-gas" className="mt-0">
+              <IndustrySection
+                title="Oil & Gas"
         lead="Digital oilfields—instrumented, automated, and safer. From wells to refineries, we turn data into decisions."
         outcomes={[
           { value: "10-40%", label: "maintenance cost reduction" },
@@ -404,42 +336,51 @@ export default function Industries() {
           { icon: Database, label: "Lake + ML", caption: "Yield & anomaly models" },
           { icon: Shield, label: "HSE Stack", caption: "Permits, incidents, audits" },
         ]}
-        complianceItems={["IEC-62443", "ISO 14224", "SOC 2", "ISO 27001"]}
-      />
+                complianceItems={["IEC-62443", "ISO 14224", "SOC 2", "ISO 27001"]}
+              />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </div>
 
-      <div className="border-t border-neutral-200" />
-
-      {/* FAQ Section */}
-      <section
-        id="faqs"
-        ref={(el) => (sectionsRef.current["faqs"] = el)}
-        className="py-20 md:py-24 bg-neutral-50"
-      >
-        <div className="container mx-auto px-4 max-w-4xl">
-          <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-12 text-center">
-            Frequently Asked Questions
-          </h2>
+      {/* FAQ Section - Matching Cloud Services Pattern */}
+      <section className="py-20 bg-[#F5F5F5]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
+              Frequently Asked Questions
+            </h2>
+          </div>
 
           <Accordion type="single" collapsible className="space-y-4">
-            <AccordionItem value="item-1" className="bg-white rounded-lg border border-neutral-200 px-6">
-              <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline">
+            <AccordionItem 
+              value="item-1"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                 How do you handle regulated data?
               </AccordionTrigger>
-              <AccordionContent className="text-neutral-600">
+              <AccordionContent className="text-[#3C3C3C]">
                 We implement Zero-Trust architecture, data minimization practices, encryption in transit and at rest, and auditable controls. Our solutions are designed to meet industry-specific compliance requirements including HIPAA, PCI-DSS, GDPR, and more.
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-2" className="bg-white rounded-lg border border-neutral-200 px-6">
-              <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline">
+            <AccordionItem 
+              value="item-2"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
+              <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                 What if we're hybrid/on-prem?
               </AccordionTrigger>
-              <AccordionContent className="text-neutral-600">
+              <AccordionContent className="text-[#3C3C3C]">
                 We support hybrid and on-premises environments through secure connectors, VPN/ExpressRoute configurations, and edge computing solutions. Our architectures are designed to work seamlessly across cloud and on-prem infrastructure.
               </AccordionContent>
             </AccordionItem>
 
-            <AccordionItem value="item-3" className="bg-white rounded-lg border border-neutral-200 px-6">
+            <AccordionItem 
+              value="item-3"
+              className="bg-white border border-[#E6E6E6] rounded-lg px-6"
+            >
               <AccordionTrigger className="text-left font-semibold text-lg hover:no-underline">
                 How fast can we see value?
               </AccordionTrigger>

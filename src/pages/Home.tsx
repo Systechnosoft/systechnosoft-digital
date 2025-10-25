@@ -28,7 +28,7 @@ const pillars = [
     icon: Bot,
     title: "AI & Automation",
     description: "Automate workflows with SDKs, Zapier, and Make.",
-    href: "/services/ai",
+    href: "/services/ai-development-integration",
     cta: "Explore"
   }
 ];

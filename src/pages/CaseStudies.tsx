@@ -1,15 +1,13 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { 
   ArrowRight,
-  ChevronDown,
   Building2,
   Heart,
   Plane,
   Factory,
-  Banknote,
   CheckCircle2,
   TrendingUp,
   Shield,
@@ -24,25 +22,22 @@ import {
   AccordionItem, 
   AccordionTrigger 
 } from "@/components/ui/accordion";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ServiceHero from "@/components/ServiceHero";
 import { CountUpNumber } from "@/components/CountUpNumber";
-import { cn } from "@/lib/utils";
-import { scrollToId } from "@/lib/scrollUtils";
 
-// Sub-navigation items
-const subNavItems = [
-  { id: "cs-bfsi", label: "BFSI" },
-  { id: "cs-healthcare", label: "Healthcare" },
-  { id: "cs-aviation", label: "Aviation" },
-  { id: "cs-oil-gas", label: "Oil & Gas" },
-  { id: "cs-financial-services", label: "Financial Services" },
-  { id: "cs-faqs", label: "FAQs" },
+// Industry tabs
+const industryTabs = [
+  { id: "bfsi", label: "BFSI" },
+  { id: "healthcare", label: "Healthcare" },
+  { id: "aviation", label: "Aviation" },
+  { id: "oil-gas", label: "Oil & Gas" },
 ];
 
 // Industry data structure
 const industries = [
   {
-    id: "cs-bfsi",
+    id: "bfsi",
     name: "BFSI",
     icon: Building2,
     lead: "Always‑on, compliant, and personalized—core banking at cloud speed.",
@@ -69,11 +64,9 @@ const industries = [
         outcomes: ["~80% cycle time reduction", "Zero missed approvals", "Clean audit trails"],
       },
     ],
-    ctaText: "View all industries",
-    ctaLink: "/industries",
   },
   {
-    id: "cs-healthcare",
+    id: "healthcare",
     name: "Healthcare",
     icon: Heart,
     lead: "Interoperable EHR, AI‑assisted care, and operational visibility.",
@@ -92,11 +85,9 @@ const industries = [
         outcomes: ["~20% admin cost reduction", "Real‑time compliance reporting", "Higher productivity"],
       },
     ],
-    ctaText: "See healthcare insights",
-    ctaLink: "/industries#healthcare",
   },
   {
-    id: "cs-aviation",
+    id: "aviation",
     name: "Aviation",
     icon: Plane,
     lead: "Predictive ops, faster turnarounds, and pilot‑first digital flows.",
@@ -115,11 +106,9 @@ const industries = [
         outcomes: ["Faster confirmations", "Fewer manual calls", "Transparent billing", "Higher CSAT"],
       },
     ],
-    ctaText: "Explore aviation",
-    ctaLink: "/industries#aviation",
   },
   {
-    id: "cs-oil-gas",
+    id: "oil-gas",
     name: "Oil & Gas",
     icon: Factory,
     lead: "Instrumented, automated, safer—data‑driven operations from well to refinery.",
@@ -138,77 +127,55 @@ const industries = [
         outcomes: ["~30% operational efficiency lift", "Faster maintenance cycles", "Cleaner data"],
       },
     ],
-    ctaText: "Explore oil & gas",
-    ctaLink: "/industries#oil-gas",
-  },
-  {
-    id: "cs-financial-services",
-    name: "Financial Services",
-    icon: Banknote,
-    lead: "Complex approvals and splits—digitized and audit‑ready.",
-    kpis: [
-      { value: 50, suffix: "%", label: "Faster cycle time" },
-      { value: 25, suffix: "×", label: "Automation" },
-      { value: 100, suffix: "%", label: "Audit trail coverage" },
-    ],
-    cases: [
-      {
-        title: "Intercompany Workflow — 25× automation",
-        overview: "Cross‑entity approvals, dynamic splits, and reconciliation.",
-        challenges: ["Email‑based routing", "Calculation errors", "Audit gaps"],
-        solution: "Appian workflow; rule engine; SAP/Oracle finance integration; dashboards.",
-        techBadges: ["Appian", "Rule engine", "SAP/Oracle API", "Audit log"],
-        outcomes: ["~50% faster cycle", "Fewer errors", "Full audit trail", "Easier compliance"],
-      },
-    ],
-    ctaText: "View more",
-    ctaLink: "/industries#bfsi",
   },
 ];
 
 // FAQ data
 const faqs = [
   {
-    question: "Why one page?",
-    answer: "Faster scan, fewer clicks; drill‑down keeps it tidy. You can explore all our case studies across industries without navigating multiple pages.",
-  },
-  {
     question: "Can I get the architecture?",
-    answer: "Ask for a deep‑dive; we share sanitized diagrams on request. Contact our team to discuss detailed technical architecture for any case study.",
+    answer: "Yes. For each case study we can share a sanitized architecture diagram highlighting the data flow, core services (cloud, data, AI/ML), security controls, and SLAs. Proprietary details are masked; we'll provide a walkthrough on request.",
   },
   {
     question: "Security & compliance?",
-    answer: "Zero‑Trust, encryption in transit/at rest, RBAC, audit trails. All our solutions are built with security-first principles and compliance requirements in mind.",
+    answer: "We design with Zero‑Trust principles, encryption in transit/at rest, and auditable controls. Our programs map to frameworks like ISO 27001, SOC 2, HIPAA, PCI‑DSS, GDPR/DPDP depending on the industry and scope.",
+  },
+  {
+    question: "How do you validate the results (e.g., 40% faster, 60× automation)?",
+    answer: "Metrics are co-defined up front (cycle time, uptime, costs, error rate). We measure with product analytics/observability dashboards and client sign‑off before publishing.",
+  },
+  {
+    question: "How quickly can outcomes be realized?",
+    answer: "We aim for 4–8 week accelerators to show first value and 12–16 weeks for scalable rollout. Timelines vary by integration depth and data readiness.",
+  },
+  {
+    question: "Will you sign an NDA / can you share more detail privately?",
+    answer: "Absolutely. We frequently provide deeper runbooks, diagrams, and demos under NDA tailored to your use case.",
+  },
+  {
+    question: "Which tech stacks do these case studies cover?",
+    answer: "Cloud (AWS/Azure/GCP), data platforms (Lakehouse, streaming), AI (OpenAI/Bedrock/Azure AI), mobile (iOS/Android/Flutter/RN/KMP), and modern CI/CD & observability.",
+  },
+  {
+    question: "Can you curate case studies specific to my industry and constraints?",
+    answer: "Yes—tell us your goals, constraints (on‑prem, regulated, latency, cost), and we'll assemble a relevant pack with outcomes and reference architectures.",
   },
 ];
 
 export default function CaseStudies() {
-  const [activeSection, setActiveSection] = useState(subNavItems[0].id);
-  const sectionsRef = useRef<(HTMLElement | null)[]>([]);
+  const [activeTab, setActiveTab] = useState("bfsi");
 
-  // Scroll spy
+  // Handle hash-based deep linking
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
-    );
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
-
-    return () => observer.disconnect();
+    const hash = window.location.hash.slice(1);
+    if (hash && industryTabs.some(tab => tab.id === hash)) {
+      setActiveTab(hash);
+    }
   }, []);
 
-  const scrollToSection = (id: string) => {
-    scrollToId(id, 120);
-    window.history.pushState({}, "", `#${id}`);
+  const handleTabChange = (value: string) => {
+    setActiveTab(value);
+    window.history.pushState(null, "", `#${value}`);
   };
 
   return (
@@ -263,12 +230,12 @@ export default function CaseStudies() {
             "GDPR/DPDP aware"
           ]}
           primaryButton={{
-            text: "Talk to an Expert",
-            href: "/contact"
+            text: "See Industries →",
+            href: "/industries"
           }}
           secondaryButton={{
-            text: "See industries →",
-            href: "/industries"
+            text: "Claim your free insight",
+            href: "/contact"
           }}
           image={{
             alt: "Case Studies",
@@ -276,286 +243,226 @@ export default function CaseStudies() {
           }}
         />
 
-        {/* Sticky Sub-navigation */}
-        <nav 
-          className="sticky top-16 z-40 bg-background/95 backdrop-blur-md border-b border-border shadow-sm"
-          role="tablist"
-          aria-label="Case study sections"
-        >
-          <div className="max-w-6xl mx-auto px-4">
-            <div className="flex justify-center overflow-x-auto py-4 space-x-2 scrollbar-hide">
-              {subNavItems.map((item) => (
-                <button
-                  key={item.id}
-                  role="tab"
-                  aria-selected={activeSection === item.id}
-                  aria-controls={item.id}
-                  tabIndex={activeSection === item.id ? 0 : -1}
-                  onClick={() => scrollToSection(item.id)}
-                  onKeyDown={(e) => {
-                    const currentIndex = subNavItems.findIndex(i => i.id === item.id);
-                    if (e.key === "ArrowLeft" && currentIndex > 0) {
-                      scrollToSection(subNavItems[currentIndex - 1].id);
-                    }
-                    if (e.key === "ArrowRight" && currentIndex < subNavItems.length - 1) {
-                      scrollToSection(subNavItems[currentIndex + 1].id);
-                    }
-                  }}
-                  className={cn(
-                    "flex-shrink-0 font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                    activeSection === item.id
-                      ? "bg-primary text-primary-foreground shadow-md"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                  )}
-                >
-                  {item.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </nav>
-
-        {/* Industry Sections */}
-        {industries.map((industry, idx) => (
-          <section
-            key={industry.id}
-            id={industry.id}
-            ref={(el) => (sectionsRef.current[idx] = el)}
-            className="py-16 md:py-20 border-b border-border last:border-b-0"
-          >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-              {/* Industry Header */}
-              <div className="mb-12">
-                <p className="text-sm font-semibold text-primary uppercase tracking-wide mb-3">
-                  Industry
-                </p>
-                <div className="flex items-center gap-4 mb-4">
-                  <industry.icon className="w-10 h-10 text-primary" aria-hidden="true" />
-                  <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-foreground">
-                    {industry.name}
-                  </h2>
-                </div>
-                <p className="text-lg text-muted-foreground max-w-3xl">
-                  {industry.lead}
-                </p>
-              </div>
-
-              {/* Outcome Ribbon - KPIs */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                {industry.kpis.map((kpi, kpiIdx) => (
-                  <motion.div
-                    key={kpiIdx}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: kpiIdx * 0.1, duration: 0.4 }}
-                    className="bg-card border border-border rounded-xl p-6 text-center shadow-sm hover:shadow-md transition-shadow duration-200"
-                  >
-                    <div className="text-4xl font-bold text-primary mb-2 font-montserrat">
-                      <CountUpNumber 
-                        end={kpi.value} 
-                        suffix={kpi.suffix}
-                        duration={2000}
-                      />
-                    </div>
-                    <p className="text-sm text-muted-foreground">
-                      {kpi.label}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Case Studies - Accordion Cards */}
-              <div className="space-y-6 mb-12">
-                <Accordion type="single" collapsible className="space-y-4">
-                  {industry.cases.map((caseStudy, caseIdx) => (
-                    <AccordionItem
-                      key={caseIdx}
-                      value={`case-${idx}-${caseIdx}`}
-                      className="border border-border rounded-2xl overflow-hidden bg-card shadow-sm hover:border-primary/60 hover:shadow-[0_6px_24px_rgba(0,0,0,0.08)] transition-all duration-200"
+        {/* Industry Tabs - Matching Industries Page */}
+        <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
+          <div className="container mx-auto px-4">
+            <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+              <div className="flex justify-center">
+                <TabsList className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
+                  {industryTabs.map((tab) => (
+                    <TabsTrigger 
+                      key={tab.id}
+                      value={tab.id}
+                      className="flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
                     >
-                      <AccordionTrigger className="px-6 py-5 text-left hover:no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                        <div className="flex items-start gap-4 flex-1">
-                          <div className="bg-primary/10 rounded-lg p-3 mt-1">
-                            <TrendingUp className="w-5 h-5 text-primary" aria-hidden="true" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-semibold text-foreground mb-1 group-hover:text-primary transition-colors">
-                              {caseStudy.title}
-                            </h3>
-                            <p className="text-sm text-muted-foreground">
-                              {caseStudy.overview}
-                            </p>
-                          </div>
-                        </div>
-                      </AccordionTrigger>
-                      
-                      <AccordionContent className="px-6 pb-6">
-                        <div className="space-y-6 pt-4">
-                          {/* Overview */}
-                          <div>
-                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2 flex items-center gap-2">
-                              <Database className="w-4 h-4 text-primary" aria-hidden="true" />
-                              Overview
-                            </h4>
-                            <p className="text-muted-foreground">
-                              {caseStudy.overview}
-                            </p>
-                          </div>
-
-                          {/* Challenges */}
-                          <div>
-                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-3">
-                              Challenges
-                            </h4>
-                            <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                              {caseStudy.challenges.map((challenge, chIdx) => (
-                                <li 
-                                  key={chIdx}
-                                  className="flex items-start gap-2 text-sm text-muted-foreground bg-muted/50 rounded-lg p-3"
-                                >
-                                  <span className="text-destructive mt-0.5">•</span>
-                                  {challenge}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* Solution */}
-                          <div>
-                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-2 flex items-center gap-2">
-                              <Zap className="w-4 h-4 text-primary" aria-hidden="true" />
-                              Solution
-                            </h4>
-                            <p className="text-muted-foreground mb-3">
-                              {caseStudy.solution}
-                            </p>
-                            
-                            {/* Tech Stack Badges */}
-                            <div className="flex flex-wrap gap-2">
-                              {caseStudy.techBadges.map((tech, techIdx) => (
-                                <Badge 
-                                  key={techIdx} 
-                                  variant="outline"
-                                  className="text-xs"
-                                >
-                                  {tech}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          {/* Outcomes */}
-                          <div>
-                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wide mb-3">
-                              Outcomes
-                            </h4>
-                            <ul className="space-y-2">
-                              {caseStudy.outcomes.map((outcome, outIdx) => (
-                                <li 
-                                  key={outIdx}
-                                  className="flex items-start gap-3 text-muted-foreground"
-                                >
-                                  <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
-                                  <span>{outcome}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-
-                          {/* CTA within accordion */}
-                          <div className="pt-4 border-t border-border flex gap-3">
-                            <Button asChild size="sm">
-                              <Link to="/contact">
-                                Talk to an Expert
-                              </Link>
-                            </Button>
-                            <Button asChild variant="outline" size="sm">
-                              <Link to="/case-studies" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                                View more case studies
-                              </Link>
-                            </Button>
-                          </div>
-                        </div>
-                      </AccordionContent>
-                    </AccordionItem>
+                      {tab.label}
+                    </TabsTrigger>
                   ))}
-                </Accordion>
+                </TabsList>
               </div>
 
-              {/* CTA Bar */}
-              <div className="bg-muted/50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-                <p className="text-muted-foreground text-center md:text-left">
-                  See how we've done it in the real world.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-3">
-                  <Button asChild variant="default">
-                    <Link to={industry.ctaLink}>
-                      {industry.ctaText}
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline">
-                    <Link to="/contact">
-                      Talk to an Expert
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </section>
-        ))}
+              {/* Tab Contents */}
+              {industries.map((industry) => (
+                <TabsContent key={industry.id} value={industry.id} className="mt-0">
+                  <section className="py-16 md:py-20">
+                    <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                      {/* Industry Header - Center Aligned */}
+                      <div className="mb-12 text-center max-w-4xl mx-auto">
+                        <div className="flex items-center justify-center gap-4 mb-4">
+                          <industry.icon className="w-10 h-10 text-[#E52629]" aria-hidden="true" />
+                          <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-[#1C1C1C]">
+                            {industry.name}
+                          </h2>
+                        </div>
+                        <p className="text-lg text-neutral-600">
+                          {industry.lead}
+                        </p>
+                      </div>
 
-        {/* FAQs Section */}
-        <section
-          id="cs-faqs"
-          ref={(el) => (sectionsRef.current[industries.length] = el)}
-          className="py-16 md:py-20 bg-muted/30"
-        >
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl">
+                      {/* KPIs - Center Aligned with Modern Cards */}
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
+                        {industry.kpis.map((kpi, kpiIdx) => (
+                          <motion.div
+                            key={kpiIdx}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: kpiIdx * 0.1, duration: 0.4 }}
+                            className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 rounded-xl p-6 text-center"
+                          >
+                            <div className="text-4xl font-bold text-[#E52629] mb-2 font-montserrat">
+                              <CountUpNumber 
+                                end={kpi.value} 
+                                suffix={kpi.suffix}
+                                duration={2000}
+                              />
+                            </div>
+                            <p className="text-sm text-neutral-600">
+                              {kpi.label}
+                            </p>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      {/* Case Studies - Accordion with Modern Styling */}
+                      <div className="space-y-6 mb-12 max-w-5xl mx-auto">
+                        <Accordion type="single" collapsible className="space-y-4">
+                          {industry.cases.map((caseStudy, caseIdx) => (
+                            <AccordionItem
+                              key={caseIdx}
+                              value={`case-${caseIdx}`}
+                              className="border-2 border-gray-200 hover:border-[#E52629] rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                            >
+                              <AccordionTrigger className="px-6 py-5 text-left hover:no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
+                                <div className="flex items-start gap-4 flex-1">
+                                  <div className="bg-[#E52629]/10 rounded-lg p-3 mt-1">
+                                    <TrendingUp className="w-5 h-5 text-[#E52629]" aria-hidden="true" />
+                                  </div>
+                                  <div className="flex-1">
+                                    <h3 className="text-xl font-semibold text-[#1C1C1C] mb-1 group-hover:text-[#E52629] transition-colors">
+                                      {caseStudy.title}
+                                    </h3>
+                                    <p className="text-sm text-neutral-600">
+                                      {caseStudy.overview}
+                                    </p>
+                                  </div>
+                                </div>
+                              </AccordionTrigger>
+                      
+                              <AccordionContent className="px-6 pb-6">
+                                <div className="space-y-6 pt-4">
+                                  {/* Overview */}
+                                  <div>
+                                    <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-2 flex items-center gap-2">
+                                      <Database className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                      Overview
+                                    </h4>
+                                    <p className="text-neutral-700">
+                                      {caseStudy.overview}
+                                    </p>
+                                  </div>
+
+                                  {/* Challenges */}
+                                  <div>
+                                    <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3">
+                                      Challenges
+                                    </h4>
+                                    <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                      {caseStudy.challenges.map((challenge, chIdx) => (
+                                        <li 
+                                          key={chIdx}
+                                          className="flex items-start gap-2 text-sm text-neutral-700 bg-gray-50 rounded-lg p-3"
+                                        >
+                                          <span className="text-[#E52629] mt-0.5">•</span>
+                                          <span>{challenge}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+
+                                  {/* Solution */}
+                                  <div>
+                                    <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
+                                      <Zap className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                      Solution
+                                    </h4>
+                                    <p className="text-neutral-700 mb-3">
+                                      {caseStudy.solution}
+                                    </p>
+                                    <div className="flex flex-wrap gap-2">
+                                      {caseStudy.techBadges.map((tech, techIdx) => (
+                                        <Badge 
+                                          key={techIdx}
+                                          variant="secondary"
+                                          className="text-xs px-3 py-1 bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors"
+                                        >
+                                          {tech}
+                                        </Badge>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  {/* Outcomes */}
+                                  <div>
+                                    <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
+                                      <Shield className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                      Outcomes
+                                    </h4>
+                                    <ul className="space-y-2">
+                                      {caseStudy.outcomes.map((outcome, outIdx) => (
+                                        <li 
+                                          key={outIdx}
+                                          className="flex items-start gap-3 text-sm text-neutral-700"
+                                        >
+                                          <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                                          <span>{outcome}</span>
+                                        </li>
+                                      ))}
+                                    </ul>
+                                  </div>
+                                </div>
+                              </AccordionContent>
+                            </AccordionItem>
+                          ))}
+                        </Accordion>
+                      </div>
+                    </div>
+                  </section>
+                </TabsContent>
+              ))}
+            </Tabs>
+          </div>
+        </div>
+
+        {/* FAQ Section - Matching Cloud Services Pattern */}
+        <section id="faq" className="py-20 bg-[#F5F5F5]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-foreground mb-4">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
                 Frequently Asked Questions
               </h2>
-              <p className="text-lg text-muted-foreground">
-                Quick answers to common questions about our case studies
-              </p>
             </div>
 
             <Accordion type="single" collapsible className="space-y-4">
               {faqs.map((faq, idx) => (
-                <AccordionItem
-                  key={idx}
-                  value={`faq-${idx}`}
-                  className="border border-border rounded-xl overflow-hidden bg-card"
+                <AccordionItem 
+                  key={idx} 
+                  value={`item-${idx}`}
+                  className="bg-white border border-[#E6E6E6] rounded-lg px-6"
                 >
-                  <AccordionTrigger className="px-6 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                    <span className="text-lg font-semibold text-foreground pr-4">
-                      {faq.question}
-                    </span>
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
+                    {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="px-6 pb-4">
-                    <p className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </p>
+                  <AccordionContent className="text-[#3C3C3C]">
+                    {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
+          </div>
+        </section>
 
-            {/* Final CTA */}
-            <div className="mt-12 text-center">
-              <div className="inline-flex flex-col sm:flex-row gap-3">
-                <Button asChild size="lg">
-                  <Link to="/contact">
-                    Book a consultation →
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/industries">
-                    See industries →
-                  </Link>
-                </Button>
-              </div>
+        {/* Final CTA Section - Matching Cloud Services Pattern */}
+        <section className="py-20 bg-[#E52629] text-white">
+          <div className="max-w-4xl mx-auto px-4 text-center">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+              Ready to turn outcomes into your next case study?
+            </h2>
+            <p className="font-inter text-xl text-white/95 mb-10">
+              Let's review your goals and design a results‑driven path.
+            </p>
+            
+            <div className="flex justify-center">
+              <Button 
+                asChild
+                size="lg" 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              >
+                <Link to="/contact">
+                  Book a consultation
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
             </div>
           </div>
         </section>

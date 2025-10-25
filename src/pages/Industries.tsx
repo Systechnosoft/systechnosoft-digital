@@ -275,44 +275,63 @@ export default function Industries() {
         }}
       />
 
-      {/* Industry Tabs - Matching Cloud Services Pattern */}
+      {/* Industry Tabs Navigation - Sticky */}
       <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
         <div className="container mx-auto px-4">
-          <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
-            <div className="flex justify-center">
-              <TabsList className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
-                <TabsTrigger 
-                  value="bfsi"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
-                >
-                  <Building2 className="w-5 h-5" aria-hidden="true" />
-                  BFSI
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="healthcare"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
-                >
-                  <Heart className="w-5 h-5" aria-hidden="true" />
-                  Healthcare
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="aviation"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
-                >
-                  <Plane className="w-5 h-5" aria-hidden="true" />
-                  Aviation
-                </TabsTrigger>
-                <TabsTrigger 
-                  value="oil-gas"
-                  className="flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 data-[state=active]:bg-[#E52629] data-[state=active]:text-white data-[state=active]:shadow-md data-[state=inactive]:text-gray-600 data-[state=inactive]:hover:text-[#E52629] data-[state=inactive]:hover:bg-gray-100"
-                >
-                  <Factory className="w-5 h-5" aria-hidden="true" />
-                  Oil & Gas
-                </TabsTrigger>
-              </TabsList>
+          <div className="flex justify-center">
+            <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
+              <button
+                onClick={() => handleTabChange("bfsi")}
+                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                  activeTab === "bfsi"
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                }`}
+              >
+                <Building2 className="w-5 h-5" aria-hidden="true" />
+                BFSI
+              </button>
+              <button
+                onClick={() => handleTabChange("healthcare")}
+                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                  activeTab === "healthcare"
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                }`}
+              >
+                <Heart className="w-5 h-5" aria-hidden="true" />
+                Healthcare
+              </button>
+              <button
+                onClick={() => handleTabChange("aviation")}
+                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                  activeTab === "aviation"
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                }`}
+              >
+                <Plane className="w-5 h-5" aria-hidden="true" />
+                Aviation
+              </button>
+              <button
+                onClick={() => handleTabChange("oil-gas")}
+                className={`flex items-center gap-2 flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                  activeTab === "oil-gas"
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                }`}
+              >
+                <Factory className="w-5 h-5" aria-hidden="true" />
+                Oil & Gas
+              </button>
             </div>
+          </div>
+        </div>
+      </div>
 
-            <TabsContent value="bfsi" className="mt-0">
+      {/* Tab Contents */}
+      <div className="bg-background">
+        <div className={activeTab === "bfsi" ? 'block' : 'hidden'}>
               <IndustrySection
                 title="BFSI"
                 icon={Building2}
@@ -340,9 +359,9 @@ export default function Industries() {
         ]}
                 complianceItems={["PCI-DSS", "SOC 2", "GDPR/DPDP", "ISO 27001", "SOX"]}
               />
-            </TabsContent>
+            </div>
 
-            <TabsContent value="healthcare" className="mt-0">
+            <div className={activeTab === "healthcare" ? 'block' : 'hidden'}>
               <IndustrySection
                 title="Healthcare"
                 icon={Heart}
@@ -370,9 +389,9 @@ export default function Industries() {
         ]}
                 complianceItems={["HIPAA", "HITRUST", "ISO 27001", "GDPR/DPDP"]}
               />
-            </TabsContent>
+            </div>
 
-            <TabsContent value="aviation" className="mt-0">
+            <div className={activeTab === "aviation" ? 'block' : 'hidden'}>
               <IndustrySection
                 title="Aviation"
                 icon={Plane}
@@ -400,9 +419,9 @@ export default function Industries() {
         ]}
                 complianceItems={["ISO 27001", "SOC 2", "DO-178C (guidance)", "EASA/IATA data practices"]}
               />
-            </TabsContent>
+            </div>
 
-            <TabsContent value="oil-gas" className="mt-0">
+            <div className={activeTab === "oil-gas" ? 'block' : 'hidden'}>
               <IndustrySection
                 title="Oil & Gas"
                 icon={Factory}
@@ -430,10 +449,8 @@ export default function Industries() {
         ]}
                 complianceItems={["IEC-62443", "ISO 14224", "SOC 2", "ISO 27001"]}
               />
-            </TabsContent>
-          </Tabs>
-        </div>
-      </div>
+            </div>
+          </div>
     </>
   );
 }

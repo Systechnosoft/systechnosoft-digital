@@ -452,6 +452,50 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     border: none !important;
   }
 
+  /* Mobile Menu Toggle - Red Theme */
+  .mobile-menu-toggle {
+    outline: none !important;
+    border: 2px solid transparent;
+    transition: all 0.15s ease-out;
+  }
+
+  .mobile-menu-toggle:focus,
+  .mobile-menu-toggle:active {
+    outline: none !important;
+  }
+
+  /* Red hover state on pointer devices */
+  @media (hover: hover) and (pointer: fine) {
+    .mobile-menu-toggle:hover {
+      background-color: rgba(229, 38, 41, 0.08);
+      border-color: hsl(357 94% 55%);
+    }
+  }
+
+  /* Red focus ring for keyboard accessibility */
+  .mobile-menu-toggle:focus-visible {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(229, 38, 41, 0.35);
+    border-color: hsl(357 94% 55%);
+  }
+
+  /* Menu open state - red theme */
+  .mobile-menu-toggle[aria-expanded="true"] {
+    background-color: rgba(229, 38, 41, 0.08);
+    border-color: hsl(357 94% 55%);
+  }
+
+  .mobile-menu-toggle[aria-expanded="true"]:hover {
+    background-color: rgba(229, 38, 41, 0.12);
+  }
+
+  /* Icon color - red when hovered or open */
+  .mobile-menu-toggle:hover svg,
+  .mobile-menu-toggle[aria-expanded="true"] svg,
+  .mobile-menu-toggle:focus-visible svg {
+    color: hsl(357 94% 55%);
+  }
+
   /* Accessibility utilities */
   .scrollbar-hide::-webkit-scrollbar {
     display: none;

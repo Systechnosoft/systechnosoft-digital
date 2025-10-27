@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users, Building2, Zap, Plane } from "lucide-react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import WhyFeatureSlider from "@/components/WhyFeatureSlider";
@@ -185,6 +186,10 @@ export default function Home() {
   
   return (
     <div className="overflow-hidden">
+      <Helmet>
+        <title>Systechnosoft Technologies</title>
+      </Helmet>
+      
       {/* Hero Section */}
       <HeroBackground>
         <section 
@@ -192,7 +197,7 @@ export default function Home() {
           className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24 overflow-visible"
         >
           <div className="max-w-[960px] mx-auto px-6 sm:px-6 lg:px-8">
-            <div className="bg-white/70 backdrop-blur-[2px] border-2 border-[#E52629] rounded-2xl p-6 sm:p-8 md:p-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)] box-border">
+            <div className="bg-white/70 backdrop-blur-[2px] border-2 border-[#E52629] rounded-2xl p-6 sm:p-8 md:p-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)] box-border mx-4 sm:mx-0">
               <div className="text-center flex flex-col gap-y-5 sm:gap-y-6 md:gap-y-8">
                 <h1 
                   className="font-montserrat font-bold text-[#1C1C1C] leading-tight"

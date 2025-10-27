@@ -117,7 +117,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         <SheetTrigger asChild>
           <button
             className={cn(
-              "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+              "font-inter font-medium text-sm transition-colors header-nav-item",
               isActive
                 ? "text-primary"
                 : "text-muted-foreground hover:text-foreground"
@@ -188,7 +188,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         <button
           ref={triggerRef}
           className={cn(
-            "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+            "font-inter font-medium text-sm transition-colors header-nav-item",
             isActive
               ? "text-primary"
               : "text-muted-foreground hover:text-foreground"

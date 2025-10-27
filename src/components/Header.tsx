@@ -37,7 +37,7 @@ export default function Header() {
 
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center focus-enterprise rounded">
+            <Link to="/" className="flex items-center header-logo-link rounded">
               <img 
                 src={systechnosoftLogo} 
                 alt="Systechnosoft Technologies" 
@@ -52,7 +52,7 @@ export default function Header() {
             <Link
               to="/"
               className={cn(
-                "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+                "font-inter font-medium text-sm transition-colors header-nav-item",
                 isActive("/")
                   ? "text-primary"
                   : "text-muted-foreground hover:text-foreground"
@@ -73,7 +73,7 @@ export default function Header() {
                 key={item.name}
                 to={item.href}
                 className={cn(
-                  "font-inter font-medium text-sm transition-colors focus-enterprise rounded px-2 py-1",
+                  "font-inter font-medium text-sm transition-colors header-nav-item",
                   isActive(item.href)
                     ? "text-primary"
                     : "text-muted-foreground hover:text-foreground"
@@ -108,7 +108,21 @@ export default function Header() {
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-border">
             <nav className="px-2 pt-2 pb-4 space-y-1">
-              {/* Services Mobile Menu */}
+              {/* Home First */}
+              <Link
+                to="/"
+                className={cn(
+                  "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
+                  isActive("/")
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                )}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+              
+              {/* Services Second */}
               <div className="mb-4">
                 <ServicesMegaMenu 
                   isActive={isActive("/services")}
@@ -116,13 +130,13 @@ export default function Header() {
                 />
               </div>
               
-              {/* Other Navigation Items */}
-              {navigation.map((item) => (
+              {/* Remaining Items (Industries, Case Studies, About, Contact) */}
+              {navigation.slice(1).map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
                   className={cn(
-                    "block px-3 py-2 text-base font-inter font-medium rounded focus-enterprise",
+                    "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
                     isActive(item.href)
                       ? "text-primary bg-primary/10"
                       : "text-muted-foreground hover:text-foreground hover:bg-accent"

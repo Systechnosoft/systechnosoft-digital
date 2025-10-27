@@ -134,8 +134,8 @@ export function HeroBackground({ children, className = "", fullHeight = false }:
 
   return (
     <div 
-      className={`relative isolate overflow-clip [@supports(not(overflow:clip))]:overflow-hidden bg-white ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
-      style={{ contain: 'layout paint' }}
+      className={`relative isolate overflow-visible bg-white ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
+      style={{ contain: 'paint' }}
     >
       {/* Animated background - matching Salesforce */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">

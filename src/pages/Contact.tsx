@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { MapPin, Mail, Phone, CheckCircle } from "lucide-react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +9,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+
+const RECAPTCHA_SITE_KEY = "6Lc-if4rAAAAAGBR140l82iJ4NT0JN5eopeYXjSc";
 
 const heroCards = [
   { icon: "📞", title: "24/7 Support", benefit: "Always here when you need us" },
@@ -27,6 +30,8 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
   const { toast } = useToast();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -36,6 +41,10 @@ export default function Contact() {
 
   const handleConsentChange = (checked: boolean) => {
     setFormData(prev => ({ ...prev, consent: checked }));
+  };
+
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -50,18 +59,49 @@ export default function Contact() {
       return;
     }
 
+    if (!captchaToken) {
+      toast({
+        title: "Verification Required",
+        description: "Please complete the reCAPTCHA verification.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsSubmitted(true);
-    setIsSubmitting(false);
-    
-    toast({
-      title: "Message Sent Successfully",
-      description: "We'll get back to you within 24 hours.",
-    });
+    try {
+      // TODO: Send form data and captchaToken to your backend API
+      // Example:
+      // const response = await fetch('https://your-api.com/contact', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({ ...formData, captchaToken })
+      // });
+      // 
+      // if (!response.ok) throw new Error('Submission failed');
+      
+      // Simulate form submission for now
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setIsSubmitted(true);
+      
+      toast({
+        title: "Message Sent Successfully",
+        description: "We'll get back to you within 24 hours.",
+      });
+    } catch (error) {
+      toast({
+        title: "Submission Failed",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
+      });
+      // Reset reCAPTCHA on error so user can retry
+      recaptchaRef.current?.reset();
+      setCaptchaToken(null);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (isSubmitted) {
@@ -241,11 +281,19 @@ export default function Contact() {
                   </Label>
                 </div>
 
+                <div className="flex justify-center">
+                  <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey={RECAPTCHA_SITE_KEY}
+                    onChange={handleCaptchaChange}
+                  />
+                </div>
+
                 <Button
                   type="submit"
                   size="lg"
                   className="btn-hero w-full"
-                  disabled={isSubmitting}
+                  disabled={isSubmitting || !captchaToken}
                 >
                   {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>

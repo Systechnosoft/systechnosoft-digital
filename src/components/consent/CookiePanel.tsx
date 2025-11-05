@@ -1,6 +1,6 @@
 "use client";
 
-import { Shield, Sliders, BarChart3, Target, ExternalLink } from 'lucide-react';
+import { Shield, Sliders, BarChart3, Target, ExternalLink, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -134,21 +134,26 @@ export function CookiePanel() {
         <div className="mt-6 pt-6 border-t border-neutral-200 flex flex-col sm:flex-row gap-3">
           <Button
             onClick={handleRejectNonEssential}
-            variant="ghost"
-            className="flex-1 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+            variant="outline"
+            size="lg"
+            className="flex-1 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
           >
             Reject Non-Essential
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button
             onClick={handleAllowAll}
-            variant="secondary"
-            className="flex-1 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+            variant="outline"
+            size="lg"
+            className="flex-1 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
           >
             Allow All
+            <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
           <Button
             onClick={handleSave}
-            className="flex-1 bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+            className="flex-1 bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
+            size="lg"
           >
             Save Choices
           </Button>

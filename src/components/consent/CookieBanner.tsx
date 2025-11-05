@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Cookie } from 'lucide-react';
+import { Cookie, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useConsent } from './ConsentProvider';
 import { getConsentState } from '@/lib/consent/storage';
@@ -103,21 +103,26 @@ export function CookieBanner() {
               <div className="flex flex-col sm:flex-row gap-2 md:gap-3 md:flex-shrink-0">
                 <Button
                   onClick={handleRejectNonEssential}
-                  variant="ghost"
-                  className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
                 >
                   Reject Non-Essential
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
                   onClick={handleManage}
-                  variant="secondary"
-                  className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
                 >
                   Manage Choices
+                  <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
                 <Button
                   onClick={handleAllowAll}
-                  className="bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+                  className="bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
+                  size="lg"
                 >
                   Allow All
                 </Button>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Settings, Check, X } from "lucide-react";
+import { Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useConsent } from "@/components/consent/ConsentProvider";
 
@@ -31,31 +31,14 @@ export function CookieControls() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-3">
+        <div className="flex justify-center">
           <Button
             onClick={handleOpenSettings}
-            className="inline-flex items-center gap-2 bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+            className="bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
+            size="lg"
           >
             <Settings className="h-4 w-4" />
             Open Cookie Settings
-          </Button>
-
-          <Button
-            onClick={handleAllowAll}
-            variant="secondary"
-            className="inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
-          >
-            <Check className="h-4 w-4" />
-            Allow All
-          </Button>
-
-          <Button
-            onClick={handleRejectNonEssential}
-            variant="ghost"
-            className="inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
-          >
-            <X className="h-4 w-4" />
-            Reject Non-Essential
           </Button>
         </div>
       </div>

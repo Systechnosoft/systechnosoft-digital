@@ -2,7 +2,6 @@ import { Helmet } from "react-helmet-async";
 import { CookieHero } from "@/components/legal/CookieHero";
 import { CookieControls } from "@/components/legal/CookieControls";
 import { CookieCategories } from "@/components/legal/CookieCategories";
-import { CookieRegistry } from "@/components/legal/CookieRegistry";
 import { LegalSection } from "@/components/legal/LegalSection";
 import { IconList } from "@/components/legal/IconList";
 import {
@@ -115,11 +114,6 @@ export default function CookiePolicy() {
               </p>
             </LegalSection>
 
-            {/* Cookie Registry */}
-            <section id="cookie-registry" className="scroll-mt-24">
-              <CookieRegistry />
-            </section>
-
             {/* Region-Specific Notices */}
             <LegalSection id="region-notices" title="Region-Specific Information">
               <Accordion type="single" collapsible className="w-full">
@@ -213,8 +207,7 @@ export default function CookiePolicy() {
                   { name: "Google Chrome", url: "https://support.google.com/chrome/answer/95647" },
                   { name: "Mozilla Firefox", url: "https://support.mozilla.org/en-US/kb/cookies-information-websites-store-on-your-computer" },
                   { name: "Safari (macOS)", url: "https://support.apple.com/guide/safari/manage-cookies-sfri11471/mac" },
-                  { name: "Microsoft Edge", url: "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" },
-                  { name: "Brave", url: "https://support.brave.com/hc/en-us/articles/360050634931-How-Do-I-Manage-Cookies-In-Brave-" }
+                  { name: "Microsoft Edge", url: "https://support.microsoft.com/en-us/microsoft-edge/delete-cookies-in-microsoft-edge-63947406-40ac-c3b8-57b9-2a946a29ae09" }
                 ].map((browser) => (
                   <li key={browser.name} className="flex items-start gap-2">
                     <span className="text-neutral-700">•</span>

@@ -25,6 +25,7 @@ import MobileAppDevelopment from "./pages/MobileAppDevelopment";
 import WebDevelopment from "./pages/WebDevelopment";
 import Contact from "./pages/Contact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import CookiePolicy from "./pages/CookiePolicy";
 import NotFound from "./pages/NotFound";
 import Industries from "./pages/Industries";
 import CaseStudies from "./pages/CaseStudies";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
             <Route path="privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="cookie-policy" element={<CookiePolicy />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Route>

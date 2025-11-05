@@ -1,0 +1,74 @@
+import { Settings, Check, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+
+export function CookieControls() {
+  const { toast } = useToast();
+
+  const handleOpenSettings = () => {
+    // In production, this would open your cookie consent modal/CMP
+    toast({
+      title: "Cookie Settings",
+      description: "Cookie preference center would open here. Integrate with your consent management platform (e.g., OneTrust, Cookiebot).",
+    });
+  };
+
+  const handleAllowAll = () => {
+    // In production, set all categories to consented
+    toast({
+      title: "All Cookies Allowed",
+      description: "You've allowed all cookie categories. You can change this anytime.",
+    });
+  };
+
+  const handleRejectNonEssential = () => {
+    // In production, disable all non-essential categories
+    toast({
+      title: "Non-Essential Cookies Rejected",
+      description: "Only essential cookies are active. You can change this anytime.",
+    });
+  };
+
+  return (
+    <div className="rounded-2xl ring-1 ring-neutral-200 bg-white p-6 md:p-8 border-l-4 border-[#E52629]">
+      <div className="space-y-4">
+        <div>
+          <h2 className="text-xl md:text-2xl font-semibold font-montserrat text-[#1C1C1C] mb-2">
+            Manage Your Cookie Preferences
+          </h2>
+          <p className="text-base md:text-lg leading-8 text-neutral-800 font-inter">
+            You can change your choice anytime. Your preferences apply to this website only.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap gap-3">
+          <Button
+            onClick={handleOpenSettings}
+            className="inline-flex items-center gap-2 bg-[#E52629] text-white hover:bg-[#E52629]/90 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+          >
+            <Settings className="h-4 w-4" />
+            Open Cookie Settings
+          </Button>
+
+          <Button
+            onClick={handleAllowAll}
+            variant="secondary"
+            className="inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+          >
+            <Check className="h-4 w-4" />
+            Allow All
+          </Button>
+
+          <Button
+            onClick={handleRejectNonEssential}
+            variant="ghost"
+            className="inline-flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+          >
+            <X className="h-4 w-4" />
+            Reject Non-Essential
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}

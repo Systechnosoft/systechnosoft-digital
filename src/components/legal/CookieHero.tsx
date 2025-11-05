@@ -1,0 +1,87 @@
+import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { Play, Pause } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+interface CookieHeroProps {
+  title: string;
+  description: string;
+  lastUpdated: string;
+}
+
+export function CookieHero({ title, description, lastUpdated }: CookieHeroProps) {
+  const [isPlaying, setIsPlaying] = useState(true);
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsPlaying(false);
+    }
+  }, [prefersReducedMotion]);
+
+  return (
+    <section 
+      className="relative min-h-[60vh] flex items-center overflow-hidden bg-white py-24"
+      aria-labelledby="cookie-hero-title"
+    >
+      {/* Animated background - ambient only */}
+      <div className="absolute inset-0 opacity-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+        {isPlaying && !prefersReducedMotion && (
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+              backgroundSize: "400px 400px"
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        )}
+      </div>
+
+      {/* Play/Pause Control */}
+      <div className="absolute top-6 right-6 z-20">
+        <Button
+          variant="outline"
+          size="icon"
+          onClick={() => setIsPlaying(!isPlaying)}
+          aria-label={isPlaying ? "Pause animation" : "Play animation"}
+          className="bg-white/80 backdrop-blur border-neutral-200 hover:bg-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
+        >
+          {isPlaying ? (
+            <Pause className="h-4 w-4 text-neutral-700" />
+          ) : (
+            <Play className="h-4 w-4 text-neutral-700" />
+          )}
+        </Button>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl space-y-6"
+        >
+          <h1 
+            id="cookie-hero-title"
+            className="text-4xl md:text-5xl lg:text-6xl font-semibold font-montserrat tracking-tight text-[#1C1C1C]"
+          >
+            {title}
+          </h1>
+          
+          <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose font-inter">
+            {description}
+          </p>
+
+          {/* Last updated chip matching cloud services style */}
+          <div className="inline-flex items-center rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-sm text-neutral-600 backdrop-blur">
+            Last updated: <time dateTime={lastUpdated} className="ml-1 font-medium">{lastUpdated}</time>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}

@@ -1,4 +1,4 @@
-import { HeroBackground } from "@/components/HeroMotionSystem";
+import { motion } from "framer-motion";
 
 interface LegalHeroProps {
   title: string;
@@ -7,23 +7,54 @@ interface LegalHeroProps {
 }
 
 export function LegalHero({ title, description, lastUpdated }: LegalHeroProps) {
+  const prefersReducedMotion = typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   return (
-    <HeroBackground className="py-16 md:py-24">
-      <div className="container mx-auto px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#1C1C1C] font-montserrat">
-              {title}
-            </h1>
-            <p className="text-lg md:text-xl text-[#3C3C3C] font-inter max-w-2xl mx-auto">
-              {description}
-            </p>
-            <p className="text-sm text-[#666666] font-inter">
-              Last updated: <time dateTime={lastUpdated}>{lastUpdated}</time>
-            </p>
-          </div>
-        </div>
+    <section 
+      className="relative min-h-[60vh] flex items-center overflow-hidden bg-white py-24"
+      aria-labelledby="legal-hero-title"
+    >
+      {/* Animated background - ambient only, no controls */}
+      <div className="absolute inset-0 opacity-10" aria-hidden="true">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+        {!prefersReducedMotion && (
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+              backgroundSize: "400px 400px"
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        )}
       </div>
-    </HeroBackground>
+
+      {/* Content */}
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.div
+          initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-4xl space-y-6"
+        >
+          <h1 
+            id="legal-hero-title"
+            className="text-4xl md:text-5xl lg:text-6xl font-semibold font-montserrat tracking-tight text-[#1C1C1C]"
+          >
+            {title}
+          </h1>
+          
+          <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose font-inter">
+            {description}
+          </p>
+
+          {/* Last updated chip matching cloud services style */}
+          <div className="inline-flex items-center rounded-full border border-neutral-200 bg-white/70 px-3 py-1 text-sm text-neutral-600 backdrop-blur">
+            Last updated: <time dateTime={lastUpdated} className="ml-1 font-medium">{lastUpdated}</time>
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }

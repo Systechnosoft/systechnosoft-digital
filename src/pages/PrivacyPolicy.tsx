@@ -60,7 +60,7 @@ export default function PrivacyPolicy() {
                 Systechnosoft Technologies ("<strong>Systechnosoft</strong>", "<strong>we</strong>", "<strong>us</strong>") is committed to protecting your privacy. This Privacy Policy explains what personal data we collect, how we use and share it, and your rights when you visit our website or interact with us. We align with the <strong>GDPR</strong> (EU/UK), <strong>CCPA/CPRA</strong> (California), and India's <strong>DPDP Act</strong>. Our website does <strong>not</strong> offer user accounts. This notice is client-facing and does not cover employee data.
               </p>
               <p>
-                <strong>Controller:</strong> Systechnosoft Technologies Private Limited, [Registered Address].<br />
+                <strong>Controller:</strong> Systechnosoft Technologies Private Limited<br />
                 <strong>Contact:</strong>{" "}
                 <a 
                   href="mailto:privacy@systechnosoft.com"

@@ -13,6 +13,8 @@ export function LegalSection({ id, title, children, className }: LegalSectionPro
       id={id}
       className={cn(
         "rounded-2xl ring-1 ring-neutral-200 bg-white p-6 md:p-8 border-l-4 border-[#E52629] scroll-mt-24",
+        "transition-all duration-300 ease-out",
+        "hover:shadow-lg hover:-translate-y-1 hover:ring-2 hover:ring-[#E52629]/20",
         className
       )}
     >

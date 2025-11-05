@@ -1,32 +1,22 @@
+"use client";
+
 import { Settings, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { useConsent } from "@/components/consent/ConsentProvider";
 
 export function CookieControls() {
-  const { toast } = useToast();
+  const consent = useConsent();
 
   const handleOpenSettings = () => {
-    // In production, this would open your cookie consent modal/CMP
-    toast({
-      title: "Cookie Settings",
-      description: "Cookie preference center would open here. Integrate with your consent management platform (e.g., OneTrust, Cookiebot).",
-    });
+    consent.open();
   };
 
   const handleAllowAll = () => {
-    // In production, set all categories to consented
-    toast({
-      title: "All Cookies Allowed",
-      description: "You've allowed all cookie categories. You can change this anytime.",
-    });
+    consent.setAll(true);
   };
 
   const handleRejectNonEssential = () => {
-    // In production, disable all non-essential categories
-    toast({
-      title: "Non-Essential Cookies Rejected",
-      description: "Only essential cookies are active. You can change this anytime.",
-    });
+    consent.setAll(false);
   };
 
   return (

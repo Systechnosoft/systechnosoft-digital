@@ -93,58 +93,55 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Mini Links */}
-        <div className="text-center my-2">
-          <div className="flex items-center justify-center text-sm leading-snug text-muted-foreground">
+        {/* Centered Link Group */}
+        <div className="border-t border-[#E52629]/15 pt-6 mt-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 text-[15px] text-neutral-800 mb-4">
             <Link 
               to="/about" 
-              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              aria-label="About Us"
             >
               About Us
             </Link>
-            <span className="mx-2" aria-hidden="true">•</span>
+            <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/contact" 
-              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              aria-label="Contact"
             >
               Contact
             </Link>
-            <span className="mx-2" aria-hidden="true">•</span>
+            <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/careers" 
-              className="hover:text-foreground hover:underline transition-colors focus-enterprise rounded"
+              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              aria-label="Careers"
             >
               Careers
             </Link>
+            <span className="text-neutral-400" aria-hidden="true">•</span>
+            <Link 
+              to="/privacy-policy" 
+              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              aria-label="Privacy Policy"
+            >
+              Privacy Policy
+            </Link>
+            <span className="text-neutral-400" aria-hidden="true">•</span>
+            <Link 
+              to="/cookie-policy" 
+              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              aria-label="Cookie Policy"
+            >
+              Cookie Policy
+            </Link>
           </div>
-        </div>
 
-        {/* Bottom section */}
-        <div className="border-t border-neutral-200 pt-2 lg:pt-3">
-          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 py-2 lg:py-3">
-            <div className="text-sm leading-snug text-muted-foreground">
+          {/* Centered Copyright */}
+          <div className="text-center pt-2">
+            <p className="text-sm text-neutral-600 max-w-prose mx-auto">
               © {new Date().getFullYear()} Systechnosoft Technologies. All rights reserved.
-            </div>
-            <div className="flex space-x-6 text-sm leading-snug">
-              <Link 
-                to="/privacy-policy" 
-                className="text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
-              >
-                Privacy Policy
-              </Link>
-              <Link 
-                to="/terms-of-service" 
-                className="text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
-              >
-                Terms of Service
-              </Link>
-              <Link 
-                to="/cookie-policy" 
-                className="text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
-              >
-                Cookie Policy
-              </Link>
-            </div>
+            </p>
           </div>
         </div>
       </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import { 
@@ -683,16 +684,11 @@ export default function Appian() {
           <p className="text-lg text-white/90 mb-8">
             Let's discuss a roadmap to ship measurable outcomes fast—safely and at scale.
           </p>
-          <Button
-            size="lg"
+          <BookConsultationTrigger 
             className="bg-white text-[#E52629] hover:bg-white/90 px-8 py-6 text-base font-semibold"
-            asChild
           >
-            <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-              Book a Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+            Book a Consultation
+          </BookConsultationTrigger>
         </div>
       </section>
     </>

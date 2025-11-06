@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { CountUpNumber } from "@/components/CountUpNumber";
@@ -887,19 +888,11 @@ export default function DataMigration() {
             </p>
             
             <div className="flex justify-center">
-              <a 
-                href="https://calendly.com/systechnosoft-info/30min" 
-                target="_blank" 
-                rel="noopener noreferrer"
+              <BookConsultationTrigger 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
               >
-                <Button 
-                  size="lg" 
-                  className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
-                >
-                  Book a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </a>
+                Book a Consultation
+              </BookConsultationTrigger>
             </div>
           </div>
         </section>

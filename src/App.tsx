@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import Industries from "./pages/Industries";
 import CaseStudies from "./pages/CaseStudies";
 import About from "./pages/About";
+import { CalendlyDialogHost } from "./components/consultation/CalendlyDialogHost";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <CalendlyDialogHost />
         <BrowserRouter>
           <ScrollToTop />
           <Routes>

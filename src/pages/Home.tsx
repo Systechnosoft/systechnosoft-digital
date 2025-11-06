@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowRight, Server, Code, Bot, CheckCircle, TrendingUp, Shield, Users, Building2, Zap, Plane } from "lucide-react";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -753,17 +754,12 @@ export default function Home() {
           <p className="text-xl text-primary-foreground/90 mb-8">
             Let's discuss how we can help maximize your innovation while minimizing complexity
           </p>
-          <Button
-            size="lg"
+          <BookConsultationTrigger 
             variant="secondary"
-            className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
-            asChild
+            className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
           >
-            <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
-              Book a Consultation
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </a>
-          </Button>
+            Book a Consultation
+          </BookConsultationTrigger>
         </div>
       </section>
     </div>

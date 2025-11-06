@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion } from "framer-motion";
 import ServiceHero from "@/components/ServiceHero";
@@ -821,16 +822,11 @@ export default function MicrosoftDynamics365() {
               Let's discuss how Microsoft Dynamics 365 can accelerate your sales, service, and operations.
             </p>
             <div className="flex justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="group bg-transparent border-2 border-white text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
-            >
-              <a href="https://calendly.com/systechnosoft-info/30min" target="_blank" rel="noopener noreferrer">
+              <BookConsultationTrigger 
+                className="group bg-transparent border-2 border-white text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
+              >
                 Book a Consultation
-                <ArrowRight className="ml-2 h-5 w-5 transition-transform duration-200 group-hover:translate-x-1" />
-              </a>
-            </Button>
+              </BookConsultationTrigger>
             </div>
           </div>
         </section>

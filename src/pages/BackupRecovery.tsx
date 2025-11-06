@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import ServiceHero from "@/components/ServiceHero";
 import { ArrowRight, Shield, Clock, Database, Cloud, Server, Archive, FileCheck, Lock, Eye, BarChart3, MapPin, CheckCircle, AlertTriangle, Users, KeySquare, Activity, Zap } from "lucide-react";
@@ -894,17 +895,12 @@ export default function BackupRecovery() {
               Get a free backup assessment and discover your recovery readiness.
             </p>
             <div className="flex justify-center">
-              <Button
-                size="lg"
+              <BookConsultationTrigger 
                 variant="secondary"
                 className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
-                asChild
               >
-                <Link to="/contact">
-                  Book a consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
+                Book a consultation
+              </BookConsultationTrigger>
             </div>
           </div>
         </section>

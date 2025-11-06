@@ -8,7 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { ConsultationLauncher } from "@/components/contact/ConsultationLauncher";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -215,7 +215,7 @@ export default function Contact() {
 
             {/* CTA Button */}
             <div className="pt-6">
-              <ConsultationLauncher />
+              <BookConsultationTrigger />
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -676,16 +677,11 @@ export default function MobileAppDevelopment() {
           </p>
           
           <div className="flex justify-center">
-            <Button 
-              asChild
-              size="lg" 
+            <BookConsultationTrigger 
               className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
             >
-              <Link to="/contact">
-                Book a consultation
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
-            </Button>
+              Book a consultation
+            </BookConsultationTrigger>
           </div>
         </div>
       </section>

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import ServiceHero from "@/components/ServiceHero";
 import { 
@@ -346,15 +347,11 @@ export default function ManagedITServices() {
               Let's discuss how our managed IT services can improve your uptime, security, and operational efficiency.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/contact">
-                <Button 
-                  size="lg" 
-                  className="bg-white text-[#E52629] hover:bg-gray-50 px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
-                >
-                  Schedule a Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </Link>
+              <BookConsultationTrigger 
+                className="bg-white text-[#E52629] hover:bg-gray-50 px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              >
+                Schedule a Consultation
+              </BookConsultationTrigger>
               <Link to="/services">
                 <Button 
                   size="lg" 

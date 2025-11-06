@@ -25,7 +25,7 @@ export function CalendlyDialogHost() {
 
   return (
     <Dialog open={isOpen} onOpenChange={closeCalendly}>
-      <DialogContent className="max-w-5xl w-full p-0 gap-0 rounded-2xl shadow-2xl">
+      <DialogContent className="max-w-5xl w-full p-0 gap-0 rounded-2xl shadow-2xl" hideDefaultClose>
         <DialogHeader className="p-4 pb-3 border-b">
           <div className="flex items-center justify-between">
             <DialogTitle className="text-xl font-montserrat font-bold text-foreground">

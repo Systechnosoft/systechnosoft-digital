@@ -1,6 +1,5 @@
-import { useState, useRef } from "react";
-import { MapPin, Mail, Phone, CheckCircle } from "lucide-react";
-import ReCAPTCHA from "react-google-recaptcha";
+import { useState, useEffect } from "react";
+import { MapPin, Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +9,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
-const RECAPTCHA_SITE_KEY = "6Lc-if4rAAAAAGBR140l82iJ4NT0JN5eopeYXjSc";
+const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
+const RECAPTCHA_ACTION = "contact_submit";
+
+// Extend Window interface for grecaptcha
+declare global {
+  interface Window {
+    grecaptcha: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 const heroCards = [
   { icon: "📞", title: "24/7 Support", benefit: "Always here when you need us" },
@@ -30,9 +40,26 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
+  const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
   const { toast } = useToast();
+
+  // Load reCAPTCHA v3 script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      window.grecaptcha.ready(() => {
+        setIsRecaptchaLoaded(true);
+      });
+    };
+    document.head.appendChild(script);
+
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -41,10 +68,6 @@ export default function Contact() {
 
   const handleConsentChange = (checked: boolean) => {
     setFormData(prev => ({ ...prev, consent: checked }));
-  };
-
-  const handleCaptchaChange = (token: string | null) => {
-    setCaptchaToken(token);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,10 +82,10 @@ export default function Contact() {
       return;
     }
 
-    if (!captchaToken) {
+    if (!isRecaptchaLoaded) {
       toast({
-        title: "Verification Required",
-        description: "Please complete the reCAPTCHA verification.",
+        title: "Security Check Loading",
+        description: "Please wait for security verification to load.",
         variant: "destructive",
       });
       return;
@@ -71,17 +94,39 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // TODO: Send form data and captchaToken to your backend API
+      // Execute reCAPTCHA v3
+      const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { 
+        action: RECAPTCHA_ACTION 
+      });
+      
+      // TODO: Send form data and token to your backend API for verification
+      // The backend should:
+      // 1. Verify the token with Google's siteverify API
+      // 2. Check score >= 0.5
+      // 3. Check action matches 'contact_submit'
+      // 4. Check hostname matches your domain
+      // 
       // Example:
       // const response = await fetch('https://your-api.com/contact', {
       //   method: 'POST',
       //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ ...formData, captchaToken })
+      //   body: JSON.stringify({ 
+      //     ...formData, 
+      //     recaptchaToken: token,
+      //     recaptchaAction: RECAPTCHA_ACTION
+      //   })
       // });
       // 
-      // if (!response.ok) throw new Error('Submission failed');
+      // if (!response.ok) {
+      //   const error = await response.json();
+      //   if (error.code === 'recaptcha_failed') {
+      //     throw new Error('We couldn\'t verify you. Please try again.');
+      //   }
+      //   throw new Error('Submission failed');
+      // }
       
       // Simulate form submission for now
+      console.log('Form data with reCAPTCHA token:', { ...formData, recaptchaToken: token });
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setIsSubmitted(true);
@@ -93,12 +138,9 @@ export default function Contact() {
     } catch (error) {
       toast({
         title: "Submission Failed",
-        description: "There was an error sending your message. Please try again.",
+        description: error instanceof Error ? error.message : "There was an error sending your message. Please try again.",
         variant: "destructive",
       });
-      // Reset reCAPTCHA on error so user can retry
-      recaptchaRef.current?.reset();
-      setCaptchaToken(null);
     } finally {
       setIsSubmitting(false);
     }
@@ -281,22 +323,43 @@ export default function Contact() {
                   </Label>
                 </div>
 
-                <div className="flex justify-center">
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={RECAPTCHA_SITE_KEY}
-                    onChange={handleCaptchaChange}
-                  />
-                </div>
-
                 <Button
                   type="submit"
                   size="lg"
                   className="btn-hero w-full"
-                  disabled={isSubmitting || !captchaToken}
+                  disabled={isSubmitting || !isRecaptchaLoaded}
                 >
-                  {isSubmitting ? "Sending..." : "Send Message"}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Verifying & Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </Button>
+
+                <p className="text-xs text-center text-muted-foreground">
+                  Protected by reCAPTCHA v3 and subject to Google's{" "}
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
+                  >
+                    Privacy Policy
+                  </a>
+                  {" "}and{" "}
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
+                  >
+                    Terms
+                  </a>
+                  .
+                </p>
               </form>
             </CardContent>
           </Card>

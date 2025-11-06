@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
+import { ConsultationLauncher } from "@/components/contact/ConsultationLauncher";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -149,43 +150,73 @@ export default function Contact() {
   if (isSubmitted) {
     return (
       <div className="py-20 bg-background">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="h-8 w-8 text-green-600" />
-          </div>
-          <h1 className="text-3xl font-montserrat font-bold text-foreground mb-4">
-            Thank You for Your Interest
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            We've received your message and will get back to you within 24 hours.
-          </p>
-          <div className="space-y-4">
-            <p className="text-muted-foreground">
-              <strong>Next Steps:</strong>
-            </p>
-            <ul className="text-left max-w-md mx-auto space-y-2">
-              <li className="flex items-start space-x-2">
-                <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                <span>Initial consultation call within 24-48 hours</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                <span>Digital readiness assessment if applicable</span>
-              </li>
-              <li className="flex items-start space-x-2">
-                <span className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span>
-                <span>Customized solution proposal</span>
-              </li>
-            </ul>
-          </div>
-          <div className="mt-8 p-4 bg-muted rounded-lg">
-            <p className="text-sm text-muted-foreground">
-              Want to schedule immediately? 
-              <br />
-              <Button variant="link" className="p-0 h-auto text-accent">
-                Book a calendar slot here (placeholder)
-              </Button>
-            </p>
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="rounded-2xl ring-1 ring-neutral-200 bg-white p-8 md:p-10 text-center space-y-8">
+            {/* Success Icon with subtle pulse animation */}
+            <div className="relative inline-flex">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto animate-[scale-in_0.3s_ease-out]">
+                <CheckCircle className="h-10 w-10 text-green-600 motion-safe:animate-[pulse_2s_ease-in-out_3]" />
+              </div>
+            </div>
+
+            {/* Heading & Message */}
+            <div className="space-y-3">
+              <h1 className="text-3xl md:text-4xl font-montserrat font-bold text-foreground">
+                Thank You for Your Interest
+              </h1>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                We've received your message and will get back to you within 24 hours.
+              </p>
+            </div>
+
+            {/* Timeline / Progress Steps */}
+            <div className="space-y-5 max-w-lg mx-auto pt-4">
+              <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+                Next Steps
+              </p>
+              <div className="space-y-4 text-left">
+                <div className="flex items-start gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary/20">
+                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p className="font-medium text-foreground">Initial consultation call</p>
+                    <p className="text-sm text-muted-foreground">Within 24-48 hours</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary/20">
+                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p className="font-medium text-foreground">Digital readiness assessment</p>
+                    <p className="text-sm text-muted-foreground">If applicable to your needs</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 group">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-primary/20">
+                    <svg className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 pt-1">
+                    <p className="font-medium text-foreground">Customized solution proposal</p>
+                    <p className="text-sm text-muted-foreground">Tailored to your requirements</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Button */}
+            <div className="pt-6">
+              <ConsultationLauncher />
+            </div>
           </div>
         </div>
       </div>

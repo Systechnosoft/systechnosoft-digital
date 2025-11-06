@@ -9,6 +9,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
+import { BackendHealthCheck } from "@/components/BackendHealthCheck";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -100,11 +101,20 @@ export default function Contact() {
         action: RECAPTCHA_ACTION 
       });
       
-      // Call backend API to send email
-      // TODO: Replace with your deployed backend URL
+      // Get backend URL from environment variable
       const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+      const endpoint = `${BACKEND_URL}/api/contact`;
       
-      const response = await fetch(`${BACKEND_URL}/api/contact`, {
+      console.log('[Contact] Submitting to:', endpoint);
+      console.log('[Contact] Payload:', {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        role: formData.role,
+        path: window.location.pathname
+      });
+      
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -117,10 +127,15 @@ export default function Contact() {
         })
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Server error: ${response.status}`);
+      }
+
       const result = await response.json();
       
       if (!result.ok) {
-        throw new Error('Failed to send message');
+        throw new Error(result.error || 'Failed to send message');
       }
       
       setIsSubmitted(true);
@@ -130,10 +145,27 @@ export default function Contact() {
         description: "We'll get back to you within 24 hours.",
       });
     } catch (error) {
-      console.error('Contact form error:', error);
+      console.error('[Contact] Submission error:', error);
+      
+      let errorTitle = "Submission Failed";
+      let errorDescription = "There was an error sending your message. Please try again.";
+      
+      if (error instanceof Error) {
+        if (error.message === 'Failed to fetch') {
+          errorTitle = "Cannot Reach Email Server";
+          errorDescription = `Backend is not reachable. Please ensure the backend is deployed and VITE_BACKEND_URL is configured correctly.`;
+          console.error('[Contact] Backend URL:', import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
+        } else if (error.message.includes('CORS')) {
+          errorTitle = "Security Policy Error";
+          errorDescription = "The server blocked the request. Please contact support.";
+        } else {
+          errorDescription = error.message;
+        }
+      }
+      
       toast({
-        title: "Submission Failed",
-        description: error instanceof Error ? error.message : "There was an error sending your message. Please try again.",
+        title: errorTitle,
+        description: errorDescription,
         variant: "destructive",
       });
     } finally {
@@ -246,6 +278,8 @@ export default function Contact() {
 
       <div className="py-12 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Backend Health Check (Dev Mode Only) */}
+          <BackendHealthCheck url={import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'} />
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}

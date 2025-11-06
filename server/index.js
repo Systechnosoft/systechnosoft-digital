@@ -13,14 +13,23 @@ const allowed = (process.env.ALLOWED_ORIGINS || '').split(',').map(s => s.trim()
 app.use(cors({
   origin: (origin, cb) => {
     if (!origin) return cb(null, true) // allow curl/postman for testing
-    return allowed.includes(origin) ? cb(null, true) : cb(new Error('Not allowed by CORS'))
+    console.log(`[CORS] Request from origin: ${origin}`)
+    if (allowed.includes(origin)) {
+      console.log(`[CORS] ✓ Allowed origin: ${origin}`)
+      return cb(null, true)
+    }
+    console.log(`[CORS] ✗ Blocked origin: ${origin}. Allowed origins:`, allowed)
+    return cb(new Error('Not allowed by CORS'))
   },
-  methods: ['POST', 'OPTIONS'],
+  methods: ['GET', 'POST', 'OPTIONS'],
   credentials: false
 }))
 
 // Health check
-app.get('/health', (req, res) => res.send('ok'))
+app.get('/health', (req, res) => {
+  console.log('[Health] Health check requested')
+  res.send('ok')
+})
 
 // Mail transport (Gmail SMTP)
 const transporter = nodemailer.createTransport({
@@ -32,11 +41,18 @@ const transporter = nodemailer.createTransport({
 
 app.post('/api/contact', async (req, res) => {
   try {
+    const origin = req.headers.origin || 'unknown'
+    console.log(`[Contact API] Request from origin: ${origin}`)
+    
     const { name, email, company, role, message, path } = req.body || {}
     
-    // Basic validation
+    // Validate required fields
     if (!name || !email || !message) {
-      return res.status(400).json({ ok: false, error: 'invalid_input' })
+      console.log('[Contact API] ✗ Validation failed - missing required fields')
+      return res.status(400).json({ 
+        ok: false, 
+        error: 'Missing required fields: name, email, and message are required' 
+      })
     }
 
     // Derive domain & URL from headers
@@ -44,6 +60,9 @@ app.post('/api/contact', async (req, res) => {
     const xfHost = req.headers['x-forwarded-host'] || req.headers.host
     const domain = String(xfHost || '').toString()
     const url = `${xfProto}://${domain}${path || ''}`
+    
+    console.log(`[Contact API] Processing submission from ${domain}${path || ''}`)
+    console.log(`[Contact API] From: ${name} <${email}>`)
 
     const html = `
       <div style="font-family:Inter,Arial,sans-serif;line-height:1.6;max-width:600px;">
@@ -94,11 +113,18 @@ app.post('/api/contact', async (req, res) => {
       text: `New Contact Request\n\nName: ${name}\nEmail: ${email}\nCompany: ${company || '-'}\nRole: ${role || '-'}\n\nMessage:\n${message}\n\nDomain: ${domain}\nPage URL: ${url}\nTimestamp: ${new Date().toISOString()}`
     })
 
-    console.log(`✓ Contact email sent from ${email} at ${new Date().toISOString()}`)
+    console.log(`[Contact API] ✓ Email sent successfully to ${process.env.EMAIL_TO}`)
     return res.json({ ok: true })
   } catch (err) {
-    console.error('contact_email_error', err)
-    return res.status(503).json({ ok: false, error: 'service_unavailable' })
+    console.error('[Contact API] ✗ Error:', err.message)
+    console.error('[Contact API] Stack:', err.stack)
+    
+    // Return structured error response
+    return res.status(503).json({ 
+      ok: false, 
+      error: 'service_unavailable',
+      message: 'Unable to send email at this time. Please try again later.'
+    })
   }
 })
 
@@ -113,7 +139,14 @@ function escapeHtml(s = '') {
 
 const port = Number(process.env.PORT || 3000)
 app.listen(port, () => {
-  console.log(`🚀 Systechnosoft contact email server listening on port ${port}`)
-  console.log(`📧 Sending from: ${process.env.EMAIL_FROM}`)
-  console.log(`📬 Sending to: ${process.env.EMAIL_TO}`)
+  console.log(`\n${'='.repeat(60)}`)
+  console.log(`🚀 Systechnosoft Contact Email Server`)
+  console.log(`${'='.repeat(60)}`)
+  console.log(`📡 Listening on port: ${port}`)
+  console.log(`📧 Email FROM: ${process.env.EMAIL_FROM}`)
+  console.log(`📬 Email TO: ${process.env.EMAIL_TO}`)
+  console.log(`🔒 SMTP Host: ${process.env.SMTP_HOST}:${process.env.SMTP_PORT}`)
+  console.log(`🌐 Allowed Origins:`)
+  allowed.forEach(origin => console.log(`   - ${origin}`))
+  console.log(`${'='.repeat(60)}\n`)
 })

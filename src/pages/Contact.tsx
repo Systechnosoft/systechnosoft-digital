@@ -95,40 +95,33 @@ export default function Contact() {
     setIsSubmitting(true);
     
     try {
-      // Execute reCAPTCHA v3
+      // Execute reCAPTCHA v3 (client-side only)
       const token = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { 
         action: RECAPTCHA_ACTION 
       });
       
-      // TODO: Send form data and token to your backend API for verification
-      // The backend should:
-      // 1. Verify the token with Google's siteverify API
-      // 2. Check score >= 0.5
-      // 3. Check action matches 'contact_submit'
-      // 4. Check hostname matches your domain
-      // 
-      // Example:
-      // const response = await fetch('https://your-api.com/contact', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ 
-      //     ...formData, 
-      //     recaptchaToken: token,
-      //     recaptchaAction: RECAPTCHA_ACTION
-      //   })
-      // });
-      // 
-      // if (!response.ok) {
-      //   const error = await response.json();
-      //   if (error.code === 'recaptcha_failed') {
-      //     throw new Error('We couldn\'t verify you. Please try again.');
-      //   }
-      //   throw new Error('Submission failed');
-      // }
+      // Call backend API to send email
+      // TODO: Replace with your deployed backend URL
+      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
       
-      // Simulate form submission for now
-      console.log('Form data with reCAPTCHA token:', { ...formData, recaptchaToken: token });
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      const response = await fetch(`${BACKEND_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          role: formData.role,
+          message: formData.message,
+          path: window.location.pathname
+        })
+      });
+
+      const result = await response.json();
+      
+      if (!result.ok) {
+        throw new Error('Failed to send message');
+      }
       
       setIsSubmitted(true);
       
@@ -137,6 +130,7 @@ export default function Contact() {
         description: "We'll get back to you within 24 hours.",
       });
     } catch (error) {
+      console.error('Contact form error:', error);
       toast({
         title: "Submission Failed",
         description: error instanceof Error ? error.message : "There was an error sending your message. Please try again.",

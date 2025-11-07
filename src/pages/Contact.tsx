@@ -9,7 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
-import { BackendHealthCheck } from "@/components/BackendHealthCheck";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -101,41 +100,34 @@ export default function Contact() {
         action: RECAPTCHA_ACTION 
       });
       
-      // Get backend URL from environment variable
-      const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-      const endpoint = `${BACKEND_URL}/api/contact`;
-      
-      console.log('[Contact] Submitting to:', endpoint);
-      console.log('[Contact] Payload:', {
+      // Prepare payload for Make webhook
+      const payload = {
         name: formData.name,
         email: formData.email,
         company: formData.company,
         role: formData.role,
-        path: window.location.pathname
-      });
+        message: formData.message,
+        url: window.location.href
+      };
       
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          company: formData.company,
-          role: formData.role,
-          message: formData.message,
-          path: window.location.pathname
-        })
-      });
+      // POST to Make webhook with timeout
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 12000); // 12s timeout
+      
+      const response = await fetch(
+        'https://hook.eu2.make.com/c7lygllbhr4qe5u6x4llr2dfl6dgjh3y',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        }
+      );
+      
+      clearTimeout(timeout);
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || `Server error: ${response.status}`);
-      }
-
-      const result = await response.json();
-      
-      if (!result.ok) {
-        throw new Error(result.error || 'Failed to send message');
+        throw new Error('webhook_failed');
       }
       
       setIsSubmitted(true);
@@ -147,25 +139,9 @@ export default function Contact() {
     } catch (error) {
       console.error('[Contact] Submission error:', error);
       
-      let errorTitle = "Submission Failed";
-      let errorDescription = "There was an error sending your message. Please try again.";
-      
-      if (error instanceof Error) {
-        if (error.message === 'Failed to fetch') {
-          errorTitle = "Cannot Reach Email Server";
-          errorDescription = `Backend is not reachable. Please ensure the backend is deployed and VITE_BACKEND_URL is configured correctly.`;
-          console.error('[Contact] Backend URL:', import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000');
-        } else if (error.message.includes('CORS')) {
-          errorTitle = "Security Policy Error";
-          errorDescription = "The server blocked the request. Please contact support.";
-        } else {
-          errorDescription = error.message;
-        }
-      }
-      
       toast({
-        title: errorTitle,
-        description: errorDescription,
+        title: "Submission Failed",
+        description: "We couldn't submit your request right now. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -278,10 +254,7 @@ export default function Contact() {
 
       <div className="py-12 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Backend Health Check (Dev Mode Only) */}
-          <BackendHealthCheck url={import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000'} />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Form */}
           <Card className="card-enterprise">
             <CardHeader>
@@ -293,7 +266,7 @@ export default function Contact() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>

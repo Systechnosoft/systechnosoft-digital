@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { MapPin, Mail, Phone, CheckCircle, Loader2, Copy, Check, Shield, FileCheck, Lock } from "lucide-react";
+import { MapPin, Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,8 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { CalendlyDialogHost } from "@/components/consultation/CalendlyDialogHost";
-import { useConsultationStore } from "@/lib/consultation-store";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -25,23 +24,10 @@ declare global {
 }
 
 const heroCards = [
-  { icon: "🚀", title: "Fast Response", benefit: "Expert replies within 24 hours" },
-  { icon: "💡", title: "Proven Expertise", benefit: "Decades of combined experience" },
+  { icon: "🚀", title: "Fast Response", benefit: "Get back within 24 hours" },
+  { icon: "💡", title: "Expert Team", benefit: "Decades of combined experience" },
   { icon: "🤝", title: "Partnership First", benefit: "Your success is our mission" },
   { icon: "✨", title: "Innovation Ready", benefit: "Maximize innovation, minimize code" },
-];
-
-const triageTopics = [
-  { label: "Appian", tag: "[Appian]" },
-  { label: "Salesforce", tag: "[Salesforce]" },
-  { label: "AI Features", tag: "[AI Features]" },
-  { label: "Managed IT", tag: "[Managed IT]" },
-];
-
-const complianceItems = [
-  { icon: Shield, label: "ISO 27001" },
-  { icon: FileCheck, label: "SOC 2" },
-  { icon: Lock, label: "GDPR/DPDP Aware" },
 ];
 
 export default function Contact() {
@@ -56,9 +42,7 @@ export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isRecaptchaLoaded, setIsRecaptchaLoaded] = useState(false);
-  const [emailCopied, setEmailCopied] = useState(false);
   const { toast } = useToast();
-  const { openCalendly } = useConsultationStore();
 
   // Load reCAPTCHA v3 script
   useEffect(() => {
@@ -85,31 +69,6 @@ export default function Contact() {
 
   const handleConsentChange = (checked: boolean) => {
     setFormData(prev => ({ ...prev, consent: checked }));
-  };
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText("info@systechnosoft.in");
-      setEmailCopied(true);
-      toast({
-        title: "Email Copied",
-        description: "Email address copied to clipboard",
-      });
-      setTimeout(() => setEmailCopied(false), 2000);
-    } catch (err) {
-      toast({
-        title: "Copy Failed",
-        description: "Please copy the email manually",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleTriageClick = (tag: string) => {
-    setFormData(prev => ({
-      ...prev,
-      message: prev.message.startsWith(tag) ? prev.message : `${tag} ${prev.message}`
-    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -258,13 +217,7 @@ export default function Contact() {
 
             {/* CTA Button */}
             <div className="pt-6">
-              <Button
-                size="lg"
-                onClick={openCalendly}
-                className="bg-[#E52629] hover:bg-[#E52629]/90 text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                Book a Consultation
-              </Button>
+              <BookConsultationTrigger />
             </div>
           </div>
         </div>
@@ -282,10 +235,10 @@ export default function Contact() {
               {/* Left Column */}
               <div className="text-center lg:text-left">
                 <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-[#1C1C1C] mb-6">
-                  Get Started. Build with Confidence.
+                  Get Started Today
                 </h1>
                 <p className="text-xl text-[#3C3C3C] max-w-3xl">
-                  Tell us about your goals—an expert replies within 24 hours.
+                  Ready to maximize innovation while minimizing code? Tell us a bit and we'll get back within 24 hours.
                 </p>
               </div>
 
@@ -313,20 +266,6 @@ export default function Contact() {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
-                {/* Smart Triage Chips */}
-                <div className="flex flex-wrap gap-2">
-                  {triageTopics.map((topic) => (
-                    <button
-                      key={topic.label}
-                      type="button"
-                      onClick={() => handleTriageClick(topic.tag)}
-                      className="px-3 py-1.5 text-sm border border-border rounded-full hover:border-[#E52629] hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                    >
-                      {topic.label}
-                    </button>
-                  ))}
-                </div>
-
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="name">Name *</Label>
@@ -337,7 +276,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="Your full name"
                       required
-                      className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200"
+                      className="focus-enterprise"
                     />
                   </div>
                   <div className="space-y-2">
@@ -350,7 +289,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="your.email@company.com"
                       required
-                      className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200"
+                      className="focus-enterprise"
                     />
                   </div>
                 </div>
@@ -365,7 +304,7 @@ export default function Contact() {
                       onChange={handleChange}
                       placeholder="Your company name"
                       required
-                      className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200"
+                      className="focus-enterprise"
                     />
                   </div>
                   <div className="space-y-2">
@@ -376,23 +315,22 @@ export default function Contact() {
                       value={formData.role}
                       onChange={handleChange}
                       placeholder="Your job title"
-                      className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200"
+                      className="focus-enterprise"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="message">Message *</Label>
-                  <p className="text-sm text-muted-foreground">What outcome do you want in the next 6–10 weeks?</p>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    placeholder="Tell us about your project, challenges, or goals..."
-                    rows={5}
+                    placeholder="Tell us about your project, challenges, or questions..."
+                    rows={4}
                     required
-                    className="focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all duration-200"
+                    className="focus-enterprise"
                   />
                 </div>
 
@@ -401,57 +339,39 @@ export default function Contact() {
                     id="consent"
                     checked={formData.consent}
                     onCheckedChange={handleConsentChange}
-                    className="mt-1 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                    className="mt-1"
                   />
                   <Label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
                     I agree to the processing of my personal data in accordance with the{" "}
-                    <a 
-                      href="/privacy-policy" 
-                      className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                    >
+                    <Button variant="link" className="p-0 h-auto text-accent">
                       Privacy Policy
-                    </a>{" "}
+                    </Button>{" "}
                     and{" "}
-                    <a 
-                      href="/terms-of-service" 
-                      className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                    >
+                    <Button variant="link" className="p-0 h-auto text-accent">
                       Terms of Service
-                    </a>
+                    </Button>
                     . *
                   </Label>
                 </div>
 
-                <div className="space-y-3">
-                  <Button
-                    type="submit"
-                    size="lg"
-                    className="w-full bg-[#E52629] hover:bg-[#E52629]/90 text-white transition-all duration-200 hover:scale-[1.03] hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                    disabled={isSubmitting || !isRecaptchaLoaded}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                        Verifying & Sending...
-                      </>
-                    ) : (
-                      "Send Message"
-                    )}
-                  </Button>
-
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="lg"
-                    className="w-full border border-border hover:border-[#E52629] hover:text-[#E52629] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                    onClick={openCalendly}
-                  >
-                    Book a Consultation
-                  </Button>
-                </div>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="btn-hero w-full"
+                  disabled={isSubmitting || !isRecaptchaLoaded}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Verifying & Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
+                </Button>
 
                 <p className="text-sm text-center text-muted-foreground font-medium">
-                  We respond within 24 hours.
+                  We'll respond within 24 hours.
                 </p>
 
                 <p className="text-xs text-center text-muted-foreground">
@@ -487,32 +407,19 @@ export default function Contact() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              {/* Email with Copy */}
+              {/* Email */}
               <div className="flex items-start space-x-4 group">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
                   <Mail className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
                 </div>
                 <div className="flex-1">
                   <h3 className="font-montserrat font-medium text-foreground mb-1">Email</h3>
-                  <div className="flex items-center gap-2">
-                    <a 
-                      href="mailto:info@systechnosoft.in" 
-                      className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
-                    >
-                      info@systechnosoft.in
-                    </a>
-                    <button
-                      onClick={handleCopyEmail}
-                      className="p-1.5 hover:bg-[#E52629]/10 rounded transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                      aria-label="Copy email address"
-                    >
-                      {emailCopied ? (
-                        <Check className="h-4 w-4 text-[#E52629]" />
-                      ) : (
-                        <Copy className="h-4 w-4 text-muted-foreground hover:text-[#E52629]" />
-                      )}
-                    </button>
-                  </div>
+                  <a 
+                    href="mailto:info@systechnosoft.in" 
+                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
+                  >
+                    info@systechnosoft.in
+                  </a>
                 </div>
               </div>
 
@@ -580,41 +487,11 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-
-              {/* Privacy Note */}
-              <div className="pt-4 border-t border-border">
-                <p className="text-sm text-muted-foreground italic">
-                  Your details are used only to respond to your inquiry.
-                </p>
-              </div>
             </CardContent>
           </Card>
         </div>
-
-        {/* Trust & Compliance Ribbon */}
-        <div className="mt-12 pt-8 border-t border-border">
-          <div className="flex flex-wrap justify-center gap-6">
-            {complianceItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={item.label}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full border border-border grayscale hover:grayscale-0 transition-all duration-300 hover:border-[#E52629]/30 hover:shadow-sm group"
-                >
-                  <Icon className="h-4 w-4 text-muted-foreground group-hover:text-[#E52629] transition-colors" />
-                  <span className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors">
-                    {item.label}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
       </div>
     </div>
-
-    {/* Calendly Dialog */}
-    <CalendlyDialogHost />
     </>
   );
 }

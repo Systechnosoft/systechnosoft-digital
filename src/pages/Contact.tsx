@@ -24,10 +24,10 @@ declare global {
 }
 
 const heroCards = [
-  { icon: "📞", title: "24/7 Support", benefit: "Always here when you need us" },
-  { icon: "🚀", title: "Fast Response", benefit: "Get back to you within 24 hours" },
-  { icon: "💡", title: "Expert Guidance", benefit: "Tailored solutions for your needs" },
-  { icon: "🤝", title: "Partnership Approach", benefit: "Long-term success together" },
+  { icon: "🚀", title: "Fast Response", benefit: "Get back within 24 hours" },
+  { icon: "💡", title: "Expert Team", benefit: "Decades of combined experience" },
+  { icon: "🤝", title: "Partnership First", benefit: "Your success is our mission" },
+  { icon: "✨", title: "Innovation Ready", benefit: "Maximize innovation, minimize code" },
 ];
 
 export default function Contact() {
@@ -238,8 +238,7 @@ export default function Contact() {
                   Get Started Today
                 </h1>
                 <p className="text-xl text-[#3C3C3C] max-w-3xl">
-                  Ready to maximize innovation while minimizing code? Let's discuss how we can 
-                  accelerate your digital transformation journey.
+                  Ready to maximize innovation while minimizing code? Tell us a bit and we'll get back within 24 hours.
                 </p>
               </div>
 
@@ -371,6 +370,10 @@ export default function Contact() {
                   )}
                 </Button>
 
+                <p className="text-sm text-center text-muted-foreground font-medium">
+                  We'll respond within 24 hours.
+                </p>
+
                 <p className="text-xs text-center text-muted-foreground">
                   Protected by reCAPTCHA v3 and subject to Google's{" "}
                   <a
@@ -396,90 +399,96 @@ export default function Contact() {
             </CardContent>
           </Card>
 
-          {/* Contact Information */}
-          <div className="space-y-8">
-            <Card className="card-enterprise">
-              <CardHeader>
-                <CardTitle className="text-xl font-montserrat font-bold">
-                  Contact Information
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-6 w-6 text-primary" />
+          {/* Talk to a Human */}
+          <Card className="card-enterprise h-fit">
+            <CardHeader>
+              <CardTitle className="text-2xl font-montserrat font-bold">
+                Talk to a Human
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Email */}
+              <div className="flex items-start space-x-4 group">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
+                  <Mail className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-montserrat font-medium text-foreground mb-1">Email</h3>
+                  <a 
+                    href="mailto:info@systechnosoft.in" 
+                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
+                  >
+                    info@systechnosoft.in
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone - India */}
+              <div className="flex items-start space-x-4 group">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
+                  <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone (India)</h3>
+                  <a 
+                    href="tel:+918562882887" 
+                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
+                  >
+                    +91 (856) 288-2887
+                  </a>
+                </div>
+              </div>
+
+              {/* Phone - US */}
+              <div className="flex items-start space-x-4 group">
+                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
+                  <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone (US)</h3>
+                  <a 
+                    href="tel:+13473051255" 
+                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
+                  >
+                    +1 (347) 305-1255
+                  </a>
+                </div>
+              </div>
+
+              {/* Separator */}
+              <div className="border-t border-border pt-6">
+                <h3 className="font-montserrat font-semibold text-foreground mb-4">Office Locations</h3>
+                
+                {/* India Office */}
+                <div className="flex items-start space-x-4 mb-6 group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
+                    <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
                   </div>
-                  <div>
-                    <h3 className="font-montserrat font-medium text-foreground mb-1">Address</h3>
-                    <p className="text-muted-foreground">
-                      E-8, Railway Colony, Jagatpura<br />
+                  <div className="flex-1">
+                    <h4 className="font-montserrat font-medium text-foreground mb-1">India</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      E‑8, Railway Colony, Jagatpura<br />
                       Jaipur, India
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-6 w-6 text-primary" />
+                {/* US Office */}
+                <div className="flex items-start space-x-4 group">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
+                    <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
                   </div>
-                  <div>
-                    <h3 className="font-montserrat font-medium text-foreground mb-1">Email</h3>
-                    <a 
-                      href="mailto:contact@systechnosoft.com" 
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      contact@systechnosoft.com
-                    </a>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <h3 className="font-montserrat font-medium text-foreground mb-1">Phone</h3>
-                    <a 
-                      href="tel:+911234567890" 
-                      className="text-muted-foreground hover:text-accent transition-colors"
-                    >
-                      +91 123 456 7890
-                    </a>
+                  <div className="flex-1">
+                    <h4 className="font-montserrat font-medium text-foreground mb-1">United States</h4>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      49 5th Ave #1187<br />
+                      Brooklyn, NY 11217, United States
+                    </p>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
-
-            <Card className="card-enterprise">
-              <CardHeader>
-                <CardTitle className="text-xl font-montserrat font-bold">
-                  Business Hours
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2 text-sm">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Monday - Friday</span>
-                    <span className="text-foreground">9:00 AM - 6:00 PM IST</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Saturday</span>
-                    <span className="text-foreground">9:00 AM - 2:00 PM IST</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Sunday</span>
-                    <span className="text-foreground">Closed</span>
-                  </div>
-                </div>
-                <div className="mt-4 p-3 bg-accent/10 rounded text-sm">
-                  <p className="text-accent font-medium">24/7 Support Available</p>
-                  <p className="text-muted-foreground text-xs mt-1">
-                    For managed infrastructure clients
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

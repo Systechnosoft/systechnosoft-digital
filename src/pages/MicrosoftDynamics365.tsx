@@ -64,7 +64,6 @@ const subNavItems = [
   { id: "implementation", label: "Implementation" },
   { id: "customization", label: "Customization" },
   { id: "integration", label: "Integration" },
-  { id: "migration", label: "Migration" },
   { id: "support", label: "Support" },
   { id: "copilot", label: "Copilot & Power Platform" }
 ];
@@ -587,89 +586,9 @@ export default function MicrosoftDynamics365() {
           </div>
         </section>
 
-        {/* Migration Section */}
-        <section id="migration" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
-              Data Migration Without Disruption
-            </h2>
-            
-            <div className="grid lg:grid-cols-4 gap-6 mb-12">
-              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="transition-transform duration-300 hover:-translate-y-1">
-                    <Eye className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  </div>
-                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Source Profiling</h3>
-                  <p className="text-[17px] text-slate-600">Mapping & deduplication strategies</p>
-                </CardContent>
-              </Card>
-              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="transition-transform duration-300 hover:-translate-y-1">
-                    <RefreshCw className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  </div>
-                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">ETL Orchestration</h3>
-                  <p className="text-[17px] text-slate-600">Dataflows and transformation pipelines</p>
-                </CardContent>
-              </Card>
-              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="transition-transform duration-300 hover:-translate-y-1">
-                    <FileCheck className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  </div>
-                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Reconciliation</h3>
-                  <p className="text-[17px] text-slate-600">Audit logs & sign‑off processes</p>
-                </CardContent>
-              </Card>
-              <Card className="text-center bg-white border-2 border-gray-200 hover:border-[#E52629] hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="transition-transform duration-300 hover:-translate-y-1">
-                    <Clock className="h-8 w-8 text-[#E52629] mx-auto mb-4" />
-                  </div>
-                  <h3 className="font-semibold text-[22px] mb-2 text-[#1C1C1C]">Cutover Planning</h3>
-                  <p className="text-[17px] text-slate-600">Rollback checkpoints & contingencies</p>
-                </CardContent>
-              </Card>
-            </div>
-            
-            <div className="bg-gradient-to-br from-gray-50 to-slate-100 rounded-xl p-8 md:p-12 max-w-5xl mx-auto border border-gray-200">
-              <h3 className="font-montserrat font-bold text-[44px] leading-tight mb-10 text-center text-[#1C1C1C]">
-                Migration Success Framework
-              </h3>
-              <div className="grid md:grid-cols-3 gap-8 text-center mb-8">
-                <div>
-                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">99.9%</div>
-                  <div className="text-[17px] text-slate-700 font-medium">Data integrity validation</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">Zero</div>
-                  <div className="text-[17px] text-slate-700 font-medium">Business downtime target</div>
-                </div>
-                <div>
-                  <div className="text-5xl font-montserrat font-bold text-[#E52629] mb-2">Full</div>
-                  <div className="text-[17px] text-slate-700 font-medium">Rollback capability</div>
-                </div>
-              </div>
-              <div className="text-center pt-6 border-t border-gray-300">
-                <Button 
-                  asChild 
-                  variant="outline" 
-                  size="lg"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200"
-                >
-                  <Link to="/services/data-migration">
-                    Know More
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Support Section */}
-        <section id="support" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-gray-50">
+        <section id="support" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center">
               Managed Support & Optimization
@@ -751,7 +670,7 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Copilot & Power Platform Section */}
-        <section id="copilot" ref={(el) => (sectionsRef.current[7] = el)} className="py-20 bg-white">
+        <section id="copilot" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Copilot, Power BI & Low‑Code Extensibility

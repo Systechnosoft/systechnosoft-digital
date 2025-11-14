@@ -708,7 +708,7 @@ export default function DataMigration() {
               {[
                 {
                   category: "Cloud Platforms",
-                  tools: ["Azure", "AWS", "GCP"]
+                  tools: ["Azure", "AWS", "GCP", "Salesforce Cloud", "VMware Cloud"]
                 },
                 {
                   category: "Data & Database",

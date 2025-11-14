@@ -12,7 +12,6 @@ import { motion } from "framer-motion";
 
 export default function BackupRecovery() {
   const [activeSection, setActiveSection] = useState("br-overview");
-  const [activeFilters, setActiveFilters] = useState<string[]>([]);
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
   const subNavItems = [
@@ -20,18 +19,6 @@ export default function BackupRecovery() {
     { id: "br-coverage", label: "Choose your coverage" },
     { id: "br-compliance", label: "Compliance & Security" },
     { id: "br-platforms", label: "Platforms & Tools" },
-  ];
-
-  const filterCategories = [
-    "Cloud",
-    "Backup Platforms",
-    "Databases",
-    "Kubernetes",
-    "Storage Tiers",
-    "DR & Orchestration",
-    "Security & Key Mgmt",
-    "Monitoring",
-    "Automation & IaC",
   ];
 
   const platformTools = [
@@ -59,190 +46,19 @@ export default function BackupRecovery() {
       features: ["Agentless", "App-aware"],
       category: ["Cloud", "DR & Orchestration"],
     },
-    {
-      icon: Activity,
-      title: "AWS Elastic Disaster Recovery",
-      description: "Block-level replication with automated failover/failback orchestration",
-      badges: ["Cloud", "SaaS"],
-      features: ["Auto failover", "Continuous replication"],
-      category: ["Cloud", "DR & Orchestration"],
-    },
-    {
-      icon: Activity,
-      title: "Azure Site Recovery",
-      description: "Cross-region/site replication with automated runbooks and testing",
-      badges: ["Cloud", "Hybrid"],
-      features: ["Runbooks", "Cross-region"],
-      category: ["Cloud", "DR & Orchestration"],
-    },
-    {
-      icon: Server,
-      title: "Veeam",
-      description: "Image/app-aware backup with immutability and SureBackup verification",
-      badges: ["On-prem", "Cloud"],
-      features: ["Immutable", "SureBackup"],
-      category: ["Backup Platforms"],
-    },
-    {
-      icon: Shield,
-      title: "Rubrik",
-      description: "Backup with Zero Trust Data Security and anomaly detection",
-      badges: ["Appliance", "Cloud"],
-      features: ["Zero Trust", "Anomaly detection"],
-      category: ["Backup Platforms", "Security & Key Mgmt"],
-    },
-    {
-      icon: Server,
-      title: "Cohesity",
-      description: "Scale-out backup with WORM and ransomware protection workflows",
-      badges: ["Appliance", "Cloud"],
-      features: ["WORM", "Ransomware protection"],
-      category: ["Backup Platforms"],
-    },
-    {
-      icon: Archive,
-      title: "Commvault",
-      description: "Enterprise policy engine covering workloads across clouds",
-      badges: ["Hybrid"],
-      features: ["Policy engine", "Multi-cloud"],
-      category: ["Backup Platforms"],
-    },
-    {
-      icon: Database,
-      title: "SQL Server Native / AG",
-      description: "Copy-only, log backups, and Availability Group-aware restores",
-      badges: ["On-prem"],
-      features: ["AG-aware", "Log shipping"],
-      category: ["Databases"],
-    },
-    {
-      icon: Database,
-      title: "Oracle RMAN",
-      description: "Block-change tracking with incremental merge and compression",
-      badges: ["On-prem"],
-      features: ["Incremental", "Block-level"],
-      category: ["Databases"],
-    },
-    {
-      icon: Database,
-      title: "PostgreSQL (pgBackRest/WAL-G)",
-      description: "Parallel, compressed backups with point-in-time restore",
-      badges: ["Open-source"],
-      features: ["PITR", "Parallel"],
-      category: ["Databases"],
-    },
-    {
-      icon: Database,
-      title: "MySQL (Percona XtraBackup)",
-      description: "Hot, non-blocking backups with streaming and compression",
-      badges: ["Open-source"],
-      features: ["Hot backup", "Non-blocking"],
-      category: ["Databases"],
-    },
-    {
-      icon: Server,
-      title: "Velero",
-      description: "Namespace-level Kubernetes backups to object storage targets",
-      badges: ["Open-source"],
-      features: ["K8s native", "Object storage"],
-      category: ["Kubernetes"],
-    },
-    {
-      icon: Archive,
-      title: "CSI Snapshots",
-      description: "Storage-native snapshots with restore hooks and volume cloning",
-      badges: ["Open-source"],
-      features: ["Volume snapshots", "Restore hooks"],
-      category: ["Kubernetes"],
-    },
-    {
-      icon: Archive,
-      title: "S3 Standard/IA/Glacier/Deep Archive",
-      description: "Multi-tier storage with Object Lock for WORM compliance",
-      badges: ["Cloud"],
-      features: ["WORM", "Multi-tier"],
-      category: ["Storage Tiers", "Cloud"],
-    },
-    {
-      icon: Archive,
-      title: "Azure Hot/Cool/Archive",
-      description: "Blob storage with immutability policies and lifecycle management",
-      badges: ["Cloud"],
-      features: ["Immutability", "Lifecycle"],
-      category: ["Storage Tiers", "Cloud"],
-    },
-    {
-      icon: Archive,
-      title: "GCS Standard/Nearline/Coldline/Archive",
-      description: "Google Cloud Storage tiers with retention policies",
-      badges: ["Cloud"],
-      features: ["Retention policies", "Multi-tier"],
-      category: ["Storage Tiers", "Cloud"],
-    },
-    {
-      icon: KeySquare,
-      title: "KMS & Vault",
-      description: "AWS KMS, Azure Key Vault, Google Cloud KMS with envelope encryption & rotation",
-      badges: ["Cloud", "SaaS"],
-      features: ["Envelope encryption", "Key rotation"],
-      category: ["Security & Key Mgmt"],
-    },
-    {
-      icon: Lock,
-      title: "Air-gap Strategies",
-      description: "Offline copies, vault accounts, and cross-tenant isolation",
-      badges: ["On-prem"],
-      features: ["Offline", "Isolation"],
-      category: ["Security & Key Mgmt"],
-    },
-    {
-      icon: Activity,
-      title: "CloudWatch / Azure Monitor / Cloud Monitoring",
-      description: "Backup job alerts, SLA monitoring, and integration dashboards",
-      badges: ["Cloud", "SaaS"],
-      features: ["Alerts", "SLA monitoring"],
-      category: ["Monitoring"],
-    },
-    {
-      icon: BarChart3,
-      title: "Grafana / Prometheus",
-      description: "Custom dashboards with anomaly detection and alerting",
-      badges: ["Open-source"],
-      features: ["Dashboards", "Anomaly detection"],
-      category: ["Monitoring"],
-    },
-    {
-      icon: Zap,
-      title: "Terraform / Ansible / CloudFormation / Bicep",
-      description: "Backup policies, vaults, lifecycle rules as Infrastructure as Code",
-      badges: ["Open-source"],
-      features: ["IaC", "Policy as code"],
-      category: ["Automation & IaC"],
-    },
   ];
 
-  const toggleFilter = (filter: string) => {
-    setActiveFilters((prev) =>
-      prev.includes(filter) ? prev.filter((f) => f !== filter) : [...prev, filter]
-    );
-  };
-
-  const filteredPlatforms = activeFilters.length === 0
-    ? platformTools
-    : platformTools.filter((tool) =>
-        tool.category.some((cat) => activeFilters.includes(cat))
-      );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
             setActiveSection(entry.target.id);
           }
         });
       },
-      { threshold: 0.3, rootMargin: "-100px 0px -50% 0px" }
+      { threshold: 0.5, rootMargin: "-120px 0px -40% 0px" }
     );
 
     sectionsRef.current.forEach((section) => {
@@ -798,28 +614,9 @@ export default function BackupRecovery() {
               </p>
             </div>
 
-            {/* Filter Chips */}
-            <div className="flex flex-wrap justify-center gap-2 mb-10">
-              {filterCategories.map((filter) => (
-                <button
-                  key={filter}
-                  onClick={() => toggleFilter(filter)}
-                  className={cn(
-                    "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2",
-                    activeFilters.includes(filter)
-                      ? "bg-[#E52629] text-white shadow-md"
-                      : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                  )}
-                  aria-pressed={activeFilters.includes(filter)}
-                >
-                  {filter}
-                </button>
-              ))}
-            </div>
-
             {/* Platform Cards Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7 mb-12">
-              {filteredPlatforms.map((tool, index) => {
+              {platformTools.map((tool, index) => {
                 const IconComponent = tool.icon;
                 return (
                   <motion.div

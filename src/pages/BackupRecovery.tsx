@@ -53,12 +53,12 @@ export default function BackupRecovery() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          if (entry.isIntersecting && entry.intersectionRatio >= 0.3) {
             setActiveSection(entry.target.id);
           }
         });
       },
-      { threshold: 0.5, rootMargin: "-120px 0px -40% 0px" }
+      { threshold: [0, 0.3, 0.5, 0.7, 1], rootMargin: "-140px 0px -35% 0px" }
     );
 
     sectionsRef.current.forEach((section) => {

@@ -182,8 +182,8 @@ export default function CaseStudies() {
           const headerHeight = 64; // top-16 = 64px
           const navElement = document.querySelector('[data-sticky-nav]');
           const navHeight = navElement?.getBoundingClientRect().height || 0;
-          const navAbsoluteTop = element.getBoundingClientRect().top + window.scrollY;
-          const targetPosition = navAbsoluteTop - headerHeight;
+          const elementTop = element.getBoundingClientRect().top + window.scrollY;
+          const targetPosition = elementTop - headerHeight - navHeight - 16; // Extra padding
           
           window.scrollTo({
             top: targetPosition,
@@ -204,7 +204,7 @@ export default function CaseStudies() {
       const navElement = document.querySelector('[data-sticky-nav]');
       const navHeight = navElement?.getBoundingClientRect().height || 0;
       const elementTop = element.getBoundingClientRect().top + window.scrollY;
-      const targetPosition = elementTop - headerHeight;
+      const targetPosition = elementTop - headerHeight - navHeight - 16; // Extra padding
       
       window.scrollTo({
         top: targetPosition,

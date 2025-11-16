@@ -38,41 +38,52 @@ import {
 
 export default function Industries() {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState("bfsi");
+  const [activeSection, setActiveSection] = useState("bfsi");
 
   useEffect(() => {
     // Handle hash-based deep linking and hash changes
     const hash = location.hash.slice(1);
-    if (hash && ["bfsi", "healthcare", "aviation", "oil-gas"].includes(hash)) {
-      setActiveTab(hash);
+    if (hash && ["bfsi", "healthcare", "aviation", "oil-gas", "faq"].includes(hash)) {
+      setActiveSection(hash);
       
-      // Scroll to position the sticky tab nav right below the header
+      // Scroll to the section immediately
       setTimeout(() => {
-        const tabNavElement = document.querySelector('[class*="sticky top-16"]');
-        if (tabNavElement) {
-          // The sticky nav has 'top-16' which is 64px (4rem)
-          // We want to scroll so that the sticky nav is positioned at top: 64px
-          // This means the content below will be visible
-          const headerHeight = 64; // Matches 'top-16' (4rem)
+        const sectionElement = document.getElementById(hash);
+        if (sectionElement) {
+          // Account for sticky header (64px) + sticky nav (variable height)
+          const headerHeight = 64;
+          const navHeight = 60; // Approximate sticky nav height
+          const totalOffset = headerHeight + navHeight;
           
-          // Get the absolute position of the tab navigation
-          const navRect = tabNavElement.getBoundingClientRect();
-          const scrollTop = window.scrollY || window.pageYOffset;
-          const navAbsoluteTop = navRect.top + scrollTop;
+          const elementPosition = sectionElement.getBoundingClientRect().top + window.scrollY;
           
-          // Scroll so the tab nav sits right at the header position
           window.scrollTo({
-            top: navAbsoluteTop - headerHeight,
-            behavior: 'instant' // No animation, instant scroll
+            top: elementPosition - totalOffset,
+            behavior: 'instant'
           });
         }
       }, 100);
     }
-  }, [location.hash]); // Trigger whenever hash changes
+  }, [location.hash]);
 
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    window.history.pushState(null, "", `#${value}`);
+  const handleNavClick = (sectionId: string) => {
+    setActiveSection(sectionId);
+    window.history.pushState(null, "", `#${sectionId}`);
+    
+    // Scroll to section
+    const sectionElement = document.getElementById(sectionId);
+    if (sectionElement) {
+      const headerHeight = 64;
+      const navHeight = 60;
+      const totalOffset = headerHeight + navHeight;
+      
+      const elementPosition = sectionElement.getBoundingClientRect().top + window.scrollY;
+      
+      window.scrollTo({
+        top: elementPosition - totalOffset,
+        behavior: 'smooth'
+      });
+    }
   };
 
   const OutcomeCard = ({ value, label }: { value: string; label: string }) => (
@@ -124,6 +135,7 @@ export default function Industries() {
   );
 
   const IndustrySection = ({
+    id,
     title,
     icon: SectionIcon,
     lead,
@@ -132,6 +144,7 @@ export default function Industries() {
     architectureCards,
     complianceItems,
   }: {
+    id: string;
     title: string;
     icon: any;
     lead: string;
@@ -141,7 +154,7 @@ export default function Industries() {
     complianceItems: string[];
   }) => (
     <>
-      <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
+      <div id={id} className="py-20 md:py-24 max-w-7xl mx-auto px-4">
         {/* Header - Center Aligned */}
         <div className="mb-12 text-center max-w-4xl mx-auto">
           <div className="flex items-center justify-center gap-4 mb-4">
@@ -191,8 +204,13 @@ export default function Industries() {
         </div>
       </div>
 
-      {/* FAQ Section - Matching Cloud Services Pattern */}
-      <section id="faq" className="py-20 bg-[#F5F5F5]">
+      {/* Separator between sections */}
+      <div className="h-px bg-gray-200" />
+    </>
+  );
+
+  const FAQSection = () => (
+    <section id="faq" className="py-20 bg-[#F5F5F5]">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -238,28 +256,28 @@ export default function Industries() {
             </AccordionItem>
           </Accordion>
         </div>
-      </section>
+    </section>
+  );
 
-      {/* Final CTA Section - Matching Cloud Services Pattern */}
-      <section className="py-20 bg-[#E52629] text-white">
-        <div className="max-w-4xl mx-auto px-4 text-center">
-          <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
-            Ready to transform your industry?
-          </h2>
-          <p className="font-inter text-xl text-white/95 mb-10">
-            Let's discuss your goals and craft a tailored plan for measurable outcomes.
-          </p>
-          
-          <div className="flex justify-center">
-            <BookConsultationTrigger 
-              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
-            >
-              Book a consultation
-            </BookConsultationTrigger>
-          </div>
+  const CTASection = () => (
+    <section className="py-20 bg-[#E52629] text-white">
+      <div className="max-w-4xl mx-auto px-4 text-center">
+        <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
+          Ready to transform your industry?
+        </h2>
+        <p className="font-inter text-xl text-white/95 mb-10">
+          Let's discuss your goals and craft a tailored plan for measurable outcomes.
+        </p>
+        
+        <div className="flex justify-center">
+          <BookConsultationTrigger 
+            className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+          >
+            Book a consultation
+          </BookConsultationTrigger>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 
   return (
@@ -294,15 +312,15 @@ export default function Industries() {
         }}
       />
 
-      {/* Industry Tabs Navigation - Sticky */}
-      <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
+      {/* Section Navigation - Sticky */}
+      <div className="bg-white py-4 sticky top-16 z-40 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex justify-center">
-            <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
+            <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2 flex-wrap">
               <button
-                onClick={() => handleTabChange("bfsi")}
+                onClick={() => handleNavClick("bfsi")}
                 className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
-                  activeTab === "bfsi"
+                  activeSection === "bfsi"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
@@ -310,9 +328,9 @@ export default function Industries() {
                 BFSI
               </button>
               <button
-                onClick={() => handleTabChange("healthcare")}
+                onClick={() => handleNavClick("healthcare")}
                 className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
-                  activeTab === "healthcare"
+                  activeSection === "healthcare"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
@@ -320,9 +338,9 @@ export default function Industries() {
                 Healthcare
               </button>
               <button
-                onClick={() => handleTabChange("aviation")}
+                onClick={() => handleNavClick("aviation")}
                 className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
-                  activeTab === "aviation"
+                  activeSection === "aviation"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
@@ -330,14 +348,24 @@ export default function Industries() {
                 Aviation
               </button>
               <button
-                onClick={() => handleTabChange("oil-gas")}
+                onClick={() => handleNavClick("oil-gas")}
                 className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
-                  activeTab === "oil-gas"
+                  activeSection === "oil-gas"
                     ? 'bg-[#E52629] text-white shadow-md'
                     : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                 }`}
               >
                 Oil & Gas
+              </button>
+              <button
+                onClick={() => handleNavClick("faq")}
+                className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
+                  activeSection === "faq"
+                    ? 'bg-[#E52629] text-white shadow-md'
+                    : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
+                }`}
+              >
+                FAQ
               </button>
             </div>
           </div>

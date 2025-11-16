@@ -27,12 +27,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ServiceHero from "@/components/ServiceHero";
 import { CountUpNumber } from "@/components/CountUpNumber";
 
-// Industry tabs
-const industryTabs = [
+// Industry navigation items
+const industryNav = [
   { id: "bfsi", label: "BFSI" },
   { id: "healthcare", label: "Healthcare" },
   { id: "aviation", label: "Aviation" },
   { id: "oil-gas", label: "Oil & Gas" },
+  { id: "faq", label: "FAQ" },
 ];
 
 // Industry data structure
@@ -164,19 +165,52 @@ const faqs = [
 ];
 
 export default function CaseStudies() {
-  const [activeTab, setActiveTab] = useState("bfsi");
+  const [activeSection, setActiveSection] = useState("bfsi");
 
   // Handle hash-based deep linking
   useEffect(() => {
     const hash = window.location.hash.slice(1);
-    if (hash && industryTabs.some(tab => tab.id === hash)) {
-      setActiveTab(hash);
+    const validSections = ["bfsi", "healthcare", "aviation", "oil-gas", "faq"];
+    
+    if (hash && validSections.includes(hash)) {
+      setActiveSection(hash);
+      
+      // Scroll to the section after a brief delay to ensure DOM is ready
+      setTimeout(() => {
+        const element = document.getElementById(hash);
+        if (element) {
+          const headerHeight = 64; // top-16 = 64px
+          const navElement = document.querySelector('[data-sticky-nav]');
+          const navHeight = navElement?.getBoundingClientRect().height || 0;
+          const navAbsoluteTop = element.getBoundingClientRect().top + window.scrollY;
+          const targetPosition = navAbsoluteTop - headerHeight;
+          
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'instant'
+          });
+        }
+      }, 100);
     }
   }, []);
 
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    window.history.pushState(null, "", `#${value}`);
+  const handleNavClick = (sectionId: string) => {
+    setActiveSection(sectionId);
+    window.history.pushState(null, "", `#${sectionId}`);
+    
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerHeight = 64;
+      const navElement = document.querySelector('[data-sticky-nav]');
+      const navHeight = navElement?.getBoundingClientRect().height || 0;
+      const elementTop = element.getBoundingClientRect().top + window.scrollY;
+      const targetPosition = elementTop - headerHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'instant'
+      });
+    }
   };
 
   return (
@@ -244,22 +278,22 @@ export default function CaseStudies() {
           }}
         />
 
-        {/* Industry Tabs Navigation - Sticky */}
-        <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200">
+        {/* Industry Navigation - Sticky */}
+        <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200" data-sticky-nav>
           <div className="container mx-auto px-4">
             <div className="flex justify-center">
               <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">
-                {industryTabs.map((tab) => (
+                {industryNav.map((item) => (
                   <button
-                    key={tab.id}
-                    onClick={() => handleTabChange(tab.id)}
+                    key={item.id}
+                    onClick={() => handleNavClick(item.id)}
                     className={`flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200 ${
-                      activeTab === tab.id
+                      activeSection === item.id
                         ? 'bg-[#E52629] text-white shadow-md'
                         : 'text-gray-600 hover:text-[#E52629] hover:bg-gray-100'
                     }`}
                   >
-                    {tab.label}
+                    {item.label}
                   </button>
                 ))}
               </div>
@@ -267,158 +301,153 @@ export default function CaseStudies() {
           </div>
         </div>
 
-        {/* Tab Contents - Not Sticky */}
+        {/* All Sections - Vertical Display */}
         <div className="bg-background">
           {industries.map((industry) => (
-            <div
-              key={industry.id}
-              className={activeTab === industry.id ? 'block' : 'hidden'}
-            >
-              <section className="py-16 md:py-20">
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
-                  {/* Industry Header - Center Aligned */}
-                  <div className="mb-12 text-center max-w-4xl mx-auto">
-                    <div className="flex items-center justify-center gap-4 mb-4">
-                      <industry.icon className="w-10 h-10 text-[#E52629]" aria-hidden="true" />
-                      <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-[#1C1C1C]">
-                        {industry.name}
-                      </h2>
-                    </div>
-                    <p className="text-lg text-neutral-600">
-                      {industry.lead}
-                    </p>
+            <section key={industry.id} id={industry.id} className="py-16 md:py-20">
+              <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl">
+                {/* Industry Header - Center Aligned */}
+                <div className="mb-12 text-center max-w-4xl mx-auto">
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <industry.icon className="w-10 h-10 text-[#E52629]" aria-hidden="true" />
+                    <h2 className="text-3xl md:text-4xl font-bold font-montserrat text-[#1C1C1C]">
+                      {industry.name}
+                    </h2>
                   </div>
-
-                  {/* KPIs - Center Aligned with Modern Cards */}
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
-                    {industry.kpis.map((kpi, kpiIdx) => (
-                      <motion.div
-                        key={kpiIdx}
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: kpiIdx * 0.1, duration: 0.4 }}
-                        className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 rounded-xl p-6 text-center"
-                      >
-                        <div className="text-4xl font-bold text-[#E52629] mb-2 font-montserrat">
-                          <CountUpNumber 
-                            end={kpi.value} 
-                            suffix={kpi.suffix}
-                            duration={2000}
-                          />
-                        </div>
-                        <p className="text-sm text-neutral-600">
-                          {kpi.label}
-                        </p>
-                      </motion.div>
-                    ))}
-                  </div>
-
-                  {/* Case Studies - Accordion with Modern Styling */}
-                  <div className="space-y-6 mb-12 max-w-5xl mx-auto">
-                    <Accordion type="single" collapsible className="space-y-4">
-                      {industry.cases.map((caseStudy, caseIdx) => (
-                        <AccordionItem
-                          key={caseIdx}
-                          value={`case-${caseIdx}`}
-                          className="border-2 border-gray-200 hover:border-[#E52629] rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-                        >
-                          <AccordionTrigger className="px-6 py-5 text-left hover:no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
-                            <div className="flex items-start gap-4 flex-1">
-                              <div className="bg-[#E52629]/10 rounded-lg p-3 mt-1">
-                                <TrendingUp className="w-5 h-5 text-[#E52629]" aria-hidden="true" />
-                              </div>
-                              <div className="flex-1">
-                                <h3 className="text-xl font-semibold text-[#1C1C1C] mb-1 group-hover:text-[#E52629] transition-colors">
-                                  {caseStudy.title}
-                                </h3>
-                                <p className="text-sm text-neutral-600">
-                                  {caseStudy.overview}
-                                </p>
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-                  
-                          <AccordionContent className="px-6 pb-6">
-                            <div className="space-y-6 pt-4">
-                              {/* Overview */}
-                              <div>
-                                <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-2 flex items-center gap-2">
-                                  <Database className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
-                                  Overview
-                                </h4>
-                                <p className="text-neutral-700">
-                                  {caseStudy.overview}
-                                </p>
-                              </div>
-
-                              {/* Challenges */}
-                              <div>
-                                <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3">
-                                  Challenges
-                                </h4>
-                                <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                                  {caseStudy.challenges.map((challenge, chIdx) => (
-                                    <li 
-                                      key={chIdx}
-                                      className="flex items-start gap-2 text-sm text-neutral-700 bg-gray-50 rounded-lg p-3"
-                                    >
-                                      <span className="text-[#E52629] mt-0.5">•</span>
-                                      <span>{challenge}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-
-                              {/* Solution */}
-                              <div>
-                                <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
-                                  <Zap className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
-                                  Solution
-                                </h4>
-                                <p className="text-neutral-700 mb-3">
-                                  {caseStudy.solution}
-                                </p>
-                                <div className="flex flex-wrap gap-2">
-                                  {caseStudy.techBadges.map((tech, techIdx) => (
-                                    <Badge 
-                                      key={techIdx}
-                                      variant="secondary"
-                                      className="text-xs px-3 py-1 bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors"
-                                    >
-                                      {tech}
-                                    </Badge>
-                                  ))}
-                                </div>
-                              </div>
-
-                              {/* Outcomes */}
-                              <div>
-                                <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
-                                  <Shield className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
-                                  Outcomes
-                                </h4>
-                                <ul className="space-y-2">
-                                  {caseStudy.outcomes.map((outcome, outIdx) => (
-                                    <li 
-                                      key={outIdx}
-                                      className="flex items-start gap-3 text-sm text-neutral-700"
-                                    >
-                                      <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                                      <span>{outcome}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </div>
+                  <p className="text-lg text-neutral-600">
+                    {industry.lead}
+                  </p>
                 </div>
-              </section>
-            </div>
+
+                {/* KPIs - Center Aligned with Modern Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto">
+                  {industry.kpis.map((kpi, kpiIdx) => (
+                    <motion.div
+                      key={kpiIdx}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: kpiIdx * 0.1, duration: 0.4 }}
+                      className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-1 rounded-xl p-6 text-center"
+                    >
+                      <div className="text-4xl font-bold text-[#E52629] mb-2 font-montserrat">
+                        <CountUpNumber 
+                          end={kpi.value} 
+                          suffix={kpi.suffix}
+                          duration={2000}
+                        />
+                      </div>
+                      <p className="text-sm text-neutral-600">
+                        {kpi.label}
+                      </p>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Case Studies - Accordion with Modern Styling */}
+                <div className="space-y-6 mb-12 max-w-5xl mx-auto">
+                  <Accordion type="single" collapsible className="space-y-4">
+                    {industry.cases.map((caseStudy, caseIdx) => (
+                      <AccordionItem
+                        key={caseIdx}
+                        value={`case-${caseIdx}`}
+                        className="border-2 border-gray-200 hover:border-[#E52629] rounded-2xl overflow-hidden bg-white shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+                      >
+                        <AccordionTrigger className="px-6 py-5 text-left hover:no-underline group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
+                          <div className="flex items-start gap-4 flex-1">
+                            <div className="bg-[#E52629]/10 rounded-lg p-3 mt-1">
+                              <TrendingUp className="w-5 h-5 text-[#E52629]" aria-hidden="true" />
+                            </div>
+                            <div className="flex-1">
+                              <h3 className="text-xl font-semibold text-[#1C1C1C] mb-1 group-hover:text-[#E52629] transition-colors">
+                                {caseStudy.title}
+                              </h3>
+                              <p className="text-sm text-neutral-600">
+                                {caseStudy.overview}
+                              </p>
+                            </div>
+                          </div>
+                        </AccordionTrigger>
+                
+                        <AccordionContent className="px-6 pb-6">
+                          <div className="space-y-6 pt-4">
+                            {/* Overview */}
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-2 flex items-center gap-2">
+                                <Database className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                Overview
+                              </h4>
+                              <p className="text-neutral-700">
+                                {caseStudy.overview}
+                              </p>
+                            </div>
+
+                            {/* Challenges */}
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3">
+                                Challenges
+                              </h4>
+                              <ul className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                                {caseStudy.challenges.map((challenge, chIdx) => (
+                                  <li 
+                                    key={chIdx}
+                                    className="flex items-start gap-2 text-sm text-neutral-700 bg-gray-50 rounded-lg p-3"
+                                  >
+                                    <span className="text-[#E52629] mt-0.5">•</span>
+                                    <span>{challenge}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+
+                            {/* Solution */}
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <Zap className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                Solution
+                              </h4>
+                              <p className="text-neutral-700 mb-3">
+                                {caseStudy.solution}
+                              </p>
+                              <div className="flex flex-wrap gap-2">
+                                {caseStudy.techBadges.map((tech, techIdx) => (
+                                  <Badge 
+                                    key={techIdx}
+                                    variant="secondary"
+                                    className="text-xs px-3 py-1 bg-white border-2 border-gray-200 hover:border-[#E52629] text-[#1C1C1C] transition-colors"
+                                  >
+                                    {tech}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+
+                            {/* Outcomes */}
+                            <div>
+                              <h4 className="text-sm font-semibold text-[#1C1C1C] uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <Shield className="w-4 h-4 text-[#E52629]" aria-hidden="true" />
+                                Outcomes
+                              </h4>
+                              <ul className="space-y-2">
+                                {caseStudy.outcomes.map((outcome, outIdx) => (
+                                  <li 
+                                    key={outIdx}
+                                    className="flex items-start gap-3 text-sm text-neutral-700"
+                                  >
+                                    <CheckCircle2 className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                                    <span>{outcome}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </div>
+              </div>
+            </section>
           ))}
         </div>
 

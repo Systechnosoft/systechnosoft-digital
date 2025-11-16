@@ -2,16 +2,22 @@ import { useLayoutEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useLayoutEffect(() => {
-    // Instantly scroll to top on route change (synchronous, no animation)
+    // If there's a hash, let the target component handle scrolling
+    // This prevents interfering with anchor navigation
+    if (hash) {
+      return;
+    }
+    
+    // Only scroll to top for regular navigation (no hash)
     window.scrollTo({
       top: 0,
       left: 0,
       behavior: 'instant'
     });
-  }, [pathname]);
+  }, [pathname, hash]);
 
   return null;
 }

@@ -54,26 +54,10 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerSections[1].links.map((link) => (
                 <li key={link.name}>
-                  <Link
+                <Link
                     to={link.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
                     aria-label={link.ariaLabel}
-                    onClick={(e) => {
-                      if (link.href.includes('#')) {
-                        e.preventDefault();
-                        const [path, hash] = link.href.split('#');
-                        if (window.location.pathname === path) {
-                          const element = document.getElementById(hash);
-                          if (element) {
-                            const offset = 96;
-                            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
-                            window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
-                          }
-                        } else {
-                          window.location.href = link.href;
-                        }
-                      }
-                    }}
                   >
                     {link.name}
                   </Link>

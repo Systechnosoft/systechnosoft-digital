@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ServiceHero from "@/components/ServiceHero";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -37,15 +37,30 @@ import {
 } from "@/components/ui/accordion";
 
 export default function Industries() {
+  const location = useLocation();
   const [activeTab, setActiveTab] = useState("bfsi");
 
   useEffect(() => {
-    // Handle hash-based deep linking
-    const hash = window.location.hash.slice(1);
+    // Handle hash-based deep linking and hash changes
+    const hash = location.hash.slice(1);
     if (hash && ["bfsi", "healthcare", "aviation", "oil-gas"].includes(hash)) {
       setActiveTab(hash);
+      
+      // Scroll to the tab navigation area after a brief delay
+      // to ensure the component has rendered
+      setTimeout(() => {
+        const tabNavElement = document.querySelector('[class*="sticky top-16"]');
+        if (tabNavElement) {
+          const offset = 80; // Account for sticky header
+          const elementPosition = tabNavElement.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({
+            top: elementPosition - offset,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
     }
-  }, []);
+  }, [location.hash]); // Trigger whenever hash changes
 
   const handleTabChange = (value: string) => {
     setActiveTab(value);

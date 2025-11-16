@@ -46,16 +46,24 @@ export default function Industries() {
     if (hash && ["bfsi", "healthcare", "aviation", "oil-gas"].includes(hash)) {
       setActiveTab(hash);
       
-      // Scroll to the tab navigation area after a brief delay
-      // to ensure the component has rendered
+      // Scroll to position the sticky tab nav right below the header
       setTimeout(() => {
         const tabNavElement = document.querySelector('[class*="sticky top-16"]');
         if (tabNavElement) {
-          const offset = 80; // Account for sticky header
-          const elementPosition = tabNavElement.getBoundingClientRect().top + window.scrollY;
+          // The sticky nav has 'top-16' which is 64px (4rem)
+          // We want to scroll so that the sticky nav is positioned at top: 64px
+          // This means the content below will be visible
+          const headerHeight = 64; // Matches 'top-16' (4rem)
+          
+          // Get the absolute position of the tab navigation
+          const navRect = tabNavElement.getBoundingClientRect();
+          const scrollTop = window.scrollY || window.pageYOffset;
+          const navAbsoluteTop = navRect.top + scrollTop;
+          
+          // Scroll so the tab nav sits right at the header position
           window.scrollTo({
-            top: elementPosition - offset,
-            behavior: 'smooth'
+            top: navAbsoluteTop - headerHeight,
+            behavior: 'instant' // No animation, instant scroll
           });
         }
       }, 100);

@@ -6,17 +6,17 @@ const footerSections = [
   {
     title: "Services",
     links: [
-      { name: "IT Infrastructure", href: "/services/infrastructure" },
-      { name: "Low-code", href: "/services/low-code" },
-      { name: "AI & Automation", href: "/services/ai-automation" },
+      { name: "IT Infrastructure", href: "/services/managed-it-services", ariaLabel: "Go to Managed IT Services" },
+      { name: "Low-code", href: "/services/appian", ariaLabel: "Go to Appian Low-code Services" },
+      { name: "AI & Automation", href: "/services/ai-development-integration", ariaLabel: "Go to AI Development & Integration" },
     ],
   },
   {
     title: "Industries",
     links: [
-      { name: "BFSI", href: "/industries#bfsi" },
-      { name: "Oil & Gas", href: "/industries#oil-gas" },
-      { name: "Aviation", href: "/industries#aviation" },
+      { name: "BFSI", href: "/industries#bfsi", ariaLabel: "Go to BFSI Industry" },
+      { name: "Oil & Gas", href: "/industries#oil-gas", ariaLabel: "Go to Oil & Gas Industry" },
+      { name: "Aviation", href: "/industries#aviation", ariaLabel: "Go to Aviation Industry" },
     ],
   },
 ];
@@ -37,6 +37,7 @@ export default function Footer() {
                   <Link
                     to={link.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
+                    aria-label={link.ariaLabel}
                   >
                     {link.name}
                   </Link>
@@ -56,6 +57,23 @@ export default function Footer() {
                   <Link
                     to={link.href}
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors focus-enterprise rounded"
+                    aria-label={link.ariaLabel}
+                    onClick={(e) => {
+                      if (link.href.includes('#')) {
+                        e.preventDefault();
+                        const [path, hash] = link.href.split('#');
+                        if (window.location.pathname === path) {
+                          const element = document.getElementById(hash);
+                          if (element) {
+                            const offset = 96;
+                            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+                            window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+                          }
+                        } else {
+                          window.location.href = link.href;
+                        }
+                      }
+                    }}
                   >
                     {link.name}
                   </Link>

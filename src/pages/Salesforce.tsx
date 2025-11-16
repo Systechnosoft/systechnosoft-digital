@@ -1062,7 +1062,7 @@ const Salesforce = () => {
                   asChild
                 >
                   <Link to="/contact">
-                    See a 6-week pilot plan
+                    Get a 6-week pilot plan
                   </Link>
                 </Button>
               </motion.div>

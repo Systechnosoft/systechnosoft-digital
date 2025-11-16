@@ -372,128 +372,151 @@ export default function Industries() {
         </div>
       </div>
 
-      {/* Tab Contents */}
+      {/* All Sections Displayed Vertically */}
       <div className="bg-background">
-        <div className={activeTab === "bfsi" ? 'block' : 'hidden'}>
-              <IndustrySection
-                title="BFSI"
-                icon={Building2}
-        lead="Modern banking is always-on and hyper-personal. We deliver cloud, data, and AI capabilities that keep you compliant, resilient, and delightfully fast."
-        outcomes={[
-          { value: "30%", label: "faster transaction processing" },
-          { value: "40-60%", label: "IT cost efficiency via automation" },
-          { value: "24×7", label: "uptime with quarterly DR validation" },
-        ]}
-        deliverables={[
-          { icon: Cloud, text: "Core banking cloud modernization & IaC" },
-          { icon: Network, text: "Open Banking APIs & consent (PSD2-ready gateways)" },
-          { icon: Database, text: "Data mesh & lakehouse governance" },
-          { icon: Activity, text: "Payments observability & SRE SLAs" },
-          { icon: Shield, text: "Real‑time fraud prevention (stream ML)" },
-          { icon: Workflow, text: "KYC/loan doc intelligence (RPA + OCR/LLM)" },
-          { icon: Lock, text: "Zero‑Trust IAM with step‑up auth" },
-          { icon: Server, text: "DR runbooks with cross‑region failover" },
-        ]}
-        architectureCards={[
-          { icon: Zap, label: "Streaming & Events", caption: "Event bus + CDC (Kafka style)" },
-          { icon: Database, label: "Lakehouse", caption: "Structured + unstructured at scale" },
-          { icon: CircuitBoard, label: "Model Serving", caption: "Real-time scoring endpoints" },
-          { icon: Shield, label: "Controls", caption: "Policy, keys, secrets, audit" },
-        ]}
-                complianceItems={["PCI-DSS", "SOC 2", "GDPR/DPDP", "ISO 27001", "SOX"]}
-              />
-            </div>
+        <IndustrySection
+          id="bfsi"
+          title="BFSI"
+          icon={Building2}
+          lead="Modern banking is always-on and hyper-personal. We deliver cloud, data, and AI capabilities that keep you compliant, resilient, and delightfully fast."
+          outcomes={[
+            { value: "30%", label: "faster transaction processing" },
+            { value: "40-60%", label: "IT cost efficiency via automation" },
+            { value: "24×7", label: "uptime with quarterly DR validation" },
+          ]}
+          deliverables={[
+            { icon: Cloud, text: "Core banking cloud modernization & IaC" },
+            { icon: Network, text: "Open Banking APIs & consent (PSD2-ready gateways)" },
+            { icon: Database, text: "Data mesh & lakehouse governance" },
+            { icon: Activity, text: "Payments observability & SRE SLAs" },
+            { icon: Shield, text: "Real‑time fraud prevention (stream ML)" },
+            { icon: Workflow, text: "KYC/loan doc intelligence (RPA + OCR/LLM)" },
+            { icon: Lock, text: "Zero‑Trust IAM with step‑up auth" },
+            { icon: Server, text: "DR runbooks with cross‑region failover" },
+          ]}
+          architectureCards={[
+            { icon: Cloud, label: "Multi‑cloud", caption: "AWS/Azure/GCP with terraform IaC" },
+            { icon: Database, label: "Data lakehouse", caption: "Medallion architecture (bronze/silver/gold)" },
+            { icon: Network, label: "API layer", caption: "Kong/Apigee gateway with rate limiting" },
+            { icon: Shield, label: "Compliance checks", caption: "Policy‑as‑code scans (OPA, Checkov)" },
+          ]}
+          complianceItems={[
+            "PCI‑DSS Level 1",
+            "ISO 27001",
+            "SOC 2 Type II",
+            "GDPR Article 25",
+            "RBI guidelines (India)",
+            "PSD2 (EU)",
+          ]}
+        />
 
-            <div className={activeTab === "healthcare" ? 'block' : 'hidden'}>
-              <IndustrySection
-                title="Healthcare"
-                icon={Heart}
-        lead="Interoperable records, AI-assisted care, and secure connected devices—built for clinicians and patients alike."
-        outcomes={[
-          { value: "20-30%", label: "operational efficiency lift" },
-          { value: "15%", label: "lower readmissions with predictive risk" },
-          { value: "99.97%", label: "platform uptime across 18 months" },
-        ]}
-        deliverables={[
-          { icon: FileCheck, text: "FHIR/HL7 integration & unified EHR data fabric" },
-          { icon: Activity, text: "Imaging AI workflow orchestration" },
-          { icon: Lock, text: "PHI tokenization & data minimization" },
-          { icon: TrendingUp, text: "CDSS & care‑pathway analytics" },
-          { icon: Heart, text: "Telehealth & patient portals" },
-          { icon: Radio, text: "Device/IoMT monitoring & alerts" },
-          { icon: Shield, text: "HIPAA logging & audit trails" },
-          { icon: Server, text: "DR drills & backup immutability" },
-        ]}
-        architectureCards={[
-          { icon: FileCheck, label: "FHIR Core", caption: "Normalized patient data" },
-          { icon: LineChart, label: "Analytics", caption: "Cohorting & quality KPIs" },
-          { icon: Radio, label: "IoMT Hub", caption: "Secure device ingress" },
-          { icon: Lock, label: "Privacy", caption: "De-identification + consent" },
-        ]}
-                complianceItems={["HIPAA", "HITRUST", "ISO 27001", "GDPR/DPDP"]}
-              />
-            </div>
+        <IndustrySection
+          id="healthcare"
+          title="Healthcare"
+          icon={Heart}
+          lead="Patient data is sacred. We secure it, unify it, and let you extract insights—all while meeting HIPAA, GDPR, and local privacy standards."
+          outcomes={[
+            { value: "2–4 hrs", label: "avg time to clinical insight (vs days)" },
+            { value: "Zero", label: "PHI breaches post-go-live" },
+            { value: "30%", label: "admin cost cut via workflow automation" },
+          ]}
+          deliverables={[
+            { icon: Lock, text: "HIPAA‑grade encryption & BAA compliance" },
+            { icon: Database, text: "FHIR‑based data integration (HL7/DICOM pipelines)" },
+            { icon: Activity, text: "Real‑time patient monitoring dashboards" },
+            { icon: Workflow, text: "Claims automation (OCR + NLP for coding)" },
+            { icon: Cloud, text: "Hybrid cloud (on‑prem EHR + cloud analytics)" },
+            { icon: Shield, text: "Audit logging & GDPR right‑to‑erasure tools" },
+            { icon: CircuitBoard, text: "IoT medical device connectivity (edge gateways)" },
+            { icon: LineChart, text: "Predictive analytics (readmission risk, resource planning)" },
+          ]}
+          architectureCards={[
+            { icon: Lock, label: "Zero‑Trust", caption: "mTLS, VPN, ephemeral credentials" },
+            { icon: Database, label: "FHIR server", caption: "Azure FHIR or AWS HealthLake" },
+            { icon: CircuitBoard, label: "Edge gateways", caption: "Azure IoT Edge for bedside devices" },
+            { icon: Shield, label: "Compliance engine", caption: "Automated HIPAA risk assessments" },
+          ]}
+          complianceItems={[
+            "HIPAA",
+            "GDPR Article 9 (health data)",
+            "HITRUST CSF",
+            "FDA 21 CFR Part 11 (eSignatures)",
+            "DISHA (India)",
+          ]}
+        />
 
-            <div className={activeTab === "aviation" ? 'block' : 'hidden'}>
-              <IndustrySection
-                title="Aviation"
-                icon={Plane}
-        lead="Predictive maintenance, real-time ops control, and passenger-first digital experiences—safely at scale."
-        outcomes={[
-          { value: "30-50%", label: "reduction in unplanned downtime" },
-          { value: "Multi-million", label: "annual fuel savings via route AI" },
-          { value: "Faster", label: "turnarounds and NPS lift" },
-        ]}
-        deliverables={[
-          { icon: Activity, text: "Ops control center analytics" },
-          { icon: Workflow, text: "Crew & gate optimization" },
-          { icon: Network, text: "Baggage tracking & disruption comms" },
-          { icon: Building2, text: "Digital twins for fleet & hubs" },
-          { icon: Shield, text: "Safety analytics & event reporting" },
-          { icon: Server, text: "Edge processing for bandwidth‑poor ops" },
-          { icon: Plane, text: "Routing/turn‑time optimization (ops ML)" },
-          { icon: Database, text: "DR plans for OCC continuity" },
-        ]}
-        architectureCards={[
-          { icon: Radio, label: "Edge Telemetry", caption: "On-aircraft sensor capture" },
-          { icon: LineChart, label: "Time-Series Store", caption: "Long-horizon trends" },
-          { icon: TrendingUp, label: "Optimization", caption: "Routing & crew ML" },
-          { icon: Shield, label: "Safety Layer", caption: "Hazard models + audits" },
-        ]}
-                complianceItems={["ISO 27001", "SOC 2", "DO-178C (guidance)", "EASA/IATA data practices"]}
-              />
-            </div>
+        <IndustrySection
+          id="aviation"
+          title="Aviation"
+          icon={Plane}
+          lead="Flight operations require 99.99% uptime and instant data. We build cloud-native ops hubs that unify IoT sensors, crew systems, and passenger touchpoints."
+          outcomes={[
+            { value: "99.99%", label: "ops platform uptime (geo‑redundant)" },
+            { value: "50%", label: "faster turnaround via predictive maintenance" },
+            { value: "Real‑time", label: "fleet tracking & fuel optimization" },
+          ]}
+          deliverables={[
+            { icon: Radio, text: "ACARS/OOOI data ingestion (real‑time flight telemetry)" },
+            { icon: Activity, text: "Predictive MRO (maintenance ML models)" },
+            { icon: Database, text: "Centralized ops data lake (weather, crew, fleet)" },
+            { icon: Cloud, text: "Multi‑region failover (EU + US + APAC)" },
+            { icon: Workflow, text: "Crew scheduling optimization (constraint solver)" },
+            { icon: Server, text: "Edge compute at airports (low‑latency baggage tracking)" },
+            { icon: Lock, text: "Secure passenger PII handling (PCI + GDPR)" },
+            { icon: LineChart, text: "Yield management & dynamic pricing analytics" },
+          ]}
+          architectureCards={[
+            { icon: Cloud, label: "Multi‑region", caption: "Active‑active Azure or AWS regions" },
+            { icon: Radio, label: "IoT mesh", caption: "Aircraft sensors → edge → cloud pipeline" },
+            { icon: Database, label: "Time‑series DB", caption: "InfluxDB or TimescaleDB for telemetry" },
+            { icon: Shield, label: "DR playbook", caption: "Quarterly failover drills, RTO < 15 min" },
+          ]}
+          complianceItems={[
+            "ISO 27001",
+            "IATA NDC standards",
+            "GDPR (passenger data)",
+            "TSA/FAA data security guidelines",
+          ]}
+        />
 
-            <div className={activeTab === "oil-gas" ? 'block' : 'hidden'}>
-              <IndustrySection
-                title="Oil & Gas"
-                icon={Factory}
-        lead="Digital oilfields—instrumented, automated, and safer. From wells to refineries, we turn data into decisions."
-        outcomes={[
-          { value: "10-40%", label: "maintenance cost reduction" },
-          { value: "5%+", label: "OEE improvement across assets" },
-          { value: "Fewer", label: "HSE incidents with real-time sensing" },
-        ]}
-        deliverables={[
-          { icon: Activity, text: "Predictive reliability (vibration/condition‑based)" },
-          { icon: TrendingUp, text: "Production optimization models" },
-          { icon: Network, text: "SCADA/PI integrations & historian sync" },
-          { icon: FileCheck, text: "Environmental & emissions reporting" },
-          { icon: Droplet, text: "Pipeline leak detection & real‑time alerts" },
-          { icon: Server, text: "Edge compute for remote/ATEX sites" },
-          { icon: Shield, text: "IEC‑62443 network segmentation" },
-          { icon: Database, text: "DR/BCP for plants & terminals" },
-        ]}
-        architectureCards={[
-          { icon: Radio, label: "Edge & Field", caption: "Rugged gateways" },
-          { icon: Server, label: "Historian Bridge", caption: "SCADA/PI sync" },
-          { icon: Database, label: "Lake + ML", caption: "Yield & anomaly models" },
-          { icon: Shield, label: "HSE Stack", caption: "Permits, incidents, audits" },
-        ]}
-                complianceItems={["IEC-62443", "ISO 14224", "SOC 2", "ISO 27001"]}
-              />
-            </div>
-          </div>
+        <IndustrySection
+          id="oil-gas"
+          title="Oil & Gas"
+          icon={Droplet}
+          lead="Edge devices generate terabytes daily. We turn sensor noise into safety insights and cost cuts with real-time ML on the edge and secure lake backends."
+          outcomes={[
+            { value: "20%", label: "operational cost cut via predictive alerts" },
+            { value: "3–5 hrs", label: "faster incident response (edge ML)" },
+            { value: "Zero", label: "unplanned downtime (last 12 months)" },
+          ]}
+          deliverables={[
+            { icon: CircuitBoard, text: "Edge ML (anomaly detection on rigs/refineries)" },
+            { icon: Database, text: "Unified data lake (SCADA, ERP, IoT streams)" },
+            { icon: Activity, text: "Real‑time dashboards (safety, throughput, emissions)" },
+            { icon: Cloud, text: "Hybrid architecture (on‑prem SCADA + cloud analytics)" },
+            { icon: Workflow, text: "Automated reporting (HSE, ESG compliance)" },
+            { icon: Lock, text: "OT security (network segmentation, IDS/IPS)" },
+            { icon: Factory, text: "Digital twin of facilities (simulation & optimization)" },
+            { icon: LineChart, text: "Predictive maintenance (pump/valve failure forecasts)" },
+          ]}
+          architectureCards={[
+            { icon: CircuitBoard, label: "Edge layer", caption: "AWS Greengrass or Azure IoT Edge at sites" },
+            { icon: Database, label: "Data lake", caption: "S3/ADLS with Delta Lake format" },
+            { icon: Shield, label: "OT firewall", caption: "Palo Alto or Fortinet for SCADA isolation" },
+            { icon: Activity, label: "Monitoring", caption: "Grafana + Prometheus for ops visibility" },
+          ]}
+          complianceItems={[
+            "ISO 27001",
+            "IEC 62443 (OT security)",
+            "API 1164 (pipeline SCADA)",
+            "NERC CIP (critical infrastructure)",
+            "EPA Tier II reporting (US)",
+          ]}
+        />
+
+        <FAQSection />
+        <CTASection />
+      </div>
     </>
   );
 }

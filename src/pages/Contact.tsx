@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
+import { motion } from "framer-motion";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { OfficeLocationsMap } from "@/components/OfficeLocationsMap";
 import { Button } from "@/components/ui/button";
@@ -254,202 +255,214 @@ export default function Contact() {
 
       <div className="py-12 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <Card className="card-enterprise">
-            <CardHeader>
-              <CardTitle className="text-2xl font-montserrat font-bold">
-                Send Us a Message
-              </CardTitle>
-              <CardDescription>
-                Tell us about your project and we'll get back to you within 24 hours
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {/* Contact Form - Centered */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.35 }}
+            className="w-full max-w-4xl mx-auto mb-12"
+          >
+            <Card className="card-enterprise">
+              <CardHeader>
+                <CardTitle className="text-2xl font-montserrat font-bold">
+                  Send Us a Message
+                </CardTitle>
+                <CardDescription>
+                  Tell us about your project and we'll get back to you within 24 hours
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name *</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your full name"
+                        required
+                        className="focus-enterprise"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Work Email *</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@company.com"
+                        required
+                        className="focus-enterprise"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Company *</Label>
+                      <Input
+                        id="company"
+                        name="company"
+                        value={formData.company}
+                        onChange={handleChange}
+                        placeholder="Your company name"
+                        required
+                        className="focus-enterprise"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="role">Role</Label>
+                      <Input
+                        id="role"
+                        name="role"
+                        value={formData.role}
+                        onChange={handleChange}
+                        placeholder="Your job title"
+                        className="focus-enterprise"
+                      />
+                    </div>
+                  </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="name">Name *</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                    <Label htmlFor="message">Message *</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
-                      placeholder="Your full name"
+                      placeholder="Tell us about your project, challenges, or questions..."
+                      rows={4}
                       required
                       className="focus-enterprise"
                     />
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Work Email *</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="your.email@company.com"
-                      required
-                      className="focus-enterprise"
-                    />
-                  </div>
-                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="company">Company *</Label>
-                    <Input
-                      id="company"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Your company name"
-                      required
-                      className="focus-enterprise"
+                  <div className="flex items-start space-x-2">
+                    <Checkbox
+                      id="consent"
+                      checked={formData.consent}
+                      onCheckedChange={handleConsentChange}
+                      className="mt-1"
                     />
+                    <Label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
+                      I agree to the processing of my personal data in accordance with the{" "}
+                      <Button variant="link" className="p-0 h-auto text-accent">
+                        Privacy Policy
+                      </Button>{" "}
+                      and{" "}
+                      <Button variant="link" className="p-0 h-auto text-accent">
+                        Terms of Service
+                      </Button>
+                      . *
+                    </Label>
                   </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="role">Role</Label>
-                    <Input
-                      id="role"
-                      name="role"
-                      value={formData.role}
-                      onChange={handleChange}
-                      placeholder="Your job title"
-                      className="focus-enterprise"
-                    />
-                  </div>
-                </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="message">Message *</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your project, challenges, or questions..."
-                    rows={4}
-                    required
-                    className="focus-enterprise"
-                  />
-                </div>
+                  <Button
+                    type="submit"
+                    size="lg"
+                    className="btn-hero w-full"
+                    disabled={isSubmitting || !isRecaptchaLoaded}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Loader2 className="h-4 w-4 animate-spin" />
+                        Verifying & Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </Button>
 
-                <div className="flex items-start space-x-2">
-                  <Checkbox
-                    id="consent"
-                    checked={formData.consent}
-                    onCheckedChange={handleConsentChange}
-                    className="mt-1"
-                  />
-                  <Label htmlFor="consent" className="text-sm text-muted-foreground leading-relaxed">
-                    I agree to the processing of my personal data in accordance with the{" "}
-                    <Button variant="link" className="p-0 h-auto text-accent">
+                  <p className="text-sm text-center text-muted-foreground font-medium">
+                    We'll respond within 24 hours.
+                  </p>
+
+                  <p className="text-xs text-center text-muted-foreground">
+                    Protected by reCAPTCHA v3 and subject to Google's{" "}
+                    <a
+                      href="https://policies.google.com/privacy"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
+                    >
                       Privacy Policy
-                    </Button>{" "}
-                    and{" "}
-                    <Button variant="link" className="p-0 h-auto text-accent">
-                      Terms of Service
-                    </Button>
-                    . *
-                  </Label>
+                    </a>
+                    {" "}and{" "}
+                    <a
+                      href="https://policies.google.com/terms"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
+                    >
+                      Terms
+                    </a>
+                    .
+                  </p>
+                </form>
+              </CardContent>
+            </Card>
+          </motion.div>
+
+          {/* Talk to a Human - Positioned above Office Locations */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="w-full max-w-5xl mx-auto mb-12"
+          >
+            <Card className="bg-white rounded-2xl shadow-sm border">
+              <CardHeader>
+                <CardTitle className="text-xl sm:text-2xl font-montserrat font-bold text-foreground flex items-center gap-2">
+                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-[#E52629]" aria-hidden="true" />
+                  Talk to a Human
+                </CardTitle>
+                <CardDescription className="text-sm sm:text-base">
+                  Prefer direct contact? Reach out to us directly
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center">
+                    <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-[#E52629]" aria-hidden="true" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">Email</p>
+                    <a 
+                      href="mailto:info@systechnosoft.in" 
+                      className="text-sm sm:text-base text-foreground hover:text-[#E52629] transition-colors break-all"
+                    >
+                      info@systechnosoft.in
+                    </a>
+                  </div>
                 </div>
-
-                <Button
-                  type="submit"
-                  size="lg"
-                  className="btn-hero w-full"
-                  disabled={isSubmitting || !isRecaptchaLoaded}
-                >
-                  {isSubmitting ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Verifying & Sending...
-                    </>
-                  ) : (
-                    "Send Message"
-                  )}
-                </Button>
-
-                <p className="text-sm text-center text-muted-foreground font-medium">
-                  We'll respond within 24 hours.
-                </p>
-
-                <p className="text-xs text-center text-muted-foreground">
-                  Protected by reCAPTCHA v3 and subject to Google's{" "}
-                  <a
-                    href="https://policies.google.com/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                  >
-                    Privacy Policy
-                  </a>
-                  {" "}and{" "}
-                  <a
-                    href="https://policies.google.com/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                  >
-                    Terms
-                  </a>
-                  .
-                </p>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Talk to a Human */}
-          <Card className="card-enterprise h-fit">
-            <CardHeader>
-              <CardTitle className="text-2xl font-montserrat font-bold">
-                Talk to a Human
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* Email */}
-              <div className="flex items-start space-x-4 group">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                  <Mail className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center">
+                    <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-[#E52629]" aria-hidden="true" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs sm:text-sm font-medium text-muted-foreground mb-1">Phone</p>
+                    <a 
+                      href="tel:+13473051255" 
+                      className="text-sm sm:text-base text-foreground hover:text-[#E52629] transition-colors"
+                    >
+                      +1 (347) 305-1255
+                    </a>
+                  </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-montserrat font-medium text-foreground mb-1">Email</h3>
-                  <a 
-                    href="mailto:info@systechnosoft.in" 
-                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
-                  >
-                    info@systechnosoft.in
-                  </a>
-                </div>
-              </div>
+              </CardContent>
+            </Card>
+          </motion.div>
 
-              {/* Phone */}
-              <div className="flex items-start space-x-4 group">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                  <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone</h3>
-                  <a 
-                    href="tel:+13473051255" 
-                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
-                  >
-                    +1 (347) 305-1255
-                  </a>
-                </div>
-              </div>
-
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Office Locations Map - Full Width Below */}
-        <div className="mt-8 lg:mt-10">
+          {/* Office Locations - Two Horizontal Cards Below */}
           <OfficeLocationsMap />
         </div>
       </div>
-    </div>
     </>
   );
 }

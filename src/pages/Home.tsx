@@ -528,17 +528,17 @@ export default function Home() {
               >
                 <Card className="card-enterprise group cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:scale-[1.02] border-2 border-gray-200 hover:border-[#E52629] flex flex-col h-full">
                   <CardHeader className="flex-none">
-                    <div className="text-center mb-4">
+                    <div className="text-center">
+                      <CardTitle className="text-lg font-montserrat font-bold min-h-[3.5rem] flex items-center justify-center mb-3">
+                        {study.title}
+                      </CardTitle>
                       <motion.div 
-                        className="text-4xl font-montserrat font-bold text-primary mb-2"
+                        className="text-4xl font-montserrat font-bold text-primary"
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
                         <CountUpNumber end={parseInt(study.metric)} duration={1500} suffix="%" startSeed={0} />
                       </motion.div>
-                      <CardTitle className="text-lg font-montserrat font-bold min-h-[3.5rem] flex items-center justify-center">
-                        {study.title}
-                      </CardTitle>
                     </div>
                   </CardHeader>
                   <CardContent className="text-center flex flex-col flex-1">

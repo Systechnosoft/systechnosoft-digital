@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { MapPin } from "lucide-react";
+import { MapPin, ExternalLink } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { useEffect, useRef } from "react";
 import L from "leaflet";
@@ -13,6 +13,7 @@ const offices = [
     lat: 40.6812395,
     lng: -73.9769144,
     zoom: 15,
+    mapUrl: "https://maps.app.goo.gl/oaDnrXqVnKTfaUGE6",
   },
   {
     id: "india-office",
@@ -21,6 +22,7 @@ const offices = [
     lat: 26.8311025,
     lng: 75.8436542,
     zoom: 15,
+    mapUrl: "https://maps.app.goo.gl/drsWAEUhjbJc5Y8U7",
   },
 ];
 
@@ -105,8 +107,7 @@ export function OfficeLocationsMap() {
             transition={{ duration: 0.35, delay: index * 0.1 }}
           >
             <Card 
-              className="overflow-hidden rounded-2xl shadow-sm border bg-white transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-0.5"
-              style={prefersReducedMotion ? { transform: 'none' } : undefined}
+              className="overflow-hidden rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-all duration-300 shadow-md hover:shadow-lg bg-white"
             >
               <div 
                 ref={(el) => (containerRefs.current[office.id] = el)}
@@ -115,9 +116,20 @@ export function OfficeLocationsMap() {
                 aria-label={`Map showing ${office.name} office location`}
               />
               <div className="p-5 sm:p-6">
-                <h3 className="font-montserrat font-bold text-lg sm:text-xl text-foreground mb-2">
-                  {office.name}
-                </h3>
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="font-montserrat font-bold text-lg sm:text-xl text-foreground">
+                    {office.name}
+                  </h3>
+                  <a
+                    href={office.mapUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0 text-[#E52629] hover:text-[#C41E21] transition-colors duration-200"
+                    aria-label={`Open ${office.name} office location in Google Maps`}
+                  >
+                    <ExternalLink className="h-5 w-5" />
+                  </a>
+                </div>
                 <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                   {office.address}
                 </p>

@@ -426,7 +426,6 @@ export default function Contact() {
             </div>
             <Card className="bg-white rounded-2xl shadow-sm border">
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-6">
-              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center">
                     <Mail className="h-5 w-5 sm:h-6 sm:w-6 text-[#E52629]" aria-hidden="true" />

@@ -1,89 +1,83 @@
-import { MapPin, ExternalLink } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { motion } from "framer-motion";
+import { MapPin } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 const offices = [
   {
     name: "United States",
     address: "49 5th Ave #1187, Brooklyn, NY 11217, United States",
-    mapsUrl: "https://maps.app.goo.gl/oaDnrXqVnKTfaUGE6",
     lat: 40.6892,
     lng: -73.9832,
+    zoom: 14,
   },
   {
     name: "India",
     address: "E-8, Railway Colony, Jagatpura, Jaipur, India",
-    mapsUrl: "https://maps.app.goo.gl/drsWAEUhjbJc5Y8U7",
     lat: 26.8467,
     lng: 75.7947,
+    zoom: 15,
   },
 ];
 
+// Google Static Maps API - brand red marker color (0xE52629)
+const getStaticMapUrl = (lat: number, lng: number, zoom: number, width: number, height: number) => {
+  const markerColor = "0xE52629";
+  return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&scale=2&markers=color:${markerColor}%7C${lat},${lng}&style=feature:poi%7Cvisibility:off&style=feature:transit%7Cvisibility:simplified&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`;
+};
+
 export function OfficeLocationsMap() {
   return (
-    <Card className="card-enterprise overflow-hidden">
-      <CardHeader>
-        <CardTitle className="text-2xl font-montserrat font-bold flex items-center gap-2">
-          <MapPin className="h-6 w-6 text-primary" />
+    <section aria-label="Office Locations" className="w-full max-w-5xl mx-auto space-y-6">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.35 }}
+      >
+        <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-8 flex items-center gap-3">
+          <MapPin className="h-7 w-7 text-[#E52629]" aria-hidden="true" />
           Office Locations
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        {/* Static Map with Markers - Using OpenStreetMap */}
-        <div className="relative w-full h-[320px] md:h-[360px] lg:h-[420px] bg-muted overflow-hidden">
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0832%2C40.5892%2C75.8947%2C26.9467&layer=mapnik&marker=40.6892%2C-73.9832&marker=26.8467%2C75.7947"
-            className="w-full h-full border-0"
-            title="Map showing Systechnosoft office locations in United States and India"
-            loading="lazy"
-            style={{ border: 0 }}
-            allowFullScreen
-            aria-label="Interactive map showing office locations"
-          />
-          <div className="absolute bottom-4 right-4 z-10">
-            <a
-              href="https://www.openstreetmap.org/?mlat=33.77&mlon=-25.88#map=2/33.77/-25.88"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 px-3 py-2 bg-white/95 backdrop-blur-sm rounded-lg shadow-md text-sm font-medium text-foreground hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-            >
-              View Larger Map
-              <ExternalLink className="h-3 w-3" />
-            </a>
-          </div>
-        </div>
+        </h2>
+      </motion.div>
 
-        {/* Office Address List */}
-        <div className="p-6 border-t bg-background">
-          <h3 className="sr-only">Office addresses</h3>
-          <div className="grid md:grid-cols-2 gap-6">
-            {offices.map((office) => (
-              <div key={office.name} className="flex items-start gap-4 group">
-                <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                  <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
-                </div>
-                <div className="flex-1">
-                  <h4 className="font-montserrat font-medium text-foreground mb-1">
-                    {office.name}
-                  </h4>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-2">
-                    {office.address}
-                  </p>
-                  <a
-                    href={office.mapsUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-sm text-primary hover:text-[#E52629] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                    aria-label={`Open ${office.name} office in Google Maps (opens in new tab)`}
-                  >
-                    Open in Google Maps
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
-                </div>
+      <div className="space-y-6">
+        {offices.map((office, index) => (
+          <motion.div
+            key={office.name}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.35, delay: index * 0.1 }}
+          >
+            <Card className="overflow-hidden rounded-2xl shadow-sm border bg-white">
+              <div className="p-0">
+                <img
+                  src={getStaticMapUrl(office.lat, office.lng, office.zoom, 1200, 420)}
+                  srcSet={`
+                    ${getStaticMapUrl(office.lat, office.lng, office.zoom, 640, 320)} 640w,
+                    ${getStaticMapUrl(office.lat, office.lng, office.zoom, 800, 360)} 800w,
+                    ${getStaticMapUrl(office.lat, office.lng, office.zoom, 1200, 420)} 1200w
+                  `}
+                  sizes="(max-width: 640px) 640px, (max-width: 1024px) 800px, 1200px"
+                  alt={`Map of Systechnosoft ${office.name} office at ${office.address}`}
+                  className="w-full h-auto object-cover"
+                  loading="lazy"
+                  decoding="async"
+                  fetchPriority="low"
+                />
               </div>
-            ))}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+              <div className="p-4">
+                <h3 className="font-montserrat font-bold text-lg text-foreground mb-1">
+                  {office.name}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {office.address}
+                </p>
+              </div>
+            </Card>
+          </motion.div>
+        ))}
+      </div>
+    </section>
   );
 }

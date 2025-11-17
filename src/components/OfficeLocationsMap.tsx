@@ -19,10 +19,10 @@ const offices = [
   },
 ];
 
-// Google Static Maps API - brand red marker color (0xE52629)
+// OpenStreetMap static map - using StaticMap service
 const getStaticMapUrl = (lat: number, lng: number, zoom: number, width: number, height: number) => {
-  const markerColor = "0xE52629";
-  return `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&scale=2&markers=color:${markerColor}%7C${lat},${lng}&style=feature:poi%7Cvisibility:off&style=feature:transit%7Cvisibility:simplified&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`;
+  // Using OpenStreetMap tiles via staticmap service
+  return `https://staticmap.openstreetmap.de/staticmap.php?center=${lat},${lng}&zoom=${zoom}&size=${width}x${height}&maptype=mapnik&markers=${lat},${lng},red-pushpin`;
 };
 
 export function OfficeLocationsMap() {
@@ -35,8 +35,9 @@ export function OfficeLocationsMap() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
         transition={{ duration: 0.35 }}
+        className="text-center mb-8"
       >
-        <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-8 flex items-center gap-3">
+        <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground flex items-center justify-center gap-3">
           <MapPin className="h-7 w-7 text-[#E52629]" aria-hidden="true" />
           Office Locations
         </h2>

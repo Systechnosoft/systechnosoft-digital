@@ -263,15 +263,15 @@ export default function Contact() {
             transition={{ duration: 0.35 }}
             className="w-full max-w-4xl mx-auto mb-12"
           >
+            <div className="mb-8 text-center">
+              <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-3">
+                Send Us a Message
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground">
+                Tell us about your project and we'll get back to you within 24 hours
+              </p>
+            </div>
             <Card className="card-enterprise">
-              <CardHeader>
-                <CardTitle className="text-2xl font-montserrat font-bold">
-                  Send Us a Message
-                </CardTitle>
-                <CardDescription>
-                  Tell us about your project and we'll get back to you within 24 hours
-                </CardDescription>
-              </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -416,16 +416,16 @@ export default function Contact() {
             transition={{ duration: 0.35, delay: 0.1 }}
             className="w-full max-w-5xl mx-auto mb-12"
           >
+            <div className="mb-6 text-center">
+              <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-2">
+                Talk to a Human
+              </h2>
+              <p className="text-base text-muted-foreground">
+                Prefer direct contact? Reach out to us directly
+              </p>
+            </div>
             <Card className="bg-white rounded-2xl shadow-sm border">
-              <CardHeader>
-                <CardTitle className="text-xl sm:text-2xl font-montserrat font-bold text-foreground flex items-center gap-2">
-                  <Phone className="h-5 w-5 sm:h-6 sm:w-6 text-[#E52629]" aria-hidden="true" />
-                  Talk to a Human
-                </CardTitle>
-                <CardDescription className="text-sm sm:text-base">
-                  Prefer direct contact? Reach out to us directly
-                </CardDescription>
-              </CardHeader>
+              <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 pt-6">
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                 <div className="flex items-center gap-3 sm:gap-4">
                   <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-[#E52629]/10 flex items-center justify-center">

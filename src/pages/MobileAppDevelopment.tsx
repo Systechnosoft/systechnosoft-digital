@@ -256,9 +256,9 @@ export default function MobileAppDevelopment() {
             {[
               { id: "overview", label: "Overview" },
               { id: "capabilities", label: "Capabilities" },
-              { id: "process", label: "Process" },
               { id: "standards", label: "Standards" },
               { id: "integrations", label: "Integrations" },
+              { id: "process", label: "Process" },
               { id: "performance", label: "Performance" },
               { id: "security", label: "Security" },
               { id: "faq", label: "FAQ" }

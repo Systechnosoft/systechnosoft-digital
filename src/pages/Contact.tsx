@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { MapPin, Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
+import { Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { OfficeLocationsMap } from "@/components/OfficeLocationsMap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -423,29 +424,13 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Phone - India */}
+              {/* Phone */}
               <div className="flex items-start space-x-4 group">
                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
                   <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
                 </div>
                 <div className="flex-1">
-                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone (India)</h3>
-                  <a 
-                    href="tel:+918562882887" 
-                    className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
-                  >
-                    +91 (856) 288-2887
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone - US */}
-              <div className="flex items-start space-x-4 group">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                  <Phone className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
-                </div>
-                <div className="flex-1">
-                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone (US)</h3>
+                  <h3 className="font-montserrat font-medium text-foreground mb-1">Phone</h3>
                   <a 
                     href="tel:+13473051255" 
                     className="text-muted-foreground hover:text-[#E52629] transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded"
@@ -455,40 +440,13 @@ export default function Contact() {
                 </div>
               </div>
 
-              {/* Separator */}
-              <div className="border-t border-border pt-6">
-                <h3 className="font-montserrat font-semibold text-foreground mb-4">Office Locations</h3>
-                
-                {/* India Office */}
-                <div className="flex items-start space-x-4 mb-6 group">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                    <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-montserrat font-medium text-foreground mb-1">India</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      E‑8, Railway Colony, Jagatpura<br />
-                      Jaipur, India
-                    </p>
-                  </div>
-                </div>
-
-                {/* US Office */}
-                <div className="flex items-start space-x-4 group">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 transition-colors group-hover:bg-[#E52629]/10">
-                    <MapPin className="h-5 w-5 text-primary transition-colors group-hover:text-[#E52629]" />
-                  </div>
-                  <div className="flex-1">
-                    <h4 className="font-montserrat font-medium text-foreground mb-1">United States</h4>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      49 5th Ave #1187<br />
-                      Brooklyn, NY 11217, United States
-                    </p>
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Office Locations Map - Full Width Below */}
+        <div className="mt-8 lg:mt-10">
+          <OfficeLocationsMap />
         </div>
       </div>
     </div>

@@ -1,21 +1,59 @@
-import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { useEffect, useState } from "react";
 import { MapPin, ExternalLink } from "lucide-react";
-import L from "leaflet";
-import "leaflet/dist/leaflet.css";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-// Fix default marker icon issue with Leaflet + Vite
-delete (L.Icon.Default.prototype as any)._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
-  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
-});
+const offices = [
+  {
+    name: "United States",
+    position: [40.6892, -73.9832] as [number, number],
+    address: "49 5th Ave #1187, Brooklyn, NY 11217, United States",
+    mapsUrl: "https://maps.app.goo.gl/oaDnrXqVnKTfaUGE6",
+  },
+  {
+    name: "India",
+    position: [26.8467, 75.7947] as [number, number],
+    address: "E-8, Railway Colony, Jagatpura, Jaipur, India",
+    mapsUrl: "https://maps.app.goo.gl/drsWAEUhjbJc5Y8U7",
+  },
+];
 
-// Custom red marker icon
-const createRedIcon = () => {
-  return L.divIcon({
+// Lazy-loaded Map Component
+function MapView() {
+  const [mapComponents, setMapComponents] = useState<any>(null);
+  const [L, setL] = useState<any>(null);
+
+  useEffect(() => {
+    // Dynamically import react-leaflet and leaflet
+    Promise.all([
+      import("react-leaflet"),
+      import("leaflet"),
+      import("leaflet/dist/leaflet.css")
+    ]).then(([reactLeaflet, leaflet]) => {
+      // Fix default marker icon issue
+      delete (leaflet.Icon.Default.prototype as any)._getIconUrl;
+      leaflet.Icon.Default.mergeOptions({
+        iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+        iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
+      });
+
+      setMapComponents(reactLeaflet);
+      setL(leaflet);
+    });
+  }, []);
+
+  if (!mapComponents || !L) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <div className="animate-pulse text-muted-foreground">Loading map...</div>
+      </div>
+    );
+  }
+
+  const { MapContainer, TileLayer, Marker, Popup } = mapComponents;
+
+  // Custom red marker icon
+  const redIcon = L.divIcon({
     className: "custom-marker",
     html: `
       <div style="
@@ -39,26 +77,60 @@ const createRedIcon = () => {
     iconAnchor: [16, 32],
     popupAnchor: [0, -32],
   });
-};
 
-const offices = [
-  {
-    name: "United States",
-    position: [40.6892, -73.9832] as [number, number],
-    address: "49 5th Ave #1187, Brooklyn, NY 11217, United States",
-    mapsUrl: "https://maps.app.goo.gl/oaDnrXqVnKTfaUGE6",
-  },
-  {
-    name: "India",
-    position: [26.8467, 75.7947] as [number, number],
-    address: "E-8, Railway Colony, Jagatpura, Jaipur, India",
-    mapsUrl: "https://maps.app.goo.gl/drsWAEUhjbJc5Y8U7",
-  },
-];
+  return (
+    <MapContainer
+      center={[33.77, -25.88]}
+      zoom={2}
+      className="w-full h-full"
+      scrollWheelZoom={false}
+      keyboard={true}
+      whenCreated={(map: any) => {
+        // Fit bounds to show both markers
+        const bounds = L.latLngBounds(offices.map((office: any) => office.position));
+        map.fitBounds(bounds, { padding: [50, 50] });
+      }}
+      aria-label="Map showing Systechnosoft office locations"
+    >
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      
+      {offices.map((office) => (
+        <Marker 
+          key={office.name} 
+          position={office.position}
+          icon={redIcon}
+        >
+          <Popup closeButton={true} maxWidth={250}>
+            <div className="p-2">
+              <h3 className="font-montserrat font-semibold text-base mb-2 text-foreground">
+                Systechnosoft — {office.name}
+              </h3>
+              <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
+                {office.address}
+              </p>
+              <a
+                href={office.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-sm text-primary hover:text-[#E52629] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded px-2 py-1"
+                aria-label={`Open ${office.name} office in Google Maps`}
+              >
+                Open in Maps
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          </Popup>
+        </Marker>
+      ))}
+    </MapContainer>
+  );
+}
 
 export function OfficeLocationsMap() {
   const [isMapReady, setIsMapReady] = useState(false);
-  const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     // Lazy load map when component is in viewport
@@ -80,14 +152,6 @@ export function OfficeLocationsMap() {
     return () => observer.disconnect();
   }, []);
 
-  const handleMapReady = (map: L.Map) => {
-    mapRef.current = map;
-    
-    // Fit bounds to show both markers with padding
-    const bounds = L.latLngBounds(offices.map(office => office.position));
-    map.fitBounds(bounds, { padding: [50, 50] });
-  };
-
   return (
     <Card className="card-enterprise overflow-hidden">
       <CardHeader>
@@ -103,59 +167,7 @@ export function OfficeLocationsMap() {
           className="relative w-full h-[320px] md:h-[360px] lg:h-[420px] bg-muted"
           style={{ minHeight: "320px" }}
         >
-          {isMapReady ? (
-            <MapContainer
-              center={[33.77, -25.88]} // Midpoint between locations
-              zoom={2}
-              className="w-full h-full"
-              ref={(mapInstance) => {
-                if (mapInstance) handleMapReady(mapInstance);
-              }}
-              scrollWheelZoom={false}
-              keyboard={true}
-              aria-label="Map showing Systechnosoft office locations"
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                className="map-tiles"
-              />
-              
-              {offices.map((office) => (
-                <Marker 
-                  key={office.name} 
-                  position={office.position}
-                  icon={createRedIcon()}
-                  aria-label={`Systechnosoft ${office.name} office`}
-                >
-                  <Popup
-                    className="custom-popup"
-                    closeButton={true}
-                    maxWidth={250}
-                  >
-                    <div className="p-2">
-                      <h3 className="font-montserrat font-semibold text-base mb-2 text-foreground">
-                        Systechnosoft — {office.name}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-3 leading-relaxed">
-                        {office.address}
-                      </p>
-                      <a
-                        href={office.mapsUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1 text-sm text-primary hover:text-[#E52629] font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded px-2 py-1"
-                        aria-label={`Open ${office.name} office in Google Maps`}
-                      >
-                        Open in Maps
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </div>
-                  </Popup>
-                </Marker>
-              ))}
-            </MapContainer>
-          ) : (
+          {isMapReady ? <MapView /> : (
             <div className="flex items-center justify-center h-full">
               <div className="animate-pulse text-muted-foreground">Loading map...</div>
             </div>

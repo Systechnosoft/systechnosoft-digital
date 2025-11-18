@@ -141,7 +141,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors min-h-[44px] flex items-center"
+                          className="brand-underline-link block px-3 py-2 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors min-h-[44px] flex items-center"
                            onClick={() => {
                             handleLinkClick(category, item.name, item.href);
                           }}
@@ -236,7 +236,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                         <Link
                           key={item.name}
                           to={item.href}
-                          className="block rounded-md px-2 py-1 text-[15px] text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
+                          className="brand-underline-link block rounded-md px-2 py-1 text-[15px] text-slate-700 hover:text-rose-600 hover:bg-rose-50 transition-colors duration-150 min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
                            onClick={() => {
                              handleLinkClick(category, item.name, item.href);
                            }}

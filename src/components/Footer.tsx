@@ -100,7 +100,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 text-[15px] text-neutral-800 mb-4">
             <Link 
               to="/about" 
-              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="About Us"
             >
               About Us
@@ -108,7 +108,7 @@ export default function Footer() {
             <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/contact" 
-              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Contact"
             >
               Contact
@@ -116,7 +116,7 @@ export default function Footer() {
             <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/careers" 
-              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Careers"
             >
               Careers
@@ -124,7 +124,7 @@ export default function Footer() {
             <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/privacy-policy" 
-              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Privacy Policy"
             >
               Privacy Policy
@@ -132,7 +132,7 @@ export default function Footer() {
             <span className="text-neutral-400" aria-hidden="true">•</span>
             <Link 
               to="/cookie-policy" 
-              className="inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] hover:underline hover:underline-offset-4 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
+              className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Cookie Policy"
             >
               Cookie Policy

@@ -535,3 +535,22 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     color: white !important;
   }
 }
+
+/* Footer link animated underline */
+.footer-link-underline {
+  @apply relative inline-block;
+}
+
+.footer-link-underline::after {
+  content: '';
+  @apply absolute left-0 bottom-0 w-full h-0.5;
+  background-color: #E52629;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 200ms ease-out;
+}
+
+.footer-link-underline:hover::after,
+.footer-link-underline:focus-visible::after {
+  transform: scaleX(1);
+}

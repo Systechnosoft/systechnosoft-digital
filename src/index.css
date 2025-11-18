@@ -536,12 +536,12 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   }
 }
 
-/* Footer link animated underline */
-.footer-link-underline {
+/* Brand link animated underline - reusable across footer and services menu */
+.brand-underline-link {
   @apply relative inline-block;
 }
 
-.footer-link-underline::after {
+.brand-underline-link::after {
   content: '';
   @apply absolute left-0 bottom-0 w-full h-0.5;
   background-color: #E52629;
@@ -550,7 +550,19 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   transition: transform 200ms ease-out;
 }
 
-.footer-link-underline:hover::after,
-.footer-link-underline:focus-visible::after {
+.brand-underline-link:hover::after,
+.brand-underline-link:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .brand-underline-link::after {
+    transition: none;
+  }
+  
+  .brand-underline-link:hover::after,
+  .brand-underline-link:focus-visible::after {
+    transform: scaleX(1);
+  }
 }

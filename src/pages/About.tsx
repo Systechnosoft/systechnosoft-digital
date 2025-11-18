@@ -11,37 +11,64 @@ import {
   Award,
   Globe,
   TrendingUp,
-  BookOpen,
   Rocket,
   Shield,
   Code,
   Lightbulb,
-  UserCheck,
-  ChevronDown
+  MapPin,
+  Server,
+  Cpu,
+  Database,
+  Cloud,
+  Play,
+  Pause
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import ServiceHero from "@/components/ServiceHero";
+import { HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
+import { useConsultationStore } from "@/lib/consultation-store";
+import ContactFormSection from "@/components/ContactFormSection";
 
 const About = () => {
   const shouldReduceMotion = useReducedMotion();
   const [activeSection, setActiveSection] = useState("vision-mission");
+  const [isPlaying, setIsPlaying] = useState(true);
+  const { openCalendly } = useConsultationStore();
 
   // Navigation items
   const navItems = [
     { id: "vision-mission", label: "Vision & Mission" },
-    { id: "story", label: "Our Story" },
-    { id: "leadership", label: "Leadership" },
-    { id: "life", label: "Life @ Systechnosoft" },
+    { id: "what-we-do", label: "What We Do" },
+    { id: "how-we-deliver", label: "How We Deliver" },
+    { id: "proof-trust", label: "Proof & Trust" },
     { id: "values", label: "Values" },
-    { id: "impact", label: "Global Impact" },
+    { id: "global-presence", label: "Global Presence" },
     { id: "faqs", label: "FAQs" },
     { id: "contact", label: "Contact" }
+  ];
+
+  // Hero cards for motion system
+  const heroCards = [
+    {
+      icon: "🏗️",
+      title: "IT Infrastructure",
+      benefit: "Cloud, data centers, migration, backup & recovery for enterprise scale."
+    },
+    {
+      icon: "⚡",
+      title: "Low‑code Platforms",
+      benefit: "Appian and Salesforce workflows that reduce development time by 60%."
+    },
+    {
+      icon: "🤖",
+      title: "AI & Automation",
+      benefit: "NLP, analytics, and intelligent automation for smarter operations."
+    }
   ];
 
   // Scroll spy effect
@@ -67,57 +94,6 @@ const About = () => {
       observers.forEach(observer => observer?.disconnect());
     };
   }, []);
-
-  // Timeline data
-  const timeline = [
-    {
-      year: "2020",
-      title: "Founded in Jaipur, IN",
-      description: "First enterprise low-code wins; set the vision for AI-assisted delivery."
-    },
-    {
-      year: "2021",
-      title: "Delivery scale-up",
-      description: "10+ engineers; cross-industry pilots; formalized QA and SRE playbooks."
-    },
-    {
-      year: "2022",
-      title: "Multi-region projects",
-      description: "BFSI, Oil & Gas, Healthcare programs; DR drills and zero-trust baselines."
-    },
-    {
-      year: "2023",
-      title: "Global reach",
-      description: "Partner ecosystem; data/AI accelerators; design system v2."
-    },
-    {
-      year: "2024–25",
-      title: "Platform excellence",
-      description: "Repeatable landing zones, evaluation harnesses, observability kits."
-    }
-  ];
-
-  // Leadership data
-  const leadership = [
-    {
-      name: "Sandeep",
-      title: "Founder",
-      bio: "Automation strategy, delivery excellence, long-horizon roadmaps.",
-      icon: Target
-    },
-    {
-      name: "Keshav",
-      title: "Head of Growth",
-      bio: "Low-code solutioning, value engineering, executive advisory.",
-      icon: TrendingUp
-    },
-    {
-      name: "Sachin",
-      title: "Practice Head",
-      bio: "Platform governance, CI/CD, security by design.",
-      icon: Shield
-    }
-  ];
 
   // Culture pillars
   const culturePillars = [

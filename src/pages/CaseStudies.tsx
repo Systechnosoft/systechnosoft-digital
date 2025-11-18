@@ -260,9 +260,9 @@ export default function CaseStudies() {
           title="Case Studies"
           subtitle="Real outcomes across BFSI, Healthcare, Aviation, and Oil & Gas—delivered with cloud, data, and AI."
           uspChips={[
-            "ISO 27001",
-            "SOC 2",
-            "GDPR/DPDP aware"
+            "Faster operations",
+            "Smarter decisions",
+            "Stronger compliance"
           ]}
           primaryButton={{
             text: "See Industries →",

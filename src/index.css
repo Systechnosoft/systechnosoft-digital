@@ -538,7 +538,7 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
 
 /* Brand link animated underline - reusable across footer and services menu */
 .brand-underline-link {
-  @apply relative inline-block;
+  @apply relative;
 }
 
 .brand-underline-link::after {

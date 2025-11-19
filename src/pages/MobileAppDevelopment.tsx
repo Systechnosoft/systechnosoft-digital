@@ -14,6 +14,7 @@ import {
 import ServiceHero from "@/components/ServiceHero";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/hero-mobile-app-development-new.avif";
 
 // Animation variants
 const fadeUpVariants = {
@@ -244,8 +245,11 @@ export default function MobileAppDevelopment() {
           ariaLabel: "Claim your free insight"
         }}
         image={{
+          src: heroImage,
           alt: "Mobile App Development Services",
-          placeholderPrompt: "A modern mobile app development workspace showing iOS and Android devices with elegant app interfaces, CI/CD pipelines, and code on screens"
+          placeholderPrompt: "A modern mobile app development workspace showing iOS and Android devices with elegant app interfaces, CI/CD pipelines, and code on screens",
+          width: 1270,
+          height: 847
         }}
       />
 

@@ -26,6 +26,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ServiceHero from "@/components/ServiceHero";
 import { CountUpNumber } from "@/components/CountUpNumber";
+import heroImage from "@/assets/hero-case-studies-new.avif";
 
 // Industry navigation items
 const industryNav = [
@@ -273,8 +274,11 @@ export default function CaseStudies() {
             href: "/contact"
           }}
           image={{
+            src: heroImage,
             alt: "Case Studies",
-            placeholderPrompt: "A professional showcase of successful technology projects across different industries, with charts, metrics, and industry icons"
+            placeholderPrompt: "A professional showcase of successful technology projects across different industries, with charts, metrics, and industry icons",
+            width: 1270,
+            height: 847
           }}
         />
 

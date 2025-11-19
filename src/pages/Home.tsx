@@ -332,19 +332,19 @@ export default function Home() {
 
         {/* KPI Pills */}
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-5 place-items-stretch">
-          <div className="bg-[#FFE7E8] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+          <div className="bg-[#FFE7E8] rounded-[28px] border-2 border-gray-200 hover:border-[#E52629] px-6 py-4 text-center shadow-md hover:shadow-lg transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
             <span className="text-2xl font-montserrat font-bold text-[#E52629]">40%</span>
             <span className="text-[#1C1C1C] text-sm ml-2">faster F2B trading workflows (Banking, AU)</span>
           </div>
-          <div className="bg-[#EAF3FF] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+          <div className="bg-[#EAF3FF] rounded-[28px] border-2 border-gray-200 hover:border-[#E52629] px-6 py-4 text-center shadow-md hover:shadow-lg transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
             <span className="text-2xl font-montserrat font-bold text-[#007AFF]">30%</span>
             <span className="text-[#1C1C1C] text-sm ml-2">efficiency gain in workforce ops (Oil & Gas, US)</span>
           </div>
-          <div className="bg-[#FFE7E8] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+          <div className="bg-[#FFE7E8] rounded-[28px] border-2 border-gray-200 hover:border-[#E52629] px-6 py-4 text-center shadow-md hover:shadow-lg transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
             <span className="text-2xl font-montserrat font-bold text-[#E52629]">20%</span>
             <span className="text-[#1C1C1C] text-sm ml-2">HR cost reduction (UK)</span>
           </div>
-          <div className="bg-[#EAF3FF] rounded-[28px] border border-[#E6E6E6] px-6 py-4 text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-transform hover:translate-y-[-2px]">
+          <div className="bg-[#EAF3FF] rounded-[28px] border-2 border-gray-200 hover:border-[#E52629] px-6 py-4 text-center shadow-md hover:shadow-lg transition-colors duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2">
             <span className="text-2xl font-montserrat font-bold text-[#007AFF]">50%</span>
             <span className="text-[#1C1C1C] text-sm ml-2">faster intercompany processing (UK FS)</span>
           </div>
@@ -590,7 +590,7 @@ export default function Home() {
                   {industryOutcomes.slice(0, 2).map((outcome, index) => (
                     <motion.div
                       key={index}
-                      className={`${outcome.bgColor} rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2`}
+                      className={`${outcome.bgColor} rounded-[32px] border-2 border-gray-200 hover:border-[#E52629] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-md hover:shadow-lg cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2`}
                       onMouseEnter={() => {
                         setSelectedIndustry(outcome.industry as keyof typeof industryDetails);
                         setIsCarouselPaused(true);
@@ -602,8 +602,6 @@ export default function Home() {
                       tabIndex={0}
                       role="button"
                       aria-label={`${outcome.metric} ${outcome.description} in ${outcome.region}`}
-                      whileHover={{ scale: 1.02 }}
-                      transition={{ duration: 0.2 }}
                     >
                       <div>
                         <span className={`text-2xl font-montserrat font-bold ${outcome.textColor}`}>
@@ -620,7 +618,7 @@ export default function Home() {
                   ))}
                   {/* Full-width Aviation chip */}
                   <motion.div
-                    className="sm:col-span-2 bg-[#F7F7F7] rounded-[32px] border border-[#E6E6E6] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-[0_1px_2px_rgba(0,0,0,0.04)] cursor-pointer transition-all duration-300 hover:translate-y-[-4px] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2"
+                    className="sm:col-span-2 bg-[#F7F7F7] rounded-[32px] border-2 border-gray-200 hover:border-[#E52629] px-5 py-3.5 min-h-[96px] flex items-center justify-center text-center shadow-md hover:shadow-lg cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#E52629] focus:ring-offset-2"
                     onMouseEnter={() => {
                       setSelectedIndustry("Aviation");
                       setIsCarouselPaused(true);
@@ -632,8 +630,6 @@ export default function Home() {
                     tabIndex={0}
                     role="button"
                     aria-label="25% quicker content orchestration in Aviation"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
                   >
                     <div>
                       <span className="text-2xl font-montserrat font-bold text-[#1C1C1C]">

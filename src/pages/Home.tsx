@@ -10,7 +10,6 @@ import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { motion } from "framer-motion";
-import { ScrollDepthSection } from "@/components/ScrollDepthSection";
 
 const pillars = [
   {
@@ -315,12 +314,11 @@ export default function Home() {
       </section>
 
       {/* Why Systechnosoft */}
-      <ScrollDepthSection intensity="low">
-        <section 
-          id="why"
-          aria-labelledby="why-title"
-          className="py-14 sm:py-16 lg:py-20 bg-white"
-        >
+      <section 
+        id="why"
+        aria-labelledby="why-title"
+        className="py-14 sm:py-16 lg:py-20 bg-white"
+      >
       <div className="max-w-[1100px] mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 
           id="why-title"
@@ -564,16 +562,14 @@ export default function Home() {
             ))}
           </div>
         </div>
-        </section>
-      </ScrollDepthSection>
+      </section>
 
       {/* Industries We Serve */}
-      <ScrollDepthSection intensity="medium">
-        <section 
-          id="industries" 
-          aria-labelledby="industries-title"
-          className="py-8 sm:py-10 lg:py-12 bg-white"
-        >
+      <section 
+        id="industries" 
+        aria-labelledby="industries-title"
+        className="py-8 sm:py-10 lg:py-12 bg-white"
+      >
         <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-6 lg:gap-8 items-start">
             {/* Left Column - Outcome Chips */}
@@ -694,12 +690,10 @@ export default function Home() {
             </motion.div>
           </div>
         </div>
-        </section>
-      </ScrollDepthSection>
+      </section>
 
       {/* What Clients Achieve */}
-      <ScrollDepthSection intensity="low">
-        <section className="py-20 bg-background">
+      <section className="py-20 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-montserrat font-bold text-foreground mb-4">
@@ -745,8 +739,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        </section>
-      </ScrollDepthSection>
+      </section>
 
       {/* Final CTA */}
       <section className="py-20 bg-primary">

@@ -7,6 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import ServiceHero from "@/components/ServiceHero";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import heroImage from "@/assets/hero-industries.avif";
 import {
   TrendingUp,
   Shield,
@@ -307,8 +308,10 @@ export default function Industries() {
           href: "/contact"
         }}
         image={{
+          src: heroImage,
           alt: "Industries We Serve",
-          placeholderPrompt: "A professional illustration showing multiple industry sectors (banking, healthcare, aviation, energy) connected by cloud technology and data flows"
+          width: 1270,
+          height: 847
         }}
       />
 

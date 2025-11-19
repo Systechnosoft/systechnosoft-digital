@@ -28,7 +28,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-y-4 mb-3 lg:mb-3 lg:grid-cols-[1fr_auto_1fr] lg:items-start lg:gap-x-[clamp(24px,4vw,48px)]">
           {/* Services - Left */}
           <div className="max-w-72 lg:justify-self-start lg:text-left">
-            <h3 className="font-montserrat font-medium text-foreground mb-4">
+            <h3 className="font-montserrat font-semibold text-base tracking-wide text-foreground mb-4">
               Services
             </h3>
             <ul className="space-y-2">
@@ -48,7 +48,7 @@ export default function Footer() {
 
           {/* Industries - Center */}
           <div className="max-w-72 lg:justify-self-center lg:text-center">
-            <h3 className="font-montserrat font-medium text-foreground mb-4">
+            <h3 className="font-montserrat font-semibold text-base tracking-wide text-foreground mb-4">
               Industries
             </h3>
             <ul className="space-y-2">
@@ -68,7 +68,7 @@ export default function Footer() {
 
           {/* Contact Info - Right */}
           <div className="max-w-72 lg:justify-self-end lg:text-left">
-            <h3 className="font-montserrat font-medium text-foreground mb-4">
+            <h3 className="font-montserrat font-semibold text-base tracking-wide text-foreground mb-4">
               Systechnosoft Technologies
             </h3>
             <div className="space-y-2">

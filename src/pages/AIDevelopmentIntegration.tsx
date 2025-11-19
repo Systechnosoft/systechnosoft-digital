@@ -10,7 +10,7 @@ import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown, GitBra
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/hero-ai-development.png";
+import heroImage from "@/assets/hero-ai-development.avif";
 
 // Animation variants
 const fadeUpVariants = {
@@ -254,22 +254,32 @@ export default function AIDevelopmentIntegration() {
                 </motion.div>
               </motion.div>
 
-              {/* Right Column - Hero Visual */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+              {/* Right Column - Hero Image */}
+              <motion.figure
+                initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative"
+                className="ai-dev-hero__art relative isolate group"
               >
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl border border-border bg-card">
-                  <img 
-                    src={heroImage} 
-                    alt="AI Development and Integration illustration showing connected building blocks and nodes"
-                    className="w-full h-auto"
-                    loading="eager"
-                  />
-                </div>
-              </motion.div>
+                <img 
+                  src={heroImage}
+                  width={1270}
+                  height={847}
+                  alt="AI Development and Integration platform showing connected building blocks and intelligent automation"
+                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]"
+                  loading="eager"
+                  decoding="async"
+                  sizes="(min-width: 1024px) 48vw, 92vw"
+                />
+                {/* Subtle brand glow */}
+                <span 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                  style={{
+                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #9333EA 10%, transparent 70%)`
+                  }}
+                />
+              </motion.figure>
 
             </div>
         </div>

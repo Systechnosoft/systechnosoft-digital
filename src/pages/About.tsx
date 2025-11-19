@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ContactFormSection } from "@/components/ContactFormSection";
+import ContactFormSection from "@/components/ContactFormSection";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/lib/scrollUtils";

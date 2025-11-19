@@ -346,7 +346,7 @@ export default function Appian() {
             {/* Right Content - Hero Image */}
             <motion.div variants={fadeUpVariants} className="relative">
               <img 
-                src={new URL('@/assets/hero-appian.jpg', import.meta.url).href}
+                src={new URL('@/assets/hero-appian-new.avif', import.meta.url).href}
                 alt="Appian low-code automation platform interface"
                 width={1270}
                 height={847}

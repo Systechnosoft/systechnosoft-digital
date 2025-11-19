@@ -29,6 +29,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import ServiceHero from "@/components/ServiceHero";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
+import heroImage from "@/assets/hero-web-development-new.avif";
 
 const WebDevelopment = () => {
   const [activeSection, setActiveSection] = useState("overview");
@@ -94,8 +95,11 @@ const WebDevelopment = () => {
             ariaLabel: "Claim your free insight"
           }}
           image={{
+            src: heroImage,
             alt: "Web Development Services",
-            placeholderPrompt: "A modern web development workspace with code on screens, showing responsive design across devices, in a clean professional tech environment"
+            placeholderPrompt: "A modern web development workspace with code on screens, showing responsive design across devices, in a clean professional tech environment",
+            width: 1270,
+            height: 847
           }}
         />
 

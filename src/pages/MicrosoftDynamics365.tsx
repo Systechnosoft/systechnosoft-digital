@@ -225,7 +225,9 @@ export default function MicrosoftDynamics365() {
             ariaLabel: "Book a Dynamics 365 consultation"
           }}
           image={{
-            src: "/images/hero/d365-hero.png",
+            src: new URL('@/assets/hero-d365.avif', import.meta.url).href,
+            width: 1270,
+            height: 847,
             alt: "Microsoft Dynamics 365 unified platform showing CRM, ERP, and Power Platform integration",
             placeholderPrompt: "Professional 3D illustration of Microsoft Dynamics 365 platform with interconnected modules for Sales, Service, Finance, and Operations in a modern tech style with blue and red accents"
           }}

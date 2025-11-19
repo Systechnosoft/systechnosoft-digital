@@ -118,7 +118,7 @@ export default function BackupRecovery() {
             ariaLabel: "Claim your free backup and recovery insight"
           }}
           image={{
-            src: new URL('@/assets/hero-backup-recovery.jpg', import.meta.url).href,
+            src: new URL('@/assets/hero-backup-recovery-new.avif', import.meta.url).href,
             width: 1270,
             height: 847,
             alt: "Enterprise backup and disaster recovery infrastructure with cloud and on-premises storage tiers",

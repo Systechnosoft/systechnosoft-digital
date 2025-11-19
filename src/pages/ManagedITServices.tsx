@@ -265,8 +265,6 @@ export default function ManagedITServices() {
           }}
           image={{
             src: new URL('@/assets/hero-managed-it-services.avif', import.meta.url).href,
-            width: 1270,
-            height: 847,
             alt: "Managed IT Services dashboard showing 24/7 monitoring, network management, and security controls",
             placeholderPrompt: "Professional 3D illustration showing IT infrastructure monitoring with servers, network nodes, security shields, and real-time dashboards in a modern tech style with blue and red accents"
           }}

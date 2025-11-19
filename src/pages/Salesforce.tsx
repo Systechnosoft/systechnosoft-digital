@@ -765,37 +765,32 @@ const Salesforce = () => {
                 </motion.div>
               </div>
 
-              {/* Right Content - 6-Item Flip Carousel */}
-              <HeroFlipCarousel 
-                cards={cloudCards}
-                autoRotateDelay={3000}
-                pauseDuration={10000}
-                renderCard={(card) => (
-                  <Card className="w-full h-full bg-card/90 backdrop-blur border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-lg">
-                    <CardHeader>
-                      <CardTitle className="flex items-center gap-3 text-lg">
-                        <card.icon className="h-6 w-6 text-primary flex-shrink-0" />
-                        <span>{card.title}</span>
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {card.description}
-                      </p>
-                      {card.features && (
-                        <div className="space-y-1">
-                          {card.features.slice(0, 2).map((feature, featureIndex) => (
-                            <div key={featureIndex} className="flex items-center gap-2 text-xs text-muted-foreground">
-                              <CheckCircle className="h-3 w-3 text-primary flex-shrink-0" />
-                              <span>{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                )}
-              />
+              {/* Right Content - Hero Image */}
+              <motion.figure 
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="salesforce-hero__art relative isolate group"
+              >
+                <img
+                  src={new URL('@/assets/hero-salesforce.avif', import.meta.url).href}
+                  width={1270} 
+                  height={847}
+                  alt="Salesforce CRM and automation platform"
+                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                  loading="eager" 
+                  decoding="async"
+                  sizes="(min-width: 1024px) 48vw, 92vw"
+                />
+                {/* Subtle brand glow */}
+                <span 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                  style={{
+                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #00A1E0 10%, transparent 70%)`
+                  }}
+                />
+              </motion.figure>
             </div>
           </div>
         </section>

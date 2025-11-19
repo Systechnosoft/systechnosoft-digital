@@ -170,37 +170,106 @@ export default function About() {
 
       <main className="min-h-screen bg-white">
         {/* Hero Section */}
-        <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6 max-w-[44rem]">
+        <section 
+          id="hero" 
+          className="sf-hero about-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"
+          aria-labelledby="about-hero-title"
+        >
+          {/* Animated background */}
+          <div className="sf-hero__bg absolute inset-0 opacity-10" aria-hidden="true">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+              {/* Left Column - Copy */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="about-hero__left space-y-6 max-w-[44rem]">
                 <div className="space-y-6">
-                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
+                  <h1 
+                    id="about-hero-title"
+                    className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
                     We blend IT Infrastructure, Low-code, and AI into <span className="text-[#E52629]">one execution partner.</span>
                   </h1>
                   <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                     Serving BFSI, aviation, oil & gas, and healthcare with cloud, data, and intelligent automation. Maximize innovation. Minimize code.
                   </p>
                 </div>
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.4 }} className="flex flex-wrap gap-3" aria-label="Key benefits">
+
+                {/* Benefit Chips */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.15, duration: 0.4 }}
+                  className="sf-hero__chips flex flex-wrap gap-3"
+                  aria-label="Key benefits">
                   {["Integrated IT, Low-code & AI", "BFSI, Aviation & Oil & Gas focus", "Maximize innovation. Minimize code."].map((badge, idx) => (
-                    <motion.div key={badge} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}>
-                      <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">{badge}</Badge>
+                    <motion.div
+                      key={badge}
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}>
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
+                        {badge}
+                      </Badge>
                     </motion.div>
                   ))}
                 </motion.div>
-                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.4 }} className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" onClick={() => scrollToId("what-we-do", 96)}>See what we deliver →</Button>
-                  <Button asChild variant="outline" size="lg" className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold">
+
+                {/* CTAs */}
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3, duration: 0.4 }}
+                  className="flex flex-col sm:flex-row gap-4">
+                  <Button 
+                    size="lg" 
+                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" 
+                    onClick={() => scrollToId("what-we-do", 96)}>
+                    See what we deliver →
+                  </Button>
+                  <Button 
+                    asChild 
+                    variant="outline" 
+                    size="lg" 
+                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold">
                     <Link to="/contact?type=mra">Claim your free insight</Link>
                   </Button>
                 </motion.div>
               </motion.div>
-              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative" onMouseEnter={handleHeroMouseEnter} onMouseLeave={() => { if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); setIsHeroPaused(false); }} onFocus={() => setIsHeroPaused(true)} onKeyDown={handleHeroKeyDown} tabIndex={0} role="region" aria-label="Service highlights">
+
+              {/* Right Column - Hero Image */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="about-hero__art relative isolate group" 
+                onMouseEnter={handleHeroMouseEnter} 
+                onMouseLeave={() => { if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); setIsHeroPaused(false); }} 
+                onFocus={() => setIsHeroPaused(true)} 
+                onKeyDown={handleHeroKeyDown} 
+                tabIndex={0} 
+                role="region" 
+                aria-label="Service highlights">
                 <div className="relative min-h-[400px] flex items-center justify-center">
                   {heroCards.map((card, index) => (
                     <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: currentHeroIndex === index ? 1 : 0, scale: currentHeroIndex === index ? 1 : 0.95 }} transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }} className={cn("absolute inset-0 flex items-center justify-center", currentHeroIndex !== index && "pointer-events-none")}>
-                      <Card className="w-full max-w-md bg-white border-2 border-gray-200 shadow-lg">
+                      <Card className="w-full max-w-md bg-white border-2 border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] rounded-2xl transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-y-[-6px] hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
                         <CardContent className="p-12 text-center">
                           <div className="text-6xl mb-6">{card.icon}</div>
                           <h3 className="text-2xl font-bold font-montserrat text-[#1C1C1C] mb-3">{card.title}</h3>
@@ -210,6 +279,14 @@ export default function About() {
                     </motion.div>
                   ))}
                 </div>
+                {/* Subtle brand glow */}
+                <span 
+                  aria-hidden="true" 
+                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                  style={{
+                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                  }}
+                />
                 {!prefersReducedMotion && (
                   <div className="flex justify-center gap-2 mt-6">
                     {heroCards.map((_, index) => (

@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { ArrowRight, CheckCircle2, Brain, Shield, TrendingUp, DollarSign, Target, FileCheck, Database, Lock, Workflow } from "lucide-react";
 import ServiceHero from "@/components/ServiceHero";
 import { scrollToId } from "@/lib/scrollUtils";
-import heroImage from "@/assets/hero-consultation-strategy.png";
+import heroImage from "@/assets/hero-consultation-strategy-new.avif";
 
 export default function AIConsultationStrategy() {
   const [activeSection, setActiveSection] = useState("overview");
@@ -130,7 +130,9 @@ export default function AIConsultationStrategy() {
         image={{
           src: heroImage,
           alt: "AI consultation and strategy planning with roadmap visualization and governance frameworks",
-          placeholderPrompt: "Professional 3D illustration of AI strategy planning with connected roadmap nodes, governance shields, and multi-model integration in modern tech style with blue and red accents"
+          placeholderPrompt: "Professional 3D illustration of AI strategy planning with connected roadmap nodes, governance shields, and multi-model integration in modern tech style with blue and red accents",
+          width: 1270,
+          height: 847
         }}
       />
 

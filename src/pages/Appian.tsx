@@ -343,12 +343,14 @@ export default function Appian() {
               </motion.div>
             </div>
 
-            {/* Right Content - 3D Flip Carousel */}
-            <motion.div variants={fadeUpVariants}>
-              <HeroFlipCarousel 
-                cards={heroCapabilities}
-                autoRotateDelay={3000}
-                pauseDuration={10000}
+            {/* Right Content - Hero Image */}
+            <motion.div variants={fadeUpVariants} className="relative">
+              <img 
+                src={new URL('@/assets/hero-appian.jpg', import.meta.url).href}
+                alt="Appian low-code automation platform interface"
+                width={1270}
+                height={847}
+                className="rounded-lg shadow-2xl w-full h-auto"
               />
             </motion.div>
           </motion.div>

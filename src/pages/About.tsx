@@ -1,836 +1,389 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import {
-  ArrowRight,
   Target,
-  Zap,
-  Users,
-  Heart,
-  Award,
-  Globe,
-  TrendingUp,
   Rocket,
-  Shield,
-  Code,
   Lightbulb,
-  MapPin,
-  Server,
-  Cpu,
-  Database,
-  Cloud,
+  Shield,
+  Heart,
+  User,
   Search,
   FileText,
   Hammer,
   Lock,
-  BarChart
+  BarChart3,
+  Server,
+  Cpu,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { HeroMotionSystem } from "@/components/HeroMotionSystem";
+import { ContactFormSection } from "@/components/ContactFormSection";
 import { CountUpNumber } from "@/components/CountUpNumber";
-import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
-import { useConsultationStore } from "@/lib/consultation-store";
-import ContactFormSection from "@/components/ContactFormSection";
+import { scrollToId } from "@/lib/scrollUtils";
 
-const About = () => {
-  const shouldReduceMotion = useReducedMotion();
+export default function About() {
   const [activeSection, setActiveSection] = useState("vision-mission");
-  const { openCalendly } = useConsultationStore();
 
-  // Navigation items
   const navItems = [
     { id: "vision-mission", label: "Vision & Mission" },
     { id: "what-we-do", label: "What We Do" },
     { id: "how-we-deliver", label: "How We Deliver" },
     { id: "proof-trust", label: "Proof & Trust" },
     { id: "values", label: "Values" },
-    { id: "global-presence", label: "Global Presence" },
     { id: "faqs", label: "FAQs" },
-    { id: "contact", label: "Contact" }
   ];
 
-  // Hero cards for motion system
   const heroCards = [
-    {
-      icon: "🏗️",
-      title: "IT Infrastructure",
-      benefit: "Cloud, data centers, migration, backup & recovery for enterprise scale."
-    },
-    {
-      icon: "⚡",
-      title: "Low‑code Platforms",
-      benefit: "Appian and Salesforce workflows that reduce development time by 60%."
-    },
-    {
-      icon: "🤖",
-      title: "AI & Automation",
-      benefit: "NLP, analytics, and intelligent automation for smarter operations."
-    }
+    { icon: "🎯", title: "Enterprise-ready", benefit: "Proven at scale" },
+    { icon: "⚡", title: "Fast delivery", benefit: "Weeks, not quarters" },
+    { icon: "🔐", title: "Security first", benefit: "Built-in compliance" },
   ];
 
-  // Scroll spy effect
-  useEffect(() => {
-    const observers = navItems.map(item => {
-      const element = document.getElementById(item.id);
-      if (!element) return null;
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setActiveSection(item.id);
-          }
-        },
-        { rootMargin: "-20% 0px -60% 0px" }
-      );
-
-      observer.observe(element);
-      return observer;
-    });
-
-    return () => {
-      observers.forEach(observer => observer?.disconnect());
-    };
-  }, []);
-
-  // Culture pillars
-  const culturePillars = [
-    {
-      icon: TrendingUp,
-      title: "Grow fast",
-      description: "Certifications, guilds, mentorship, learning wallet."
-    },
-    {
-      icon: Rocket,
-      title: "Build boldly",
-      description: "Hackathons, R&D spikes, proof-of-value sprints."
-    },
-    {
-      icon: Zap,
-      title: "Move fast",
-      description: "Agile cadence, transparent rituals, zero‑friction deployments."
-    },
-    {
-      icon: Users,
-      title: "Collaborate openly",
-      description: "Cross‑practice guilds, demo days, knowledge hubs."
-    }
-  ];
-
-  // Values
   const values = [
     {
       icon: Lightbulb,
       title: "Customer-First Innovation",
-      description: "We don't chase trends. We solve business problems with proven patterns and fresh thinking."
+      description: "We don't chase trends. We solve business problems with proven patterns and fresh thinking.",
     },
     {
       icon: Shield,
       title: "Security by Design",
-      description: "Zero-trust defaults, encryption everywhere, and continuous compliance for every deployment."
+      description: "Zero-trust defaults, encryption everywhere, and continuous compliance for every deployment.",
     },
     {
       icon: Heart,
       title: "Empathy & Inclusion",
-      description: "Diverse perspectives unlock breakthrough solutions. We welcome all backgrounds and ideas."
+      description: "Diverse perspectives unlock breakthrough solutions. We welcome all backgrounds and ideas.",
     },
     {
-      icon: Award,
+      icon: User,
       title: "Excellence Without Ego",
-      description: "Great work speaks for itself. We focus on outcomes, not accolades."
-    }
+      description: "Great work speaks for itself. We focus on outcomes, not accolades.",
+    },
   ];
 
-  // Engagement model steps
   const engagementSteps = [
-    {
-      icon: Search,
-      title: "Discover",
-      description: "Clarify goals, constraints, and success metrics."
-    },
-    {
-      icon: FileText,
-      title: "Design",
-      description: "Solution architecture and roadmapping."
-    },
-    {
-      icon: Hammer,
-      title: "Build",
-      description: "Iterative delivery with low‑code and AI."
-    },
-    {
-      icon: Lock,
-      title: "Govern",
-      description: "Security, compliance, and support."
-    },
-    {
-      icon: BarChart,
-      title: "Scale",
-      description: "Extend to new regions or lines of business."
-    }
+    { icon: Search, label: "Discover", description: "Clarify goals, constraints, and success metrics." },
+    { icon: FileText, label: "Design", description: "Solution architecture and roadmapping." },
+    { icon: Hammer, label: "Build", description: "Iterative delivery with low-code and AI." },
+    { icon: Lock, label: "Govern", description: "Security, compliance, and support." },
+    { icon: BarChart3, label: "Scale", description: "Extend to new regions or lines of business." },
   ];
 
-  // What We Do verticals
   const coreVerticals = [
     {
       icon: Server,
       title: "IT Infrastructure",
       description: "Cloud, data centers, migration, backup & recovery. We modernize your infrastructure to support rapid growth and innovation.",
       links: [
-        { label: "Cloud & Data Center", href: "/services/cloud-services" },
-        { label: "Managed IT", href: "/services/managed-it-services" },
-        { label: "Backup & Recovery", href: "/services/backup-recovery" }
-      ]
+        { label: "Cloud & Data Center", href: "/services/cloud" },
+        { label: "Managed IT", href: "/services/managed-it" },
+        { label: "Backup & Recovery", href: "/services/backup-recovery" },
+      ],
     },
     {
       icon: Cpu,
-      title: "Low‑code",
+      title: "Low-code",
       description: "Appian and Salesforce workflows that accelerate time-to-market. Build enterprise apps without the enterprise overhead.",
       links: [
         { label: "Appian", href: "/services/appian" },
-        { label: "Salesforce", href: "/services/salesforce" }
-      ]
+        { label: "Salesforce", href: "/services/salesforce" },
+      ],
     },
     {
       icon: Database,
       title: "AI & Automation",
       description: "NLP, analytics, and intelligent automation for smarter operations. Transform data into decisions, decisions into action.",
       links: [
-        { label: "AI Development", href: "/services/ai-development-integration" },
-        { label: "NLP", href: "/services/ai-natural-language-processing" },
-        { label: "Analytics & Insights", href: "/services/ai-data-analytics-insights" }
-      ]
-    }
+        { label: "AI Development", href: "/services/ai-development" },
+        { label: "NLP", href: "/services/nlp" },
+        { label: "Analytics & Insights", href: "/services/analytics" },
+      ],
+    },
   ];
 
-  // Proof metrics
   const proofMetrics = [
-    {
-      value: 40,
-      suffix: "%",
-      label: "Faster trading workflows",
-      description: "Real-time data processing for financial services"
-    },
-    {
-      value: 30,
-      suffix: "%",
-      label: "More efficient operations",
-      description: "Automation-driven productivity gains"
-    },
-    {
-      value: 50,
-      suffix: "%",
-      label: "Fewer processing exceptions",
-      description: "Intelligent validation and error handling"
-    }
+    { value: 40, suffix: "%", label: "Faster trading workflows", description: "Real-time data processing for financial services" },
+    { value: 30, suffix: "%", label: "More efficient operations", description: "Automation-driven productivity gains" },
+    { value: 50, suffix: "%", label: "Fewer processing exceptions", description: "Intelligent validation and error handling" },
   ];
 
-  // Animation variants
-  const fadeUpVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
-      y: 0
-    }
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 120;
+      const sectionIds = navItems.map((item) => item.id);
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sectionIds[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sectionIds[i]);
+          break;
+        }
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const fadeUpVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
+  const staggeredFadeUp = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
+  const heroTimerRef = useRef<NodeJS.Timeout>();
+  const heroPauseTimeoutRef = useRef<NodeJS.Timeout>();
+
+  useEffect(() => {
+    if (isHeroPaused || prefersReducedMotion) return;
+    heroTimerRef.current = setInterval(() => {
+      setCurrentHeroIndex((prev) => (prev + 1) % heroCards.length);
+    }, 3000);
+    return () => { if (heroTimerRef.current) clearInterval(heroTimerRef.current); };
+  }, [isHeroPaused]);
+
+  const handleHeroMouseEnter = () => {
+    setIsHeroPaused(true);
+    if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current);
+    heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000);
   };
 
-  const staggeredFadeUp = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: shouldReduceMotion ? 0 : 0.1
-      }
+  const handleHeroKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+      setCurrentHeroIndex((prev) => e.key === "ArrowLeft" ? (prev - 1 + heroCards.length) % heroCards.length : (prev + 1) % heroCards.length);
+      setIsHeroPaused(true);
+      if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current);
+      heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000);
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>About Us - Systechnosoft Technologies</title>
-        <meta 
-          name="description" 
-          content="Systechnosoft blends IT Infrastructure, Low-code platforms, and AI into one execution partner. Serving BFSI, aviation, oil & gas with cloud, data, and intelligent automation." 
-        />
-        <meta name="keywords" content="IT services, low-code development, AI automation, enterprise solutions, cloud infrastructure" />
-        <link rel="canonical" href="https://systechnosoft.in/about" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "AboutPage",
-            "name": "About Systechnosoft Technologies",
-            "description": "Systechnosoft blends IT Infrastructure, Low-code platforms, and AI into one execution partner.",
-            "mainEntity": {
-              "@type": "Organization",
-              "name": "Systechnosoft Technologies",
-              "url": "https://systechnosoft.in",
-              "logo": "https://systechnosoft.in/logo.png",
-              "foundingDate": "2020",
-              "address": [
-                {
-                  "@type": "PostalAddress",
-                  "streetAddress": "49 5th Ave #1187",
-                  "addressLocality": "Brooklyn",
-                  "addressRegion": "NY",
-                  "postalCode": "11217",
-                  "addressCountry": "US"
-                },
-                {
-                  "@type": "PostalAddress",
-                  "streetAddress": "E-8, Railway Colony, Jagatpura",
-                  "addressLocality": "Jaipur",
-                  "addressRegion": "Rajasthan",
-                  "addressCountry": "IN"
-                }
-              ]
-            }
-          })}
-        </script>
+        <title>About Systechnosoft | Enterprise Cloud, Low-Code & AI Solutions</title>
+        <meta name="description" content="Systechnosoft blends IT infrastructure, low-code platforms, and AI to deliver secure, scalable solutions for BFSI, aviation, oil & gas, and healthcare." />
       </Helmet>
 
-      {/* Hero Section */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden bg-gradient-to-br from-background via-background to-muted/20">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-20 right-10 w-64 h-64 bg-[#E52629]/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 left-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
-        </div>
-
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut" }}
-              className="text-left space-y-6"
-            >
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-montserrat font-bold text-foreground leading-tight">
-                We blend IT Infrastructure, Low‑code, and AI into one execution partner.
-              </h1>
-              
-              <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl">
-                Serving BFSI, aviation, oil & gas, and healthcare with cloud, data, and intelligent automation. 
-                Maximize innovation. Minimize code.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button
-                  size="lg"
-                  onClick={() => scrollToId("what-we-do")}
-                  className="bg-[#E52629] hover:bg-[#E52629]/90 text-white group"
-                >
-                  See what we deliver
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  onClick={openCalendly}
-                  className="border-border hover:bg-accent hover:text-accent-foreground"
-                >
-                  Claim your free insight
-                </Button>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: shouldReduceMotion ? 0.1 : 0.6, ease: "easeOut", delay: 0.2 }}
-              className="flex justify-center lg:justify-end"
-            >
-              <HeroMotionSystem 
-                cards={heroCards}
-                ariaLabel="Core service verticals"
-              />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* Sticky Sub-Navigation */}
-      <nav className="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-border">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex overflow-x-auto py-4 gap-6 scrollbar-hide">
-            {navItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToId(item.id)}
-                className={cn(
-                  "whitespace-nowrap text-sm font-medium transition-colors px-3 py-2 rounded-md",
-                  activeSection === item.id
-                    ? "text-[#E52629] bg-[#E52629]/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+      <main className="min-h-screen bg-white">
+        {/* Hero Section */}
+        <section className="relative pt-24 pb-16 md:pt-32 md:pb-20 bg-[#F5F5F5]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="space-y-6 max-w-[44rem]">
+                <div className="space-y-6">
+                  <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
+                    We blend IT Infrastructure, Low-code, and AI into <span className="text-[#E52629]">one execution partner.</span>
+                  </h1>
+                  <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
+                    Serving BFSI, aviation, oil & gas, and healthcare with cloud, data, and intelligent automation. Maximize innovation. Minimize code.
+                  </p>
+                </div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15, duration: 0.4 }} className="flex flex-wrap gap-3" aria-label="Key benefits">
+                  {["Integrated IT, Low-code & AI", "BFSI, Aviation & Oil & Gas focus", "Maximize innovation. Minimize code."].map((badge, idx) => (
+                    <motion.div key={badge} initial={{ opacity: 0, y: 5 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}>
+                      <Badge variant="secondary" className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">{badge}</Badge>
+                    </motion.div>
+                  ))}
+                </motion.div>
+                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3, duration: 0.4 }} className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" onClick={() => scrollToId("what-we-do", 96)}>See what we deliver →</Button>
+                  <Button asChild variant="outline" size="lg" className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold">
+                    <Link to="/contact?type=mra">Claim your free insight</Link>
+                  </Button>
+                </motion.div>
+              </motion.div>
+              <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative" onMouseEnter={handleHeroMouseEnter} onMouseLeave={() => { if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); setIsHeroPaused(false); }} onFocus={() => setIsHeroPaused(true)} onKeyDown={handleHeroKeyDown} tabIndex={0} role="region" aria-label="Service highlights">
+                <div className="relative min-h-[400px] flex items-center justify-center">
+                  {heroCards.map((card, index) => (
+                    <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: currentHeroIndex === index ? 1 : 0, scale: currentHeroIndex === index ? 1 : 0.95 }} transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }} className={cn("absolute inset-0 flex items-center justify-center", currentHeroIndex !== index && "pointer-events-none")}>
+                      <Card className="w-full max-w-md bg-white border-2 border-gray-200 shadow-lg">
+                        <CardContent className="p-12 text-center">
+                          <div className="text-6xl mb-6">{card.icon}</div>
+                          <h3 className="text-2xl font-bold font-montserrat text-[#1C1C1C] mb-3">{card.title}</h3>
+                          <p className="text-[#3C3C3C] text-lg">{card.benefit}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </div>
+                {!prefersReducedMotion && (
+                  <div className="flex justify-center gap-2 mt-6">
+                    {heroCards.map((_, index) => (
+                      <button key={index} onClick={() => { setCurrentHeroIndex(index); setIsHeroPaused(true); if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000); }} className={cn("w-3 h-3 rounded-full transition-all", currentHeroIndex === index ? "bg-[#E52629] w-8" : "bg-gray-300")} aria-label={`Go to slide ${index + 1}`} />
+                    ))}
+                  </div>
                 )}
-              >
-                {item.label}
-              </button>
-            ))}
+              </motion.div>
+            </div>
           </div>
-        </div>
-      </nav>
+        </section>
 
-      {/* Vision & Mission */}
-      <section id="vision-mission" className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="max-w-4xl mx-auto space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Our Purpose
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                Vision & Mission
-              </h2>
+        {/* Sticky Navigation */}
+        <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
+              {navItems.map((item) => (
+                <button key={item.id} onClick={() => scrollToId(item.id, 96)} className={cn("flex-shrink-0 font-inter font-medium text-sm px-4 py-2 rounded-full transition-all duration-200", activeSection === item.id ? "bg-[#E52629] text-white shadow-md" : "text-gray-600 hover:text-[#E52629] hover:bg-gray-100")}>{item.label}</button>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        {/* Vision & Mission */}
+        <section id="vision-mission" className="py-20 bg-white">
+          <div id="about-vision-mission" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C]">Vision & Mission</h2>
             </motion.div>
-
-            <motion.div variants={fadeUpVariants} className="grid md:grid-cols-2 gap-8">
-              <Card className="border-border shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <Target className="h-6 w-6 text-[#E52629]" />
-                    <CardTitle className="text-2xl font-montserrat">Vision</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    To be the trusted execution partner for businesses navigating digital transformation—delivering 
-                    cloud, low‑code, and AI solutions that are secure, scalable, and built to last.
-                  </p>
-                </CardContent>
-              </Card>
-
-              <Card className="border-border shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-2">
-                    <Rocket className="h-6 w-6 text-[#E52629]" />
-                    <CardTitle className="text-2xl font-montserrat">Mission</CardTitle>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    We combine IT infrastructure excellence, low‑code agility, and applied AI to help enterprises 
-                    modernize faster, operate smarter, and scale with confidence.
-                  </p>
-                </CardContent>
-              </Card>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-2 gap-8">
+              <motion.div variants={fadeUpVariants}>
+                <Card className="h-full bg-white border-2 border-gray-200 loc-card-hover-primary">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-center gap-3"><Target className="h-8 w-8 text-[#E52629]" /><CardTitle className="font-montserrat text-2xl">Vision</CardTitle></div>
+                  </CardHeader>
+                  <CardContent><p className="text-[#3C3C3C] leading-relaxed">To be the trusted execution partner for businesses navigating digital transformation—delivering cloud, low-code, and AI solutions that are secure, scalable, and built to last.</p></CardContent>
+                </Card>
+              </motion.div>
+              <motion.div variants={fadeUpVariants}>
+                <Card className="h-full bg-white border-2 border-gray-200 loc-card-hover-primary">
+                  <CardHeader className="space-y-4">
+                    <div className="flex items-center gap-3"><Rocket className="h-8 w-8 text-[#E52629]" /><CardTitle className="font-montserrat text-2xl">Mission</CardTitle></div>
+                  </CardHeader>
+                  <CardContent><p className="text-[#3C3C3C] leading-relaxed">We combine IT infrastructure excellence, low-code agility, and applied AI to help enterprises modernize faster, operate smarter, and scale with confidence.</p></CardContent>
+                </Card>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* What We Do */}
-      <section id="what-we-do" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4 max-w-3xl mx-auto">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Core Verticals
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                What We Do
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Three core verticals. One integrated approach. Real outcomes.
-              </p>
+        {/* What We Do */}
+        <section id="what-we-do" className="py-20 bg-[#F5F5F5]">
+          <div id="about-what-we-do" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">What We Do</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">Three core verticals. One integrated approach. Real outcomes.</p>
             </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-3 gap-8">
               {coreVerticals.map((vertical, index) => (
                 <motion.div key={index} variants={fadeUpVariants}>
-                  <Card className="h-full border-border shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 bg-background">
+                  <Card className="h-full bg-white border-2 border-gray-200 loc-card-hover-primary">
                     <CardHeader>
-                      <div className="mb-4">
-                        <vertical.icon className="h-12 w-12 text-[#E52629]" />
-                      </div>
-                      <CardTitle className="text-2xl font-montserrat">
-                        {vertical.title}
-                      </CardTitle>
+                      <div className="flex items-center gap-3 mb-4"><vertical.icon className="h-10 w-10 text-[#E52629]" /></div>
+                      <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">{vertical.title}</CardTitle>
+                      <CardDescription className="text-[#3C3C3C] leading-relaxed">{vertical.description}</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-4">
-                      <p className="text-muted-foreground leading-relaxed">
-                        {vertical.description}
-                      </p>
-                      <div className="flex flex-wrap gap-2 pt-2">
-                        {vertical.links.map((link, linkIndex) => (
-                          <Link
-                            key={linkIndex}
-                            to={link.href}
-                            className="text-sm text-[#E52629] hover:underline font-medium"
-                          >
-                            {link.label}
-                          </Link>
-                        ))}
-                      </div>
+                    <CardContent className="space-y-2">
+                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="block text-sm text-[#E52629] hover:underline font-medium">{link.label}</Link>))}
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* How We Deliver */}
-      <section id="how-we-deliver" className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4 max-w-3xl mx-auto">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Engagement Model
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                How We Deliver
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                A proven, repeatable approach from discovery to scale.
-              </p>
             </motion.div>
+          </div>
+        </section>
 
-            {/* Desktop: Horizontal Stepper */}
-            <div className="hidden md:flex justify-between items-start gap-4 max-w-6xl mx-auto">
+        {/* How We Deliver */}
+        <section id="how-we-deliver" className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">How We Deliver</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">A proven, repeatable approach from discovery to scale.</p>
+            </motion.div>
+            <div className="flex flex-wrap justify-center gap-8 lg:gap-16 max-w-6xl mx-auto">
               {engagementSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  className="flex flex-col items-center text-center flex-1 relative"
-                >
-                  {index < engagementSteps.length - 1 && (
-                    <div className="absolute top-10 left-1/2 w-full h-0.5 bg-border z-0" />
-                  )}
-                  
-                  <div className="relative z-10 w-20 h-20 rounded-full bg-background border-2 border-[#E52629] flex items-center justify-center mb-4 shadow-lg">
-                    <step.icon className="h-8 w-8 text-[#E52629]" />
+                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariants} transition={{ duration: 0.5, delay: index * 0.1 }} className="flex flex-col items-center text-center max-w-[200px] group cursor-default" tabIndex={0}>
+                  <div className="relative mb-4">
+                    <div className="w-20 h-20 rounded-full border-2 border-[#E52629] flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-hover:shadow-lg group-focus-visible:scale-110 group-focus-visible:shadow-lg">
+                      <step.icon className="h-8 w-8 text-[#E52629] transition-transform duration-200 group-hover:scale-110" />
+                    </div>
                   </div>
-                  
-                  <h3 className="text-lg font-montserrat font-semibold text-foreground mb-2">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {step.description}
-                  </p>
+                  <h3 className="font-montserrat font-bold text-lg text-[#1C1C1C] mb-2 transition-all duration-200 group-hover:-translate-y-1">{step.label}</h3>
+                  <p className="text-sm text-[#3C3C3C]">{step.description}</p>
                 </motion.div>
               ))}
             </div>
+          </div>
+        </section>
 
-            {/* Mobile: Vertical Stepper */}
-            <div className="md:hidden space-y-6 max-w-md mx-auto">
-              {engagementSteps.map((step, index) => (
-                <motion.div
-                  key={index}
-                  variants={fadeUpVariants}
-                  className="flex gap-4 relative"
-                >
-                  {index < engagementSteps.length - 1 && (
-                    <div className="absolute top-16 left-10 w-0.5 h-full bg-border z-0" />
-                  )}
-                  
-                  <div className="relative z-10 w-20 h-20 flex-shrink-0 rounded-full bg-background border-2 border-[#E52629] flex items-center justify-center shadow-lg">
-                    <step.icon className="h-8 w-8 text-[#E52629]" />
-                  </div>
-                  
-                  <div className="flex-1 pt-4">
-                    <h3 className="text-lg font-montserrat font-semibold text-foreground mb-2">
-                      {step.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground">
-                      {step.description}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Proof & Trust */}
-      <section id="proof-trust" className="py-20 bg-muted/20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4 max-w-3xl mx-auto">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Proof Points
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                Proof & Trust
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Real outcomes from real engagements across BFSI, aviation, and oil & gas.
-              </p>
+        {/* Proof & Trust */}
+        <section id="proof-trust" className="py-20 bg-[#F5F5F5]">
+          <div id="about-proof-trust" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">Proof & Trust</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">Real outcomes from real engagements across BFSI, aviation, and oil & gas.</p>
             </motion.div>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-3 gap-8">
               {proofMetrics.map((metric, index) => (
                 <motion.div key={index} variants={fadeUpVariants}>
-                  <Card className="border-border shadow-lg hover:shadow-xl transition-shadow duration-300 bg-background text-center">
-                    <CardContent className="pt-8 pb-6 space-y-4">
-                      <div className="text-5xl font-montserrat font-bold text-[#E52629]">
-                        <CountUpNumber 
-                          end={metric.value} 
-                          suffix={metric.suffix}
-                          duration={1500}
-                          startSeed={0}
-                        />
-                      </div>
-                      <h3 className="text-lg font-semibold text-foreground">
-                        {metric.label}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {metric.description}
-                      </p>
+                  <Card className="bg-white border-2 border-gray-200 loc-card-hover-primary text-center h-full flex flex-col justify-center">
+                    <CardContent className="p-8">
+                      <div className="text-5xl font-bold text-[#E52629] mb-4"><CountUpNumber end={metric.value} suffix={metric.suffix} /></div>
+                      <h3 className="text-xl font-bold font-montserrat text-[#1C1C1C] mb-3">{metric.label}</h3>
+                      <p className="text-sm text-[#3C3C3C]">{metric.description}</p>
                     </CardContent>
                   </Card>
                 </motion.div>
               ))}
-            </div>
-
-            <motion.div variants={fadeUpVariants} className="text-center pt-4">
-              <p className="text-muted-foreground">
-                Multi-region delivery: <span className="font-semibold text-foreground">United States</span> & <span className="font-semibold text-foreground">India</span>
-              </p>
             </motion.div>
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Values */}
-      <section id="values" className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4 max-w-3xl mx-auto">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Principles
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                Our Values
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                The principles that guide every decision, every project, every partnership.
-              </p>
+        {/* Our Values */}
+        <section id="values" className="py-20 bg-white">
+          <div id="about-values" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">Our Values</h2>
+              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">The principles that guide every decision, every project, every partnership.</p>
             </motion.div>
-
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-2 gap-8">
               {values.map((value, index) => (
                 <motion.div key={index} variants={fadeUpVariants}>
-                  <Card className="h-full border-border shadow-lg hover:shadow-xl transition-shadow duration-300 bg-background">
+                  <Card className="h-full bg-white border-2 border-gray-200 loc-card-hover-primary">
                     <CardHeader>
                       <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-lg bg-[#E52629]/10 flex items-center justify-center flex-shrink-0">
-                          <value.icon className="h-6 w-6 text-[#E52629]" />
-                        </div>
+                        <div className="p-3 rounded-lg bg-[#FEE2E2]"><value.icon className="h-6 w-6 text-[#E52629]" /></div>
                         <div>
-                          <CardTitle className="text-xl font-montserrat mb-2">
-                            {value.title}
-                          </CardTitle>
-                          <p className="text-muted-foreground leading-relaxed">
-                            {value.description}
-                          </p>
+                          <CardTitle className="font-montserrat text-xl text-[#1C1C1C] mb-2">{value.title}</CardTitle>
+                          <CardDescription className="text-[#3C3C3C] leading-relaxed">{value.description}</CardDescription>
                         </div>
                       </div>
                     </CardHeader>
                   </Card>
                 </motion.div>
               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Global Presence */}
-      <section id="global-presence" className="py-20 bg-muted/30">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4 max-w-3xl mx-auto">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Locations
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                Global Presence
-              </h2>
-              <p className="text-lg text-muted-foreground">
-                Client engagement and delivery hubs across two continents.
-              </p>
             </motion.div>
+          </div>
+        </section>
 
-            <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-              <motion.div variants={fadeUpVariants}>
-                <Card className="h-full border-border shadow-lg hover:shadow-xl transition-shadow duration-300 bg-background">
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <MapPin className="h-8 w-8 text-[#E52629] flex-shrink-0 mt-1" />
-                      <div>
-                        <CardTitle className="text-2xl font-montserrat mb-2">
-                          United States
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Client engagement & delivery hub
-                        </p>
-                        <address className="not-italic text-muted-foreground leading-relaxed">
-                          49 5th Ave #1187<br />
-                          Brooklyn, NY 11217<br />
-                          United States
-                        </address>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              </motion.div>
-
-              <motion.div variants={fadeUpVariants}>
-                <Card className="h-full border-border shadow-lg hover:shadow-xl transition-shadow duration-300 bg-background">
-                  <CardHeader>
-                    <div className="flex items-start gap-4">
-                      <MapPin className="h-8 w-8 text-[#E52629] flex-shrink-0 mt-1" />
-                      <div>
-                        <CardTitle className="text-2xl font-montserrat mb-2">
-                          India
-                        </CardTitle>
-                        <p className="text-sm text-muted-foreground mb-3">
-                          Development & innovation center
-                        </p>
-                        <address className="not-italic text-muted-foreground leading-relaxed">
-                          E-8, Railway Colony, Jagatpura<br />
-                          Jaipur, Rajasthan<br />
-                          India
-                        </address>
-                      </div>
-                    </div>
-                  </CardHeader>
-                </Card>
-              </motion.div>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* FAQs */}
-      <section id="faqs" className="py-20 bg-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggeredFadeUp}
-            className="max-w-3xl mx-auto space-y-12"
-          >
-            <motion.div variants={fadeUpVariants} className="text-center space-y-4">
-              <Badge variant="outline" className="text-[#E52629] border-[#E52629]/30 mb-4">
-                Questions
-              </Badge>
-              <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-foreground">
-                Frequently Asked Questions
-              </h2>
+        {/* FAQs */}
+        <section id="faqs" className="py-20 bg-[#F5F5F5]">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
+              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C]">Frequently Asked Questions</h2>
             </motion.div>
-
-            <motion.div variants={fadeUpVariants}>
-              <Accordion type="single" collapsible className="space-y-4">
-                <AccordionItem value="item-1" className="border border-border rounded-lg px-6 bg-background shadow-sm">
-                  <AccordionTrigger className="text-left font-semibold hover:text-[#E52629] transition-colors">
-                    What industries do you serve?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    We primarily serve BFSI (banking, financial services, insurance), aviation, oil & gas, and healthcare. 
-                    Our solutions are designed for regulated, mission-critical environments.
-                  </AccordionContent>
+            <Accordion type="single" collapsible className="space-y-4">
+              {[
+                { question: "What industries do you serve?", answer: "We primarily serve BFSI (banking, financial services, insurance), aviation, oil & gas, and healthcare. Our expertise in these sectors allows us to deliver industry-specific solutions that address unique regulatory and operational challenges." },
+                { question: "Do you offer staff augmentation or project-based delivery?", answer: "We offer both. For long-term needs, we provide dedicated teams. For specific projects, we deliver end-to-end using our proven methodology. We tailor our engagement model to your requirements." },
+                { question: "How do you handle compliance and security?", answer: "Security is built into every solution from day one. We follow zero-trust principles, implement encryption at rest and in transit, maintain audit trails, and ensure compliance with CIS, ISO 27001, SOC 2, DPDP, and GDPR standards." },
+                { question: "What's your typical engagement timeline?", answer: "Most pilots and MVPs take 4-8 weeks. Full implementations range from 3-6 months depending on scope. We use phased delivery to show value early and adjust based on feedback." },
+                { question: "How do you measure success?", answer: "We define clear success metrics upfront—whether it's reduced processing time, lower costs, improved uptime, or faster time-to-market. We track these KPIs throughout delivery and report regularly." },
+              ].map((faq, idx) => (
+                <AccordionItem key={idx} value={`item-${idx}`} className="bg-white border border-[#E6E6E6] rounded-lg px-6">
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">{faq.question}</AccordionTrigger>
+                  <AccordionContent className="text-[#3C3C3C]">{faq.answer}</AccordionContent>
                 </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
 
-                <AccordionItem value="item-2" className="border border-border rounded-lg px-6 bg-background shadow-sm">
-                  <AccordionTrigger className="text-left font-semibold hover:text-[#E52629] transition-colors">
-                    Do you offer staff augmentation or project-based delivery?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    We support both. Staff augmentation for short-term skill gaps, and full project delivery (design, build, deploy) 
-                    for strategic initiatives. Most clients start with a pilot and expand.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-3" className="border border-border rounded-lg px-6 bg-background shadow-sm">
-                  <AccordionTrigger className="text-left font-semibold hover:text-[#E52629] transition-colors">
-                    How do you handle compliance and security?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    Security is built in from day one—zero-trust architecture, encryption at rest and in transit, 
-                    automated compliance checks, and audit-ready documentation. We follow SOC 2, GDPR, and industry-specific regulations.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-4" className="border border-border rounded-lg px-6 bg-background shadow-sm">
-                  <AccordionTrigger className="text-left font-semibold hover:text-[#E52629] transition-colors">
-                    What's your typical engagement timeline?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    Discovery and design typically take 2-4 weeks. Build phases vary by scope (4-12 weeks for MVPs, 
-                    3-6 months for full-scale platforms). We work in 2-week sprints with continuous delivery.
-                  </AccordionContent>
-                </AccordionItem>
-
-                <AccordionItem value="item-5" className="border border-border rounded-lg px-6 bg-background shadow-sm">
-                  <AccordionTrigger className="text-left font-semibold hover:text-[#E52629] transition-colors">
-                    How do you measure success?
-                  </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">
-                    We define success metrics upfront—time savings, error reduction, revenue impact, or user adoption. 
-                    Every project includes KPIs tied to your business goals, not just technical milestones.
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Contact CTA Section */}
-      <section id="contact" className="py-20 bg-muted/20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
-          <ContactFormSection
-            title="Let's Build Something Great Together"
-            subtitle="New projects, modernization, AI pilots, or Appian/Salesforce rollouts—tell us what you're working on."
-            buttonText="Start the Conversation →"
-          />
-        </div>
-      </section>
+        <ContactFormSection />
+      </main>
     </>
   );
-};
-
-export default About;
+}

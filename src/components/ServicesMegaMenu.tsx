@@ -71,6 +71,9 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
     
     setIsOpen(false);
     onClose();
+    
+    // Force full page load
+    window.location.href = url;
   };
 
   const handleMouseEnter = () => {
@@ -138,16 +141,17 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                   <AccordionContent className="pb-0">
                     <div className="space-y-1">
                       {items.map((item) => (
-                        <Link
+                        <a
                           key={item.name}
-                          to={item.href}
+                          href={item.href}
                           className="brand-underline-link block px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded transition-colors min-h-[44px] flex items-center"
-                           onClick={() => {
+                           onClick={(e) => {
+                            e.preventDefault();
                             handleLinkClick(category, item.name, item.href);
                           }}
                         >
                           {item.name}
-                        </Link>
+                        </a>
                       ))}
                     </div>
                   </AccordionContent>
@@ -157,20 +161,26 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
             
             {/* Mobile Footer CTAs */}
             <div className="mt-8 space-y-3 pt-6 border-t border-border sticky bottom-0 bg-background">
-              <Link
-                to="/contact"
+              <a
+                href="/contact"
                 className="block w-full bg-primary text-primary-foreground text-center py-3 rounded-md font-medium hover:bg-primary/90 transition-colors"
-                onClick={() => handleLinkClick('Footer', 'Claim Your Free Insight', '/contact')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick('Footer', 'Claim Your Free Insight', '/contact');
+                }}
               >
                 Claim Your Free Insight
-              </Link>
-              <Link
-                to="/tools/health-check"
+              </a>
+              <a
+                href="/tools/health-check"
                 className="block w-full border border-border text-center py-3 rounded-md font-medium hover:bg-accent transition-colors"
-                onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check');
+                }}
               >
                 IT Network Health Check
-              </Link>
+              </a>
             </div>
           </div>
         </SheetContent>
@@ -233,18 +243,19 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                     </h3>
                     <div className="space-y-1">
                       {items.map((item) => (
-                        <Link
+                        <a
                           key={item.name}
-                          to={item.href}
+                          href={item.href}
                           className="brand-underline-link block rounded-md px-2 py-1 text-[15px] text-slate-700 hover:text-rose-600 transition-colors duration-150 min-h-[44px] flex items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
-                           onClick={() => {
+                           onClick={(e) => {
+                             e.preventDefault();
                              handleLinkClick(category, item.name, item.href);
                            }}
                         >
                           <span className="font-inter">
                             {item.name}
                           </span>
-                        </Link>
+                        </a>
                       ))}
                     </div>
                   </div>

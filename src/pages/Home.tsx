@@ -218,24 +218,14 @@ export default function Home() {
                   and AI/Automation — delivered fast, securely, and at scale.
                 </p>
                 
-                <div className="flex flex-col sm:flex-row justify-center gap-3 mt-2">
-                  <Button
-                    size="lg"
-                    className="bg-[#E52629] hover:bg-[#E52629]/90 text-white px-8 py-4 text-lg font-semibold hover:scale-[1.03] active:scale-[0.99] transition-transform focus-visible:outline-2 focus-visible:outline-[#E52629]"
-                    asChild
-                  >
-                    <Link to="/readiness-check" aria-label="IT Network Health Check">
-                      IT Network Health Check
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
+                <div className="flex justify-center mt-2">
                   <Button
                     variant="outline"
                     size="lg"
                     className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white px-8 py-4 text-lg font-semibold hover:scale-[1.01] hover:shadow-lg active:scale-[0.99] transition-all focus-visible:outline-2 focus-visible:outline-[#E52629]"
                     asChild
                   >
-                    <Link to="/contact">Get Started</Link>
+                    <a href="/contact">Get Started</a>
                   </Button>
                 </div>
               </div>

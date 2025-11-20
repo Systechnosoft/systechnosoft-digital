@@ -9,26 +9,33 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-
-const HeroBackground = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  return (
-    <div className={cn("relative isolate overflow-visible bg-white", className)} style={{ contain: 'paint' }}>
-      <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
-        {!prefersReducedMotion && (
-          <div className="absolute inset-0 hero-conic-rotate" style={{ backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`, backgroundSize: "400px 400px" }} />
-        )}
-      </div>
-      <div className="absolute inset-x-0 bottom-0 h-12 z-[1] bg-gradient-to-b from-white/0 to-white pointer-events-none" aria-hidden="true" />
-      <div className="relative z-[2]">{children}</div>
-    </div>
-  );
-};
+import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 
 export default function Careers() {
   const shouldReduceMotion = useReducedMotion();
+
+  const heroCards = [
+    { 
+      icon: "🚀", 
+      title: "Innovation First", 
+      benefit: "Work on cutting-edge tech and bold ideas" 
+    },
+    { 
+      icon: "🌍", 
+      title: "Global Impact", 
+      benefit: "Projects across BFSI, aviation, and healthcare" 
+    },
+    { 
+      icon: "📚", 
+      title: "Continuous Growth", 
+      benefit: "Learning budget and certifications" 
+    },
+    { 
+      icon: "🤝", 
+      title: "Remote Flexibility", 
+      benefit: "Work from anywhere with work-life balance" 
+    },
+  ];
 
   const values = [
     { icon: Sparkles, title: "Innovation", description: "We encourage bold ideas and creative problem-solving to drive client success." },
@@ -120,27 +127,17 @@ export default function Careers() {
               </motion.div>
             </motion.div>
 
-            <motion.figure 
-              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }} 
-              animate={{ opacity: 1, scale: 1 }} 
-              transition={{ duration: 0.6, delay: 0.2 }} 
-              className="relative isolate group"
+            <motion.div
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="flex justify-center lg:justify-end"
             >
-              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
-                <div className="text-center text-gray-400 p-8">
-                  <Briefcase className="w-24 h-24 mx-auto mb-4" />
-                  <p className="text-lg font-semibold">Hero Image Placeholder</p>
-                </div>
-              </div>
-              {/* Subtle brand glow */}
-              <span 
-                aria-hidden="true" 
-                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
-                style={{
-                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
-                }}
+              <HeroMotionSystem 
+                cards={heroCards} 
+                ariaLabel="Career highlights at Systechnosoft" 
               />
-            </motion.figure>
+            </motion.div>
           </div>
         </div>
       </HeroBackground>

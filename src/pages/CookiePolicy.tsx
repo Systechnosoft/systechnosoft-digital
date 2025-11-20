@@ -162,10 +162,10 @@ export default function CookiePolicy() {
                     <p>
                       To exercise your rights, use the <strong>Open Cookie Settings</strong> button or email us at{" "}
                       <a
-                        href="mailto:privacy@systechnosoft.com"
+                        href="mailto:privacy@systechnosoft.in"
                         className="text-[#E52629] hover:underline focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none rounded"
                       >
-                        privacy@systechnosoft.com
+                        privacy@systechnosoft.in
                       </a>.
                     </p>
                   </AccordionContent>
@@ -184,7 +184,7 @@ export default function CookiePolicy() {
                         "Right to access - know what cookie data we hold about you",
                         "Right to correction - request correction of inaccurate data",
                         "Right to erasure - request deletion of your cookie data",
-                        "Grievance redressal - contact privacy@systechnosoft.com for concerns"
+                        "Grievance redressal - contact privacy@systechnosoft.in for concerns"
                       ]}
                       icon="users"
                     />
@@ -294,10 +294,10 @@ export default function CookiePolicy() {
               <p className="text-base md:text-lg leading-8 text-neutral-800 font-inter">
                 Questions about this Cookie Policy? Email{" "}
                 <a
-                  href="mailto:privacy@systechnosoft.com"
+                  href="mailto:privacy@systechnosoft.in"
                   className="text-[#E52629] hover:underline focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none rounded font-medium"
                 >
-                  privacy@systechnosoft.com
+                  privacy@systechnosoft.in
                 </a>.
               </p>
             </div>

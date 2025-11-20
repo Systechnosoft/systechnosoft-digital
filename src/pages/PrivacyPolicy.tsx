@@ -63,10 +63,10 @@ export default function PrivacyPolicy() {
                 <strong>Controller:</strong> Systechnosoft Technologies Private Limited<br />
                 <strong>Contact:</strong>{" "}
                 <a 
-                  href="mailto:privacy@systechnosoft.com"
+                  href="mailto:privacy@systechnosoft.in"
                   className="text-[#E52629] hover:underline focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none rounded transition-all duration-200"
                 >
-                  privacy@systechnosoft.com
+                  privacy@systechnosoft.in
                 </a>
                 <br />
                 <strong>Last updated:</strong> {LAST_UPDATED}
@@ -214,10 +214,10 @@ export default function PrivacyPolicy() {
                 <p>
                   <strong>Submit a request:</strong> email us at{" "}
                   <a 
-                    href="mailto:privacy@systechnosoft.com"
+                    href="mailto:privacy@systechnosoft.in"
                     className="text-[#E52629] hover:underline focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none rounded transition-all duration-200"
                   >
-                    privacy@systechnosoft.com
+                    privacy@systechnosoft.in
                   </a>.
                 </p>
               </div>

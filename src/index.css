@@ -340,7 +340,7 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
 }
 
 @layer utilities {
-  /* Scoped hover styles for cloud, data-migration, and about pages */
+  /* Scoped hover styles for cloud, data-migration, about, and careers pages */
   #services-cloud .loc-card-hover-primary,
   #cloud-platforms .loc-card-hover-primary,
   #accelerators .loc-card-hover-primary,
@@ -352,7 +352,10 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   #about-vision-mission .loc-card-hover-primary,
   #about-what-we-do .loc-card-hover-primary,
   #about-proof-trust .loc-card-hover-primary,
-  #about-values .loc-card-hover-primary {
+  #about-values .loc-card-hover-primary,
+  #careers-open-roles .loc-card-hover-primary,
+  #careers-values .loc-card-hover-primary,
+  #careers-perks .loc-card-hover-primary {
     transition: border-color .18s ease, box-shadow .18s ease, transform .18s ease;
     background-clip: padding-box;
   }
@@ -380,7 +383,13 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   #about-proof-trust .loc-card-hover-primary:hover,
   #about-proof-trust .loc-card-hover-primary:focus-visible,
   #about-values .loc-card-hover-primary:hover,
-  #about-values .loc-card-hover-primary:focus-visible {
+  #about-values .loc-card-hover-primary:focus-visible,
+  #careers-open-roles .loc-card-hover-primary:hover,
+  #careers-open-roles .loc-card-hover-primary:focus-visible,
+  #careers-values .loc-card-hover-primary:hover,
+  #careers-values .loc-card-hover-primary:focus-visible,
+  #careers-perks .loc-card-hover-primary:hover,
+  #careers-perks .loc-card-hover-primary:focus-visible {
     border-color: hsl(var(--primary)) !important;
     box-shadow: 0 10px 24px rgba(229, 38, 41, 0.12);
     transform: translateY(-2px);

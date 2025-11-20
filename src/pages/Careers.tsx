@@ -57,12 +57,12 @@ export default function Careers() {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight font-montserrat">Careers at Systechnosoft</h1>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight font-montserrat">Your Future Starts Here @ Systechnosoft</h1>
               <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed font-inter">Innovate globally. Grow with purpose. Join a team where bold ideas, collaboration, and continuous learning thrive.</p>
               <div className="flex flex-wrap gap-3 mb-8">
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Wifi className="w-4 h-4 mr-2" />Remote-first culture</Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><GraduationCap className="w-4 h-4 mr-2" />Learning-driven growth</Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Globe className="w-4 h-4 mr-2" />Global project exposure</Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Wifi className="w-4 h-4 mr-2" />Work From Anywhere</Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><GraduationCap className="w-4 h-4 mr-2" />Grow Every Day</Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Globe className="w-4 h-4 mr-2" />Build Global Impact</Badge>
               </div>
               <div className="flex flex-wrap gap-4">
                 <Button size="lg" asChild className="bg-[#E52629] hover:bg-[#C41E1E] text-white px-8 py-6 text-lg font-semibold"><a href="#open-positions">See Open Positions<ArrowRight className="ml-2 h-5 w-5" /></a></Button>

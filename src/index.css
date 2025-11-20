@@ -60,6 +60,12 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     /* Animation Variables */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-micro: all 0.15s ease-out;
+    
+    /* Performance-optimized CSS animations */
+    @keyframes hero-conic-rotation {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
     --sidebar-background: 0 0% 98%;
 
@@ -137,6 +143,18 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   /* Anchor sections - scroll margin for fixed header */
   .anchor-section {
     scroll-margin-top: 96px;
+  }
+  
+  /* Performance-optimized hero animations */
+  .hero-conic-rotate {
+    animation: hero-conic-rotation 20s linear infinite;
+    will-change: transform;
+  }
+  
+  @media (prefers-reduced-motion: reduce) {
+    .hero-conic-rotate {
+      animation: none;
+    }
   }
 }
 

@@ -370,9 +370,9 @@ export default function About() {
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">How We Deliver</h2>
               <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">A proven, repeatable approach from discovery to scale.</p>
             </motion.div>
-            <div className="flex flex-wrap justify-center gap-8 lg:gap-16 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 max-w-6xl mx-auto items-start">
               {engagementSteps.map((step, index) => (
-                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariants} transition={{ duration: 0.5, delay: index * 0.1 }} className="flex flex-col items-center text-center max-w-[200px] group cursor-default" tabIndex={0}>
+                <motion.div key={index} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpVariants} transition={{ duration: 0.5, delay: index * 0.1 }} className="flex flex-col items-center text-center group cursor-default" tabIndex={0}>
                   <div className="relative mb-4">
                     <div className="w-20 h-20 rounded-full border-2 border-[#E52629] flex items-center justify-center transition-all duration-200 group-hover:scale-110 group-hover:shadow-lg group-focus-visible:scale-110 group-focus-visible:shadow-lg">
                       <step.icon className="h-8 w-8 text-[#E52629] transition-transform duration-200 group-hover:scale-110" />

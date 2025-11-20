@@ -27,8 +27,8 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-background/95 backdrop-blur-sm border-b border-border">
       <div className="w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center h-16">
           {/* Skip to content link */}
           <Link 
             to="#main-content" 
@@ -47,6 +47,9 @@ export default function Header() {
               />
             </a>
           </div>
+
+          {/* Spacer to push navigation to the right */}
+          <div className="flex-1" />
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
@@ -86,13 +89,12 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Right side actions */}
-          <div className="flex items-center space-x-4">
-            {/* Mobile menu button */}
+          {/* Mobile menu button */}
+          <div className="flex items-center lg:hidden">
             <Button
               variant="ghost"
               size="icon"
-              className="lg:hidden mobile-menu-toggle"
+              className="mobile-menu-toggle"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
               aria-label="Toggle menu"

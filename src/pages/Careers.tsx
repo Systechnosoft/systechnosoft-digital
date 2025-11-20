@@ -9,33 +9,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 
 export default function Careers() {
   const shouldReduceMotion = useReducedMotion();
-
-  const heroCards = [
-    { 
-      icon: "🚀", 
-      title: "Innovation First", 
-      benefit: "Work on cutting-edge tech and bold ideas" 
-    },
-    { 
-      icon: "🌍", 
-      title: "Global Impact", 
-      benefit: "Projects across BFSI, aviation, and healthcare" 
-    },
-    { 
-      icon: "📚", 
-      title: "Continuous Growth", 
-      benefit: "Learning budget and certifications" 
-    },
-    { 
-      icon: "🤝", 
-      title: "Remote Flexibility", 
-      benefit: "Work from anywhere with work-life balance" 
-    },
-  ];
 
   const values = [
     { icon: Sparkles, title: "Innovation", description: "We encourage bold ideas and creative problem-solving to drive client success." },

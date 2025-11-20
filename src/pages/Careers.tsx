@@ -9,7 +9,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 const HeroBackground = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
@@ -101,15 +100,32 @@ export default function Careers() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
-              { title: "Kickstart Your Career (Freshers)", desc: "Looking for your first break in tech? We're hiring passionate minds eager to learn and grow.", url: "https://forms.gle/yJoMh9n1B7qLmcrU9", dialogTitle: "Apply for Freshers Position" },
-              { title: "Grow With Us (Experienced Professionals)", desc: "Already on your journey? Join our expert teams and work on exciting digital transformation projects.", url: "https://forms.gle/npBn4NWVtQ995KUA7", dialogTitle: "Apply for Experienced Position" }
+              { title: "Kickstart Your Career (Freshers)", desc: "Looking for your first break in tech? We're hiring passionate minds eager to learn and grow.", url: "https://forms.gle/yJoMh9n1B7qLmcrU9" },
+              { title: "Grow With Us (Experienced Professionals)", desc: "Already on your journey? Join our expert teams and work on exciting digital transformation projects.", url: "https://forms.gle/npBn4NWVtQ995KUA7" }
             ].map((job, i) => (
-              <Card key={i} className="bg-white border-2 border-gray-200 loc-card-hover-primary">
-                <CardHeader><CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">{job.title}</CardTitle><CardDescription className="text-base text-[#3C3C3C] mt-2">{job.desc}</CardDescription></CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex items-center gap-2 text-sm text-[#3C3C3C]"><MapPin className="h-4 w-4 text-[#E52629]" /><span>Hybrid (India)</span></div>
-                  <div className="flex items-center gap-2 text-sm text-[#3C3C3C]"><Clock className="h-4 w-4 text-[#E52629]" /><span>Full-Time</span></div>
-                  <Dialog><DialogTrigger asChild><Button className="w-full bg-[#E52629] hover:bg-[#C41E1E] text-white">Apply Now<ArrowRight className="ml-2 h-4 w-4" /></Button></DialogTrigger><DialogContent className="sm:max-w-[600px]"><DialogHeader><DialogTitle className="font-montserrat text-2xl">{job.dialogTitle}</DialogTitle></DialogHeader><div className="py-4"><iframe src={job.url} width="100%" height="600" frameBorder="0" marginHeight={0} marginWidth={0} className="rounded-lg">Loading…</iframe></div></DialogContent></Dialog>
+              <Card key={i} className="bg-white border-2 border-gray-200 loc-card-hover-primary h-full flex flex-col">
+                <CardHeader>
+                  <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">{job.title}</CardTitle>
+                  <CardDescription className="text-base text-[#3C3C3C] mt-2">{job.desc}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-sm text-[#3C3C3C]">
+                      <MapPin className="h-4 w-4 text-[#E52629]" />
+                      <span>Hybrid (India)</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-[#3C3C3C]">
+                      <Clock className="h-4 w-4 text-[#E52629]" />
+                      <span>Full-Time</span>
+                    </div>
+                  </div>
+                  <Button 
+                    className="w-full bg-[#E52629] hover:bg-[#C41E1E] text-white mt-4"
+                    onClick={() => window.open(job.url, '_blank', 'noopener,noreferrer')}
+                  >
+                    Apply Now
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </CardContent>
               </Card>
             ))}

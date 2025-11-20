@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { Play, Pause } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 interface CookieHeroProps {
   title: string;
@@ -40,22 +38,6 @@ export function CookieHero({ title, description, lastUpdated }: CookieHeroProps)
         )}
       </div>
 
-      {/* Play/Pause Control */}
-      <div className="absolute top-6 right-6 z-20">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => setIsPlaying(!isPlaying)}
-          aria-label={isPlaying ? "Pause animation" : "Play animation"}
-          className="bg-white/80 backdrop-blur border-neutral-200 hover:bg-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
-        >
-          {isPlaying ? (
-            <Pause className="h-4 w-4 text-neutral-700" />
-          ) : (
-            <Play className="h-4 w-4 text-neutral-700" />
-          )}
-        </Button>
-      </div>
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">

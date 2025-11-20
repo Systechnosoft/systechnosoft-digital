@@ -109,7 +109,7 @@ export default function Careers() {
                   className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
                   asChild
                 >
-                  <a href="#positions">See Open Positions →</a>
+                  <a href="#open-positions">See Open Positions →</a>
                 </Button>
                 <Button
                   asChild

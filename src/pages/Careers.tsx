@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion, useReducedMotion } from "framer-motion";
 import { 
   Users, Globe, TrendingUp, Heart, Target, Award, BookOpen, Coffee, Briefcase,
-  ArrowRight, PlayCircle, PauseCircle, Wifi, GraduationCap, MapPin, Clock,
+  ArrowRight, Wifi, GraduationCap, MapPin, Clock,
   Code, Mail, Sparkles
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -13,16 +12,12 @@ import { cn } from "@/lib/utils";
 
 const HeroBackground = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
   const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [isPaused, setIsPaused] = useState(false);
 
   return (
     <div className={cn("relative isolate overflow-visible bg-white", className)} style={{ contain: 'paint' }}>
-      <button onClick={() => setIsPaused(!isPaused)} className="absolute top-4 right-4 z-10 p-2 rounded-full bg-white/80 hover:bg-white shadow-md transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary" aria-label={isPaused ? "Play animation" : "Pause animation"}>
-        {isPaused ? <PlayCircle className="w-5 h-5 text-primary" /> : <PauseCircle className="w-5 h-5 text-primary" />}
-      </button>
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
-        {!prefersReducedMotion && !isPaused && (
+        {!prefersReducedMotion && (
           <motion.div className="absolute inset-0" style={{ backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`, backgroundSize: "400px 400px" }} animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: "linear" }} />
         )}
       </div>

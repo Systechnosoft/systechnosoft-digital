@@ -55,23 +55,92 @@ export default function Careers() {
 
       <HeroBackground>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6 leading-tight font-montserrat">Your Future Starts Here @ Systechnosoft</h1>
-              <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed font-inter">Innovate globally. Grow with purpose. Join a team where bold ideas, collaboration, and continuous learning thrive.</p>
-              <div className="flex flex-wrap gap-3 mb-8">
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Wifi className="w-4 h-4 mr-2" />Work From Anywhere</Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><GraduationCap className="w-4 h-4 mr-2" />Grow Every Day</Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm rounded-full bg-muted/50 text-foreground border border-border"><Globe className="w-4 h-4 mr-2" />Build Global Impact</Badge>
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+            <motion.div 
+              initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.6 }}
+              className="space-y-6 max-w-[44rem]"
+            >
+              <div className="space-y-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-montserrat">
+                  Your Future Starts Here @ <span className="text-[#E52629]">Systechnosoft</span>
+                </h1>
+                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-prose font-inter">
+                  Innovate globally. Grow with purpose. Join a team where bold ideas, collaboration, and continuous learning thrive.
+                </p>
               </div>
-              <div className="flex flex-wrap gap-4">
-                <Button size="lg" asChild className="bg-[#E52629] hover:bg-[#C41E1E] text-white px-8 py-6 text-lg font-semibold"><a href="#open-positions">See Open Positions<ArrowRight className="ml-2 h-5 w-5" /></a></Button>
-                <Button size="lg" variant="outline" asChild className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white px-8 py-6 text-lg font-semibold"><a href="#why-join">Why Work With Us</a></Button>
+
+              <motion.div 
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["Work From Anywhere", "Grow Every Day", "Build Global Impact"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={shouldReduceMotion ? {} : { opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {[<Wifi className="w-4 h-4 mr-2" />, <GraduationCap className="w-4 h-4 mr-2" />, <Globe className="w-4 h-4 mr-2" />][idx]}
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              <motion.div 
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
+                <Button 
+                  size="lg" 
+                  asChild 
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
+                >
+                  <a href="#open-positions">See Open Positions<ArrowRight className="ml-2 h-5 w-5" /></a>
+                </Button>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  asChild 
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
+                  <a href="#why-join">Why Work With Us</a>
+                </Button>
+              </motion.div>
+            </motion.div>
+
+            <motion.figure 
+              initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }} 
+              animate={{ opacity: 1, scale: 1 }} 
+              transition={{ duration: 0.6, delay: 0.2 }} 
+              className="relative isolate group"
+            >
+              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
+                <div className="text-center text-gray-400 p-8">
+                  <Briefcase className="w-24 h-24 mx-auto mb-4" />
+                  <p className="text-lg font-semibold">Hero Image Placeholder</p>
+                </div>
               </div>
-            </motion.div>
-            <motion.div initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center">
-              <div className="text-center text-gray-400 p-8"><Briefcase className="w-24 h-24 mx-auto mb-4" /><p className="text-lg font-semibold">Hero Image Placeholder</p></div>
-            </motion.div>
+              {/* Subtle brand glow */}
+              <span 
+                aria-hidden="true" 
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                }}
+              />
+            </motion.figure>
           </div>
         </div>
       </HeroBackground>

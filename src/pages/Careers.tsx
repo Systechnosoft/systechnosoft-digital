@@ -100,16 +100,16 @@ export default function Careers() {
           </motion.div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
-              { title: "Kickstart Your Career (Freshers)", desc: "Looking for your first break in tech? We're hiring passionate minds eager to learn and grow.", url: "https://forms.gle/yJoMh9n1B7qLmcrU9" },
-              { title: "Grow With Us (Experienced Professionals)", desc: "Already on your journey? Join our expert teams and work on exciting digital transformation projects.", url: "https://forms.gle/npBn4NWVtQ995KUA7" }
+              { title: "Kickstart Your Career\n(Freshers)", desc: "Looking for your first break in tech? We're hiring passionate minds eager to learn and grow.", url: "https://forms.gle/yJoMh9n1B7qLmcrU9" },
+              { title: "Grow With Us\n(Experienced Professionals)", desc: "Already on your journey? Join our expert teams and work on exciting digital transformation projects.", url: "https://forms.gle/npBn4NWVtQ995KUA7" }
             ].map((job, i) => (
               <Card key={i} className="bg-white border-2 border-gray-200 loc-card-hover-primary h-full flex flex-col">
                 <CardHeader>
-                  <CardTitle className="text-2xl font-montserrat text-[#1C1C1C]">{job.title}</CardTitle>
-                  <CardDescription className="text-base text-[#3C3C3C] mt-2">{job.desc}</CardDescription>
+                  <CardTitle className="text-2xl font-montserrat text-[#1C1C1C] whitespace-pre-line">{job.title}</CardTitle>
+                  <CardDescription className="text-base text-[#3C3C3C] mt-2 min-h-[3rem] flex items-center">{job.desc}</CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
-                  <div className="space-y-3">
+                <CardContent className="flex-grow flex flex-col justify-end">
+                  <div className="space-y-3 mb-4">
                     <div className="flex items-center gap-2 text-sm text-[#3C3C3C]">
                       <MapPin className="h-4 w-4 text-[#E52629]" />
                       <span>Hybrid (India)</span>
@@ -120,11 +120,15 @@ export default function Careers() {
                     </div>
                   </div>
                   <Button 
-                    className="w-full bg-[#E52629] hover:bg-[#C41E1E] text-white mt-4"
-                    onClick={() => window.open(job.url, '_blank', 'noopener,noreferrer')}
+                    asChild
+                    variant="outline" 
+                    size="lg"
+                    className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
                   >
-                    Apply Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    <a href={job.url} target="_blank" rel="noopener noreferrer">
+                      Apply Now
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </a>
                   </Button>
                 </CardContent>
               </Card>

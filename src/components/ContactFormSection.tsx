@@ -29,6 +29,13 @@ interface ContactFormSectionProps {
   className?: string;
 }
 
+// Default props
+const defaultProps = {
+  title: "Send us a Message",
+  subtitle: "Tell us about your project and we'll get back to you within 24 hours",
+  buttonText: "Send Message",
+};
+
 export default function ContactFormSection({
   title = "Send Us a Message",
   subtitle = "Tell us about your project and we'll get back to you within 24 hours",
@@ -164,61 +171,62 @@ export default function ContactFormSection({
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-      className={className}
+      transition={{ duration: 0.35 }}
+      className={cn("py-12 bg-background", className)}
     >
-      <div className="mb-8 text-center">
-        <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-3">
-          {title}
-        </h2>
-        <p className="text-base sm:text-lg text-muted-foreground">
-          {subtitle}
-        </p>
-      </div>
-      
-      <Card className="shadow-lg hover:shadow-xl transition-shadow duration-300">
-        <CardContent className="pt-8">
-          <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name *</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  placeholder="Your full name"
-                  required
-                  className="transition-all duration-200 hover:border-primary/50 focus:border-primary"
-                />
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-8 text-center">
+          <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-3">
+            {title}
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground">
+            {subtitle}
+          </p>
+        </div>
+        
+        <Card className="card-enterprise">
+          <CardContent className="pt-8">
+            <form onSubmit={handleSubmit} className="space-y-6" aria-live="polite">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name *</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your full name"
+                    required
+                    className="focus-enterprise"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Work Email *</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your.email@company.com"
+                    required
+                    className="focus-enterprise"
+                  />
+                </div>
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="email">Work Email *</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="your.email@company.com"
-                  required
-                  className="transition-all duration-200 hover:border-primary/50 focus:border-primary"
-                />
-              </div>
-            </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="phone">Phone</Label>
-              <Input
-                id="phone"
-                name="phone"
-                type="tel"
-                value={formData.phone}
-                onChange={handleChange}
-                placeholder="+1 (555) 000-0000"
-                className="transition-all duration-200 hover:border-primary/50 focus:border-primary"
-              />
-            </div>
+              <div className="space-y-2">
+                <Label htmlFor="phone">Phone</Label>
+                <Input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  placeholder="+1 (555) 000-0000"
+                  className="focus-enterprise"
+                />
+              </div>
 
             <div className="space-y-2">
               <Label htmlFor="message">Message *</Label>

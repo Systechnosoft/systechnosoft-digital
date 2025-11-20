@@ -59,7 +59,7 @@ export default function Careers() {
                 transition={{ duration: 0.6 }}
                 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-montserrat"
               >
-                Your Future Starts Here @ <span className="text-[#E52629]">Systechnosoft</span>
+                Your Future Starts @ <span className="text-[#E52629]">Systechnosoft</span>
               </motion.h1>
 
               <motion.p
@@ -75,32 +75,48 @@ export default function Careers() {
                 initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.4 }}
-                className="flex flex-wrap gap-2.5"
+                className="flex flex-wrap gap-3"
               >
-                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
-                  <Wifi className="w-3.5 h-3.5 mr-1.5 text-primary" /> Work From Anywhere
-                </Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
-                  <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-primary" /> Grow Every Day
-                </Badge>
-                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
-                  <Globe className="w-3.5 h-3.5 mr-1.5 text-primary" /> Build Global Impact
-                </Badge>
+                {[
+                  { icon: Wifi, label: "Work From Anywhere" },
+                  { icon: GraduationCap, label: "Grow Every Day" },
+                  { icon: Globe, label: "Build Global Impact" }
+                ].map((badge, idx) => (
+                  <motion.div
+                    key={badge.label}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      <badge.icon className="w-3.5 h-3.5 mr-1.5 text-[#E52629]" /> {badge.label}
+                    </Badge>
+                  </motion.div>
+                ))}
               </motion.div>
 
               <motion.div
-                initial={shouldReduceMotion ? {} : { opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.25, duration: 0.4 }}
-                className="flex flex-wrap gap-3 pt-2"
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4"
               >
-                <Button size="lg" className="group" asChild>
-                  <a href="#positions">
-                    See Open Positions
-                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </a>
+                <Button
+                  size="lg"
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                  asChild
+                >
+                  <a href="#positions">See Open Positions →</a>
                 </Button>
-                <Button size="lg" variant="outline" asChild>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
                   <a href="#why-join">Why Work With Us</a>
                 </Button>
               </motion.div>

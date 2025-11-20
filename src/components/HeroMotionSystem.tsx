@@ -137,18 +137,16 @@ export function HeroBackground({ children, className = "", fullHeight = false }:
       className={`relative isolate overflow-visible bg-white ${fullHeight ? 'min-h-screen flex items-center' : ''} ${className}`}
       style={{ contain: 'paint' }}
     >
-      {/* Animated background - matching Salesforce */}
+      {/* Animated background - CSS optimized */}
       <div className="absolute inset-0 z-0 opacity-10 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
         {!prefersReducedMotion && (
-          <motion.div
-            className="absolute inset-0"
+          <div
+            className="absolute inset-0 hero-conic-rotate"
             style={{
               backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
               backgroundSize: "400px 400px"
             }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
           />
         )}
       </div>

@@ -295,7 +295,7 @@ export default function Contact() {
                 className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" 
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed" 
                   onClick={() => {
                     const formElement = document.getElementById('contact-form');
                     if (formElement) {
@@ -307,7 +307,12 @@ export default function Contact() {
                   }}>
                   Send Us a Message →
                 </Button>
-                <BookConsultationTrigger />
+                <BookConsultationTrigger 
+                  variant="secondary"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold bg-transparent"
+                >
+                  Book a Consultation
+                </BookConsultationTrigger>
               </motion.div>
             </motion.div>
 

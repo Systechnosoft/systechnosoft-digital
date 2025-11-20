@@ -37,20 +37,20 @@ export default function Header() {
 
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center header-logo-link rounded">
+            <a href="/" className="flex items-center header-logo-link rounded">
               <img 
                 src={systechnosoftLogo} 
                 alt="Systechnosoft Technologies" 
                 className="h-8 w-auto"
               />
-            </Link>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center space-x-8">
             {/* Home Link */}
-            <Link
-              to="/"
+            <a
+              href="/"
               className={cn(
                 "font-inter font-medium text-sm transition-colors header-nav-item",
                 isActive("/")
@@ -59,7 +59,7 @@ export default function Header() {
               )}
             >
               Home
-            </Link>
+            </a>
             
             {/* Services Mega Menu */}
             <ServicesMegaMenu 
@@ -69,9 +69,9 @@ export default function Header() {
             
             {/* Other Navigation Items */}
             {navigation.slice(1).map((item) => (
-              <Link
+              <a
                 key={item.name}
-                to={item.href}
+                href={item.href}
                 className={cn(
                   "font-inter font-medium text-sm transition-colors header-nav-item",
                   isActive(item.href)
@@ -80,7 +80,7 @@ export default function Header() {
                 )}
               >
                 {item.name}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -109,8 +109,8 @@ export default function Header() {
           <div className="lg:hidden border-t border-border">
             <nav className="px-2 pt-2 pb-4 space-y-1">
               {/* Home First */}
-              <Link
-                to="/"
+              <a
+                href="/"
                 className={cn(
                   "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
                   isActive("/")
@@ -120,7 +120,7 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
-              </Link>
+              </a>
               
               {/* Services Second */}
               <div className="mb-4">
@@ -132,9 +132,9 @@ export default function Header() {
               
               {/* Remaining Items (Industries, Case Studies, About, Contact) */}
               {navigation.slice(1).map((item) => (
-                <Link
+                <a
                   key={item.name}
-                  to={item.href}
+                  href={item.href}
                   className={cn(
                     "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
                     isActive(item.href)
@@ -144,7 +144,7 @@ export default function Header() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
-                </Link>
+                </a>
               ))}
             </nav>
           </div>

@@ -34,13 +34,13 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerSections[0].links.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
+                  <a
+                    href={link.href}
                     className="brand-underline-link text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded"
                     aria-label={link.ariaLabel}
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -54,13 +54,13 @@ export default function Footer() {
             <ul className="space-y-2">
               {footerSections[1].links.map((link) => (
                 <li key={link.name}>
-                <Link
-                    to={link.href}
+                <a
+                    href={link.href}
                     className="brand-underline-link text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded"
                     aria-label={link.ariaLabel}
                   >
                     {link.name}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
@@ -98,45 +98,45 @@ export default function Footer() {
         {/* Centered Link Group */}
         <div className="border-t border-[#E52629]/15 pt-6 mt-2">
           <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-2 text-[15px] text-neutral-800 mb-4">
-            <Link 
-              to="/about" 
+            <a 
+              href="/about" 
               className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="About Us"
             >
               About Us
-            </Link>
+            </a>
             <span className="text-neutral-400" aria-hidden="true">•</span>
-            <Link 
-              to="/contact" 
+            <a 
+              href="/contact" 
               className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Contact"
             >
               Contact
-            </Link>
+            </a>
             <span className="text-neutral-400" aria-hidden="true">•</span>
-            <Link 
-              to="/careers" 
+            <a 
+              href="/careers" 
               className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Careers"
             >
               Careers
-            </Link>
+            </a>
             <span className="text-neutral-400" aria-hidden="true">•</span>
-            <Link 
-              to="/privacy-policy" 
+            <a 
+              href="/privacy-policy" 
               className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Privacy Policy"
             >
               Privacy Policy
-            </Link>
+            </a>
             <span className="text-neutral-400" aria-hidden="true">•</span>
-            <Link 
-              to="/cookie-policy" 
+            <a 
+              href="/cookie-policy" 
               className="brand-underline-link inline-flex items-center px-2 py-1 min-h-[44px] hover:text-[#E52629] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 rounded-md"
               aria-label="Cookie Policy"
             >
               Cookie Policy
-            </Link>
+            </a>
           </div>
 
           {/* Centered Copyright */}

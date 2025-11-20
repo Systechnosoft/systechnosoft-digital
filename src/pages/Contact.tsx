@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Mail, Phone, CheckCircle, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
-import { HeroBackground, HeroMotionSystem } from "@/components/HeroMotionSystem";
 import { OfficeLocationsMap } from "@/components/OfficeLocationsMap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +10,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
+import { Badge } from "@/components/ui/badge";
+import heroContactImage from "@/assets/hero-contact-us.avif";
 
 const RECAPTCHA_SITE_KEY = "6LfRRwQsAAAAAKjMFCqSdimJabCnVGgPM1m7fVJJ";
 const RECAPTCHA_ACTION = "contact_submit";
@@ -25,12 +26,6 @@ declare global {
   }
 }
 
-const heroCards = [
-  { icon: "🚀", title: "Fast Response", benefit: "Get back within 24 hours" },
-  { icon: "💡", title: "Expert Team", benefit: "Decades of combined experience" },
-  { icon: "🤝", title: "Partnership First", benefit: "Your success is our mission" },
-  { icon: "✨", title: "Innovation Ready", benefit: "Maximize innovation, minimize code" },
-];
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -230,33 +225,127 @@ export default function Contact() {
   return (
     <>
       {/* Hero Section */}
-      <HeroBackground>
-        <section id="hero" className="relative py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              {/* Left Column */}
-              <div className="text-center lg:text-left">
-                <h1 className="text-4xl md:text-5xl font-montserrat font-bold text-[#1C1C1C] mb-6">
-                  Get Started Today
+      <section 
+        id="hero" 
+        data-page="contact"
+        className="sf-hero contact-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"
+        aria-labelledby="contact-hero-title"
+      >
+        {/* Animated background */}
+        <div className="sf-hero__bg absolute inset-0 opacity-10" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+          <motion.div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+              backgroundSize: "400px 400px"
+            }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="sf-hero__inner relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+            {/* Left Column - Copy */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="contact-hero__left space-y-6 max-w-[44rem]">
+              <div className="space-y-6">
+                <h1 
+                  id="contact-hero-title"
+                  className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
+                  Get Started <span className="text-[#E52629]">Today</span>
                 </h1>
-                <p className="text-xl text-[#3C3C3C] max-w-3xl">
+                <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                   Ready to maximize innovation while minimizing code? Tell us a bit and we'll get back within 24 hours.
                 </p>
               </div>
 
-              {/* Right Column - Rotating Cards */}
-              <div className="flex justify-center lg:justify-end">
-                <HeroMotionSystem cards={heroCards} ariaLabel="Contact Systechnosoft" />
-              </div>
-            </div>
+              {/* Benefit Chips */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="sf-hero__chips flex flex-wrap gap-3"
+                aria-label="Key benefits">
+                {["Fast Response", "Expert Team", "Partnership First"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}>
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow">
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* CTAs */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+                className="flex flex-col sm:flex-row gap-4">
+                <Button 
+                  size="lg" 
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]" 
+                  onClick={() => {
+                    const formElement = document.getElementById('contact-form');
+                    if (formElement) {
+                      const offset = 120;
+                      const elementPosition = formElement.getBoundingClientRect().top + window.scrollY;
+                      const targetPosition = elementPosition - offset;
+                      window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                    }
+                  }}>
+                  Send Us a Message →
+                </Button>
+                <BookConsultationTrigger />
+              </motion.div>
+            </motion.div>
+
+            {/* Right Column - Hero Image */}
+            <motion.figure 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="contact-hero__art relative isolate group"
+            >
+              <img
+                src={heroContactImage}
+                width={1270} 
+                height={847}
+                alt="Professional customer support and consultation at Systechnosoft"
+                className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                loading="eager" 
+                decoding="async"
+                sizes="(min-width: 1024px) 48vw, 92vw"
+              />
+              {/* Subtle brand glow */}
+              <span 
+                aria-hidden="true" 
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                }}
+              />
+            </motion.figure>
           </div>
-        </section>
-      </HeroBackground>
+        </div>
+      </section>
 
       <div className="py-12 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Contact Form - Centered */}
           <motion.div
+            id="contact-form"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}

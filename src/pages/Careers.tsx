@@ -36,87 +36,100 @@ export default function Careers() {
         <meta name="description" content="Build your career with Systechnosoft. Remote-first culture, continuous learning, and global project exposure. Explore open roles in Cloud, AI, and Low-code." />
       </Helmet>
 
-      <HeroBackground>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
-            <motion.div 
-              initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }} 
-              animate={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.6 }}
-              className="space-y-6 max-w-[44rem]"
-            >
-              <div className="space-y-6">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-montserrat">
-                  Your Future Starts Here @ <span className="text-[#E52629]">Systechnosoft</span>
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-prose font-inter">
-                  Innovate globally. Grow with purpose. Join a team where bold ideas, collaboration, and continuous learning thrive.
-                </p>
-              </div>
+      <section data-page="careers" className="sf-hero careers-hero relative isolate overflow-hidden bg-white">
+        {/* Animated background */}
+        <div className="sf-hero__bg absolute inset-0 z-0 opacity-[0.08] pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(229,38,41,0.15),transparent_50%),radial-gradient(circle_at_70%_80%,rgba(0,122,255,0.1),transparent_50%)]" />
+          <motion.div
+            className="absolute inset-0"
+            style={{ backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)` }}
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          />
+        </div>
 
-              <motion.div 
+        <div className="sf-hero__inner container mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24 relative z-10">
+          <div className="grid lg:grid-cols-[1.1fr_1fr] gap-8 lg:gap-12 items-center max-w-[1200px] mx-auto">
+            {/* Left Column: Text Content */}
+            <div className="space-y-6 max-w-[44rem]">
+              <motion.h1
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight font-montserrat"
+              >
+                Your Future Starts Here @ <span className="text-[#E52629]">Systechnosoft</span>
+              </motion.h1>
+
+              <motion.p
+                initial={shouldReduceMotion ? {} : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-prose font-inter"
+              >
+                Innovate globally. Grow with purpose. Join a team where bold ideas, collaboration, and continuous learning thrive.
+              </motion.p>
+
+              <motion.div
                 initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15, duration: 0.4 }}
-                className="flex flex-wrap gap-3"
-                aria-label="Key benefits"
+                className="flex flex-wrap gap-2.5"
               >
-                {["Work From Anywhere", "Grow Every Day", "Build Global Impact"].map((badge, idx) => (
-                  <motion.div
-                    key={badge}
-                    initial={shouldReduceMotion ? {} : { opacity: 0, y: 5 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
-                  >
-                    <Badge 
-                      variant="secondary" 
-                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                    >
-                      {[<Wifi className="w-4 h-4 mr-2" />, <GraduationCap className="w-4 h-4 mr-2" />, <Globe className="w-4 h-4 mr-2" />][idx]}
-                      {badge}
-                    </Badge>
-                  </motion.div>
-                ))}
+                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
+                  <Wifi className="w-3.5 h-3.5 mr-1.5 text-primary" /> Work From Anywhere
+                </Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
+                  <GraduationCap className="w-3.5 h-3.5 mr-1.5 text-primary" /> Grow Every Day
+                </Badge>
+                <Badge variant="secondary" className="px-4 py-2 text-sm font-medium bg-background/70 backdrop-blur-sm border border-border/40 hover:bg-background/90 transition-colors">
+                  <Globe className="w-3.5 h-3.5 mr-1.5 text-primary" /> Build Global Impact
+                </Badge>
               </motion.div>
 
-              <motion.div 
-                initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3, duration: 0.4 }}
-                className="flex flex-col sm:flex-row gap-4"
+              <motion.div
+                initial={shouldReduceMotion ? {} : { opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.25, duration: 0.4 }}
+                className="flex flex-wrap gap-3 pt-2"
               >
-                <Button 
-                  size="lg" 
-                  asChild 
-                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99]"
-                >
-                  <a href="#open-positions">See Open Positions<ArrowRight className="ml-2 h-5 w-5" /></a>
+                <Button size="lg" className="group" asChild>
+                  <a href="#positions">
+                    See Open Positions
+                    <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  asChild 
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                >
+                <Button size="lg" variant="outline" asChild>
                   <a href="#why-join">Why Work With Us</a>
                 </Button>
               </motion.div>
-            </motion.div>
+            </div>
 
-            <motion.div
+            {/* Right Column: Hero Image with Glow */}
+            <motion.figure
               initial={shouldReduceMotion ? {} : { opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex justify-center lg:justify-end"
+              className="relative isolate group"
             >
-              <HeroMotionSystem 
-                cards={heroCards} 
-                ariaLabel="Career highlights at Systechnosoft" 
+              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
+                <div className="text-center text-gray-400 p-8">
+                  <Briefcase className="w-24 h-24 mx-auto mb-4" />
+                  <p className="text-lg font-semibold">Careers Hero Image</p>
+                </div>
+              </div>
+              {/* Subtle brand glow */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
+                }}
               />
-            </motion.div>
+            </motion.figure>
           </div>
         </div>
-      </HeroBackground>
+      </section>
 
       <section id="why-join" className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-4 text-center">

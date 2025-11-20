@@ -26,6 +26,7 @@ import ContactFormSection from "@/components/ContactFormSection";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { cn } from "@/lib/utils";
 import { scrollToId } from "@/lib/scrollUtils";
+import heroAboutImage from "@/assets/hero-about-us.avif";
 
 export default function About() {
   const [activeSection, setActiveSection] = useState("vision-mission");
@@ -39,11 +40,6 @@ export default function About() {
     { id: "faqs", label: "FAQs" },
   ];
 
-  const heroCards = [
-    { icon: "🎯", title: "Enterprise-ready", benefit: "Proven at scale" },
-    { icon: "⚡", title: "Fast delivery", benefit: "Weeks, not quarters" },
-    { icon: "🔐", title: "Security first", benefit: "Built-in compliance" },
-  ];
 
   const values = [
     {
@@ -132,34 +128,6 @@ export default function About() {
 
   const fadeUpVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
   const staggeredFadeUp = { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.1 } } };
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const [currentHeroIndex, setCurrentHeroIndex] = useState(0);
-  const [isHeroPaused, setIsHeroPaused] = useState(false);
-  const heroTimerRef = useRef<NodeJS.Timeout>();
-  const heroPauseTimeoutRef = useRef<NodeJS.Timeout>();
-
-  useEffect(() => {
-    if (isHeroPaused || prefersReducedMotion) return;
-    heroTimerRef.current = setInterval(() => {
-      setCurrentHeroIndex((prev) => (prev + 1) % heroCards.length);
-    }, 3000);
-    return () => { if (heroTimerRef.current) clearInterval(heroTimerRef.current); };
-  }, [isHeroPaused]);
-
-  const handleHeroMouseEnter = () => {
-    setIsHeroPaused(true);
-    if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current);
-    heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000);
-  };
-
-  const handleHeroKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
-      setCurrentHeroIndex((prev) => e.key === "ArrowLeft" ? (prev - 1 + heroCards.length) % heroCards.length : (prev + 1) % heroCards.length);
-      setIsHeroPaused(true);
-      if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current);
-      heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000);
-    }
-  };
 
   return (
     <>
@@ -254,31 +222,22 @@ export default function About() {
               </motion.div>
 
               {/* Right Column - Hero Image */}
-              <motion.div
+              <motion.figure 
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="about-hero__art relative isolate group" 
-                onMouseEnter={handleHeroMouseEnter} 
-                onMouseLeave={() => { if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); setIsHeroPaused(false); }} 
-                onFocus={() => setIsHeroPaused(true)} 
-                onKeyDown={handleHeroKeyDown} 
-                tabIndex={0} 
-                role="region" 
-                aria-label="Service highlights">
-                <div className="relative min-h-[400px] flex items-center justify-center">
-                  {heroCards.map((card, index) => (
-                    <motion.div key={index} initial={{ opacity: 0 }} animate={{ opacity: currentHeroIndex === index ? 1 : 0, scale: currentHeroIndex === index ? 1 : 0.95 }} transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5 }} className={cn("absolute inset-0 flex items-center justify-center", currentHeroIndex !== index && "pointer-events-none")}>
-                      <Card className="w-full max-w-md bg-white border-2 border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] rounded-2xl transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:translate-y-[-6px] hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
-                        <CardContent className="p-12 text-center">
-                          <div className="text-6xl mb-6">{card.icon}</div>
-                          <h3 className="text-2xl font-bold font-montserrat text-[#1C1C1C] mb-3">{card.title}</h3>
-                          <p className="text-[#3C3C3C] text-lg">{card.benefit}</p>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </div>
+                className="about-hero__art relative isolate group"
+              >
+                <img
+                  src={heroAboutImage}
+                  width={1270} 
+                  height={847}
+                  alt="Team collaboration and enterprise technology solutions at Systechnosoft"
+                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                  loading="eager" 
+                  decoding="async"
+                  sizes="(min-width: 1024px) 48vw, 92vw"
+                />
                 {/* Subtle brand glow */}
                 <span 
                   aria-hidden="true" 
@@ -287,14 +246,7 @@ export default function About() {
                     background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #007AFF 10%, transparent 70%)`
                   }}
                 />
-                {!prefersReducedMotion && (
-                  <div className="flex justify-center gap-2 mt-6">
-                    {heroCards.map((_, index) => (
-                      <button key={index} onClick={() => { setCurrentHeroIndex(index); setIsHeroPaused(true); if (heroPauseTimeoutRef.current) clearTimeout(heroPauseTimeoutRef.current); heroPauseTimeoutRef.current = setTimeout(() => setIsHeroPaused(false), 10000); }} className={cn("w-3 h-3 rounded-full transition-all", currentHeroIndex === index ? "bg-[#E52629] w-8" : "bg-gray-300")} aria-label={`Go to slide ${index + 1}`} />
-                    ))}
-                  </div>
-                )}
-              </motion.div>
+              </motion.figure>
             </div>
           </div>
         </section>

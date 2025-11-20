@@ -170,7 +170,7 @@ export default function About() {
                   <h1 
                     id="about-hero-title"
                     className="text-4xl md:text-5xl lg:text-6xl font-bold font-montserrat text-[#1C1C1C] leading-tight">
-                    One Partner. <span className="text-[#E52629]">Total Tech Power.</span>
+                    One Partner.<br /><span className="text-[#E52629]">Total Tech Power.</span>
                   </h1>
                   <p className="text-lg md:text-xl text-[#3C3C3C] leading-relaxed max-w-prose">
                     From cloud to automation, we help enterprises in BFSI, aviation, oil & gas, and healthcare thrive with smart, scalable solutions.
@@ -184,7 +184,7 @@ export default function About() {
                   transition={{ delay: 0.15, duration: 0.4 }}
                   className="sf-hero__chips flex flex-wrap gap-3"
                   aria-label="Key benefits">
-                  {["End-to-End Tech Expertise", "Industry-Focused Execution", "Enterprise-Grade Solutions"].map((badge, idx) => (
+                  {["Tech Expertise", "Industry-Focused Execution", "Enterprise-Grade Solutions"].map((badge, idx) => (
                     <motion.div
                       key={badge}
                       initial={{ opacity: 0, y: 5 }}

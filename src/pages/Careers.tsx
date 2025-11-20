@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
+import heroCareersImage from "@/assets/hero-careers.avif";
 
 export default function Careers() {
   const shouldReduceMotion = useReducedMotion();
@@ -112,12 +113,16 @@ export default function Careers() {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="relative isolate group"
             >
-              <div className="rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 aspect-[4/3] flex items-center justify-center border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]">
-                <div className="text-center text-gray-400 p-8">
-                  <Briefcase className="w-24 h-24 mx-auto mb-4" />
-                  <p className="text-lg font-semibold">Careers Hero Image</p>
-                </div>
-              </div>
+              <img
+                src={heroCareersImage}
+                width={1270} 
+                height={847}
+                alt="Career opportunities and team collaboration at Systechnosoft"
+                className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]" 
+                loading="eager" 
+                decoding="async"
+                sizes="(min-width: 1024px) 48vw, 92vw"
+              />
               {/* Subtle brand glow */}
               <span
                 aria-hidden="true"

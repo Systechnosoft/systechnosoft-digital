@@ -10,6 +10,7 @@ import IndustryCarousel from "@/components/IndustryCarousel";
 import { HeroBackground } from "@/components/HeroMotionSystem";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import { motion } from "framer-motion";
+import { CloudSwarmAnimation } from "@/components/CloudSwarmAnimation";
 
 const pillars = [
   {
@@ -197,7 +198,13 @@ export default function Home() {
           id="hero"
           className="relative min-h-[80vh] lg:min-h-screen flex items-center py-24 overflow-visible"
         >
-          <div className="max-w-[960px] mx-auto px-6 sm:px-6 lg:px-8">
+          {/* Cloud Animation Background - Positioned Behind Content */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+            <CloudSwarmAnimation />
+          </div>
+          
+          {/* Existing Content - Stays on Top */}
+          <div className="relative z-10 max-w-[960px] mx-auto px-6 sm:px-6 lg:px-8">
             <div className="bg-white/70 backdrop-blur-[2px] border-2 border-[#E52629] rounded-2xl p-6 sm:p-8 md:p-10 shadow-[0_1px_2px_rgba(0,0,0,0.04)] box-border">
               <div className="text-center flex flex-col gap-y-5 sm:gap-y-6 md:gap-y-8">
                 <h1 

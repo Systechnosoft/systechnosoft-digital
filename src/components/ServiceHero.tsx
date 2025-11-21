@@ -140,15 +140,17 @@ export default function ServiceHero({
       )}
       aria-labelledby={`${id}-title`}
     >
-      {/* Animated background - CSS optimized */}
+      {/* Animated background - Framer Motion optimized */}
       <div className="sf-hero__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
-        <div
-          className="absolute inset-0 hero-conic-rotate"
+        <motion.div
+          className="absolute inset-0"
           style={{
             backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
             backgroundSize: "400px 400px"
           }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
       </div>
 

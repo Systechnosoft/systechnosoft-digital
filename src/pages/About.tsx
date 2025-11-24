@@ -79,7 +79,7 @@ export default function About() {
       description: "Cloud, data centers, migration, backup & recovery. We modernize your infrastructure to support rapid growth and innovation.",
       links: [
         { label: "Cloud & Data Center", href: "/services/cloud" },
-        { label: "Managed IT", href: "/services/managed-it" },
+        { label: "Managed IT", href: "/services/managed-it-services" },
         { label: "Backup & Recovery", href: "/services/backup-recovery" },
       ],
     },
@@ -97,9 +97,9 @@ export default function About() {
       title: "AI & Automation",
       description: "NLP, analytics, and intelligent automation for smarter operations. Transform data into decisions, decisions into action.",
       links: [
-        { label: "AI Development", href: "/services/ai-development" },
-        { label: "NLP", href: "/services/nlp" },
-        { label: "Analytics & Insights", href: "/services/analytics" },
+        { label: "AI Development", href: "/services/ai-development-integration" },
+        { label: "NLP", href: "/services/ai-natural-language-processing" },
+        { label: "Analytics & Insights", href: "/services/ai-data-analytics-insights" },
       ],
     },
   ];
@@ -306,7 +306,7 @@ export default function About() {
                       <CardDescription className="text-[#3C3C3C] leading-relaxed">{vertical.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="block text-sm text-[#E52629] hover:underline font-medium">{link.label}</Link>))}
+                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="brand-underline-link block text-sm text-[#E52629] font-medium">{link.label}</Link>))}
                     </CardContent>
                   </Card>
                 </motion.div>

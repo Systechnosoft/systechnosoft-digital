@@ -55,55 +55,6 @@ export function TableOfContents({ sections }: TableOfContentsProps) {
 
   return (
     <>
-      {/* Mobile: Collapsible TOC */}
-      <div className="lg:hidden mb-8">
-        <Collapsible open={isOpen} onOpenChange={setIsOpen}>
-          <Card>
-            <CollapsibleTrigger asChild>
-              <Button
-                variant="ghost"
-                className="w-full flex items-center justify-between p-4 hover:bg-[#E52629]/5 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none"
-                aria-expanded={isOpen}
-                aria-controls="mobile-toc"
-              >
-                <span className="font-semibold text-[#1C1C1C] font-montserrat">
-                  Table of Contents
-                </span>
-                {isOpen ? (
-                  <ChevronUp className="h-5 w-5 text-[#E52629]" />
-                ) : (
-                  <ChevronDown className="h-5 w-5 text-[#E52629]" />
-                )}
-              </Button>
-            </CollapsibleTrigger>
-            <CollapsibleContent id="mobile-toc">
-              <CardContent className="pt-0 pb-4">
-                <nav aria-label="Table of contents">
-                  <ul className="space-y-2">
-                    {sections.map(({ id, title }) => (
-                      <li key={id}>
-                        <button
-                          onClick={() => handleClick(id)}
-                          onKeyDown={(e) => handleKeyDown(e, id)}
-                          className={`block w-full text-left px-3 py-2 rounded-md text-sm transition-colors focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none ${
-                            activeSection === id
-                              ? "bg-[#E52629] text-white font-semibold"
-                              : "text-[#3C3C3C] hover:bg-[#E52629]/10 hover:text-[#E52629]"
-                          }`}
-                          aria-current={activeSection === id ? "location" : undefined}
-                        >
-                          {title}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </nav>
-              </CardContent>
-            </CollapsibleContent>
-          </Card>
-        </Collapsible>
-      </div>
-
       {/* Desktop: Sticky TOC */}
       <aside
         className="hidden lg:block sticky top-24 h-fit"

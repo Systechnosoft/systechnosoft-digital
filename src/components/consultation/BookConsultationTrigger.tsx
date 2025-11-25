@@ -5,7 +5,7 @@ import { useConsultationStore } from "@/lib/consultation-store";
 import { cn } from "@/lib/utils";
 
 interface BookConsultationTriggerProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'variant'> {
-  variant?: 'primary' | 'secondary' | 'link';
+  variant?: 'primary' | 'secondary' | 'link' | 'outline';
   children?: ReactNode;
 }
 
@@ -44,6 +44,8 @@ export function BookConsultationTrigger({
         return "bg-secondary text-secondary-foreground hover:bg-secondary/80";
       case 'link':
         return "text-primary underline-offset-4 hover:underline";
+      case 'outline':
+        return "border border-input bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground";
       case 'primary':
       default:
         return "bg-[#E52629] hover:bg-[#E52629]/90 text-white";

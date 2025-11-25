@@ -309,7 +309,7 @@ export default function Contact() {
                 </Button>
                 <BookConsultationTrigger 
                   variant="secondary"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors bg-transparent border"
+                  className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors !bg-transparent"
                 >
                   Book a Consultation
                 </BookConsultationTrigger>

@@ -307,12 +307,6 @@ export default function Contact() {
                   }}>
                   Send Us a Message →
                 </Button>
-                <BookConsultationTrigger 
-                  variant="secondary"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold !bg-transparent"
-                >
-                  Book a Consultation
-                </BookConsultationTrigger>
               </motion.div>
             </motion.div>
 

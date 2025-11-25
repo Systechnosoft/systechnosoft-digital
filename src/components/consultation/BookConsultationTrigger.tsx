@@ -45,7 +45,7 @@ export function BookConsultationTrigger({
       case 'link':
         return "text-primary underline-offset-4 hover:underline";
       case 'outline':
-        return "border border-input bg-transparent text-foreground hover:bg-accent hover:text-accent-foreground";
+        return "border border-input bg-background text-foreground hover:bg-accent hover:text-accent-foreground";
       case 'primary':
       default:
         return "bg-[#E52629] hover:bg-[#E52629]/90 text-white";

@@ -283,7 +283,7 @@ export default function CaseStudies() {
         />
 
         {/* Industry Navigation - Sticky */}
-        <div className="bg-white py-8 sticky top-16 z-40 border-b border-gray-200" data-sticky-nav>
+        <div className="hidden lg:block bg-white py-8 sticky top-16 z-40 border-b border-gray-200" data-sticky-nav>
           <div className="container mx-auto px-4">
             <div className="flex justify-center">
               <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2">

@@ -316,7 +316,7 @@ export default function Industries() {
       />
 
       {/* Section Navigation - Sticky */}
-      <div className="bg-white py-4 sticky top-16 z-40 border-b border-gray-200">
+      <div className="hidden lg:block bg-white py-4 sticky top-16 z-40 border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex justify-center">
             <div className="inline-flex h-auto items-center justify-center p-0 bg-transparent gap-2 flex-wrap">

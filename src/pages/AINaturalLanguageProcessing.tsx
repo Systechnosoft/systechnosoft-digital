@@ -321,7 +321,7 @@ export default function AINaturalLanguageProcessing() {
       </section>
 
       {/* Local Section Nav */}
-      <nav className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+      <nav className="hidden lg:block sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex justify-center overflow-x-auto py-4 space-x-8 scrollbar-hide">
             {navItems.map(({ id, label }) => (

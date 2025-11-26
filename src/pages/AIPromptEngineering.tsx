@@ -626,7 +626,7 @@ export default function AIPromptEngineering() {
           
           <div className="flex justify-center">
             <BookConsultationTrigger 
-              className="bg-white text-[#E52629] hover:bg-gray-50 px-10 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+              className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
             >
               Book a consultation
             </BookConsultationTrigger>

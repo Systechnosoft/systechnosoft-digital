@@ -1530,7 +1530,7 @@ export default function CloudServices() {
                 size="lg"
                 className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
               >
-                <Link to="/contact?type=all-case-studies">
+                <Link to="/case-studies">
                   View detailed case studies
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

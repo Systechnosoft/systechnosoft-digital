@@ -741,10 +741,9 @@ export default function Home() {
             Let's discuss how we can help maximize your innovation while minimizing complexity
           </p>
           <BookConsultationTrigger 
-            variant="secondary"
-            className="bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
+            className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
           >
-            Book a Consultation
+            Book a consultation
           </BookConsultationTrigger>
         </div>
       </section>

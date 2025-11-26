@@ -687,9 +687,9 @@ export default function Appian() {
             Let's discuss a roadmap to ship measurable outcomes fast—safely and at scale.
           </p>
           <BookConsultationTrigger 
-            className="bg-white text-[#E52629] hover:bg-white/90 px-8 py-6 text-base font-semibold"
+            className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
           >
-            Book a Consultation
+            Book a consultation
           </BookConsultationTrigger>
         </div>
       </section>

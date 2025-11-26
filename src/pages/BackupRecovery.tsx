@@ -695,8 +695,7 @@ export default function BackupRecovery() {
             </p>
             <div className="flex justify-center">
               <BookConsultationTrigger 
-                variant="secondary"
-                className="btn-secondary bg-white text-primary hover:bg-white/90 text-lg px-8 py-4"
+                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
               >
                 Book a consultation
               </BookConsultationTrigger>

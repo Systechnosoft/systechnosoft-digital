@@ -744,9 +744,9 @@ export default function MicrosoftDynamics365() {
             </p>
             <div className="flex justify-center">
               <BookConsultationTrigger 
-                className="group bg-transparent border-2 border-white text-white hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629] transition-all duration-200 px-8 py-4 text-lg font-semibold"
+                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
               >
-                Book a Consultation
+                Book a consultation
               </BookConsultationTrigger>
             </div>
           </div>

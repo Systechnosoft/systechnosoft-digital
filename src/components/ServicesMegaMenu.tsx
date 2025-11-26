@@ -120,10 +120,10 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
         <SheetTrigger asChild>
           <button
             className={cn(
-              "font-inter font-medium text-sm transition-colors header-nav-item",
+              "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item w-full text-left",
               isActive
-                ? "text-primary"
-                : "text-muted-foreground hover:text-foreground"
+                ? "text-primary bg-primary/10"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent"
             )}
           >
             Services

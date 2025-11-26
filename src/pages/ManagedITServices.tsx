@@ -348,20 +348,12 @@ export default function ManagedITServices() {
             <p className="font-inter text-xl text-white/95 mb-8">
               Let's discuss how our managed IT services can improve your uptime, security, and operational efficiency.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <BookConsultationTrigger 
-                className="bg-white text-[#E52629] hover:bg-gray-50 px-8 py-4 text-lg font-semibold transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
               >
-                Schedule a Consultation
+                Book a consultation
               </BookConsultationTrigger>
-              <Link to="/services">
-                <Button 
-                  size="lg" 
-                  className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
-                >
-                  Explore All Services
-                </Button>
-              </Link>
             </div>
           </div>
         </section>

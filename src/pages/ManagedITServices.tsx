@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import ServiceHero from "@/components/ServiceHero";
+import { useHealthCheckStore } from "@/lib/health-check-store";
 import { 
   ArrowRight, 
   Shield, 
@@ -19,13 +20,12 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import { NetworkHealthCheckModal } from "@/components/managed-it/NetworkHealthCheckModal";
 
 
 export default function ManagedITServices() {
   const [activeSection, setActiveSection] = useState("helpdesk");
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
-  const [healthCheckOpen, setHealthCheckOpen] = useState(false);
+  const { openHealthCheck } = useHealthCheckStore();
 
   const navItems = [
     { id: "rmm", label: "Remote Monitoring & Management" },
@@ -257,7 +257,7 @@ export default function ManagedITServices() {
           uspChips={["24×7 monitoring", "SLA-backed", "Zero‑trust aligned"]}
           primaryButton={{
             text: "IT Network Health Check",
-            onClick: () => setHealthCheckOpen(true),
+            onClick: openHealthCheck,
             ariaLabel: "Start IT Network Health Check Assessment"
           }}
           secondaryButton={{
@@ -273,13 +273,6 @@ export default function ManagedITServices() {
             placeholderPrompt: "Professional 3D illustration showing IT infrastructure monitoring with servers, network nodes, security shields, and real-time dashboards in a modern tech style with blue and red accents"
           }}
         />
-
-        {/* Network Health Check Modal */}
-        <NetworkHealthCheckModal
-          open={healthCheckOpen}
-          onOpenChange={setHealthCheckOpen}
-        />
-
 
         {/* Service Tiles - Light Background */}
         <section id="mis-services" className="mx-auto max-w-[1200px] px-4 sm:px-6 lg:px-8 pt-8 md:pt-12 pb-12 md:pb-16">

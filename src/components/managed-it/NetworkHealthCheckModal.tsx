@@ -223,6 +223,7 @@ export function NetworkHealthCheckModal({ open, onOpenChange }: NetworkHealthChe
               </Button>
               <Button
                 variant="outline"
+                size="lg"
                 onClick={handleNext}
                 disabled={!hasAnswer}
                 className="flex-1 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"

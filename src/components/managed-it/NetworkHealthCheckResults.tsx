@@ -163,8 +163,10 @@ export function NetworkHealthCheckResults({
               rows={3}
             />
             <Button 
+              variant="outline"
+              size="lg"
               onClick={handleSubmit}
-              className="w-full"
+              className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
             >
               Submit Feedback
             </Button>
@@ -176,7 +178,7 @@ export function NetworkHealthCheckResults({
       <div className="flex flex-col md:flex-row gap-3">
         <Button 
           onClick={handleBookConsultation}
-          className="w-full h-12 text-base font-semibold" 
+          className="w-full bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed" 
           size="lg"
         >
           Book a Consultation
@@ -184,8 +186,8 @@ export function NetworkHealthCheckResults({
         <Button
           variant="outline"
           onClick={onClose}
-          className="w-full h-12 text-base font-semibold border-2 hover:bg-primary/10 hover:border-primary/50"
           size="lg"
+          className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
         >
           Claim Your Free Insight
         </Button>
@@ -195,7 +197,7 @@ export function NetworkHealthCheckResults({
       <div className="text-center">
         <button
           onClick={onReset}
-          className="text-sm text-muted-foreground hover:text-primary underline transition-colors"
+          className="brand-underline-link text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded inline-flex items-center px-2 py-1 min-h-[44px]"
         >
           Retake Assessment
         </button>

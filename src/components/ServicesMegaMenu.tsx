@@ -123,7 +123,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
               "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item w-full text-left",
               isActive
                 ? "text-primary bg-primary/10"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
             )}
           >
             Services

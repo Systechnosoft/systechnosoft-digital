@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Zap, Shield, TrendingUp } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useIsMobile } from "@/hooks/use-mobile";
+import { useHealthCheckStore } from "@/lib/health-check-store";
 
 import {
   Sheet,
@@ -53,6 +54,7 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
   const openTimeoutRef = useRef<NodeJS.Timeout>();
   const closeTimeoutRef = useRef<NodeJS.Timeout>();
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const { openHealthCheck } = useHealthCheckStore();
 
   const handleOpenChange = (open: boolean) => {
     setIsOpen(open);
@@ -171,16 +173,24 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
               >
                 Claim Your Free Insight
               </a>
-              <a
-                href="/tools/health-check"
+              <button
                 className="block w-full border border-border text-center py-3 rounded-md font-medium hover:bg-accent transition-colors"
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check');
+                onClick={() => {
+                  openHealthCheck();
+                  setIsOpen(false);
+                  onClose();
+                  // Analytics
+                  if (typeof window !== 'undefined' && (window as any).gtag) {
+                    (window as any).gtag('event', 'menu_link_click', {
+                      section: 'Footer',
+                      item: 'IT Network Health Check',
+                      action: 'open_modal'
+                    });
+                  }
                 }}
               >
                 IT Network Health Check
-              </a>
+              </button>
             </div>
           </div>
         </SheetContent>
@@ -288,14 +298,25 @@ export default function ServicesMegaMenu({ isActive, onClose }: ServicesMegaMenu
                     Claim Your Free Insight
                     <ArrowRight className="h-4 w-4" />
                   </Link>
-                  <Link
-                    to="/tools/health-check"
+                  <button
                     className="inline-flex items-center gap-2 border border-rose-300 text-rose-600 hover:bg-rose-50 px-6 py-2.5 rounded-lg font-medium transition-colors text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-rose-300"
-                    onClick={() => handleLinkClick('Footer', 'IT Network Health Check', '/tools/health-check')}
+                    onClick={() => {
+                      openHealthCheck();
+                      setIsOpen(false);
+                      onClose();
+                      // Analytics
+                      if (typeof window !== 'undefined' && (window as any).gtag) {
+                        (window as any).gtag('event', 'menu_link_click', {
+                          section: 'Footer',
+                          item: 'IT Network Health Check',
+                          action: 'open_modal'
+                        });
+                      }
+                    }}
                   >
                     <Shield className="h-4 w-4" />
                     IT Network Health Check
-                  </Link>
+                  </button>
                 </div>
               </div>
             </div>

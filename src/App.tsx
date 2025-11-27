@@ -8,6 +8,7 @@ import { HelmetProvider } from "react-helmet-async";
 import ScrollToTop from "./components/ScrollToTop";
 import Layout from "./components/Layout";
 import { CalendlyDialogHost } from "./components/consultation/CalendlyDialogHost";
+import { NetworkHealthCheckHost } from "./components/managed-it/NetworkHealthCheckHost";
 
 // Lazy load all pages for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -59,6 +60,7 @@ const App = () => (
         <Toaster />
         <Sonner />
         <CalendlyDialogHost />
+        <NetworkHealthCheckHost />
         <BrowserRouter>
           <ScrollToTop />
           <Suspense fallback={<PageLoader />}>

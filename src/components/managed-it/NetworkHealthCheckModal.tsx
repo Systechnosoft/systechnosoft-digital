@@ -216,15 +216,16 @@ export function NetworkHealthCheckModal({ open, onOpenChange }: NetworkHealthChe
                 variant="outline"
                 onClick={handlePrevious}
                 disabled={currentStep === 0}
-                className="flex-1"
+                className="flex-1 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
               >
                 <ChevronLeft className="mr-2 h-4 w-4" />
                 Previous
               </Button>
               <Button
+                variant="outline"
                 onClick={handleNext}
                 disabled={!hasAnswer}
-                className="flex-1"
+                className="flex-1 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors"
               >
                 {currentStep === totalQuestions - 1 ? "See Results" : "Next"}
                 {currentStep < totalQuestions - 1 && (

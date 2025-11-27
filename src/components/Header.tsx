@@ -119,7 +119,7 @@ export default function Header() {
                   "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
                   isActive("/")
                     ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                    : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
                 )}
                 onClick={() => setMobileMenuOpen(false)}
               >
@@ -143,7 +143,7 @@ export default function Header() {
                     "block px-3 py-2 text-base font-inter font-medium rounded header-nav-item",
                     isActive(item.href)
                       ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                      : "text-muted-foreground hover:text-foreground hover:bg-primary/10"
                   )}
                   onClick={() => setMobileMenuOpen(false)}
                 >

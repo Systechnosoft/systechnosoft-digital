@@ -503,11 +503,17 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     outline: none !important;
   }
 
+  /* Override Button ghost variant blue hover - force red theme */
+  .mobile-menu-toggle:hover {
+    background-color: rgba(229, 38, 41, 0.08) !important;
+    border-color: hsl(357 94% 55%) !important;
+  }
+
   /* Red hover state on pointer devices */
   @media (hover: hover) and (pointer: fine) {
     .mobile-menu-toggle:hover {
-      background-color: rgba(229, 38, 41, 0.08);
-      border-color: hsl(357 94% 55%);
+      background-color: rgba(229, 38, 41, 0.08) !important;
+      border-color: hsl(357 94% 55%) !important;
     }
   }
 

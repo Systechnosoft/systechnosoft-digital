@@ -39,7 +39,7 @@ export function NetworkHealthCheckQuestion({
                 className={`w-full justify-between text-left h-auto py-4 px-5 transition-all ${
                   isSelected
                     ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "hover:bg-primary/10 hover:border-primary/50"
+                    : "hover:bg-muted hover:border-primary/50"
                 }`}
                 onClick={() => onSelect(option.score)}
               >

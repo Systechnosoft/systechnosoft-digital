@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { Star, TrendingUp, AlertTriangle, AlertCircle } from "lucide-react";
 import { motion } from "framer-motion";
+import { useConsultationStore } from "@/lib/consultation-store";
+import { useToast } from "@/hooks/use-toast";
 
 interface NetworkHealthCheckResultsProps {
   totalScore: number;
@@ -22,6 +23,21 @@ export function NetworkHealthCheckResults({
   const [rating, setRating] = useState(0);
   const [hoveredRating, setHoveredRating] = useState(0);
   const [feedback, setFeedback] = useState("");
+  const { openCalendly } = useConsultationStore();
+  const { toast } = useToast();
+
+  const handleSubmit = () => {
+    toast({
+      title: "Feedback Submitted",
+      description: "Thank you for your feedback!",
+    });
+    onClose();
+  };
+
+  const handleBookConsultation = () => {
+    onClose();
+    openCalendly();
+  };
 
   const percentage = Math.round((totalScore / maxScore) * 100);
 
@@ -131,7 +147,7 @@ export function NetworkHealthCheckResults({
             </div>
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label
               htmlFor="feedback"
               className="text-sm font-medium text-foreground"
@@ -146,26 +162,33 @@ export function NetworkHealthCheckResults({
               className="resize-none"
               rows={3}
             />
+            <Button 
+              onClick={handleSubmit}
+              className="w-full"
+            >
+              Submit Feedback
+            </Button>
           </div>
         </CardContent>
       </Card>
 
       {/* Action Buttons */}
-      <div className="space-y-3">
-        <Link to="/contact?type=free-insight" onClick={onClose} className="block">
-          <Button className="w-full h-12 text-base font-semibold" size="lg">
-            Claim Your Free Insight
-          </Button>
-        </Link>
-        <Link to="/contact?type=consultation" onClick={onClose} className="block">
-          <Button
-            variant="outline"
-            className="w-full h-12 text-base font-semibold border-2 hover:bg-primary/10 hover:border-primary/50"
-            size="lg"
-          >
-            Book a Consultation
-          </Button>
-        </Link>
+      <div className="flex flex-col md:flex-row gap-3">
+        <Button 
+          onClick={handleBookConsultation}
+          className="w-full h-12 text-base font-semibold" 
+          size="lg"
+        >
+          Book a Consultation
+        </Button>
+        <Button
+          variant="outline"
+          onClick={onClose}
+          className="w-full h-12 text-base font-semibold border-2 hover:bg-primary/10 hover:border-primary/50"
+          size="lg"
+        >
+          Claim Your Free Insight
+        </Button>
       </div>
 
       {/* Reset Link */}

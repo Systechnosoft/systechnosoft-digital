@@ -165,11 +165,20 @@ export function NetworkHealthCheckModal({ open, onOpenChange }: NetworkHealthChe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" hideDefaultClose>
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-center">
-            {showResults ? "Your Network Health Score" : "IT Network Health Check"}
-          </DialogTitle>
+          <div className="flex items-center justify-between">
+            <DialogTitle className="text-2xl font-bold flex-1 text-center">
+              {showResults ? "Your Network Health Score" : "IT Network Health Check"}
+            </DialogTitle>
+            <button
+              onClick={() => onOpenChange(false)}
+              className="h-9 w-9 rounded-full text-neutral-700 hover:text-[#E52629] hover:bg-[#E52629]/10 focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:outline-none transition-colors flex items-center justify-center"
+              aria-label="Close"
+            >
+              <span className="text-2xl leading-none">&times;</span>
+            </button>
+          </div>
         </DialogHeader>
 
         {!showResults ? (

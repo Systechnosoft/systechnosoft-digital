@@ -256,7 +256,7 @@ export default function ManagedITServices() {
           subtitle="Operate securely with 24×7 visibility, SLA-backed support, and automation across your entire IT footprint."
           uspChips={["24×7 monitoring", "SLA-backed", "Zero‑trust aligned"]}
           primaryButton={{
-            text: "IT Network Health Check",
+            text: "Claim your free insight",
             onClick: () => setHealthCheckOpen(true),
             ariaLabel: "Start IT Network Health Check Assessment"
           }}

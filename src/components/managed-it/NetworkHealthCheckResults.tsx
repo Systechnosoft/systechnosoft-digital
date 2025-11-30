@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
-import { Star, TrendingUp, AlertTriangle, AlertCircle } from "lucide-react";
+import { Star, TrendingUp, AlertTriangle, AlertCircle, Calendar } from "lucide-react";
 import { motion } from "framer-motion";
 import { useConsultationStore } from "@/lib/consultation-store";
 import { useToast } from "@/hooks/use-toast";
@@ -184,10 +184,12 @@ export function NetworkHealthCheckResults({
       {/* Action Buttons */}
       <div className="flex flex-col md:flex-row gap-3">
         <Button 
+          variant="outline"
           onClick={handleBookConsultation}
-          className="w-full bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed" 
+          className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold" 
           size="lg"
         >
+          <Calendar className="h-5 w-5" />
           Book a Consultation
         </Button>
         <Button

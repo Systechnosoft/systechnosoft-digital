@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,6 +26,7 @@ export function NetworkHealthCheckResults({
   const [feedback, setFeedback] = useState("");
   const { openCalendly } = useConsultationStore();
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
     toast({
@@ -37,6 +39,11 @@ export function NetworkHealthCheckResults({
   const handleBookConsultation = () => {
     onClose();
     openCalendly();
+  };
+
+  const handleClaimInsight = () => {
+    onClose();
+    navigate("/contact");
   };
 
   const percentage = Math.round((totalScore / maxScore) * 100);
@@ -185,7 +192,7 @@ export function NetworkHealthCheckResults({
         </Button>
         <Button
           variant="outline"
-          onClick={onClose}
+          onClick={handleClaimInsight}
           size="lg"
           className="w-full border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
         >

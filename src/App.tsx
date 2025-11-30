@@ -59,10 +59,10 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <CalendlyDialogHost />
-        <NetworkHealthCheckHost />
         <BrowserRouter>
           <ScrollToTop />
+          <CalendlyDialogHost />
+          <NetworkHealthCheckHost />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Layout />}>

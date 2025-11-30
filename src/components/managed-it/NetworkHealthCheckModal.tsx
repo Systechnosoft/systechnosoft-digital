@@ -165,7 +165,7 @@ export function NetworkHealthCheckModal({ open, onOpenChange }: NetworkHealthChe
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto" hideDefaultClose>
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto" hideDefaultClose>
         <DialogHeader>
           <div className="flex items-center justify-between">
             <DialogTitle className="text-2xl font-bold flex-1 text-center">
@@ -185,9 +185,8 @@ export function NetworkHealthCheckModal({ open, onOpenChange }: NetworkHealthChe
           <div className="space-y-6 py-4">
             {/* Progress Bar */}
             <div className="space-y-2">
-              <div className="flex justify-between text-sm text-muted-foreground">
+              <div className="text-sm text-muted-foreground">
                 <span>Question {currentStep + 1} of {totalQuestions}</span>
-                <span>{Math.round(progress)}%</span>
               </div>
               <Progress value={progress} className="h-2" />
             </div>

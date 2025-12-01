@@ -4,11 +4,13 @@ import Footer from "./Footer";
 import { ConsentProvider } from "./consent/ConsentProvider";
 import { CookieBanner } from "./consent/CookieBanner";
 import { CookiePanel } from "./consent/CookiePanel";
+import { TopContactRibbon } from "./layout/TopContactRibbon";
 
 export default function Layout() {
   return (
     <ConsentProvider>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen flex flex-col w-full">
+        <TopContactRibbon />
         <Header />
         <main id="main-content" className="flex-1">
           <Outlet />

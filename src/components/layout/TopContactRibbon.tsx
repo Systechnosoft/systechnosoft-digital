@@ -1,4 +1,4 @@
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { Phone, Mail, Facebook, Instagram, Linkedin, Send } from 'lucide-react';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
 
@@ -68,18 +68,21 @@ export function TopContactRibbon() {
   const { isVisible } = useScrollDirection();
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ y: 0, opacity: 1 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -48, opacity: 0 }}
-          transition={{
-            duration: 0.3,
-            ease: [0.4, 0, 0.2, 1],
-          }}
-          className="sticky top-0 z-40 bg-neutral-50 border-b border-neutral-200"
-        >
+    <motion.div
+      initial={{ y: 0, opacity: 1 }}
+      animate={{ 
+        y: isVisible ? 0 : -48, 
+        opacity: isVisible ? 1 : 0 
+      }}
+      transition={{
+        duration: 0.3,
+        ease: [0.4, 0, 0.2, 1],
+      }}
+      style={{ 
+        pointerEvents: isVisible ? 'auto' : 'none'
+      }}
+      className="sticky top-0 z-40 bg-neutral-50 border-b border-neutral-200"
+    >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-12">
               {/* Social Icons - Left */}
@@ -138,7 +141,5 @@ export function TopContactRibbon() {
             </div>
           </div>
         </motion.div>
-      )}
-    </AnimatePresence>
   );
 }

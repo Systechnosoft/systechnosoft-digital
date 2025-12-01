@@ -284,11 +284,19 @@ export default function Industries() {
   return (
     <>
       <Helmet>
-        <title>Industries | Systechnosoft</title>
+        <title>Industries We Serve - BFSI, Healthcare, Aviation, Oil & Gas | Systechnosoft</title>
         <meta
           name="description"
+          content="Cloud, data, and AI solutions for BFSI, Healthcare, Aviation, and Oil & Gas. Secure, compliant, and outcomes-driven. 40% faster transaction processing, 30% cost efficiency."
+        />
+        <link rel="canonical" href="https://www.systechnosoft.com/industries" />
+        <meta property="og:title" content="Industries We Serve - BFSI, Healthcare, Aviation, Oil & Gas | Systechnosoft" />
+        <meta
+          property="og:description"
           content="Cloud, data, and AI solutions for BFSI, Healthcare, Aviation, and Oil & Gas. Secure, compliant, and outcomes-driven."
         />
+        <meta property="og:url" content="https://www.systechnosoft.com/industries" />
+        <meta property="og:type" content="website" />
       </Helmet>
 
       <ServiceHero

@@ -27,6 +27,8 @@ declare global {
 }
 
 
+import { Helmet } from "react-helmet-async";
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: "",
@@ -224,8 +226,32 @@ export default function Contact() {
 
   return (
     <>
+      <Helmet>
+        <title>Contact Us - Get Started Today | Systechnosoft Technologies</title>
+        <meta
+          name="description"
+          content="Contact Systechnosoft for IT infrastructure, low-code apps, and AI automation solutions. Get expert consultation within 24 hours. Fast response, partnership first."
+        />
+        <link rel="canonical" href="https://www.systechnosoft.com/contact" />
+        <meta property="og:title" content="Contact Us - Get Started Today | Systechnosoft Technologies" />
+        <meta
+          property="og:description"
+          content="Contact Systechnosoft for IT infrastructure, low-code apps, and AI automation solutions. Get expert consultation within 24 hours."
+        />
+        <meta property="og:url" content="https://www.systechnosoft.com/contact" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.systechnosoft.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Contact Us - Get Started Today | Systechnosoft Technologies" />
+        <meta
+          name="twitter:description"
+          content="Contact Systechnosoft for IT infrastructure, low-code apps, and AI automation solutions. Get expert consultation within 24 hours."
+        />
+        <meta name="twitter:image" content="https://www.systechnosoft.com/og-image.png" />
+      </Helmet>
+
       {/* Hero Section */}
-      <section 
+      <section
         id="hero" 
         data-page="contact"
         className="sf-hero contact-hero relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24"

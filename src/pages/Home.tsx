@@ -188,7 +188,27 @@ export default function Home() {
   return (
     <div className="overflow-hidden">
       <Helmet>
-        <title>Systechnosoft Technologies</title>
+        <title>Systechnosoft Technologies - Maximize Innovation. Minimize Code.</title>
+        <meta
+          name="description"
+          content="Enterprise IT solutions across Infrastructure, Low-code (Appian & Salesforce), and AI/Automation. 40% faster delivery, 30% cost efficiency, 24/7 support. Transform your business today."
+        />
+        <link rel="canonical" href="https://www.systechnosoft.com/" />
+        <meta property="og:title" content="Systechnosoft Technologies - Maximize Innovation. Minimize Code." />
+        <meta
+          property="og:description"
+          content="Enterprise IT solutions across Infrastructure, Low-code (Appian & Salesforce), and AI/Automation. 40% faster delivery, 30% cost efficiency, 24/7 support."
+        />
+        <meta property="og:url" content="https://www.systechnosoft.com/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://www.systechnosoft.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Systechnosoft Technologies - Maximize Innovation. Minimize Code." />
+        <meta
+          name="twitter:description"
+          content="Enterprise IT solutions across Infrastructure, Low-code (Appian & Salesforce), and AI/Automation. 40% faster delivery, 30% cost efficiency."
+        />
+        <meta name="twitter:image" content="https://www.systechnosoft.com/og-image.png" />
       </Helmet>
       
       {/* Hero Section */}

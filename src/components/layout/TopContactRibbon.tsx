@@ -115,9 +115,11 @@ export function TopContactRibbon() {
             {/* Let's Talk Button */}
             <Button
               onClick={openCalendly}
+              variant="outline"
               size="sm"
-              className="bg-[#E52629] hover:bg-[#c91f22] text-white font-inter font-medium text-xs px-4 py-1.5 h-auto rounded-2xl shadow-sm
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white font-inter font-medium text-xs px-4 py-1.5 h-auto rounded-2xl
+                hover:scale-[1.01] hover:shadow-lg active:scale-[0.99] transition-all
+                focus-visible:outline-2 focus-visible:outline-[#E52629]"
             >
               Let's talk
             </Button>

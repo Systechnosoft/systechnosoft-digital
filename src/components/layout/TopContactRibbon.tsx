@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Phone, Mail, Facebook, Instagram, Linkedin } from 'lucide-react';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
-import { useConsultationStore } from '@/lib/consultation-store';
+import { useLetsTalkStore } from '@/lib/lets-talk-store';
 import { Button } from '@/components/ui/button';
 
 // SVG icon for X (Twitter)
@@ -45,7 +45,7 @@ const socialLinks = [
 
 export function TopContactRibbon() {
   const { isVisible } = useScrollDirection();
-  const { openCalendly } = useConsultationStore();
+  const { openLetsTalk } = useLetsTalkStore();
 
   return (
     <motion.div
@@ -114,7 +114,7 @@ export function TopContactRibbon() {
 
             {/* Let's Talk Button */}
             <Button
-              onClick={openCalendly}
+              onClick={openLetsTalk}
               variant="outline"
               size="sm"
               className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white font-inter font-medium text-xs px-4 py-1.5 h-auto rounded-2xl

@@ -5,6 +5,7 @@ import { ConsentProvider } from "./consent/ConsentProvider";
 import { CookieBanner } from "./consent/CookieBanner";
 import { CookiePanel } from "./consent/CookiePanel";
 import { TopContactRibbon } from "./layout/TopContactRibbon";
+import { LetsTalkDialogHost } from "./contact/LetsTalkDialogHost";
 
 export default function Layout() {
   return (
@@ -18,6 +19,7 @@ export default function Layout() {
         <Footer />
         <CookieBanner />
         <CookiePanel />
+        <LetsTalkDialogHost />
       </div>
     </ConsentProvider>
   );

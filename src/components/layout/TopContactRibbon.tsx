@@ -96,7 +96,7 @@ export function TopContactRibbon() {
               aria-label="Call us at +1 (347) 305-1255"
             >
               <Phone className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span className="hidden sm:inline font-inter">+1 (347) 305-1255</span>
+              <span className="hidden sm:inline font-inter brand-underline-link-center">+1 (347) 305-1255</span>
             </a>
 
             {/* Vertical Divider */}
@@ -109,7 +109,7 @@ export function TopContactRibbon() {
               aria-label="Email us at info@systechnosoft.in"
             >
               <Mail className="w-4 h-4 shrink-0" aria-hidden="true" />
-              <span className="hidden md:inline font-inter">info@systechnosoft.in</span>
+              <span className="hidden md:inline font-inter brand-underline-link-center">info@systechnosoft.in</span>
             </a>
 
             {/* Let's Talk Button */}

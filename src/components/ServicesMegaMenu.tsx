@@ -24,7 +24,7 @@ const servicesData = {
     { name: "Data Migration", href: "/services/data-migration" },
     { name: "Managed IT Services", href: "/services/managed-it-services" },
     { name: "Microsoft Dynamics 365", href: "/services/microsoft-dynamics-365" },
-    { name: "Data Backup & Recovery Services", href: "/services/backup-recovery" },
+    { name: "Data Protection", href: "/services/backup-recovery" },
   ],
   "Low Code": [
     { name: "Appian", href: "/services/appian#overview" },
@@ -32,7 +32,7 @@ const servicesData = {
   ],
   "AI & Automation": [
     { name: "Development & Integration", href: "/services/ai-development-integration" },
-    { name: "Natural Language Processing", href: "/services/ai-natural-language-processing" },
+    { name: "Language Intelligence", href: "/services/ai-natural-language-processing" },
     { name: "Prompt Engineering", href: "/services/ai-prompt-engineering" },
     { name: "Data Analytics & Insights", href: "/services/ai-data-analytics-insights" },
     { name: "Consultation & Strategy", href: "/services/ai-consultation-strategy" },

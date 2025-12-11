@@ -611,3 +611,30 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
     transform: scaleX(1);
   }
 }
+
+/* Center-out underline animation variant */
+.brand-underline-link-center {
+  @apply relative;
+}
+
+.brand-underline-link-center::after {
+  content: '';
+  @apply absolute bottom-0 h-0.5;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  width: calc(100% + 1rem);
+  background-color: #E52629;
+  transition: transform 250ms ease-out;
+}
+
+.brand-underline-link-center:hover::after,
+.brand-underline-link-center:focus-visible::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-underline-link-center::after {
+    transition: none;
+  }
+}

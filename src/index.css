@@ -623,7 +623,7 @@ All colors MUST be HSL. Typography: Montserrat (headings), Inter (body).
   left: 50%;
   transform: translateX(-50%) scaleX(0);
   transform-origin: center;
-  width: calc(100% + 1rem);
+  width: 100%;
   background-color: #E52629;
   transition: transform 250ms ease-out;
 }

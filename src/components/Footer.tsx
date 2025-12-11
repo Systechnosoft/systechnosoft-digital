@@ -36,7 +36,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className={`${link.name === "Low-code" || link.name === "IT Infrastructure" ? "brand-underline-link-center" : "brand-underline-link"} text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded`}
+                    className="brand-underline-link-center text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded"
                     aria-label={link.ariaLabel}
                   >
                     {link.name}
@@ -56,7 +56,7 @@ export default function Footer() {
                 <li key={link.name}>
                 <a
                     href={link.href}
-                    className="brand-underline-link text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded"
+                    className="brand-underline-link-center text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded"
                     aria-label={link.ariaLabel}
                   >
                     {link.name}
@@ -81,13 +81,13 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a href="mailto:info@systechnosoft.in" className="brand-underline-link hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">
+                <a href="mailto:info@systechnosoft.in" className="brand-underline-link-center hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">
                   info@systechnosoft.in
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="h-4 w-4 flex-shrink-0" />
-                <a href="tel:+13473051255" className="brand-underline-link hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">
+                <a href="tel:+13473051255" className="brand-underline-link-center hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">
                   +1 (347) 305-1255
                 </a>
               </div>

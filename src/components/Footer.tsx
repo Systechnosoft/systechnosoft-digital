@@ -36,7 +36,7 @@ export default function Footer() {
                 <li key={link.name}>
                   <a
                     href={link.href}
-                    className={`${link.name === "Low-code" ? "brand-underline-link-center" : "brand-underline-link"} text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded`}
+                    className={`${link.name === "Low-code" || link.name === "IT Infrastructure" ? "brand-underline-link-center" : "brand-underline-link"} text-sm text-muted-foreground hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors focus-enterprise rounded`}
                     aria-label={link.ariaLabel}
                   >
                     {link.name}

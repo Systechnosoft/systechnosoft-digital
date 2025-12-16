@@ -27,7 +27,7 @@ const servicesData = {
     { name: "Data Protection", href: "/services/backup-recovery" },
   ],
   "Low Code": [
-    { name: "Appian", href: "/services/appian#overview" },
+    { name: "Business Process Automation", href: "/services/bpa" },
     { name: "Salesforce", href: "/services/salesforce" },
   ],
   "AI & Automation": [

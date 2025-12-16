@@ -21,6 +21,7 @@ const BackupRecovery = lazy(() => import("./pages/BackupRecovery"));
 const Salesforce = lazy(() => import("./pages/Salesforce"));
 const Appian = lazy(() => import("./pages/Appian"));
 const BusinessProcessAutomation = lazy(() => import("./pages/BusinessProcessAutomation"));
+const CustomerRelationshipManagement = lazy(() => import("./pages/CustomerRelationshipManagement"));
 const AIDevelopmentIntegration = lazy(() => import("./pages/AIDevelopmentIntegration"));
 const AINaturalLanguageProcessing = lazy(() => import("./pages/AINaturalLanguageProcessing"));
 const AIPromptEngineering = lazy(() => import("./pages/AIPromptEngineering"));
@@ -77,6 +78,7 @@ const App = () => (
                 <Route path="services/salesforce" element={<Salesforce />} />
                 <Route path="services/appian" element={<Appian />} />
                 <Route path="services/bpa" element={<BusinessProcessAutomation />} />
+                <Route path="services/crm" element={<CustomerRelationshipManagement />} />
                 <Route path="services/ai-development-integration" element={<AIDevelopmentIntegration />} />
                 <Route path="services/ai-natural-language-processing" element={<AINaturalLanguageProcessing />} />
                 <Route path="services/ai-prompt-engineering" element={<AIPromptEngineering />} />

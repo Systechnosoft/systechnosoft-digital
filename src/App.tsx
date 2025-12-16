@@ -20,6 +20,7 @@ const MicrosoftDynamics365 = lazy(() => import("./pages/MicrosoftDynamics365"));
 const BackupRecovery = lazy(() => import("./pages/BackupRecovery"));
 const Salesforce = lazy(() => import("./pages/Salesforce"));
 const Appian = lazy(() => import("./pages/Appian"));
+const BusinessProcessAutomation = lazy(() => import("./pages/BusinessProcessAutomation"));
 const AIDevelopmentIntegration = lazy(() => import("./pages/AIDevelopmentIntegration"));
 const AINaturalLanguageProcessing = lazy(() => import("./pages/AINaturalLanguageProcessing"));
 const AIPromptEngineering = lazy(() => import("./pages/AIPromptEngineering"));
@@ -75,6 +76,7 @@ const App = () => (
                 <Route path="services/backup-recovery" element={<BackupRecovery />} />
                 <Route path="services/salesforce" element={<Salesforce />} />
                 <Route path="services/appian" element={<Appian />} />
+                <Route path="services/bpa" element={<BusinessProcessAutomation />} />
                 <Route path="services/ai-development-integration" element={<AIDevelopmentIntegration />} />
                 <Route path="services/ai-natural-language-processing" element={<AINaturalLanguageProcessing />} />
                 <Route path="services/ai-prompt-engineering" element={<AIPromptEngineering />} />

@@ -28,7 +28,7 @@ const servicesData = {
   ],
   "Low Code": [
     { name: "Business Process Automation", href: "/services/bpa" },
-    { name: "Salesforce", href: "/services/salesforce" },
+    { name: "Customer Relationship Management", href: "/services/crm" },
   ],
   "AI & Automation": [
     { name: "Development & Integration", href: "/services/ai-development-integration" },

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useInView } from "framer-motion";
@@ -204,27 +204,48 @@ export default function BusinessProcessAutomation() {
           >
             {/* Left: Copy */}
             <div className="space-y-6">
-              <motion.p 
-                variants={fadeUpVariants}
-                className="text-sm font-medium text-[#E52629] tracking-wide uppercase"
-              >
-                Low‑code • Automation
-              </motion.p>
-              
               <motion.h1 
                 variants={fadeUpVariants} 
-                className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight"
+                className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight"
               >
-                Business Process Automation that removes friction.
+                Business Process Automation that{" "}
+                <span className="text-[#E52629]">moves faster</span>—and{" "}
+                <span className="text-[#E52629]">scales safer</span>
               </motion.h1>
               
               <motion.p 
                 variants={fadeUpVariants} 
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed"
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl"
               >
-                Automate approvals, case work, and handoffs across teams—reduce cycle time, improve accuracy, and strengthen compliance with scalable low‑code delivery.
+                Automate approvals and handoffs across teams—cut cycle time, improve accuracy, and strengthen compliance with scalable delivery.
               </motion.p>
 
+              {/* Benefit Chips */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["Workflow orchestration", "Compliance-ready", "Integration-first"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* CTAs */}
               <motion.div 
                 variants={fadeUpVariants}
                 className="flex flex-col sm:flex-row gap-4 pt-4"
@@ -237,24 +258,22 @@ export default function BusinessProcessAutomation() {
                   Book a Consultation
                 </Button>
                 <Button
-                  asChild
                   variant="outline"
                   size="lg"
+                  onClick={() => {
+                    const element = document.getElementById('what-we-automate');
+                    if (element) {
+                      element.scrollIntoView({ 
+                        behavior: shouldReduceMotion ? 'auto' : 'smooth', 
+                        block: 'start' 
+                      });
+                    }
+                  }}
                   className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                 >
-                  <Link to="/services/appian">Explore Appian Services</Link>
+                  What We Automate
                 </Button>
               </motion.div>
-
-              <motion.p variants={fadeUpVariants} className="text-sm text-muted-foreground">
-                <Link 
-                  to="/services/appian" 
-                  className="inline-flex items-center gap-1 text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                >
-                  Looking specifically for Appian? Go to Appian page
-                  <ArrowRight className="w-3 h-3" />
-                </Link>
-              </motion.p>
             </div>
 
             {/* Right: Visual placeholder */}
@@ -299,7 +318,7 @@ export default function BusinessProcessAutomation() {
       </section>
 
       {/* What We Automate */}
-      <section className="py-20 bg-white">
+      <section id="what-we-automate" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

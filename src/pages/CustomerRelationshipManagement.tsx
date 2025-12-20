@@ -188,7 +188,7 @@ export default function CustomerRelationshipManagement() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
           <motion.div 
-            className="grid lg:grid-cols-2 gap-12 items-center"
+            className="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto"
             variants={staggeredFadeUp}
             initial="hidden"
             animate="visible"

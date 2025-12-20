@@ -24,6 +24,7 @@ import {
   Play,
   Pause
 } from "lucide-react";
+import heroBpaImage from "@/assets/hero-bpa.avif";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -186,14 +187,6 @@ export default function BusinessProcessAutomation() {
           )}
         </div>
 
-        {/* Play/Pause Button */}
-        <button
-          onClick={() => setIsPaused(!isPaused)}
-          className="absolute top-24 right-6 z-20 p-2 rounded-full bg-white/80 border border-gray-200 shadow-sm hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-          aria-label={isPaused ? "Play animations" : "Pause animations"}
-        >
-          {isPaused ? <Play className="w-4 h-4 text-gray-600" /> : <Pause className="w-4 h-4 text-gray-600" />}
-        </button>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
           <motion.div 
@@ -276,30 +269,33 @@ export default function BusinessProcessAutomation() {
               </motion.div>
             </div>
 
-            {/* Right: Visual placeholder */}
+            {/* Right: Hero Image with Motion Toggle */}
             <motion.div 
               variants={fadeUpVariants}
-              className="relative hidden lg:block"
+              className="relative hidden lg:block group"
             >
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-rose-50 to-white border border-gray-100 shadow-xl flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 p-8">
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Workflow className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Workflows</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Bot className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Automation</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Shield className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Compliance</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Globe className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Integrations</span>
-                  </div>
-                </div>
+              <div className="aspect-[16/10] rounded-2xl bg-white border border-gray-100 shadow-xl overflow-hidden">
+                <img
+                  src={heroBpaImage}
+                  alt="Abstract workflow automation visual showing connected process nodes, integrations, and compliance checks"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                  width={1280}
+                  height={800}
+                />
+                {/* Unobtrusive Motion Toggle Overlay */}
+                <button
+                  onClick={() => setIsPaused(!isPaused)}
+                  className="absolute bottom-4 right-4 p-2 rounded-full bg-white/90 border border-gray-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                  aria-label={isPaused ? "Play hero animation" : "Pause hero animation"}
+                >
+                  {isPaused ? (
+                    <Play className="w-4 h-4 text-gray-600" />
+                  ) : (
+                    <Pause className="w-4 h-4 text-gray-600" />
+                  )}
+                </button>
               </div>
             </motion.div>
           </motion.div>

@@ -169,7 +169,7 @@ export default function CustomerRelationshipManagement() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="hero-animated relative min-h-screen flex items-center overflow-hidden bg-white">
+      <section className="hero-animated flex items-center justify-center">
         {/* Animated Background */}
         <div className="hero-animated__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
@@ -186,7 +186,7 @@ export default function CustomerRelationshipManagement() {
           )}
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
+        <div className="container mx-auto px-4 hero-animated__content">
           <motion.div 
             className="grid lg:grid-cols-2 gap-8 items-center max-w-6xl mx-auto"
             variants={staggeredFadeUp}

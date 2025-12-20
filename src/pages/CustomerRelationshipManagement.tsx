@@ -199,8 +199,9 @@ export default function CustomerRelationshipManagement() {
                 variants={fadeUpVariants} 
                 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight"
               >
-                CRM that unifies <span className="text-[#E52629]">data</span>, teams, and{" "}
-                <span className="text-[#E52629]">customer journeys</span>
+                CRM that unifies<br />
+                <span className="text-[#E52629]">teams and data</span><br />
+                end-to-end
               </motion.h1>
               
               <motion.p 

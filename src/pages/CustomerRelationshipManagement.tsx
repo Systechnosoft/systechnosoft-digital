@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useRef } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion, useReducedMotion, useInView } from "framer-motion";
@@ -7,27 +7,15 @@ import {
   Users, 
   Database, 
   Workflow, 
-  FileText, 
   Globe, 
   Shield,
-  Zap,
   Target,
   BarChart3,
-  Activity,
   CheckCircle2,
-  LineChart,
-  Lock,
-  Settings,
-  Layers,
-  Eye,
   RefreshCw,
-  Play,
-  Pause,
-  UserCheck,
-  MessageSquare,
-  PieChart,
   Cog
 } from "lucide-react";
+import heroCrmImage from "@/assets/hero-crm.avif";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -56,8 +44,15 @@ function KpiCounter({ label, sublabel }: { label: string; sublabel: string }) {
 
 export default function CustomerRelationshipManagement() {
   const shouldReduceMotion = useReducedMotion();
-  const [isPaused, setIsPaused] = useState(false);
   const { openCalendly } = useConsultationStore();
+
+  // Scroll helper for "What We Deliver" section
+  const scrollToWhatWeDeliver = () => {
+    const element = document.getElementById('what-we-deliver');
+    if (element) {
+      element.scrollIntoView({ behavior: shouldReduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+  };
 
   // Animation variants
   const fadeUpVariants = {
@@ -178,7 +173,7 @@ export default function CustomerRelationshipManagement() {
         {/* Animated Background */}
         <div className="hero-animated__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
-          {!shouldReduceMotion && !isPaused && (
+          {!shouldReduceMotion && (
             <motion.div
               className="absolute inset-0"
               style={{
@@ -191,15 +186,6 @@ export default function CustomerRelationshipManagement() {
           )}
         </div>
 
-        {/* Play/Pause Button */}
-        <button
-          onClick={() => setIsPaused(!isPaused)}
-          className="absolute top-24 right-6 z-20 p-2 rounded-full bg-white/80 border border-gray-200 shadow-sm hover:bg-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-          aria-label={isPaused ? "Play animations" : "Pause animations"}
-        >
-          {isPaused ? <Play className="w-4 h-4 text-gray-600" /> : <Pause className="w-4 h-4 text-gray-600" />}
-        </button>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
           <motion.div 
             className="grid lg:grid-cols-2 gap-12 items-center"
@@ -209,29 +195,51 @@ export default function CustomerRelationshipManagement() {
           >
             {/* Left: Copy */}
             <div className="space-y-6">
-              <motion.p 
-                variants={fadeUpVariants}
-                className="text-sm font-medium text-[#E52629] tracking-wide uppercase"
-              >
-                Low-code • Customer Platforms
-              </motion.p>
-              
               <motion.h1 
                 variants={fadeUpVariants} 
                 className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl text-foreground leading-tight"
               >
-                CRM that unifies data, teams, and customer journeys.
+                CRM that unifies <span className="text-[#E52629]">data</span>, teams, and{" "}
+                <span className="text-[#E52629]">customer journeys</span>
               </motion.h1>
               
               <motion.p 
                 variants={fadeUpVariants} 
-                className="text-lg md:text-xl text-muted-foreground leading-relaxed"
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl"
               >
-                Build a single source of truth across sales, marketing, and service—improve visibility, automate lifecycle handoffs, and strengthen adoption with scalable CRM delivery.
+                Unify sales, marketing, and service in one CRM—improve visibility, automate handoffs, and drive adoption with scalable delivery.
               </motion.p>
 
+              {/* Pill Chips */}
               <motion.div 
-                variants={fadeUpVariants}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["Unified customer view", "Lifecycle automation", "Integration-first"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* CTAs */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
                 className="flex flex-col sm:flex-row gap-4 pt-4"
               >
                 <Button
@@ -242,52 +250,43 @@ export default function CustomerRelationshipManagement() {
                   Book a Consultation
                 </Button>
                 <Button
-                  asChild
                   variant="outline"
                   size="lg"
+                  onClick={scrollToWhatWeDeliver}
                   className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                 >
-                  <Link to="/services/salesforce">Explore Salesforce Services</Link>
+                  What We Deliver
                 </Button>
               </motion.div>
-
-              <motion.p variants={fadeUpVariants} className="text-sm text-muted-foreground">
-                <Link 
-                  to="/services/salesforce" 
-                  className="inline-flex items-center gap-1 text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-                >
-                  Looking specifically for Salesforce? Go to Salesforce page
-                  <ArrowRight className="w-3 h-3" />
-                </Link>
-              </motion.p>
             </div>
 
-            {/* Right: Visual placeholder */}
-            <motion.div 
-              variants={fadeUpVariants}
-              className="relative hidden lg:block"
+            {/* Right: Hero Image */}
+            <motion.figure 
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative hidden lg:block group"
             >
-              <div className="aspect-[4/3] rounded-2xl bg-gradient-to-br from-rose-50 to-white border border-gray-100 shadow-xl flex items-center justify-center">
-                <div className="grid grid-cols-2 gap-4 p-8">
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Users className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Customers</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <PieChart className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Analytics</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Workflow className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Automation</span>
-                  </div>
-                  <div className="p-6 bg-white rounded-xl shadow-sm border border-gray-100 flex flex-col items-center">
-                    <Globe className="w-10 h-10 text-[#E52629] mb-3" />
-                    <span className="text-sm font-medium text-gray-700">Integrations</span>
-                  </div>
-                </div>
+              <div className="aspect-[16/10] rounded-2xl bg-white border border-gray-100 shadow-xl overflow-hidden">
+                <img
+                  src={heroCrmImage}
+                  alt="Abstract customer lifecycle showing unified data, automation, and connected sales, marketing, and service"
+                  className="w-full h-full object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]"
+                  loading="eager"
+                  fetchPriority="high"
+                  width={1280}
+                  height={800}
+                />
               </div>
-            </motion.div>
+              {/* Subtle brand glow */}
+              <span 
+                aria-hidden="true" 
+                className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
+                style={{
+                  background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%)`
+                }}
+              />
+            </motion.figure>
           </motion.div>
         </div>
       </section>
@@ -304,7 +303,7 @@ export default function CustomerRelationshipManagement() {
       </section>
 
       {/* What We Deliver */}
-      <section className="py-20 bg-white">
+      <section id="what-we-deliver" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

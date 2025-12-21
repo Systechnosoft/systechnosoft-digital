@@ -552,78 +552,55 @@ export default function CustomerRelationshipManagement() {
         </div>
       </section>
 
-      {/* Delivery Approach - Modern Stepper */}
+      {/* Delivery Approach - Matching Salesforce Implementation Layout */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="text-center mb-16"
+            className="space-y-12"
           >
             <motion.h2 
               variants={fadeUpVariants}
-              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-4"
+              className="text-4xl font-bold font-montserrat text-center text-[#1C1C1C]"
             >
               Delivery Approach
             </motion.h2>
-          </motion.div>
-
-          {/* Horizontal Stepper Desktop / Vertical Mobile */}
-          <div className="relative">
-            {/* Connecting Line (Desktop) */}
-            <div className="hidden md:block absolute top-[52px] left-[16.67%] right-[16.67%] h-0.5 bg-gray-200" aria-hidden="true">
-              <div className="absolute inset-0 bg-gradient-to-r from-[#E52629]/20 via-[#E52629]/40 to-[#E52629]/20" />
-            </div>
-
-            {/* Connecting Line (Mobile) */}
-            <div className="md:hidden absolute top-0 bottom-0 left-[28px] w-0.5 bg-gray-200" aria-hidden="true">
-              <div className="absolute inset-0 bg-gradient-to-b from-[#E52629]/20 via-[#E52629]/40 to-[#E52629]/20" />
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-6 md:gap-8 relative">
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {deliverySteps.map((step, index) => (
                 <motion.div
                   key={step.number}
-                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.12 }}
-                  className="relative flex flex-col items-center md:items-center"
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.1 }}
+                  className="text-center space-y-4"
                 >
-                  {/* Step Badge */}
-                  <div className="relative z-10 mb-4">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#F9FAFB] border-2 border-gray-200 shadow-sm">
-                      <span className="flex items-center justify-center w-10 h-10 rounded-full bg-[#E52629] text-white font-bold text-lg font-montserrat">
-                        {step.number}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Step Card */}
-                  <button
-                    type="button"
-                    className="w-full bg-white border border-[#E6E6E6] rounded-lg px-6 py-5 text-left transition-all duration-200 hover:border-[#E52629]/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default"
-                    tabIndex={0}
-                    aria-label={`Step ${step.number}: ${step.title}`}
-                  >
-                    <h3 className="font-montserrat font-semibold text-lg text-[#1C1C1C] mb-3 group-hover:text-[#E52629] transition-colors">
-                      {step.title}
-                    </h3>
-                    <ul className="space-y-2">
-                      {step.bullets.map((bullet, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-[#3C3C3C]">
-                          <CheckCircle2 className="w-4 h-4 text-[#E52629] flex-shrink-0 mt-0.5" />
-                          {bullet}
-                        </li>
-                      ))}
-                    </ul>
-                  </button>
+                  <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                    <CardContent className="p-6 pt-8 relative">
+                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-16 bg-[#E52629] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg font-montserrat">
+                        0{step.number}
+                      </div>
+                      <div className="space-y-4 mt-4">
+                        <h3 className="text-xl font-semibold font-montserrat text-[#1C1C1C]">{step.title}</h3>
+                        <ul className="text-sm space-y-2 text-left">
+                          {step.bullets.map((bullet, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <CheckCircle2 className="h-4 w-4 text-[#E52629] flex-shrink-0 mt-0.5" />
+                              <span className="text-[#3C3C3C]">{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
                 </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

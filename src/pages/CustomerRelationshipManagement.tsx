@@ -13,7 +13,14 @@ import {
   BarChart3,
   CheckCircle2,
   RefreshCw,
-  Cog
+  Cog,
+  Lock,
+  FileCheck,
+  Settings,
+  GraduationCap,
+  Activity,
+  Key,
+  Gauge
 } from "lucide-react";
 import heroCrmImage from "@/assets/hero-crm.avif";
 import { Button } from "@/components/ui/button";
@@ -111,14 +118,14 @@ export default function CustomerRelationshipManagement() {
   ];
 
   const governanceItems = [
-    "Role-based access and least privilege",
-    "Audit trails and change logging",
-    "Environments + release discipline",
-    "Data handling alignment (retention + consent workflows if needed)",
-    "Integration security (tokens/secrets)",
-    "Performance guardrails",
-    "Training and enablement plan",
-    "Ongoing monitoring and optimization"
+    { icon: Lock, title: "Role-based access", description: "Least privilege by default" },
+    { icon: FileCheck, title: "Audit trails", description: "Change logging and compliance" },
+    { icon: Settings, title: "Environment discipline", description: "Release gates and controls" },
+    { icon: Database, title: "Data handling", description: "Retention + consent workflows" },
+    { icon: Key, title: "Integration security", description: "Tokens and secrets management" },
+    { icon: Gauge, title: "Performance guardrails", description: "Limits and monitoring" },
+    { icon: GraduationCap, title: "Training program", description: "Enablement and adoption" },
+    { icon: Activity, title: "Ongoing optimization", description: "Monitoring and improvements" }
   ];
 
   const faqs = [
@@ -545,15 +552,15 @@ export default function CustomerRelationshipManagement() {
         </div>
       </section>
 
-      {/* Delivery Approach */}
+      {/* Delivery Approach - Modern Stepper */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
             <motion.h2 
               variants={fadeUpVariants}
@@ -563,44 +570,66 @@ export default function CustomerRelationshipManagement() {
             </motion.h2>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {deliverySteps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.1 }}
-                className="relative"
-              >
-                <div className="bg-[#F9FAFB] rounded-2xl p-6 h-full">
-                  <div className="w-10 h-10 rounded-full bg-[#E52629] text-white font-bold flex items-center justify-center mb-4">
-                    {step.number}
+          {/* Horizontal Stepper Desktop / Vertical Mobile */}
+          <div className="relative">
+            {/* Connecting Line (Desktop) */}
+            <div className="hidden md:block absolute top-[52px] left-[16.67%] right-[16.67%] h-0.5 bg-gray-200" aria-hidden="true">
+              <div className="absolute inset-0 bg-gradient-to-r from-[#E52629]/20 via-[#E52629]/40 to-[#E52629]/20" />
+            </div>
+
+            {/* Connecting Line (Mobile) */}
+            <div className="md:hidden absolute top-0 bottom-0 left-[28px] w-0.5 bg-gray-200" aria-hidden="true">
+              <div className="absolute inset-0 bg-gradient-to-b from-[#E52629]/20 via-[#E52629]/40 to-[#E52629]/20" />
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-6 md:gap-8 relative">
+              {deliverySteps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.12 }}
+                  className="relative flex flex-col items-center md:items-center"
+                >
+                  {/* Step Badge */}
+                  <div className="relative z-10 mb-4">
+                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-[#F9FAFB] border-2 border-gray-200 shadow-sm">
+                      <span className="flex items-center justify-center w-10 h-10 rounded-full bg-[#E52629] text-white font-bold text-lg font-montserrat">
+                        {step.number}
+                      </span>
+                    </div>
                   </div>
-                  <h3 className="font-montserrat font-semibold text-xl text-foreground mb-4">{step.title}</h3>
-                  <ul className="space-y-2">
-                    {step.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="w-4 h-4 text-[#E52629] flex-shrink-0 mt-0.5" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {index < deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-gray-300" />
-                  </div>
-                )}
-              </motion.div>
-            ))}
+
+                  {/* Step Card */}
+                  <button
+                    type="button"
+                    className="w-full bg-white border border-[#E6E6E6] rounded-lg px-6 py-5 text-left transition-all duration-200 hover:border-[#E52629]/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default"
+                    tabIndex={0}
+                    aria-label={`Step ${step.number}: ${step.title}`}
+                  >
+                    <h3 className="font-montserrat font-semibold text-lg text-[#1C1C1C] mb-3 group-hover:text-[#E52629] transition-colors">
+                      {step.title}
+                    </h3>
+                    <ul className="space-y-2">
+                      {step.bullets.map((bullet, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-[#3C3C3C]">
+                          <CheckCircle2 className="w-4 h-4 text-[#E52629] flex-shrink-0 mt-0.5" />
+                          {bullet}
+                        </li>
+                      ))}
+                    </ul>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Governance, Security & Adoption */}
+      {/* Governance, Security & Adoption - Principle Cards Grid */}
       <section className="py-20 bg-[#F9FAFB]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -609,23 +638,41 @@ export default function CustomerRelationshipManagement() {
           >
             <motion.h2 
               variants={fadeUpVariants}
-              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-8 text-center"
+              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-10 text-center"
             >
               Governance, Security & Adoption
             </motion.h2>
-            <motion.div 
-              variants={fadeUpVariants}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
-            >
-              <ul className="grid md:grid-cols-2 gap-4">
-                {governanceItems.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <Shield className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
-                    <span className="text-muted-foreground">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            
+            <div className="grid md:grid-cols-2 gap-4">
+              {governanceItems.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.3, delay: shouldReduceMotion ? 0 : index * 0.05 }}
+                >
+                  <button
+                    type="button"
+                    className="w-full bg-white border border-[#E6E6E6] rounded-lg px-5 py-4 text-left transition-all duration-200 hover:border-[#E52629]/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default flex items-start gap-4"
+                    tabIndex={0}
+                    aria-label={item.title}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#FEF2F2] flex items-center justify-center">
+                      <item.icon className="w-5 h-5 text-[#E52629]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-montserrat font-semibold text-base text-[#1C1C1C] group-hover:text-[#E52629] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-[#3C3C3C] mt-0.5">
+                        {item.description}
+                      </p>
+                    </div>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>
@@ -665,36 +712,32 @@ export default function CustomerRelationshipManagement() {
         </div>
       </section>
 
-      {/* Final CTA Strip */}
-      <section className="py-20 bg-gradient-to-br from-[#E52629] to-[#D01F21]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Final CTA Strip - Light Theme */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        {/* Subtle red gradient wash */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#E52629]/[0.03] via-transparent to-[#E52629]/[0.05]" aria-hidden="true" />
+        <div className="absolute inset-0 border-t border-b border-[#E52629]/10" aria-hidden="true" />
+        
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           >
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-white mb-4">
-              Ready to modernize your customer operations?
+            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-6">
+              Ready to turn your CRM into a growth engine?
             </h2>
-            <p className="text-lg text-white/90 mb-8">
+            <p className="text-lg text-[#3C3C3C] mb-8 max-w-2xl mx-auto">
               Start with one team or one journey—prove value fast, then scale safely.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button
                 size="lg"
                 onClick={() => openCalendly()}
-                className="bg-white text-[#E52629] hover:bg-gray-100 font-semibold px-8 py-4 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#E52629]"
+                className="bg-[#E52629] text-white hover:bg-[#D01F21] font-semibold px-10 py-4 text-lg shadow-lg shadow-[#E52629]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all"
               >
                 Book a Consultation
-              </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="outline"
-                className="border-white text-white hover:bg-white hover:text-[#E52629] font-semibold px-8 py-4 text-lg focus-visible:ring-2 focus-visible:ring-white"
-              >
-                <Link to="/case-studies">View Case Studies</Link>
               </Button>
             </div>
           </motion.div>

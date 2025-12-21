@@ -29,7 +29,10 @@ function KpiCounter({ label, sublabel }: { label: string; sublabel: string }) {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
   return (
-    <div ref={ref} className="text-center p-6 bg-white rounded-2xl shadow-sm border border-gray-100">
+    <div 
+      ref={ref} 
+      className="text-center p-5 bg-white rounded-2xl border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20"
+    >
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -293,10 +296,10 @@ export default function CustomerRelationshipManagement() {
       </section>
 
       {/* KPI Ribbon */}
-      <section className="py-12 bg-[#F9FAFB]">
+      <section className="py-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <KpiCounter label="Unified customer view" sublabel="One place for pipeline + interactions" />
+            <KpiCounter label="Customer 360" sublabel="One place for pipeline + interactions" />
             <KpiCounter label="Lifecycle automation" sublabel="Consistent handoffs across teams" />
             <KpiCounter label="Adoption that sticks" sublabel="Training + governance by design" />
           </div>

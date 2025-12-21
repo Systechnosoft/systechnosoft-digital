@@ -377,7 +377,7 @@ export default function CustomerRelationshipManagement() {
           </motion.div>
 
           {/* Platform chips */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-8">
             {platforms.map((platform) => (
               <button
                 key={platform.id}
@@ -388,16 +388,6 @@ export default function CustomerRelationshipManagement() {
               </button>
             ))}
           </div>
-
-          <p className="text-center text-sm text-muted-foreground mb-12">
-            <Link 
-              to="/services/salesforce" 
-              className="inline-flex items-center gap-1 text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-            >
-              Want Salesforce details only? Visit Salesforce page
-              <ArrowRight className="w-3 h-3" />
-            </Link>
-          </p>
 
           {/* Platform Sections */}
           <div className="space-y-16">

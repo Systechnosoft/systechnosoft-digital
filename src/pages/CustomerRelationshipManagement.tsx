@@ -654,7 +654,7 @@ export default function CustomerRelationshipManagement() {
                 >
                   <button
                     type="button"
-                    className="w-full bg-white border border-[#E6E6E6] rounded-lg px-5 py-4 text-left transition-all duration-200 hover:border-[#E52629]/30 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default flex items-start gap-4"
+                    className="w-full bg-white border-2 border-gray-200 hover:border-[#E52629] rounded-lg px-5 py-4 text-left transition-colors duration-300 shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default flex items-start gap-4"
                     tabIndex={0}
                     aria-label={item.title}
                   >

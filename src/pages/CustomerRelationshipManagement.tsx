@@ -650,12 +650,12 @@ export default function CustomerRelationshipManagement() {
                 <AccordionItem 
                   key={index} 
                   value={`faq-${index}`}
-                  className="bg-[#F9FAFB] rounded-xl border-none px-6"
+                  className="bg-white border border-[#E6E6E6] rounded-lg px-6"
                 >
-                  <AccordionTrigger className="font-montserrat font-semibold text-left hover:no-underline py-4 text-foreground">
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-4">
+                  <AccordionContent className="text-[#3C3C3C]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

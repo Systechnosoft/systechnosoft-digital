@@ -339,7 +339,7 @@ export default function CustomerRelationshipManagement() {
                 viewport={{ once: true }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.05 }}
               >
-                <Card className="h-full rounded-2xl border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
+                <Card className="h-full rounded-2xl border-2 border-gray-200 hover:border-[#E52629] shadow-md hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20 p-5">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-lg bg-[#E52629]/10 flex items-center justify-center flex-shrink-0">
                       <cap.icon className="w-5 h-5 text-[#E52629]" />

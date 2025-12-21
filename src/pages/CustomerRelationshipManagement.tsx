@@ -22,6 +22,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { useConsultationStore } from "@/lib/consultation-store";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 
 // KPI Counter Component
 function KpiCounter({ label, sublabel }: { label: string; sublabel: string }) {
@@ -420,12 +421,11 @@ export default function CustomerRelationshipManagement() {
                 </ul>
               </div>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  onClick={() => openCalendly()}
-                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                <BookConsultationTrigger 
+                  className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
                 >
                   Book a Consultation
-                </Button>
+                </BookConsultationTrigger>
                 <Button
                   asChild
                   variant="outline"
@@ -464,12 +464,11 @@ export default function CustomerRelationshipManagement() {
                   </li>
                 </ul>
               </div>
-              <Button
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
               >
                 Book a Consultation
-              </Button>
+              </BookConsultationTrigger>
             </motion.div>
 
             {/* Microsoft Dynamics 365 */}
@@ -500,12 +499,11 @@ export default function CustomerRelationshipManagement() {
                   </li>
                 </ul>
               </div>
-              <Button
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
               >
                 Book a Consultation
-              </Button>
+              </BookConsultationTrigger>
             </motion.div>
 
             {/* HubSpot CRM */}
@@ -536,12 +534,11 @@ export default function CustomerRelationshipManagement() {
                   </li>
                 </ul>
               </div>
-              <Button
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
               >
                 Book a Consultation
-              </Button>
+              </BookConsultationTrigger>
             </motion.div>
           </div>
         </div>

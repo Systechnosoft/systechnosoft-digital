@@ -712,33 +712,27 @@ export default function CustomerRelationshipManagement() {
         </div>
       </section>
 
-      {/* Final CTA Strip - Light Theme */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        {/* Subtle red gradient wash */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#E52629]/[0.03] via-transparent to-[#E52629]/[0.05]" aria-hidden="true" />
-        <div className="absolute inset-0 border-t border-b border-[#E52629]/10" aria-hidden="true" />
-        
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+      {/* Final CTA Strip - Red (matches Cloud Services) */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           >
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-6">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
               Ready to turn your CRM into a growth engine?
             </h2>
-            <p className="text-lg text-[#3C3C3C] mb-8 max-w-2xl mx-auto">
+            <p className="font-inter text-xl text-white/95 mb-10">
               Start with one team or one journey—prove value fast, then scale safely.
             </p>
             <div className="flex justify-center">
-              <Button
-                size="lg"
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] text-white hover:bg-[#D01F21] font-semibold px-10 py-4 text-lg shadow-lg shadow-[#E52629]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-all"
+              <BookConsultationTrigger 
+                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
               >
-                Book a Consultation
-              </Button>
+                Book a consultation
+              </BookConsultationTrigger>
             </div>
           </motion.div>
         </div>

@@ -398,7 +398,7 @@ export default function CustomerRelationshipManagement() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20"
             >
               <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Salesforce</h3>
               <p className="text-[#E52629] font-medium mb-4">Best for: Enterprise-scale CRM with deep customization and ecosystem extensibility.</p>
@@ -443,7 +443,7 @@ export default function CustomerRelationshipManagement() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20"
             >
               <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Zoho CRM</h3>
               <p className="text-[#E52629] font-medium mb-4">Best for: Cost-effective CRM with broad suite integration and strong automation.</p>
@@ -479,7 +479,7 @@ export default function CustomerRelationshipManagement() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20"
             >
               <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Microsoft Dynamics 365</h3>
               <p className="text-[#E52629] font-medium mb-4">Best for: CRM aligned with Microsoft stack and unified business operations.</p>
@@ -515,7 +515,7 @@ export default function CustomerRelationshipManagement() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20"
             >
               <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">HubSpot CRM</h3>
               <p className="text-[#E52629] font-medium mb-4">Best for: Fast adoption and marketing-sales alignment with streamlined operations.</p>

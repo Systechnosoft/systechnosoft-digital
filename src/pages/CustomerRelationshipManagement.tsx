@@ -429,7 +429,7 @@ export default function CustomerRelationshipManagement() {
                 <Button
                   asChild
                   variant="outline"
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                  className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
                 >
                   <Link to="/services/salesforce">Go to Salesforce Services</Link>
                 </Button>

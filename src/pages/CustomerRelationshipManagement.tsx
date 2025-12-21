@@ -546,50 +546,89 @@ export default function CustomerRelationshipManagement() {
       </section>
 
       {/* Delivery Approach */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-[#1C1C1C] via-[#2a2a2a] to-[#1C1C1C] relative overflow-hidden">
+        {/* Futuristic background elements */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#E52629]/30 rounded-full blur-[120px]" />
+          <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#E52629]/20 rounded-full blur-[100px]" />
+        </div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDBoNjB2NjBIMHoiLz48cGF0aCBkPSJNMzAgMzBtLTEgMGExIDEgMCAxIDAgMiAwYTEgMSAwIDEgMCAtMiAwIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L2c+PC9zdmc+')] opacity-40" />
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="text-center mb-12"
+            className="text-center mb-16"
           >
+            <motion.span 
+              variants={fadeUpVariants}
+              className="inline-block px-4 py-1.5 rounded-full bg-[#E52629]/20 text-[#E52629] text-sm font-medium mb-4 border border-[#E52629]/30"
+            >
+              Our Process
+            </motion.span>
             <motion.h2 
               variants={fadeUpVariants}
-              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-4"
+              className="font-montserrat font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-4"
             >
               Delivery Approach
             </motion.h2>
+            <motion.p 
+              variants={fadeUpVariants}
+              className="text-gray-400 max-w-2xl mx-auto text-lg"
+            >
+              A proven methodology to transform your CRM vision into reality
+            </motion.p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          {/* Timeline connector for desktop */}
+          <div className="hidden md:block absolute left-1/2 top-[280px] w-[70%] h-0.5 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#E52629]/50 to-transparent" />
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
             {deliverySteps.map((step, index) => (
               <motion.div
                 key={step.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, y: 60, scale: 0.9 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.1 }}
-                className="relative"
+                transition={{ 
+                  duration: shouldReduceMotion ? 0 : 0.5, 
+                  delay: shouldReduceMotion ? 0 : index * 0.15,
+                  ease: [0.25, 0.46, 0.45, 0.94]
+                }}
+                className="relative group"
               >
-                <div className="bg-[#F9FAFB] rounded-2xl p-6 h-full">
-                  <div className="w-10 h-10 rounded-full bg-[#E52629] text-white font-bold flex items-center justify-center mb-4">
-                    {step.number}
+                {/* Glowing card */}
+                <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-sm rounded-3xl p-8 h-full border border-white/10 hover:border-[#E52629]/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(229,38,41,0.15)]">
+                  {/* Step number with glow */}
+                  <div className="relative mb-6">
+                    <div className="absolute inset-0 w-14 h-14 rounded-2xl bg-[#E52629]/40 blur-xl group-hover:blur-2xl transition-all duration-500" />
+                    <div className="relative w-14 h-14 rounded-2xl bg-gradient-to-br from-[#E52629] to-[#B91C1C] text-white font-bold text-xl flex items-center justify-center shadow-lg">
+                      {step.number}
+                    </div>
                   </div>
-                  <h3 className="font-montserrat font-semibold text-xl text-foreground mb-4">{step.title}</h3>
-                  <ul className="space-y-2">
+                  
+                  <h3 className="font-montserrat font-bold text-xl text-white mb-4 group-hover:text-[#E52629] transition-colors duration-300">
+                    {step.title}
+                  </h3>
+                  
+                  <ul className="space-y-3">
                     {step.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="w-4 h-4 text-[#E52629] flex-shrink-0 mt-0.5" />
-                        {bullet}
+                      <li key={i} className="flex items-start gap-3 text-gray-300">
+                        <div className="w-5 h-5 rounded-full bg-[#E52629]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#E52629]" />
+                        </div>
+                        <span className="text-sm">{bullet}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
+
+                {/* Connector arrow */}
                 {index < deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-gray-300" />
+                  <div className="hidden md:flex absolute top-1/2 -right-4 transform -translate-y-1/2 z-20 items-center justify-center w-8 h-8 rounded-full bg-[#1C1C1C] border border-[#E52629]/30">
+                    <ArrowRight className="w-4 h-4 text-[#E52629]" />
                   </div>
                 )}
               </motion.div>

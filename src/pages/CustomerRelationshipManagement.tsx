@@ -86,9 +86,9 @@ export default function CustomerRelationshipManagement() {
 
   const platforms = [
     { id: "salesforce", name: "Salesforce", hasPage: true },
+    { id: "zoho", name: "Zoho CRM", hasPage: false },
     { id: "dynamics", name: "Microsoft Dynamics 365", hasPage: false },
     { id: "hubspot", name: "HubSpot CRM", hasPage: false },
-    { id: "zoho", name: "Zoho CRM", hasPage: false },
   ];
 
   const deliverySteps = [
@@ -436,6 +436,42 @@ export default function CustomerRelationshipManagement() {
               </div>
             </motion.div>
 
+            {/* Zoho CRM */}
+            <motion.div 
+              id="zoho"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
+            >
+              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Zoho CRM</h3>
+              <p className="text-[#E52629] font-medium mb-4">Best for: Cost-effective CRM with broad suite integration and strong automation.</p>
+              <div className="mb-6">
+                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Implementation, configuration & workflow automation
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Data migration & integration with Zoho suite
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Training & ongoing optimization
+                  </li>
+                </ul>
+              </div>
+              <Button
+                onClick={() => openCalendly()}
+                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+              >
+                Book a Consultation
+              </Button>
+            </motion.div>
+
             {/* Microsoft Dynamics 365 */}
             <motion.div 
               id="dynamics"
@@ -497,42 +533,6 @@ export default function CustomerRelationshipManagement() {
                   <li className="flex items-start gap-2">
                     <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
                     Enablement, training & adoption programs
-                  </li>
-                </ul>
-              </div>
-              <Button
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-              >
-                Book a Consultation
-              </Button>
-            </motion.div>
-
-            {/* Zoho CRM */}
-            <motion.div 
-              id="zoho"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
-              className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100"
-            >
-              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Zoho CRM</h3>
-              <p className="text-[#E52629] font-medium mb-4">Best for: Cost-effective CRM with broad suite integration and strong automation.</p>
-              <div className="mb-6">
-                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
-                    Implementation, configuration & workflow automation
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
-                    Data migration & integration with Zoho suite
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
-                    Training & ongoing optimization
                   </li>
                 </ul>
               </div>

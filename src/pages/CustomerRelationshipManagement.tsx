@@ -428,8 +428,9 @@ export default function CustomerRelationshipManagement() {
                 </BookConsultationTrigger>
                 <Button
                   asChild
+                  size="lg"
                   variant="outline"
-                  className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
+                  className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 text-lg font-semibold transition-all"
                 >
                   <Link to="/services/salesforce">Go to Salesforce Services</Link>
                 </Button>

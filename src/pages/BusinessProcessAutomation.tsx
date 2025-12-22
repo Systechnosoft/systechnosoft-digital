@@ -306,7 +306,7 @@ export default function BusinessProcessAutomation() {
       </section>
 
       {/* KPI Ribbon */}
-      <section className="py-12 bg-[#F9FAFB]">
+      <section className="py-8 bg-[#F9FAFB]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <KpiCounter label="Faster cycle times" sublabel="Weeks to days for key workflows" />

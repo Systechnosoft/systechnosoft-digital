@@ -385,8 +385,7 @@ export default function BusinessProcessAutomation() {
             </motion.h2>
           </motion.div>
 
-          {/* Platform chips */}
-          <div className="flex flex-wrap justify-center gap-3 mb-6">
+          <div className="flex flex-wrap justify-center gap-3 mb-12">
             {platforms.map((platform) => (
               <button
                 key={platform.id}
@@ -397,16 +396,6 @@ export default function BusinessProcessAutomation() {
               </button>
             ))}
           </div>
-
-          <p className="text-center text-sm text-muted-foreground mb-8">
-            Want Appian details only?{" "}
-            <Link 
-              to="/services/appian" 
-              className="inline-flex items-center gap-1 text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
-            >
-              Visit Appian page →
-            </Link>
-          </p>
 
           {/* Platform Sections */}
           <div className="space-y-16">

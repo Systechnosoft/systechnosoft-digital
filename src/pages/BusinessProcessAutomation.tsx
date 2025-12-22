@@ -676,37 +676,27 @@ export default function BusinessProcessAutomation() {
         </div>
       </section>
 
-      {/* Final CTA Strip */}
-      <section className="py-20 bg-gradient-to-br from-rose-50 to-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Final CTA Strip - Red (matches CRM) */}
+      <section className="py-20 bg-[#E52629] text-white">
+        <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
           >
-            <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-4">
+            <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-6">
               Ready to automate a high-impact process?
             </h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <p className="font-inter text-xl text-white/95 mb-10">
               Start with one workflow, prove value fast, then scale safely.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <Button
-                size="lg"
-                onClick={() => openCalendly()}
-                className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+            <div className="flex justify-center">
+              <BookConsultationTrigger 
+                className="bg-transparent text-white border-2 border-white hover:bg-white hover:text-[#E52629] hover:shadow-md focus-visible:ring-2 focus-visible:ring-white px-8 py-4 text-lg font-semibold transition-all"
               >
-                Book a Consultation
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-              >
-                <Link to="/case-studies">View Case Studies</Link>
-              </Button>
+                Book a consultation
+              </BookConsultationTrigger>
             </div>
           </motion.div>
         </div>

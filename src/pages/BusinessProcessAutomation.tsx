@@ -31,6 +31,7 @@ import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 import { useConsultationStore } from "@/lib/consultation-store";
+import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 
 // KPI Counter Component
 function KpiCounter({ label, sublabel }: { label: string; sublabel: string }) {
@@ -408,155 +409,156 @@ export default function BusinessProcessAutomation() {
           </p>
 
           {/* Platform Sections */}
-          <div className="space-y-10">
+          <div className="space-y-16">
             {/* Appian */}
-            <div id="appian" className="scroll-mt-32">
-              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
-                  <CardTitle className="font-montserrat text-2xl">Appian</CardTitle>
-                  <CardDescription className="text-base">
-                    <strong>Best for:</strong> End-to-end workflows and case management with strong governance.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="font-medium text-foreground mb-3">What we deliver:</p>
-                  <ul className="space-y-2 mb-6">
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Process design & application build with low-code
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Integration with ERP, CRM, and legacy systems
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Production rollout & managed support
-                    </li>
-                  </ul>
-                  <div className="flex flex-col sm:flex-row gap-3">
-                    <Button
-                      onClick={() => openCalendly()}
-                      className="bg-[#E52629] hover:bg-[#D01F21] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-                    >
-                      Book a Consultation
-                    </Button>
-                    <Button
-                      asChild
-                      variant="outline"
-                      className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629]"
-                    >
-                      <Link to="/services/appian">Go to Appian Services</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
+            <motion.div 
+              id="appian"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20 scroll-mt-32"
+            >
+              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Appian</h3>
+              <p className="text-[#E52629] font-medium mb-4">Best for: End-to-end workflows and case management with strong governance.</p>
+              <div className="mb-6">
+                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Process design & application build with low-code
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Integration with ERP, CRM, and legacy systems
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Production rollout & managed support
+                  </li>
+                </ul>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <BookConsultationTrigger 
+                  className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
+                >
+                  Book a Consultation
+                </BookConsultationTrigger>
+                <Button
+                  asChild
+                  size="lg"
+                  variant="outline"
+                  className="border-2 border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 text-lg font-semibold transition-all"
+                >
+                  <Link to="/services/appian">Go to Appian Services</Link>
+                </Button>
+              </div>
+            </motion.div>
 
             {/* Pega */}
-            <div id="pega" className="scroll-mt-32">
-              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
-                  <CardTitle className="font-montserrat text-2xl">Pega</CardTitle>
-                  <CardDescription className="text-base">
-                    <strong>Best for:</strong> Complex case management and decision-heavy orchestration.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="font-medium text-foreground mb-3">What we deliver:</p>
-                  <ul className="space-y-2 mb-6">
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Process & case design with decision rules
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Rules engine & system integrations
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Hardening & run support
-                    </li>
-                  </ul>
-                  <Button
-                    onClick={() => openCalendly()}
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-                  >
-                    Book a Consultation
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            <motion.div 
+              id="pega"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20 scroll-mt-32"
+            >
+              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Pega</h3>
+              <p className="text-[#E52629] font-medium mb-4">Best for: Complex case management and decision-heavy orchestration.</p>
+              <div className="mb-6">
+                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Process & case design with decision rules
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Rules engine & system integrations
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Hardening & run support
+                  </li>
+                </ul>
+              </div>
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
+              >
+                Book a Consultation
+              </BookConsultationTrigger>
+            </motion.div>
 
             {/* OutSystems */}
-            <div id="outsystems" className="scroll-mt-32">
-              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
-                  <CardTitle className="font-montserrat text-2xl">OutSystems</CardTitle>
-                  <CardDescription className="text-base">
-                    <strong>Best for:</strong> Rapid app + workflow delivery where UX speed matters.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="font-medium text-foreground mb-3">What we deliver:</p>
-                  <ul className="space-y-2 mb-6">
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      App & workflow build with modern UX
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      API integrations & data connectors
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Performance tuning & release hygiene
-                    </li>
-                  </ul>
-                  <Button
-                    onClick={() => openCalendly()}
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-                  >
-                    Book a Consultation
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            <motion.div 
+              id="outsystems"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20 scroll-mt-32"
+            >
+              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">OutSystems</h3>
+              <p className="text-[#E52629] font-medium mb-4">Best for: Rapid app + workflow delivery where UX speed matters.</p>
+              <div className="mb-6">
+                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    App & workflow build with modern UX
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    API integrations & data connectors
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Performance tuning & release hygiene
+                  </li>
+                </ul>
+              </div>
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
+              >
+                Book a Consultation
+              </BookConsultationTrigger>
+            </motion.div>
 
             {/* Creatio */}
-            <div id="creatio" className="scroll-mt-32">
-              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
-                <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
-                  <CardTitle className="font-montserrat text-2xl">Creatio</CardTitle>
-                  <CardDescription className="text-base">
-                    <strong>Best for:</strong> Process automation that connects closely with CRM operations.
-                  </CardDescription>
-                </CardHeader>
-                <CardContent className="pt-6">
-                  <p className="font-medium text-foreground mb-3">What we deliver:</p>
-                  <ul className="space-y-2 mb-6">
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Process design & CRM alignment
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Data model & integration setup
-                    </li>
-                    <li className="flex items-start gap-2 text-muted-foreground">
-                      <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                      Adoption enablement & training
-                    </li>
-                  </ul>
-                  <Button
-                    onClick={() => openCalendly()}
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]"
-                  >
-                    Book a Consultation
-                  </Button>
-                </CardContent>
-              </Card>
-            </div>
+            <motion.div 
+              id="creatio"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: shouldReduceMotion ? 0 : 0.5 }}
+              className="bg-white rounded-2xl p-8 border-2 border-gray-200 shadow-md hover:border-[#E52629] hover:shadow-lg transition-colors duration-300 focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629]/20 scroll-mt-32"
+            >
+              <h3 className="font-montserrat font-bold text-2xl text-foreground mb-2">Creatio</h3>
+              <p className="text-[#E52629] font-medium mb-4">Best for: Process automation that connects closely with CRM operations.</p>
+              <div className="mb-6">
+                <p className="font-semibold text-foreground mb-3">What we deliver:</p>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Process design & CRM alignment
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Data model & integration setup
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <CheckCircle2 className="w-5 h-5 text-[#E52629] flex-shrink-0 mt-0.5" />
+                    Adoption enablement & training
+                  </li>
+                </ul>
+              </div>
+              <BookConsultationTrigger 
+                className="bg-transparent text-[#E52629] border-2 border-[#E52629] hover:bg-[#E52629] hover:text-white hover:shadow-md focus-visible:ring-2 focus-visible:ring-[#E52629] px-8 py-4 text-lg font-semibold transition-all"
+              >
+                Book a Consultation
+              </BookConsultationTrigger>
+            </motion.div>
           </div>
         </div>
       </section>

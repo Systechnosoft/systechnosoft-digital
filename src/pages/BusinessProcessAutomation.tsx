@@ -117,7 +117,8 @@ export default function BusinessProcessAutomation() {
     { icon: Database, title: "Data handling", description: "Retention + consent workflows" },
     { icon: Shield, title: "Integration security", description: "Tokens and secrets management" },
     { icon: Activity, title: "Performance guardrails", description: "Limits and monitoring" },
-    { icon: Layers, title: "Accessibility", description: "End-user UI compliance" }
+    { icon: Layers, title: "Accessibility", description: "End-user UI compliance" },
+    { icon: RefreshCw, title: "Continuous improvement", description: "Ongoing optimization cycles" }
   ];
 
   const faqs = [

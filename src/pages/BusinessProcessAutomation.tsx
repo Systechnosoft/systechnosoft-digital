@@ -661,12 +661,12 @@ export default function BusinessProcessAutomation() {
                 <AccordionItem 
                   key={index} 
                   value={`faq-${index}`}
-                  className="bg-white rounded-xl border border-gray-100 px-6 shadow-sm"
+                  className="bg-white border border-[#E6E6E6] rounded-lg px-6"
                 >
-                  <AccordionTrigger className="text-left font-montserrat font-medium text-foreground hover:no-underline py-5">
+                  <AccordionTrigger className="text-left font-semibold text-[#1C1C1C] hover:text-[#E52629] hover:no-underline">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground pb-5">
+                  <AccordionContent className="text-[#3C3C3C]">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>

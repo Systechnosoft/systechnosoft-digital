@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { 
   ArrowRight, 
@@ -55,6 +55,7 @@ export default function BusinessProcessAutomation() {
   const shouldReduceMotion = useReducedMotion();
   const [isPaused, setIsPaused] = useState(false);
   const { openCalendly } = useConsultationStore();
+  const navigate = useNavigate();
 
   // Animation variants
   const fadeUpVariants = {
@@ -245,14 +246,6 @@ export default function BusinessProcessAutomation() {
               >
                 <Button
                   size="lg"
-                  onClick={() => openCalendly()}
-                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
-                >
-                  Book a Consultation
-                </Button>
-                <Button
-                  variant="outline"
-                  size="lg"
                   onClick={() => {
                     const element = document.getElementById('what-we-automate');
                     if (element) {
@@ -262,9 +255,17 @@ export default function BusinessProcessAutomation() {
                       });
                     }
                   }}
-                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
                   What We Automate
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => navigate('/contact')}
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
+                  Claim your free insight
                 </Button>
               </motion.div>
             </div>
@@ -346,7 +347,7 @@ export default function BusinessProcessAutomation() {
                 viewport={{ once: true }}
                 transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.05 }}
               >
-                <Card className="h-full rounded-2xl border-gray-100 shadow-sm hover:shadow-md transition-shadow p-5">
+                <Card className="h-full rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] p-5">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-lg bg-[#E52629]/10 flex items-center justify-center flex-shrink-0">
                       <cap.icon className="w-5 h-5 text-[#E52629]" />
@@ -366,14 +367,14 @@ export default function BusinessProcessAutomation() {
       </section>
 
       {/* Platform Delivery Options */}
-      <section className="py-20 bg-[#F9FAFB]">
+      <section className="py-16 bg-[#F9FAFB]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="text-center mb-8"
+            className="text-center mb-6"
           >
             <motion.h2 
               variants={fadeUpVariants}
@@ -384,7 +385,7 @@ export default function BusinessProcessAutomation() {
           </motion.div>
 
           {/* Platform chips */}
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
+          <div className="flex flex-wrap justify-center gap-3 mb-6">
             {platforms.map((platform) => (
               <button
                 key={platform.id}
@@ -396,21 +397,21 @@ export default function BusinessProcessAutomation() {
             ))}
           </div>
 
-          <p className="text-center text-sm text-muted-foreground mb-12">
+          <p className="text-center text-sm text-muted-foreground mb-8">
+            Want Appian details only?{" "}
             <Link 
               to="/services/appian" 
               className="inline-flex items-center gap-1 text-[#E52629] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] rounded"
             >
-              Want Appian details only? Visit Appian page
-              <ArrowRight className="w-3 h-3" />
+              Visit Appian page →
             </Link>
           </p>
 
           {/* Platform Sections */}
-          <div className="space-y-16">
+          <div className="space-y-10">
             {/* Appian */}
             <div id="appian" className="scroll-mt-32">
-              <Card className="rounded-2xl border-gray-100 shadow-sm overflow-hidden">
+              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
                 <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
                   <CardTitle className="font-montserrat text-2xl">Appian</CardTitle>
                   <CardDescription className="text-base">
@@ -454,7 +455,7 @@ export default function BusinessProcessAutomation() {
 
             {/* Pega */}
             <div id="pega" className="scroll-mt-32">
-              <Card className="rounded-2xl border-gray-100 shadow-sm overflow-hidden">
+              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
                 <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
                   <CardTitle className="font-montserrat text-2xl">Pega</CardTitle>
                   <CardDescription className="text-base">
@@ -489,7 +490,7 @@ export default function BusinessProcessAutomation() {
 
             {/* OutSystems */}
             <div id="outsystems" className="scroll-mt-32">
-              <Card className="rounded-2xl border-gray-100 shadow-sm overflow-hidden">
+              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
                 <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
                   <CardTitle className="font-montserrat text-2xl">OutSystems</CardTitle>
                   <CardDescription className="text-base">
@@ -524,7 +525,7 @@ export default function BusinessProcessAutomation() {
 
             {/* Creatio */}
             <div id="creatio" className="scroll-mt-32">
-              <Card className="rounded-2xl border-gray-100 shadow-sm overflow-hidden">
+              <Card className="rounded-2xl border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg focus-within:border-[#E52629] focus-within:ring-2 focus-within:ring-[#E52629] overflow-hidden">
                 <CardHeader className="bg-gradient-to-r from-rose-50 to-white border-b border-gray-100 pb-6">
                   <CardTitle className="font-montserrat text-2xl">Creatio</CardTitle>
                   <CardDescription className="text-base">

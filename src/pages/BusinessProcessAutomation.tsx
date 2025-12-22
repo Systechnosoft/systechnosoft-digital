@@ -552,58 +552,55 @@ export default function BusinessProcessAutomation() {
         </div>
       </section>
 
-      {/* Delivery Approach */}
+      {/* Delivery Approach - Matching CRM Layout */}
       <section className="py-20 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto px-4">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={staggeredFadeUp}
-            className="text-center mb-12"
+            className="space-y-12"
           >
             <motion.h2 
               variants={fadeUpVariants}
-              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-4"
+              className="text-4xl font-bold font-montserrat text-center text-[#1C1C1C]"
             >
               Delivery Approach
             </motion.h2>
+            
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {deliverySteps.map((step, index) => (
+                <motion.div
+                  key={step.number}
+                  initial={{ opacity: 0, scale: shouldReduceMotion ? 1 : 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.1 }}
+                  className="text-center space-y-4"
+                >
+                  <Card className="h-full border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
+                    <CardContent className="p-6 pt-8 relative">
+                      <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-16 h-16 bg-[#E52629] text-white rounded-full flex items-center justify-center font-bold text-xl shadow-lg font-montserrat">
+                        0{step.number}
+                      </div>
+                      <div className="space-y-4 mt-4">
+                        <h3 className="text-xl font-semibold font-montserrat text-[#1C1C1C]">{step.title}</h3>
+                        <ul className="text-sm space-y-2 text-left">
+                          {step.bullets.map((bullet, i) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <CheckCircle2 className="h-4 w-4 text-[#E52629] flex-shrink-0 mt-0.5" />
+                              <span className="text-[#3C3C3C]">{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {deliverySteps.map((step, index) => (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: shouldReduceMotion ? 0 : 0.4, delay: shouldReduceMotion ? 0 : index * 0.1 }}
-                className="relative"
-              >
-                <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6">
-                  <div className="w-10 h-10 rounded-full bg-[#E52629] text-white font-bold flex items-center justify-center mb-4">
-                    {step.number}
-                  </div>
-                  <h3 className="font-montserrat font-semibold text-xl text-foreground mb-4">
-                    {step.title}
-                  </h3>
-                  <ul className="space-y-2">
-                    {step.bullets.map((bullet, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="w-4 h-4 text-[#E52629] mt-0.5 flex-shrink-0" />
-                        {bullet}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                {index < deliverySteps.length - 1 && (
-                  <div className="hidden md:block absolute top-1/2 -right-4 transform -translate-y-1/2">
-                    <ArrowRight className="w-6 h-6 text-gray-300" />
-                  </div>
-                )}
-              </motion.div>
-            ))}
-          </div>
         </div>
       </section>
 

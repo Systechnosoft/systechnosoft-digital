@@ -111,13 +111,13 @@ export default function BusinessProcessAutomation() {
   ];
 
   const governanceItems = [
-    "Role-based access",
-    "Audit trails",
-    "Environment promotion and change control",
-    "Data handling and retention alignment",
-    "Integration security (tokens/secrets)",
-    "Performance guardrails",
-    "Accessibility for end-user UIs"
+    { icon: Lock, title: "Role-based access", description: "Least privilege by default" },
+    { icon: Eye, title: "Audit trails", description: "Change logging and compliance" },
+    { icon: Settings, title: "Environment promotion", description: "Release gates and controls" },
+    { icon: Database, title: "Data handling", description: "Retention + consent workflows" },
+    { icon: Shield, title: "Integration security", description: "Tokens and secrets management" },
+    { icon: Activity, title: "Performance guardrails", description: "Limits and monitoring" },
+    { icon: Layers, title: "Accessibility", description: "End-user UI compliance" }
   ];
 
   const faqs = [
@@ -604,9 +604,9 @@ export default function BusinessProcessAutomation() {
         </div>
       </section>
 
-      {/* Governance, Security & Compliance */}
+      {/* Governance, Security & Compliance - Principle Cards Grid */}
       <section className="py-20 bg-[#F9FAFB]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -615,24 +615,41 @@ export default function BusinessProcessAutomation() {
           >
             <motion.h2 
               variants={fadeUpVariants}
-              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-8 text-center"
+              className="font-montserrat font-bold text-3xl md:text-4xl text-foreground mb-10 text-center"
             >
               Governance, Security & Compliance
             </motion.h2>
             
-            <motion.div 
-              variants={fadeUpVariants}
-              className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8"
-            >
-              <ul className="space-y-3">
-                {governanceItems.map((item, index) => (
-                  <li key={index} className="flex items-start gap-3 text-muted-foreground">
-                    <Shield className="w-5 h-5 text-[#E52629] mt-0.5 flex-shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {governanceItems.map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: shouldReduceMotion ? 0 : 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: shouldReduceMotion ? 0 : 0.3, delay: shouldReduceMotion ? 0 : index * 0.05 }}
+                >
+                  <button
+                    type="button"
+                    className="w-full bg-white border-2 border-gray-200 hover:border-[#E52629] rounded-lg px-5 py-4 text-left transition-colors duration-300 shadow-md hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 group cursor-default flex items-start gap-4"
+                    tabIndex={0}
+                    aria-label={item.title}
+                  >
+                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-[#FEF2F2] flex items-center justify-center">
+                      <item.icon className="w-5 h-5 text-[#E52629]" />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-montserrat font-semibold text-base text-[#1C1C1C] group-hover:text-[#E52629] transition-colors">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-[#3C3C3C] mt-0.5">
+                        {item.description}
+                      </p>
+                    </div>
+                  </button>
+                </motion.div>
+              ))}
+            </div>
           </motion.div>
         </div>
       </section>

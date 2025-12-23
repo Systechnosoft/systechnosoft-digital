@@ -397,7 +397,7 @@ export default function AIPromptEngineering() {
       </section>
 
       {/* Benefits Section */}
-      <section id="benefits" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="benefits" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -478,7 +478,7 @@ export default function AIPromptEngineering() {
       </section>
 
       {/* Capabilities Section */}
-      <section id="capabilities" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="capabilities" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -559,7 +559,7 @@ export default function AIPromptEngineering() {
       </section>
 
       {/* Playbooks Section */}
-      <section id="playbooks" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="playbooks" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

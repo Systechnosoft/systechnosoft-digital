@@ -254,7 +254,7 @@ export default function MicrosoftDynamics365() {
         </div>
 
         {/* Overview Section */}
-        <section id="overview" ref={(el) => (sectionsRef.current[0] = el)} className="py-20 bg-white">
+        <section id="overview" ref={(el) => (sectionsRef.current[0] = el)} className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-6 text-center">
               Why Dynamics 365 with Systechnosoft
@@ -672,7 +672,7 @@ export default function MicrosoftDynamics365() {
         </section>
 
         {/* Copilot & Power Platform Section */}
-        <section id="copilot" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-white">
+        <section id="copilot" ref={(el) => (sectionsRef.current[6] = el)} className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center text-[#1C1C1C]">
               Copilot, Power BI & Low‑Code Extensibility

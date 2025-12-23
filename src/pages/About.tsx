@@ -305,22 +305,25 @@ export default function About() {
                       <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">{vertical.title}</CardTitle>
                       <CardDescription className="text-[#3C3C3C] leading-relaxed">{vertical.description}</CardDescription>
                     </CardHeader>
-                    <CardContent className="space-y-2">
-                      {vertical.links.map((link, idx) => (
-                        <Link 
-                          key={idx} 
-                          to={link.href} 
-                          className="group inline-flex items-center text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors"
-                        >
-                          <span className="relative inline-block">
-                            {link.label}
-                            <span 
-                              aria-hidden="true" 
-                              className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] origin-center scale-x-0 bg-[#E52629] transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-focus-visible:scale-x-100" 
-                            />
-                          </span>
-                        </Link>
-                      ))}
+                    <CardContent>
+                      <ul className="flex flex-col gap-1">
+                        {vertical.links.map((link, idx) => (
+                          <li key={idx}>
+                            <Link 
+                              to={link.href} 
+                              className="group inline-flex w-fit items-center text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors"
+                            >
+                              <span className="relative inline-block">
+                                {link.label}
+                                <span 
+                                  aria-hidden="true" 
+                                  className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] origin-center scale-x-0 bg-[#E52629] transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-focus-visible:scale-x-100" 
+                                />
+                              </span>
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </CardContent>
                   </Card>
                 </motion.div>

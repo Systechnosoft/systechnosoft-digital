@@ -1154,7 +1154,7 @@ export default function CloudServices() {
         </section>
 
         {/* Why Choose Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1345,7 +1345,7 @@ export default function CloudServices() {
         </section>
 
         {/* Approach Section */}
-        <section id="approach" className="py-20 bg-white">
+        <section id="approach" className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1451,7 +1451,7 @@ export default function CloudServices() {
         </section>
 
         {/* Accelerators Section */}
-        <section id="accelerators" className="py-20 bg-[#F5F5F5]">
+        <section id="accelerators" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">

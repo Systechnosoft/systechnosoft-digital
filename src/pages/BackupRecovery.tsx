@@ -152,7 +152,7 @@ export default function BackupRecovery() {
         </div>
 
         {/* Outcome Highlights */}
-        <section id="br-overview" ref={(el) => (sectionsRef.current[0] = el)} className="py-16 bg-gray-50">
+        <section id="br-overview" ref={(el) => (sectionsRef.current[0] = el)} className="py-16 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
               Outcomes you can measure
@@ -281,7 +281,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Disaster Recovery */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-4xl mx-auto">
               <h2 className="font-montserrat text-3xl font-bold text-center mb-8 text-gray-900">
@@ -413,7 +413,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Service Tiers */}
-        <section id="br-coverage" ref={(el) => (sectionsRef.current[1] = el)} className="py-16 bg-gray-50">
+        <section id="br-coverage" ref={(el) => (sectionsRef.current[1] = el)} className="py-16 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
               Choose your coverage
@@ -570,7 +570,7 @@ export default function BackupRecovery() {
         </section>
 
         {/* Proven Results */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat text-3xl font-bold text-center mb-12 text-gray-900">
               Proven Results

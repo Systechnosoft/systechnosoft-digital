@@ -304,7 +304,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-muted/30">
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5]">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -392,7 +392,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Engineering Standards */}
-      <section id="standards" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="standards" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -475,7 +475,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Delivery Playbook */}
-      <section id="process" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="process" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -555,7 +555,7 @@ export default function MobileAppDevelopment() {
       </section>
 
       {/* Security & Compliance */}
-      <section id="security" className="py-16 sm:py-20 lg:py-24 bg-muted/30 scroll-mt-24">
+      <section id="security" className="py-16 sm:py-20 lg:py-24 bg-[#F5F5F5] scroll-mt-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"

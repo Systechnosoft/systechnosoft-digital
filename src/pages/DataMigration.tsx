@@ -434,7 +434,7 @@ export default function DataMigration() {
         <section 
           id="dm-methods" 
           ref={(el) => (sectionsRef.current[2] = el)}
-          className="py-20 bg-[#F5F5F5]"
+          className="py-20 bg-white"
         >
           <div className="max-w-6xl mx-auto px-4" id="services-data-migration">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
@@ -697,7 +697,7 @@ export default function DataMigration() {
         <section 
           id="dm-tooling" 
           ref={(el) => (sectionsRef.current[5] = el)}
-          className="py-20 bg-white"
+          className="py-20 bg-[#F5F5F5]"
         >
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">

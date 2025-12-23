@@ -1052,7 +1052,7 @@ export default function CloudServices() {
         {/* Cloud Certifications Section */}
         <section 
           id="cloud-certs" 
-          className="relative py-12 sm:py-16 lg:py-20 bg-white overflow-hidden" 
+          className="relative py-12 sm:py-16 lg:py-20 bg-[#F5F5F5] overflow-hidden"
           aria-labelledby="cloud-certs-title"
         >
           {/* Subtle corner glows */}
@@ -1200,7 +1200,7 @@ export default function CloudServices() {
         </section>
 
         {/* Platforms Section */}
-        <section id="cloud-platforms" ref={(el) => (sectionsRef.current[2] = el)} className="py-20 bg-[#F5F5F5]">
+        <section id="cloud-platforms" ref={(el) => (sectionsRef.current[2] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1283,7 +1283,7 @@ export default function CloudServices() {
         </section>
 
         {/* Migration Tracks Section */}
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1403,7 +1403,7 @@ export default function CloudServices() {
         </section>
 
         {/* What You Can Expect Section */}
-        <section id="services-cloud" className="py-20 bg-[#F5F5F5]">
+        <section id="services-cloud" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -1451,7 +1451,7 @@ export default function CloudServices() {
         </section>
 
         {/* Accelerators Section */}
-        <section id="accelerators" className="py-20 bg-white">
+        <section id="accelerators" className="py-20 bg-[#F5F5F5]">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">

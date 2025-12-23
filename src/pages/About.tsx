@@ -88,8 +88,8 @@ export default function About() {
       title: "Low-code",
       description: "Appian and Salesforce workflows that accelerate time-to-market. Build enterprise apps without the enterprise overhead.",
       links: [
-        { label: "Appian", href: "/services/appian" },
-        { label: "Salesforce", href: "/services/salesforce" },
+        { label: "Business Process Automation", href: "/services/bpa" },
+        { label: "Customer Relationship Management", href: "/services/crm" },
       ],
     },
     {

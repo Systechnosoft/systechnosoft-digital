@@ -306,7 +306,21 @@ export default function About() {
                       <CardDescription className="text-[#3C3C3C] leading-relaxed">{vertical.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="brand-underline-link-center block text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">{link.label}</Link>))}
+                      {vertical.links.map((link, idx) => (
+                        <Link 
+                          key={idx} 
+                          to={link.href} 
+                          className="group inline-flex items-center text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629]/30 focus-visible:ring-offset-2 focus-visible:ring-offset-white transition-colors"
+                        >
+                          <span className="relative inline-block">
+                            {link.label}
+                            <span 
+                              aria-hidden="true" 
+                              className="pointer-events-none absolute left-0 right-0 -bottom-0.5 h-[2px] origin-center scale-x-0 bg-[#E52629] transition-transform duration-300 ease-out motion-reduce:transition-none group-hover:scale-x-100 group-focus-visible:scale-x-100" 
+                            />
+                          </span>
+                        </Link>
+                      ))}
                     </CardContent>
                   </Card>
                 </motion.div>

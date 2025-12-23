@@ -311,7 +311,7 @@ export default function BusinessProcessAutomation() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <KpiCounter label="Faster cycle times" sublabel="Weeks to days for key workflows" />
             <KpiCounter label="Fewer manual errors" sublabel="Standardized flows + validations" />
-            <KpiCounter label="Audit-ready operations" sublabel="Traceability and controls by design" />
+            <KpiCounter label="Audit Ready Delivery" sublabel="Traceability and controls by design" />
           </div>
         </div>
       </section>

@@ -7,7 +7,7 @@ const footerSections = [
     title: "Services",
     links: [
       { name: "IT Infrastructure", href: "/services/managed-it-services", ariaLabel: "Go to Managed IT Services" },
-      { name: "Low-code", href: "/services/appian", ariaLabel: "Go to Appian Low-code Services" },
+      { name: "Low-code", href: "/services/bpa", ariaLabel: "Go to Business Process Automation" },
       { name: "AI & Automation", href: "/services/ai-development-integration", ariaLabel: "Go to AI Development & Integration" },
     ],
   },

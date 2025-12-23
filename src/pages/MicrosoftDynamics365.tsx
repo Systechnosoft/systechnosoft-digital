@@ -590,7 +590,7 @@ export default function MicrosoftDynamics365() {
 
 
         {/* Support Section */}
-        <section id="support" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-[#F5F5F5]">
+        <section id="support" ref={(el) => (sectionsRef.current[5] = el)} className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="font-montserrat font-bold text-[44px] leading-tight md:text-[56px] mb-12 text-center">
               Managed Support & Optimization

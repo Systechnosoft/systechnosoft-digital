@@ -306,7 +306,7 @@ export default function About() {
                       <CardDescription className="text-[#3C3C3C] leading-relaxed">{vertical.description}</CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-2">
-                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="brand-underline-link-center block text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">{link.label}</Link>))}
+                      {vertical.links.map((link, idx) => (<Link key={idx} to={link.href} className="brand-underline-link-center inline-block text-sm text-[#E52629] font-medium hover:text-[#E52629] focus-visible:text-[#E52629] transition-colors">{link.label}</Link>))}
                     </CardContent>
                   </Card>
                 </motion.div>

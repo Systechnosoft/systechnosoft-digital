@@ -145,7 +145,7 @@ const WebDevelopment = () => {
         </section>
 
         {/* Why Choose Us Section */}
-        <section id="why-us" className="py-16 md:py-24 bg-muted/30 scroll-mt-24">
+        <section id="why-us" className="py-16 md:py-24 bg-[#F5F5F5] scroll-mt-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-4">
@@ -256,7 +256,7 @@ const WebDevelopment = () => {
         </section>
 
         {/* Development Process Section */}
-        <section id="process" className="py-16 md:py-24 bg-muted/30 scroll-mt-24">
+        <section id="process" className="py-16 md:py-24 bg-[#F5F5F5] scroll-mt-24">
           <div className="container mx-auto px-4">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl mb-4">

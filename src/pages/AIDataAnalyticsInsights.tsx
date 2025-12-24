@@ -284,8 +284,8 @@ export default function AIDataAnalyticsInsights() {
         </div>
       </nav>
 
-      {/* Overview Section */}
-      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Overview Section - White */}
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -302,8 +302,8 @@ export default function AIDataAnalyticsInsights() {
         </div>
       </section>
 
-      {/* Benefits Section */}
-      <section id="benefits" className="py-16 md:py-20 bg-gradient-to-b from-white to-[#E52629]/[0.02]">
+      {/* Benefits Section - Light Gray */}
+      <section id="benefits" className="py-16 md:py-20 bg-[#F5F5F5]">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
@@ -379,8 +379,8 @@ export default function AIDataAnalyticsInsights() {
         </div>
       </section>
 
-      {/* Capabilities Section */}
-      <section id="capabilities" className="py-16 md:py-20 bg-gradient-to-b from-white to-[#007AFF]/[0.02]">
+      {/* Capabilities Section - Light Gray */}
+      <section id="capabilities" className="py-16 md:py-20 bg-[#F5F5F5]">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 40 }}

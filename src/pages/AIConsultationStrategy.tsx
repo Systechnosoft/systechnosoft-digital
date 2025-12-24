@@ -164,7 +164,8 @@ export default function AIConsultationStrategy() {
         </div>
       </nav>
 
-      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Overview Section - White */}
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -183,7 +184,8 @@ export default function AIConsultationStrategy() {
         </div>
       </section>
 
-      <section id="benefits" className="py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white">
+      {/* Benefits Section - Light Gray */}
+      <section id="benefits" className="py-16 bg-[#F5F5F5]">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -252,7 +254,8 @@ export default function AIConsultationStrategy() {
         </div>
       </section>
 
-      <section id="capabilities" className="py-16 bg-gradient-to-br from-white via-[#F8F9FA] to-white">
+      {/* Capabilities Section - Light Gray */}
+      <section id="capabilities" className="py-16 bg-[#F5F5F5]">
         <div className="container mx-auto px-4 max-w-5xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

@@ -537,11 +537,11 @@ export default function DataMigration() {
           </div>
         </section>
 
-        {/* Cutover & Validation Section - White */}
+        {/* Cutover & Validation Section - Light Gray */}
         <section 
           id="dm-cutover" 
           ref={(el) => (sectionsRef.current[3] = el)}
-          className="py-20 bg-white"
+          className="py-20 bg-[#F5F5F5]"
         >
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">
@@ -627,11 +627,11 @@ export default function DataMigration() {
           </div>
         </section>
 
-        {/* Security & Compliance Section - Light Gray */}
+        {/* Security & Compliance Section - White */}
         <section 
           id="dm-security" 
           ref={(el) => (sectionsRef.current[4] = el)}
-          className="py-20 bg-[#F5F5F5]"
+          className="py-20 bg-white"
         >
           <div className="max-w-6xl mx-auto px-4">
             <h2 className="font-montserrat font-bold text-4xl lg:text-5xl mb-12 text-center text-[#1C1C1C]">

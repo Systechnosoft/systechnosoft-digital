@@ -375,8 +375,8 @@ export default function AIPromptEngineering() {
         </div>
       </nav>
 
-      {/* Overview Section */}
-      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Overview Section - White */}
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -438,8 +438,8 @@ export default function AIPromptEngineering() {
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section id="use-cases" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Use Cases Section - White */}
+      <section id="use-cases" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -516,8 +516,8 @@ export default function AIPromptEngineering() {
         </div>
       </section>
 
-      {/* SDKs Section */}
-      <section id="sdks" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* SDKs Section - White */}
+      <section id="sdks" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -586,8 +586,8 @@ export default function AIPromptEngineering() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+      {/* FAQ Section - White */}
+      <section id="faq" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">

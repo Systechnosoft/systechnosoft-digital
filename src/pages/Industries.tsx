@@ -144,6 +144,7 @@ export default function Industries() {
     deliverables,
     architectureCards,
     complianceItems,
+    bgColor = "bg-white",
   }: {
     id: string;
     title: string;
@@ -153,9 +154,10 @@ export default function Industries() {
     deliverables: Array<{ icon: any; text: string }>;
     architectureCards: Array<{ icon: any; label: string; caption: string }>;
     complianceItems: string[];
+    bgColor?: string;
   }) => (
-    <>
-      <div id={id} className="py-20 md:py-24 max-w-7xl mx-auto px-4">
+    <section id={id} className={bgColor}>
+      <div className="py-20 md:py-24 max-w-7xl mx-auto px-4">
         {/* Header - Center Aligned */}
         <div className="mb-12 text-center max-w-4xl mx-auto">
           <div className="flex items-center justify-center gap-4 mb-4">
@@ -204,14 +206,11 @@ export default function Industries() {
           <ComplianceChips items={complianceItems} />
         </div>
       </div>
-
-      {/* Separator between sections */}
-      <div className="h-px bg-gray-200" />
-    </>
+    </section>
   );
 
   const FAQSection = () => (
-    <section id="faq" className="py-20 bg-[#F5F5F5]">
+    <section id="faq" className="py-20 bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">
@@ -384,8 +383,9 @@ export default function Industries() {
       </div>
 
       {/* All Sections Displayed Vertically */}
-      <div className="bg-background">
+      <div>
         <IndustrySection
+          bgColor="bg-white"
           id="bfsi"
           title="BFSI"
           icon={Building2}
@@ -422,6 +422,7 @@ export default function Industries() {
         />
 
         <IndustrySection
+          bgColor="bg-[#F5F5F5]"
           id="healthcare"
           title="Healthcare"
           icon={Heart}
@@ -457,6 +458,7 @@ export default function Industries() {
         />
 
         <IndustrySection
+          bgColor="bg-white"
           id="aviation"
           title="Aviation"
           icon={Plane}
@@ -491,6 +493,7 @@ export default function Industries() {
         />
 
         <IndustrySection
+          bgColor="bg-[#F5F5F5]"
           id="oil-gas"
           title="Oil & Gas"
           icon={Droplet}

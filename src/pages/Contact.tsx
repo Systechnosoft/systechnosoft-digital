@@ -372,16 +372,16 @@ export default function Contact() {
         </div>
       </section>
 
-      <div className="py-12 bg-background">
+      {/* Contact Form Section */}
+      <section id="contact-form-section" className="py-12 md:py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Contact Form - Centered */}
           <motion.div
             id="contact-form"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.35 }}
-            className="w-full max-w-4xl mx-auto mb-12"
+            className="w-full max-w-4xl mx-auto"
           >
             <div className="mb-8 text-center">
               <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-3">
@@ -527,14 +527,18 @@ export default function Contact() {
               </CardContent>
             </Card>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Talk to a Human - Positioned above Office Locations */}
+      {/* Talk to a Human Section */}
+      <section className="py-12 md:py-16 bg-[#F5F5F5]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.35, delay: 0.1 }}
-            className="w-full max-w-5xl mx-auto mb-12"
+            className="w-full max-w-5xl mx-auto"
           >
             <div className="mb-6 text-center">
               <h2 className="text-2xl sm:text-3xl font-montserrat font-bold text-foreground mb-2">
@@ -577,11 +581,15 @@ export default function Contact() {
               </CardContent>
             </Card>
           </motion.div>
+        </div>
+      </section>
 
-          {/* Office Locations - Two Horizontal Cards Below */}
+      {/* Office Locations Section */}
+      <section className="py-12 md:py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <OfficeLocationsMap />
         </div>
-      </div>
+      </section>
     </>
   );
 }

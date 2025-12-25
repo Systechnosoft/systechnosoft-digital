@@ -285,8 +285,8 @@ export default function MobileAppDevelopment() {
         </div>
       </nav>
 
-      {/* Overview */}
-      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Overview - White */}
+      <section id="overview" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -342,8 +342,8 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Capabilities */}
-      <section id="capabilities" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Capabilities - White */}
+      <section id="capabilities" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -437,8 +437,8 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Integrations */}
-      <section id="integrations" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Integrations - White */}
+      <section id="integrations" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -518,8 +518,8 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* Performance & Reliability */}
-      <section id="performance" className="py-16 sm:py-20 lg:py-24 scroll-mt-24">
+      {/* Performance & Reliability - White */}
+      <section id="performance" className="py-16 sm:py-20 lg:py-24 scroll-mt-24 bg-white">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial="hidden"
@@ -642,8 +642,8 @@ export default function MobileAppDevelopment() {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="py-20 bg-[#F5F5F5] scroll-mt-24">
+      {/* FAQ - White */}
+      <section id="faq" className="py-20 bg-white scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">

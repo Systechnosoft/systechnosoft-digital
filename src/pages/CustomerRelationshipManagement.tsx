@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useReducedMotion, useInView } from "framer-motion";
 import { 
   ArrowRight, 
@@ -56,6 +56,7 @@ function KpiCounter({ label, sublabel }: { label: string; sublabel: string }) {
 export default function CustomerRelationshipManagement() {
   const shouldReduceMotion = useReducedMotion();
   const { openCalendly } = useConsultationStore();
+  const navigate = useNavigate();
 
   // Scroll helper for "What We Deliver" section
   const scrollToWhatWeDeliver = () => {
@@ -254,18 +255,18 @@ export default function CustomerRelationshipManagement() {
               >
                 <Button
                   size="lg"
-                  onClick={() => openCalendly()}
+                  onClick={scrollToWhatWeDeliver}
                   className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
                 >
-                  Book a Consultation
+                  What We Deliver
                 </Button>
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={scrollToWhatWeDeliver}
+                  onClick={() => navigate('/contact')}
                   className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
                 >
-                  What We Deliver
+                  Claim your free insight
                 </Button>
               </motion.div>
             </div>

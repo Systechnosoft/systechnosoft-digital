@@ -44,11 +44,11 @@ export default function About() {
   const advisors = [
     {
       name: "Naresh Kirpalani",
-      bio: "Naresh is an accomplished IT services executive with 25+ years of experience in digital transformation. He led low-code and process automation initiatives at global firms like Luxoft and drove AI innovation in the banking and insurance sectors. Naresh also co-founded an AI-driven risk analytics startup, bringing deep expertise in AI strategy and technology leadership to our advisory board.",
+      bio: "Naresh is an accomplished IT services executive with 25+ years of experience in digital transformation. He led low-code and process automation initiatives at global firms like DXC Technology and drove AI innovation in the banking and insurance sectors. Naresh also co-founded an AI-driven risk analytics startup, bringing deep expertise in AI strategy and technology leadership to our advisory board.",
     },
     {
       name: "Mihir Chandra",
-      bio: "Mihir is a seasoned technology strategist with over two decades in software innovation. Specializing in low-code platforms and intelligent automation, he has led global teams—including serving as Global Head of Low-Code Automation at Luxoft—to drive digital transformation across industries. Mihir also advises an AI-powered health tech startup and brings a wealth of experience in AI strategy and executive leadership to our advisory board.",
+      bio: "Mihir is a seasoned technology strategist with over two decades in software innovation. Specializing in low-code platforms and intelligent automation, he has led global teams—including serving as Global Head of Low-Code Automation at DXC Technology—to drive digital transformation across industries. Mihir also advises an AI-powered health tech startup and brings a wealth of experience in AI strategy and executive leadership to our advisory board.",
     },
   ];
 
@@ -377,7 +377,7 @@ export default function About() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {advisors.map((advisor, index) => (
                 <motion.div key={index} variants={fadeUpVariants}>
-                  <Card className="h-full bg-white border-2 border-gray-200 rounded-xl shadow-sm transition-all duration-200 hover:border-[#E52629]/40 hover:shadow-md focus-within:border-[#E52629]/40 focus-within:shadow-md">
+                  <Card className="bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg">
                     <CardHeader>
                       <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">{advisor.name}</CardTitle>
                     </CardHeader>

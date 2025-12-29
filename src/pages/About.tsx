@@ -44,11 +44,15 @@ export default function About() {
   const advisors = [
     {
       name: "Naresh Kirpalani",
-      bio: "Naresh is a senior IT services executive with 25+ years leading enterprise digital transformation. He has driven low‑code and process automation programs at global organizations including DXC Technology, with strong BFSI experience. A co‑founder of an AI‑driven risk analytics venture, he advises us on AI strategy, delivery operating models, and governance to scale outcomes safely.",
+      subtitle: "Senior IT Services Executive | BFSI, AI & Automation",
+      bio: "Naresh brings 25+ years leading enterprise transformation in regulated BFSI environments, spanning low-code and intelligent automation. He has driven AI programs and regulatory-scale delivery initiatives, and co-founded an AI-driven risk analytics venture to improve risk visibility for complex assets.",
+      advisesLine: "Advises Systechnosoft on: AI/LLM strategy • BFSI delivery governance • Safe scaling of automation",
     },
     {
       name: "Mihir Chandra",
-      bio: "Mihir is a technology strategist with 20+ years building and scaling software innovation programs. As Global Head of Low‑Code Automation at DXC Technology, he led distributed teams delivering intelligent automation at enterprise scale. He also advises an AI‑powered health‑tech startup and guides us on platform strategy, Center‑of‑Excellence design, and adoption playbooks that accelerate value.",
+      subtitle: "Technology Strategist | Low-Code & Intelligent Automation",
+      bio: "Mihir has 20+ years building and scaling enterprise software, low-code, and intelligent automation programs. He has held global leadership roles shaping automation practices, and has advised/built a Conversation-AI health advisory platform focused on real-world adoption.",
+      advisesLine: "Advises Systechnosoft on: Platform strategy • Automation CoE design • Adoption playbooks • Enterprise scaling",
     },
   ];
 
@@ -377,12 +381,14 @@ export default function About() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
               {advisors.map((advisor, index) => (
                 <motion.div key={index} variants={fadeUpVariants} className="h-full">
-                  <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg flex flex-col">
-                    <CardHeader>
+                  <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg rounded-2xl flex flex-col">
+                    <CardHeader className="pb-2">
                       <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">{advisor.name}</CardTitle>
+                      <p className="text-sm text-neutral-500 font-medium">{advisor.subtitle}</p>
                     </CardHeader>
-                    <CardContent className="flex-1">
-                      <p className="text-[#3C3C3C] leading-relaxed">{advisor.bio}</p>
+                    <CardContent className="flex-1 flex flex-col">
+                      <p className="text-[#3C3C3C] leading-relaxed mb-4">{advisor.bio}</p>
+                      <p className="text-sm text-neutral-500 mt-auto">{advisor.advisesLine}</p>
                     </CardContent>
                   </Card>
                 </motion.div>

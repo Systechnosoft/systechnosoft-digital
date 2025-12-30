@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { useDataMigrationAssessmentStore } from "@/lib/data-migration-assessment-store";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -35,6 +36,22 @@ import {
 } from "@/components/ui/accordion";
 import { cn } from "@/lib/utils";
 
+// Request Assessment Button component
+function RequestAssessmentButton() {
+  const { openAssessment } = useDataMigrationAssessmentStore();
+  
+  return (
+    <Button
+      size="lg"
+      onClick={openAssessment}
+      className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+      aria-label="Request Assessment"
+    >
+      Request Assessment
+      <ArrowRight className="ml-2 h-5 w-5" />
+    </Button>
+  );
+}
 
 export default function DataMigration() {
   const [activeSection, setActiveSection] = useState("dm-overview");
@@ -196,17 +213,7 @@ export default function DataMigration() {
                   transition={{ delay: 0.3, duration: 0.4 }}
                   className="flex flex-col sm:flex-row gap-3"
                 >
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                    aria-label="Request Assessment"
-                  >
-                    <Link to="/contact?src=data-migration-hero" title="Request Assessment">
-                      Request Assessment
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Link>
-                  </Button>
+                  <RequestAssessmentButton />
 
                   <Button
                     asChild

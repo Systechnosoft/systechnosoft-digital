@@ -9,8 +9,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { useBackupRecoveryAssessmentStore } from "@/lib/backup-recovery-assessment-store";
 
 export default function BackupRecovery() {
+  const { openAssessment } = useBackupRecoveryAssessmentStore();
   const [activeSection, setActiveSection] = useState("br-overview");
   const sectionsRef = useRef<(HTMLElement | null)[]>([]);
 
@@ -109,7 +111,10 @@ export default function BackupRecovery() {
           uspChips={["99.9%+ restore success", "Hybrid (on‑prem + cloud)", "Tested quarterly"]}
           primaryButton={{
             text: "Request DR review",
-            href: "/contact?topic=dr-readiness",
+            onClick: (e) => {
+              e.preventDefault();
+              openAssessment();
+            },
             ariaLabel: "Request a disaster recovery review"
           }}
           secondaryButton={{

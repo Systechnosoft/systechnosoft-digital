@@ -215,14 +215,28 @@ export default function MicrosoftDynamics365() {
           subtitle="Unify CRM & ERP to accelerate sales, service, operations and finance—delivered fast, securely and at scale."
           uspChips={["99.9% uptime architectures", "Zero‑trust aligned", "Azure-native integrations"]}
           primaryButton={{
-            text: "Talk to an Expert",
-            href: "/contact?src=d365-hero",
-            ariaLabel: "Talk to a Microsoft Dynamics 365 expert"
+            text: "See what we deliver →",
+            onClick: () => {
+              const section = document.getElementById('consulting');
+              if (section) {
+                const headerOffset = 160;
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+                // Focus heading for accessibility
+                const heading = section.querySelector('h2');
+                if (heading) {
+                  heading.setAttribute('tabindex', '-1');
+                  heading.focus({ preventScroll: true });
+                }
+              }
+            },
+            ariaLabel: "Scroll to Advisory & Roadmapping section"
           }}
           secondaryButton={{
-            text: "Book a Consultation →",
-            href: "https://calendly.com/systechnosoft-info/30min",
-            ariaLabel: "Book a Dynamics 365 consultation"
+            text: "Claim Your Free Insight",
+            href: "/contact",
+            ariaLabel: "Claim your free insight"
           }}
           image={{
             src: new URL('@/assets/hero-d365-office.avif', import.meta.url).href,

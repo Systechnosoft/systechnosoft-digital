@@ -10,6 +10,7 @@ import Layout from "./components/Layout";
 import { CalendlyDialogHost } from "./components/consultation/CalendlyDialogHost";
 import { NetworkHealthCheckHost } from "./components/managed-it/NetworkHealthCheckHost";
 import { BackupRecoveryAssessmentHost } from "./components/backup-recovery/BackupRecoveryAssessmentHost";
+import { DataMigrationAssessmentHost } from "./components/data-migration/DataMigrationAssessmentHost";
 
 // Lazy load all pages for better performance
 const Home = lazy(() => import("./pages/Home"));
@@ -67,6 +68,7 @@ const App = () => (
           <CalendlyDialogHost />
           <NetworkHealthCheckHost />
           <BackupRecoveryAssessmentHost />
+          <DataMigrationAssessmentHost />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Layout />}>

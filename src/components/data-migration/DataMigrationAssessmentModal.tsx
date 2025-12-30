@@ -55,7 +55,7 @@ const questions: Question[] = [
   {
     id: 2,
     question: "What is your current source system?",
-    type: "dropdown",
+    type: "radio",
     scoringType: "fixed",
     options: [
       { text: "Cloud Platform (AWS/Azure/GCP)", value: "cloud", score: 2 },
@@ -70,7 +70,7 @@ const questions: Question[] = [
   {
     id: 3,
     question: "What is your target system for migration?",
-    type: "dropdown",
+    type: "radio",
     scoringType: "fixed",
     options: [
       { text: "Cloud Platform (AWS/Azure/GCP)", value: "cloud", score: 2 },

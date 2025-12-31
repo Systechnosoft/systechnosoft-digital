@@ -266,7 +266,7 @@ export default function ManagedITServices() {
             ariaLabel: "Claim your free IT insight consultation"
           }}
           image={{
-            src: new URL('@/assets/hero-managed-it-services.avif', import.meta.url).href,
+            src: new URL('@/assets/hero-managed-it-services-new.avif', import.meta.url).href,
             width: 1270,
             height: 847,
             alt: "Managed IT Services dashboard showing 24/7 monitoring, network management, and security controls",

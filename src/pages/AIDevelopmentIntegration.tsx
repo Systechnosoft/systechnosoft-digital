@@ -10,7 +10,7 @@ import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown, GitBra
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/hero-ai-development.avif";
+import heroImage from "@/assets/hero-ai-development-new.avif";
 
 // Animation variants
 const fadeUpVariants = {

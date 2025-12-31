@@ -8,7 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { FileText, Shield, Zap, TrendingUp, Target, ArrowRight, ChevronDown, Code2, CheckCircle2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
-import heroImage from "@/assets/hero-prompt-engineering.avif";
+import heroImage from "@/assets/hero-prompt-engineering-new.avif";
 import { PlaybookStepper } from "@/components/PlaybookStepper";
 
 // Animation variants

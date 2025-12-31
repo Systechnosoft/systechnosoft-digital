@@ -239,7 +239,7 @@ export default function MicrosoftDynamics365() {
             ariaLabel: "Claim your free insight"
           }}
           image={{
-            src: new URL('@/assets/hero-d365-office.avif', import.meta.url).href,
+            src: new URL('@/assets/hero-d365-new.avif', import.meta.url).href,
             width: 1270,
             height: 847,
             alt: "Microsoft Dynamics 365 unified platform showing CRM, ERP, and Power Platform integration",

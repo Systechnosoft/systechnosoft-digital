@@ -10,7 +10,7 @@ import { Sparkles, Shield, Zap, TrendingUp, MessageSquare, ArrowRight, Code2, Gl
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
-import heroImage from "@/assets/hero-nlp.avif";
+import heroImage from "@/assets/hero-nlp-new.avif";
 
 // Animation variants
 const fadeUpVariants = {

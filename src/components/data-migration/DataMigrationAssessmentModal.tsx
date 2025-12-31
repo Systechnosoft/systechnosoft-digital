@@ -117,7 +117,6 @@ const questions: Question[] = [
       { text: "Encryption required (in transit/at rest)", value: "encryption", score: 5 },
       { text: "Access controls & audit trails", value: "access_audit", score: 5 },
       { text: "Security/compliance standards (ISO/SOC2 etc.)", value: "standards", score: 5 },
-      { text: "No specific requirements", value: "no_requirements", score: 0, exclusive: true },
       { text: "Not sure", value: "not_sure", score: 5, exclusive: true },
     ],
   },

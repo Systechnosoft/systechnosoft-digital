@@ -229,9 +229,9 @@ export default function MobileAppDevelopment() {
       <ServiceHero
         title={
           <>
-            <span className="block">Mobile apps, engineered to</span>
-            <span className="block"><span className="text-[#E52629]">ship faster</span>—and</span>
-            <span className="block">scale safer, production-ready</span>
+            <span className="block md:whitespace-nowrap">Mobile apps that</span>
+            <span className="block md:whitespace-nowrap"><span className="text-[#E52629]">ship faster</span>—and scale safer</span>
+            <span className="block md:whitespace-nowrap">production-ready</span>
           </>
         }
         subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."

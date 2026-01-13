@@ -40,6 +40,8 @@ interface ServiceHeroProps {
     primary: string;
     secondary: string;
   };
+  // Optional headline typography override (to match BPA hero)
+  headlineClassName?: string;
 }
 
 function useServiceHeroImage(
@@ -126,7 +128,8 @@ export default function ServiceHero({
   id = "hero",
   dataPage,
   className,
-  glowColors
+  glowColors,
+  headlineClassName
 }: ServiceHeroProps) {
   const { src: imageSrc, isLoading: imageLoading } = useServiceHeroImage(image, title);
 
@@ -168,7 +171,10 @@ export default function ServiceHero({
             {/* Title */}
             <h1 
               id={`${id}-title`}
-              className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight"
+              className={cn(
+                "text-4xl md:text-5xl lg:text-6xl font-bold leading-tight",
+                headlineClassName
+              )}
             >
               {title}
             </h1>

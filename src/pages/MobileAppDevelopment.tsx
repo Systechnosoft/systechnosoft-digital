@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { BookConsultationTrigger } from "@/components/consultation/BookConsultationTrigger";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { 
   Smartphone, Target, Zap, Shield, Layers, Code2, Database, Brain, 
-  Settings, TestTube, Eye, Lock, Users, TrendingUp, ArrowRight, CheckCircle2
+  Settings, TestTube, Eye, Lock, Users, TrendingUp, ArrowRight, CheckCircle2,
+  Play, Pause
 } from "lucide-react";
-import ServiceHero from "@/components/ServiceHero";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-mobile-app-development-new.avif";
@@ -195,6 +195,24 @@ const faqs = [
 export default function MobileAppDevelopment() {
   const shouldReduceMotion = useReducedMotion();
   const [activeSection, setActiveSection] = useState("overview");
+  const [isPaused, setIsPaused] = useState(false);
+  const navigate = useNavigate();
+
+  // Animation variants for hero (matching BPA)
+  const heroFadeUpVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 40 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const heroStaggeredFadeUp = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08
+      }
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -226,40 +244,129 @@ export default function MobileAppDevelopment() {
         <link rel="canonical" href="https://systechnosoft.com/services/mobile-app-development" />
       </Helmet>
 
-      <ServiceHero
-        title={
-          <>
-            <span className="block">Mobile apps,</span>
-            <span className="block">built to</span>
-            <span className="block"><span className="text-[#E52629]">ship faster</span>—</span>
-            <span className="block">scale safer</span>
-          </>
-        }
-        headlineClassName="font-montserrat"
-        subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."
-        uspChips={[
-          "Native",
-          "Cross‑platform",
-          "DevOps"
-        ]}
-        primaryButton={{
-          text: "See what we deliver →",
-          onClick: () => scrollToId('capabilities'),
-          ariaLabel: "See what we deliver"
-        }}
-        secondaryButton={{
-          text: "Claim your free insight",
-          href: "/contact?type=mra",
-          ariaLabel: "Claim your free insight"
-        }}
-        image={{
-          src: heroImage,
-          alt: "Mobile App Development Services",
-          placeholderPrompt: "A modern mobile app development workspace showing iOS and Android devices with elegant app interfaces, CI/CD pipelines, and code on screens",
-          width: 1270,
-          height: 847
-        }}
-      />
+      {/* Hero Section - Identical to BPA */}
+      <section className="hero-animated relative min-h-screen flex items-center overflow-hidden bg-white">
+        {/* Animated Background */}
+        <div className="hero-animated__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+          {!shouldReduceMotion && !isPaused && (
+            <motion.div
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
+              animate={{ rotate: 360 }}
+              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            />
+          )}
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            variants={heroStaggeredFadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Left: Copy */}
+            <div className="space-y-6">
+              <motion.h1 
+                variants={heroFadeUpVariants} 
+                className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight"
+              >
+                Mobile apps, built to{" "}
+                <span className="text-[#E52629]">ship faster</span>—and{" "}
+                <span className="text-[#E52629]">scale safer</span>
+              </motion.h1>
+              
+              <motion.p 
+                variants={heroFadeUpVariants} 
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl"
+              >
+                Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence.
+              </motion.p>
+
+              {/* Benefit Chips */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15, duration: 0.4 }}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["Native", "Cross‑platform", "DevOps"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
+                    >
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {/* CTAs */}
+              <motion.div 
+                variants={heroFadeUpVariants}
+                className="flex flex-col sm:flex-row gap-4 pt-4"
+              >
+                <Button
+                  size="lg"
+                  onClick={() => scrollToId('capabilities')}
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                >
+                  See what we deliver
+                </Button>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => navigate('/contact?type=mra')}
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
+                  Claim your free insight
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Right: Hero Image with Motion Toggle */}
+            <motion.div 
+              variants={heroFadeUpVariants}
+              className="relative hidden lg:block group"
+            >
+              <div className="aspect-[16/10] rounded-2xl bg-white border border-gray-100 shadow-xl overflow-hidden">
+                <img
+                  src={heroImage}
+                  alt="Mobile App Development Services - iOS and Android devices with elegant app interfaces"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
+                  width={1270}
+                  height={847}
+                />
+                {/* Unobtrusive Motion Toggle Overlay */}
+                <button
+                  onClick={() => setIsPaused(!isPaused)}
+                  className="absolute bottom-4 right-4 p-2 rounded-full bg-white/90 border border-gray-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                  aria-label={isPaused ? "Play hero animation" : "Pause hero animation"}
+                >
+                  {isPaused ? (
+                    <Play className="w-4 h-4 text-gray-600" />
+                  ) : (
+                    <Pause className="w-4 h-4 text-gray-600" />
+                  )}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Subsection Navigation */}
       <nav className="hidden lg:block sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">

@@ -227,7 +227,13 @@ export default function MobileAppDevelopment() {
       </Helmet>
 
       <ServiceHero
-        title="Mobile apps, engineered for scale—secure, delightful, production‑ready"
+        title={
+          <>
+            <span className="block">Mobile apps, engineered to</span>
+            <span className="block"><span className="text-[#E52629]">ship faster</span>—and</span>
+            <span className="block">scale safer, production-ready</span>
+          </>
+        }
         subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."
         uspChips={[
           "Native",

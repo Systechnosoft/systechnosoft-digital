@@ -229,11 +229,13 @@ export default function MobileAppDevelopment() {
       <ServiceHero
         title={
           <>
-            <span className="block md:whitespace-nowrap">Mobile apps, built</span>
-            <span className="block md:whitespace-nowrap"><span className="text-[#E52629]">ship faster</span>, secure</span>
-            <span className="block md:whitespace-nowrap">scale smarter, ready</span>
+            <span className="block">Mobile apps,</span>
+            <span className="block">built to</span>
+            <span className="block"><span className="text-[#E52629]">ship faster</span>—</span>
+            <span className="block">scale safer</span>
           </>
         }
+        headlineClassName="font-montserrat"
         subtitle="Design, build, and run iOS, Android, and cross‑platform apps with modern architectures, CI/CD, and observability—so you can ship faster with confidence."
         uspChips={[
           "Native",

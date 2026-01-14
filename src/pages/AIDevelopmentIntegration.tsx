@@ -6,25 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown, GitBranch } from "lucide-react";
+import { Sparkles, Code2, Shield, Activity, Zap, ArrowRight, ChevronDown, GitBranch, Play, Pause } from "lucide-react";
 import { useState, useEffect } from "react";
 import { scrollToId } from "@/lib/scrollUtils";
 import { cn } from "@/lib/utils";
 import heroImage from "@/assets/hero-ai-development-new.avif";
-
-// Animation variants
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-
-const staggeredFadeUp = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1 }
-  }
-};
 
 const scaleIn = {
   hidden: { opacity: 0, scale: 0.95 },
@@ -137,6 +123,23 @@ export default function AIDevelopmentIntegration() {
   const shouldReduceMotion = useReducedMotion();
   const [activeSection, setActiveSection] = useState("overview");
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+
+  // Animation variants inside component to use shouldReduceMotion
+  const fadeUpVariants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 40 },
+    visible: { opacity: 1, y: 0 }
+  };
+
+  const staggeredFadeUp = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08
+      }
+    }
+  };
 
   // Scroll spy effect
   useEffect(() => {
@@ -172,13 +175,17 @@ export default function AIDevelopmentIntegration() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="hero-animated relative min-h-[80vh] lg:min-h-screen flex items-center overflow-hidden bg-white py-24">
+      <section className="hero-animated relative min-h-screen flex items-center overflow-hidden bg-white">
         {/* Animated Background */}
-        <div className="hero-animated__bg">
-          <div className="hero-animated__bg-glow" />
-          {!shouldReduceMotion && (
+        <div className="hero-animated__bg absolute inset-0 z-0 opacity-10 pointer-events-none" aria-hidden="true">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(229,38,41,0.1),transparent)]" />
+          {!shouldReduceMotion && !isPaused && (
             <motion.div
-              className="hero-animated__bg-rotation"
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `conic-gradient(from 0deg at 50% 50%, transparent, hsl(var(--primary)), transparent)`,
+                backgroundSize: "400px 400px"
+              }}
               animate={{ rotate: 360 }}
               transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
             />
@@ -186,102 +193,101 @@ export default function AIDevelopmentIntegration() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center max-w-[1200px] mx-auto">
-              
-              {/* Left Column - Text Content */}
-              <motion.div
-                variants={staggeredFadeUp}
-                initial="hidden"
-                animate="visible"
-                className="space-y-6 lg:space-y-8"
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-24">
+          <motion.div 
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            variants={staggeredFadeUp}
+            initial="hidden"
+            animate="visible"
+          >
+            {/* Left Column - Text Content */}
+            <div className="space-y-6">
+              <motion.h1 
+                variants={fadeUpVariants}
+                className="font-montserrat font-bold text-4xl md:text-5xl lg:text-6xl leading-tight"
               >
-                <motion.h1 
-                  variants={fadeUpVariants}
-                  className="text-4xl sm:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
-                >
-                  Build, embed, and scale AI in your stack
-                </motion.h1>
+                Build, embed, and{" "}
+                <span className="text-[#E52629]">scale AI</span>{" "}
+                in your stack
+              </motion.h1>
 
-                <motion.p 
-                  variants={fadeUpVariants}
-                  className="text-lg sm:text-xl text-muted-foreground max-w-2xl"
-                >
-                  Ship production‑grade AI features and integrate them with your apps, data, and workflows—securely and fast.
-                </motion.p>
+              <motion.p 
+                variants={fadeUpVariants}
+                className="text-lg md:text-xl text-muted-foreground max-w-2xl"
+              >
+                Ship production‑grade AI features and integrate them with your apps, data, and workflows—securely and fast.
+              </motion.p>
 
-                <motion.div 
-                  variants={fadeUpVariants}
-                  className="flex flex-wrap gap-3"
-                  aria-label="Key benefits"
-                >
-                  {["SDK‑first approach", "Low‑latency integration", "Governance‑ready"].map((badge, idx) => (
-                    <motion.div
-                      key={badge}
-                      initial={{ opacity: 0, y: 5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+              <motion.div 
+                variants={fadeUpVariants}
+                className="flex flex-wrap gap-3"
+                aria-label="Key benefits"
+              >
+                {["SDK‑first approach", "Low‑latency integration", "Governance‑ready"].map((badge, idx) => (
+                  <motion.div
+                    key={badge}
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15 + idx * 0.08, duration: 0.35 }}
+                  >
+                    <Badge 
+                      variant="secondary" 
+                      className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
                     >
-                      <Badge 
-                        variant="secondary" 
-                        className="text-sm px-4 py-2 bg-white/80 border-[#E6E6E6] text-[#1C1C1C] hover:shadow-sm transition-shadow"
-                      >
-                        {badge}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </motion.div>
-
-                <motion.div 
-                  variants={fadeUpVariants}
-                  className="flex flex-col sm:flex-row gap-3 pt-4"
-                >
-                  <Button
-                    size="lg"
-                    onClick={() => scrollToId('benefits')}
-                    className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    See what we deliver →
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    size="lg"
-                    className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
-                  >
-                    <Link to="/contact?type=mra">Claim your free insight</Link>
-                  </Button>
-                </motion.div>
+                      {badge}
+                    </Badge>
+                  </motion.div>
+                ))}
               </motion.div>
 
-              {/* Right Column - Hero Image */}
-              <motion.figure
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="ai-dev-hero__art relative isolate group"
+              <motion.div 
+                variants={fadeUpVariants}
+                className="flex flex-col sm:flex-row gap-4 pt-4"
               >
-                <img 
+                <Button
+                  size="lg"
+                  onClick={() => scrollToId('benefits')}
+                  className="bg-[#E52629] hover:bg-[#D01F21] text-white font-semibold px-8 py-4 text-lg transition-all duration-300 ease-out hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 active:scale-[0.99] disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  See what we deliver →
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-[#E52629] text-[#E52629] hover:bg-[#E52629] hover:text-white focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2 transition-colors duration-200 px-8 py-4 text-lg font-semibold"
+                >
+                  <Link to="/contact?type=mra">Claim your free insight</Link>
+                </Button>
+              </motion.div>
+            </div>
+
+            {/* Right Column - Hero Image */}
+            <motion.div 
+              variants={fadeUpVariants}
+              className="relative hidden lg:block group"
+            >
+              <div className="aspect-[16/10] rounded-2xl bg-white border border-gray-100 shadow-xl overflow-hidden">
+                <img
                   src={heroImage}
+                  alt="AI Development and Integration platform showing connected building blocks and intelligent automation"
+                  className="w-full h-full object-cover"
+                  loading="eager"
+                  fetchPriority="high"
                   width={1270}
                   height={847}
-                  alt="AI Development and Integration platform showing connected building blocks and intelligent automation"
-                  className="w-full h-auto rounded-2xl border border-[#E6E6E6] shadow-[0_10px_30px_rgba(0,0,0,0.06)] object-cover transition-all duration-[350ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-[-6px] group-hover:shadow-[0_18px_40px_rgba(0,0,0,0.10)]"
-                  loading="eager"
-                  decoding="async"
-                  sizes="(min-width: 1024px) 48vw, 92vw"
                 />
-                {/* Subtle brand glow */}
-                <span 
-                  aria-hidden="true" 
-                  className="pointer-events-none absolute -inset-3 rounded-[22px] blur-lg opacity-[.18] -z-10"
-                  style={{
-                    background: `radial-gradient(40% 40% at 20% 30%, #E52629 10%, transparent 70%), radial-gradient(35% 35% at 80% 70%, #9333EA 10%, transparent 70%)`
-                  }}
-                />
-              </motion.figure>
-
-            </div>
+                {/* Motion Toggle Button */}
+                <button
+                  onClick={() => setIsPaused(!isPaused)}
+                  className="absolute bottom-4 right-4 p-2 rounded-full bg-white/90 border border-gray-200 shadow-sm opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E52629] focus-visible:ring-offset-2"
+                  aria-label={isPaused ? "Play hero animation" : "Pause hero animation"}
+                >
+                  {isPaused ? <Play className="w-4 h-4 text-gray-600" /> : <Pause className="w-4 h-4 text-gray-600" />}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 

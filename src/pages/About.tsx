@@ -35,25 +35,9 @@ export default function About() {
     { id: "vision-mission", label: "Vision & Mission" },
     { id: "what-we-do", label: "What We Do" },
     { id: "how-we-deliver", label: "How We Deliver" },
-    { id: "advisors", label: "Advisors" },
     { id: "proof-trust", label: "Proof & Trust" },
     { id: "values", label: "Values" },
     { id: "faqs", label: "FAQs" },
-  ];
-
-  const advisors = [
-    {
-      name: "Naresh Kirpalani",
-      subtitle: "Senior IT Services Executive | BFSI, AI & Automation",
-      bio: "Naresh brings 25+ years leading enterprise transformation in regulated BFSI environments, spanning low-code and intelligent automation. He has driven AI programs and regulatory-scale delivery initiatives, and co-founded an AI-driven risk analytics venture to improve risk visibility for complex assets.",
-      advisesLine: "Advises Systechnosoft on: AI/LLM strategy • BFSI delivery governance • Safe scaling of automation",
-    },
-    {
-      name: "Mihir Chandra",
-      subtitle: "Technology Strategist | Low-Code & Intelligent Automation",
-      bio: "Mihir has 20+ years building and scaling enterprise software, low-code, and intelligent automation programs. He has held global leadership roles shaping automation practices, and has advised/built a Conversation-AI health advisory platform focused on real-world adoption.",
-      advisesLine: "Advises Systechnosoft on: Platform strategy • Automation CoE design • Adoption playbooks • Enterprise scaling",
-    },
   ];
 
 
@@ -371,34 +355,8 @@ export default function About() {
           </div>
         </section>
 
-        {/* Strategic Advisors */}
-        <section id="advisors" className="py-20 bg-[#F5F5F5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
-              <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">Our Strategic Advisors</h2>
-              <p className="text-lg text-[#3C3C3C] max-w-2xl mx-auto">Industry veterans guiding our vision and strategy.</p>
-            </motion.div>
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={staggeredFadeUp} className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-              {advisors.map((advisor, index) => (
-                <motion.div key={index} variants={fadeUpVariants} className="h-full">
-                  <Card className="h-full bg-white border-2 border-gray-200 hover:border-[#E52629] transition-colors duration-300 shadow-md hover:shadow-lg rounded-2xl flex flex-col">
-                    <CardHeader className="pb-2">
-                      <CardTitle className="font-montserrat text-xl text-[#1C1C1C]">{advisor.name}</CardTitle>
-                      <p className="text-sm text-neutral-500 font-medium">{advisor.subtitle}</p>
-                    </CardHeader>
-                    <CardContent className="flex-1 flex flex-col">
-                      <p className="text-[#3C3C3C] leading-relaxed mb-4">{advisor.bio}</p>
-                      <p className="text-sm text-neutral-500 mt-auto">{advisor.advisesLine}</p>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
-
         {/* Proof & Trust */}
-        <section id="proof-trust" className="py-20 bg-white">
+        <section id="proof-trust" className="py-20 bg-[#F5F5F5]">
           <div id="about-proof-trust" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={fadeUpVariants} transition={{ duration: 0.5 }} className="text-center mb-12">
               <h2 className="font-montserrat font-bold text-3xl md:text-4xl text-[#1C1C1C] mb-4">Proof & Trust</h2>
